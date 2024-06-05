@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="4.0" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+    <edmx:Reference Uri="https://sap.github.io/odata-vocabularies/vocabularies/Common.xml">
+        <edmx:Include Alias="Common" Namespace="com.sap.vocabularies.Common.v1"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Core.V1.xml">
+        <edmx:Include Alias="Core" Namespace="Org.OData.Core.V1"/>
+    </edmx:Reference>
+    <edmx:DataServices>
+        <Schema Namespace="ticketstatusService" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+            <EntityContainer Name="EntityContainer">
+                <EntitySet Name="ticketstatusreport" EntityType="ticketstatusService.ticketstatusreport"/>
+                <EntitySet Name="valueListIATANUMBER" EntityType="ticketstatusService.valueListIATANUMBER"/>
+                <EntitySet Name="valueListTICKETNUMBER" EntityType="ticketstatusService.valueListTICKETNUMBER"/>
+                <EntitySet Name="valueListSUPPLIERGSTIN" EntityType="ticketstatusService.valueListSUPPLIERGSTIN"/>
+                <EntitySet Name="valueListINVOICENUMBER" EntityType="ticketstatusService.valueListINVOICENUMBER"/>
+                <EntitySet Name="valueListDOCUMENTTYPE" EntityType="ticketstatusService.valueListDOCUMENTTYPE"/>
+                <FunctionImport Name="getCSRFToken" Function="ticketstatusService.getCSRFToken"/>
+                <ActionImport Name="exportAll" Action="ticketstatusService.exportAll"/>
+            </EntityContainer>
+            <EntityType Name="ticketstatusreport">
+                <Key>
+                    <PropertyRef Name="IATANUMBER"/>
+                </Key>
+                <Property Name="IATANUMBER" Type="Edm.String" MaxLength="10" Nullable="false"/>
+                <Property Name="TICKETNUMBER" Type="Edm.String" MaxLength="15"/>
+                <Property Name="TICKETISSUEDATE" Type="Edm.Date"/>
+                <Property Name="SUPPLIERGSTIN" Type="Edm.String" MaxLength="15"/>
+                <Property Name="SBRRECIVEDON" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="SBRPROCESSEDON" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="INVOICENUMBER" Type="Edm.String" MaxLength="16"/>
+                <Property Name="INVOICEDATE" Type="Edm.Date"/>
+                <Property Name="SECTIONTYPE" Type="Edm.String" MaxLength="3"/>
+                <Property Name="PLACEOFSUPPLY" Type="Edm.String" MaxLength="255"/>
+                <Property Name="FULLROUTING" Type="Edm.String" MaxLength="255"/>
+                <Property Name="DOCUMENTCURRENCY_CODE" Type="Edm.String" MaxLength="3"/>
+                <Property Name="BILLTONAME" Type="Edm.String" MaxLength="255"/>
+                <Property Name="PASSENGERGSTIN" Type="Edm.String" MaxLength="15"/>
+                <Property Name="NETTAXABLEVALUE" Type="Edm.Decimal" Scale="2" Precision="16"/>
+                <Property Name="TAXABLECALCULATION" Type="Edm.String" MaxLength="255"/>
+                <Property Name="TOTALINVOICEAMOUNT" Type="Edm.Decimal" Scale="2" Precision="16"/>
+                <Property Name="EXEMPTEDZONE" Type="Edm.String" MaxLength="1"/>
+                <Property Name="COMPANYID" Type="Edm.String" MaxLength="36"/>
+                <Property Name="REASONFORISSUANCESUBCODE" Type="Edm.String" MaxLength="3"/>
+                <Property Name="ORGINALFILENAME" Type="Edm.String" MaxLength="255"/>
+                <Property Name="TRANSACTIONTYPE" Type="Edm.String" MaxLength="10"/>
+                <Property Name="TRANSACTIONCODE" Type="Edm.String" MaxLength="10"/>
+                <Property Name="ORIGINCITY" Type="Edm.String" MaxLength="5"/>
+                <Property Name="DESTINATIONCITY" Type="Edm.String" MaxLength="5"/>
+                <Property Name="PUBLISHEDFARE" Type="Edm.Decimal" Scale="2" Precision="16"/>
+                <Property Name="STATUS" Type="Edm.String" MaxLength="3"/>
+                <Property Name="HSNCODE" Type="Edm.String" MaxLength="8"/>
+                <Property Name="DISCOUNT" Type="Edm.Decimal" Scale="2" Precision="16"/>
+                <Property Name="CGSTRATE" Type="Edm.Decimal" Scale="2" Precision="16"/>
+                <Property Name="CGSTAMOUNT" Type="Edm.Decimal" Scale="2" Precision="16"/>
+                <Property Name="SGSTRATE" Type="Edm.Decimal" Scale="2" Precision="16"/>
+                <Property Name="SGSTAMOUNT" Type="Edm.Decimal" Scale="2" Precision="16"/>
+                <Property Name="UTGSTRATE" Type="Edm.Decimal" Scale="2" Precision="16"/>
+                <Property Name="UTGSTAMOUNT" Type="Edm.Decimal" Scale="2" Precision="16"/>
+                <Property Name="IGSTRATE" Type="Edm.Decimal" Scale="2" Precision="16"/>
+                <Property Name="IGSTAMOUNT" Type="Edm.Decimal" Scale="2" Precision="16"/>
+                <Property Name="DOCUMENTTYPE" Type="Edm.String" MaxLength="20"/>
+                <Property Name="LEGALNAME" Type="Edm.String" MaxLength="255"/>
+                <Property Name="TRADENAME" Type="Edm.String" MaxLength="255"/>
+            </EntityType>
+            <EntityType Name="valueListIATANUMBER">
+                <Property Name="IATANUMBER" Type="Edm.String" MaxLength="15"/>
+            </EntityType>
+            <EntityType Name="valueListTICKETNUMBER">
+                <Property Name="TICKETNUMBER" Type="Edm.String" MaxLength="15"/>
+            </EntityType>
+            <EntityType Name="valueListSUPPLIERGSTIN">
+                <Property Name="SUPPLIERGSTIN" Type="Edm.String" MaxLength="15"/>
+            </EntityType>
+            <EntityType Name="valueListINVOICENUMBER">
+                <Property Name="INVOICENUMBER" Type="Edm.String" MaxLength="15"/>
+            </EntityType>
+            <EntityType Name="valueListDOCUMENTTYPE">
+                <Property Name="DOCUMENTTYPE" Type="Edm.String" MaxLength="15"/>
+            </EntityType>
+            <Function Name="getCSRFToken" IsBound="false" IsComposable="false">
+                <ReturnType Type="Edm.String"/>
+            </Function>
+            <Action Name="exportAll" IsBound="false">
+                <Parameter Name="fields" Type="Edm.String"/>
+                <ReturnType Type="Edm.String"/>
+            </Action>
+            <Annotations Target="ticketstatusService.ticketstatusreport/IATANUMBER">
+                <Annotation Term="Common.Label" String="IATA Number"/>
+            </Annotations>
+            <Annotations Target="ticketstatusService.ticketstatusreport/TICKETNUMBER">
+                <Annotation Term="Common.Label" String="Ticket Number"/>
+            </Annotations>
+            <Annotations Target="ticketstatusService.ticketstatusreport/TICKETISSUEDATE">
+                <Annotation Term="Common.Label" String="Ticket Issue Date"/>
+            </Annotations>
+            <Annotations Target="ticketstatusService.ticketstatusreport/SUPPLIERGSTIN">
+                <Annotation Term="Common.Label" String="Supplier GSTIN"/>
+            </Annotations>
+            <Annotations Target="ticketstatusService.ticketstatusreport/SBRRECIVEDON">
+                <Annotation Term="Common.Label" String="SBR Recived ON"/>
+            </Annotations>
+            <Annotations Target="ticketstatusService.ticketstatusreport/SBRPROCESSEDON">
+                <Annotation Term="Common.Label" String="SBR Processed ON"/>
+            </Annotations>
+            <Annotations Target="ticketstatusService.ticketstatusreport/INVOICENUMBER">
+                <Annotation Term="Common.Label" String="Invoice Number"/>
+            </Annotations>
+            <Annotations Target="ticketstatusService.ticketstatusreport/INVOICEDATE">
+                <Annotation Term="Common.Label" String="Invoice Date"/>
+            </Annotations>
+            <Annotations Target="ticketstatusService.ticketstatusreport/SECTIONTYPE">
+                <Annotation Term="Common.Label" String="Section Type"/>
+            </Annotations>
+            <Annotations Target="ticketstatusService.ticketstatusreport/PLACEOFSUPPLY">
+                <Annotation Term="Common.Label" String="Place of Supply"/>
+            </Annotations>
+            <Annotations Target="ticketstatusService.ticketstatusreport/FULLROUTING">
+                <Annotation Term="Common.Label" String="Full Routing"/>
+            </Annotations>
+            <Annotations Target="ticketstatusService.ticketstatusreport/DOCUMENTCURRENCY_CODE">
+                <Annotation Term="Common.Label" String="Document Currency code"/>
+            </Annotations>
+            <Annotations Target="ticketstatusService.ticketstatusreport/BILLTONAME">
+                <Annotation Term="Common.Label" String="Bill to Name"/>
+            </Annotations>
+            <Annotations Target="ticketstatusService.ticketstatusreport/PASSENGERGSTIN">
+                <Annotation Term="Common.Label" String="Passenger GSTIN"/>
+            </Annotations>
+            <Annotations Target="ticketstatusService.ticketstatusreport/NETTAXABLEVALUE">
+                <Annotation Term="Common.Label" String="Net Taxable Value"/>
+            </Annotations>
+            <Annotations Target="ticketstatusService.ticketstatusreport/TAXABLECALCULATION">
+                <Annotation Term="Common.Label" String="Taxable Calculation"/>
+            </Annotations>
+            <Annotations Target="ticketstatusService.ticketstatusreport/TOTALINVOICEAMOUNT">
+                <Annotation Term="Common.Label" String="Total Invoice Amount"/>
+            </Annotations>
+            <Annotations Target="ticketstatusService.ticketstatusreport/EXEMPTEDZONE">
+                <Annotation Term="Common.Label" String="Exempted Zone"/>
+            </Annotations>
+            <Annotations Target="ticketstatusService.ticketstatusreport/COMPANYID">
+                <Annotation Term="Common.Label" String="Company ID"/>
+            </Annotations>
+            <Annotations Target="ticketstatusService.ticketstatusreport/REASONFORISSUANCESUBCODE">
+                <Annotation Term="Common.Label" String="Reason for Issuances Subcode"/>
+            </Annotations>
+            <Annotations Target="ticketstatusService.ticketstatusreport/ORGINALFILENAME">
+                <Annotation Term="Common.Label" String="Orginal Filename"/>
+            </Annotations>
+            <Annotations Target="ticketstatusService.ticketstatusreport/TRANSACTIONTYPE">
+                <Annotation Term="Common.Label" String="Transaction Type"/>
+            </Annotations>
+            <Annotations Target="ticketstatusService.ticketstatusreport/TRANSACTIONCODE">
+                <Annotation Term="Common.Label" String="Transaction Code"/>
+            </Annotations>
+            <Annotations Target="ticketstatusService.ticketstatusreport/ORIGINCITY">
+                <Annotation Term="Common.Label" String="Origin City"/>
+            </Annotations>
+            <Annotations Target="ticketstatusService.ticketstatusreport/DESTINATIONCITY">
+                <Annotation Term="Common.Label" String="Destination City"/>
+            </Annotations>
+            <Annotations Target="ticketstatusService.ticketstatusreport/PUBLISHEDFARE">
+                <Annotation Term="Common.Label" String="Published Fare"/>
+            </Annotations>
+            <Annotations Target="ticketstatusService.ticketstatusreport/STATUS">
+                <Annotation Term="Common.Label" String="Status"/>
+            </Annotations>
+            <Annotations Target="ticketstatusService.ticketstatusreport/HSNCODE">
+                <Annotation Term="Common.Label" String="HSN Code"/>
+            </Annotations>
+            <Annotations Target="ticketstatusService.ticketstatusreport/DISCOUNT">
+                <Annotation Term="Common.Label" String="Discount"/>
+            </Annotations>
+            <Annotations Target="ticketstatusService.ticketstatusreport/CGSTRATE">
+                <Annotation Term="Common.Label" String="CGST Rate"/>
+            </Annotations>
+            <Annotations Target="ticketstatusService.ticketstatusreport/CGSTAMOUNT">
+                <Annotation Term="Common.Label" String="CGST Amount"/>
+            </Annotations>
+            <Annotations Target="ticketstatusService.ticketstatusreport/SGSTRATE">
+                <Annotation Term="Common.Label" String="SGST Rate"/>
+            </Annotations>
+            <Annotations Target="ticketstatusService.ticketstatusreport/SGSTAMOUNT">
+                <Annotation Term="Common.Label" String="SGST Amount"/>
+            </Annotations>
+            <Annotations Target="ticketstatusService.ticketstatusreport/UTGSTRATE">
+                <Annotation Term="Common.Label" String="UTGST Rate"/>
+            </Annotations>
+            <Annotations Target="ticketstatusService.ticketstatusreport/UTGSTAMOUNT">
+                <Annotation Term="Common.Label" String="UTGST Amount"/>
+            </Annotations>
+            <Annotations Target="ticketstatusService.ticketstatusreport/IGSTRATE">
+                <Annotation Term="Common.Label" String="IGST Rate"/>
+            </Annotations>
+            <Annotations Target="ticketstatusService.ticketstatusreport/IGSTAMOUNT">
+                <Annotation Term="Common.Label" String="IGST Amount"/>
+            </Annotations>
+            <Annotations Target="ticketstatusService.ticketstatusreport/DOCUMENTTYPE">
+                <Annotation Term="Common.Label" String="Document Type"/>
+            </Annotations>
+            <Annotations Target="ticketstatusService.ticketstatusreport/LEGALNAME">
+                <Annotation Term="Common.Label" String="Legal Name"/>
+            </Annotations>
+            <Annotations Target="ticketstatusService.ticketstatusreport/TRADENAME">
+                <Annotation Term="Common.Label" String="Trade Name"/>
+            </Annotations>
+            <Annotations Target="ticketstatusService.valueListIATANUMBER/IATANUMBER">
+                <Annotation Term="Common.Label" String="IATA Number"/>
+            </Annotations>
+            <Annotations Target="ticketstatusService.valueListTICKETNUMBER/TICKETNUMBER">
+                <Annotation Term="Common.Label" String="Ticket Number"/>
+            </Annotations>
+            <Annotations Target="ticketstatusService.valueListSUPPLIERGSTIN/SUPPLIERGSTIN">
+                <Annotation Term="Common.Label" String="Supplier GSTIN"/>
+            </Annotations>
+            <Annotations Target="ticketstatusService.valueListINVOICENUMBER/INVOICENUMBER">
+                <Annotation Term="Common.Label" String="Invoice Number"/>
+            </Annotations>
+            <Annotations Target="ticketstatusService.valueListDOCUMENTTYPE/DOCUMENTTYPE">
+                <Annotation Term="Common.Label" String="Document Type"/>
+            </Annotations>
+        </Schema>
+    </edmx:DataServices>
+</edmx:Edmx>

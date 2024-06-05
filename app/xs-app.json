@@ -1,0 +1,31 @@
+{
+  "welcomeFile": "portal/index.html",
+  "authenticationMethod": "none",
+  "routes": [
+    {
+      "source": "^/portal/(.*)$",
+      "target": "/portal/webapp/$1",
+      "localDir": ".",
+      "cacheControl": "no-cache, no-store, must-revalidate"
+    },
+    {
+      "source": "^/appconfig/",
+      "localDir": ".",
+      "cacheControl": "no-cache, no-store, must-revalidate"
+    },
+    {
+      "source": "^/admin-api/(.*)$",
+      "target": "$1",
+      "destination": "admin-api",
+      "csrfProtection": false,
+      "authenticationType": "xsuaa",
+      "scope": "$XSAPPNAME.Admin"
+    },
+    {
+      "source": "^/portal-api/(.*)$",
+      "target": "/api/$1",
+      "destination": "portal-api",
+      "authenticationType": "none"
+    }
+  ]
+}

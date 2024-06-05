@@ -1,0 +1,365 @@
+	<mvc:View controllerName="airindiagst.controller.faq"
+		xmlns:f="sap.ui.layout.form"
+		xmlns:core="sap.ui.core"
+		xmlns:u="sap.ui.unified"
+		xmlns:l="sap.ui.layout"
+		xmlns:mvc="sap.ui.core.mvc"
+		xmlns:fb="sap.ui.comp.filterbar"
+		xmlns:wc="sap.ui.webc.main"
+		xmlns="sap.m"
+		xmlns:columnmenu="sap.m.table.columnmenu"
+		xmlns:html="http://www.w3.org/1999/xhtml"
+		xmlns:sap.ui.fl="sap.ui.fl"
+		xmlns:sap.ui.dt="sap.ui.dt"
+		xmlns:vm="sap.ui.fl.variants"
+		xmlns:t="sap.ui.table" class="sapUiSizeCompact">
+		<Page showHeader="false" class="backGroundImage">
+			<!-- <Panel width="auto" class="sapUiResponsiveMargin">
+				<content>
+					<OverflowToolbar>
+						<ToolbarSpacer/>
+						<Label text="Air India Login FAQ" design="Bold"/>
+						<ToolbarSpacer/>
+					</OverflowToolbar>
+				</content>
+			</Panel> -->
+			<!-- <Panel id="panel_qa0" width="auto" expandable="true" expanded="true" expandAnimation="true" headerText="Purpose of the portal:" class="sapUiResponsiveMargin"> -->
+				<Panel id="panel_qa0" width="auto" expandable="true" expanded="true" expandAnimation="true" headerText="Corporates and Agents:" class="sapUiResponsiveMargin">
+				<content>
+					<VBox layout="ResponsiveGridLayout">
+					<!-- <Panel id="panel_qaa0" width="auto" expandable="true" expanded="false" expandAnimation="true" headerText="Q: Why do I need this GST.AI portal?" class="sapUiResponsiveMargin">
+						<content>
+						<VBox layout="ResponsiveGridLayout">
+						<Text id="a0" text="	The GST.AI portal is essential for streamlining your business operations, offering the following benefits:"/>
+						<Text id="anb" text="	i.	Centralized GST registration under a single PAN."/>
+						<Text id="amb"	text="	ii.	Convenient download and updating of invoices."/>
+						<Text id="ald" text="	iii.Access to TCS data downloads facilitated by OTAs."/>
+						</VBox>
+						</content>
+					</Panel> -->
+					<Panel id="panel_qaa0" width="auto" expandable="true" expanded="false" expandAnimation="true" headerText="Why do I need GST.AI?" class="sapUiResponsiveMargin">
+						<content>
+						<VBox layout="ResponsiveGridLayout">
+						
+						<Text id="a0" text="The GST.AI portal is essential for streamlining your business operations, offering the following benefits:"/>
+						<html:ul>
+						<html:li>
+						
+						
+						<Text id="anb" text="Corporates and Agents can register multiple GSTNs under one login ID on the GST.AI portal."/>
+						</html:li>
+						<html:li>
+						<Text id="amb"	text="Convenient download of invoices and carry out amendments, if required."/>
+						</html:li>
+						<html:li>
+						<Text id="ald" text="Access to GST data downloads to facilitate TCS liability by Online Travel Agents (OTAs)."/>
+						</html:li>
+						</html:ul>
+						</VBox>
+						</content>
+					</Panel>
+					<Panel id="panel_1" width="auto" expandable="true" expanded="false" expandAnimation="true" headerText="What is GST?" class="sapUiResponsiveMargin">
+						<content>
+						<VBox layout="ResponsiveGridLayout">
+						<Text id="au" text="Goods and Services Tax (GST) is a destination-based tax on consumption of goods and
+                         services. GST would be applicable on Transport of Passengers by Air. GST will be effective
+                         from 01 July 2017 for tickets issued worldwide wherein travel originates in India
+                         regardless of the point of sale."/>
+						<!-- <Text id="aa2" text="For customers travelling in Business and Premium Economy, the applicable GST rate is 12%. For customer travelling in Economy, the applicable GST rate is 5%."/>	 -->
+						</VBox>
+						</content>
+					</Panel>
+					<Panel id="panel_2" width="auto" expandable="true" expanded="false" expandAnimation="true" headerText="For whom, it is mandatory to provide GSTIN details?" class="sapUiResponsiveMargin">
+						<content>
+						<VBox layout="ResponsiveGridLayout">
+						<Text id="a21" text="Customers who would like to claim GST are mandatorily required to provide GSTIN details."/>
+						</VBox>
+						</content>
+					</Panel>
+						<Panel id="panel_3" width="auto" expandable="true" expanded="false" expandAnimation="true" headerText="What details are required to receive GST invoice from GST.AI?" class="sapUiResponsiveMargin">
+						<content>
+						<VBox layout="ResponsiveGridLayout">
+						<Text id="q0q" text="Customers are required to provide the following information relating to their business or
+company registered with GST authorities:"/>
+						<html:ul>
+							<html:li>
+						<Text id="anb1" text="Legal Name of the company."/>
+							</html:li>
+								<html:li>
+						<Text id="amb1"	text="Active GSTIN"/>
+							</html:li>
+								<html:li>
+						<Text id="ald1" text="GST address"/>
+							</html:li>
+								<html:li>
+						<Text id="amb2"	text="Contact number"/>
+							</html:li>
+								<html:li>
+						<Text id="ald3" text="Email address (where the invoice will be sent)"/>
+							</html:li>
+								</html:ul>
+						</VBox>
+						</content>
+					</Panel>
+					<Panel id="panel_12" width="auto" expandable="true" expanded="false" expandAnimation="true" headerText="Where should I provide GST details?" class="sapUiResponsiveMargin">
+						<content>
+						<VBox layout="ResponsiveGridLayout">
+					<Text id="q7" text="Please follow the process given below to provide the GSTIN details at the time of booking::"/>
+						<Table items="{tableModel>/tableData}">
+						<columns>
+							<Column>
+									<Text text="Tickets Booked via" />
+							</Column>
+								<Column>
+							<Text text="Where to provide" />
+								</Column>
+						</columns>
+						<items>
+						<ColumnListItem>
+							<cells>
+								<ObjectIdentifier title="{tableModel>method}" />
+									<Text text="{tableModel>where_to_provide}" />
+							</cells>
+						</ColumnListItem>
+						</items>
+						</Table>
+						
+						</VBox>
+						</content>
+					</Panel>
+					<Panel id="panel_4" width="auto" expandable="true" expanded="false" expandAnimation="true" headerText="What if I forgot to provide my GST details or provided incorrect GST details while booking?" class="sapUiResponsiveMargin">
+						<content>
+						 <VBox layout="ResponsiveGridLayout">
+            <Text id="q8" text="Please follow the following steps to update or modify your GSTIN details:"/>
+			<!-- <Text ></Text>
+                <Label text="Within 48 hours of booking -" required="true"/>
+                <Text text="Please update or add GSTIN details on the website." />
+				<Text ></Text>
+				
+                <Label text="After 48 hours -"   required="true"/>
+                <Text text="To update GST details:" class="lblbold" />
+				<Text ></Text>
+<Text text="Please login with your credentials and amend the GSTIN details on invoice."/>
+<Text text="Refer detailed manual under ‘the help’ section for the detailed process to amend the GSTIN Invoice in your account."/>
+<Text ></Text>
+<Text text="To add your GST details:" class="lblbold"/>
+<Text ></Text>
+<html:ul class="ulclass">
+<html:li>
+<Text text="In case the booking is made by an Agent, please connect with Agent, else email to:" />
+<Link text="gst.support@airindia.com"  target="_blank" href="mailto:gstsupport@airindia.com" class="linkclass"/>
+</html:li>
+</html:ul> -->
+<Table items="{tableModelnew>/tableDatanew}">
+						<columns>
+							<Column>
+									<Text text="Time period" />
+							</Column>
+								<Column>
+							<Text text="Steps to follow" />
+								</Column>
+						</columns>
+						<items>
+						<ColumnListItem>
+							<cells>
+								<ObjectIdentifier title="{tableModelnew>timeperiod}" />
+									<Text text="{tableModelnew>stepstofollow}" />
+							</cells>
+						</ColumnListItem>
+						</items>
+						</Table>
+            
+        </VBox>
+						</content>
+					</Panel>
+					
+						</VBox>
+						</content>
+					</Panel>
+
+                 <Panel id="panel_qa9" width="auto" expandable="true" expanded="false" expandAnimation="true" headerText="Invoicing Queries:" class="sapUiResponsiveMargin">
+				<content>
+					<VBox layout="ResponsiveGridLayout">
+					<Panel id="panel_5" width="auto" expandable="true" expanded="false" expandAnimation="true" headerText="I am a B2B customer, when will the invoice be shared with me once I complete the booking process?" class="sapUiResponsiveMargin">
+						<content>
+						<VBox layout="ResponsiveGridLayout">
+						<Text id="aq" text="The GST invoice will be emailed to you within four days of the booking made by you using the email address you provided."/>
+						</VBox>
+						</content>
+					</Panel>
+					
+					<Panel id="pane2" width="auto" expandable="true" expanded="false" expandAnimation="true" headerText="How can I obtain invoices pertaining to the booking made before 1 April 24?" class="sapUiResponsiveMargin">
+						<content>
+						<VBox layout="ResponsiveGridLayout">
+						<Text  id="invc" text="If you are a GSTIN registered customer, then you can download the invoices for the booking made as prescribed:" />
+				<!-- <Text ></Text>			
+                <Label text="April 2023 to March 2024" required="true"/>
+				<Text text="Your account on GST. AI"></Text>
+				<Text ></Text> -->
+				<Table items="">
+						<columns>
+							<Column>
+									<Text text="Period of Invoice" />
+							</Column>
+								<Column>
+							<Text text="From where to download" />
+								</Column>
+						</columns>
+						<items>
+						<ColumnListItem>
+							<cells>
+								<ObjectIdentifier title="April 2023 TO March 2024" />
+									<Text text="Your account on GST.AI" />
+							</cells>
+						</ColumnListItem>
+						</items>
+						</Table>
+                <!-- <Label text="Before April 2023" required="true"/>
+				<Link text="GST.AI" target="_blank" href="https://airindia-gst.cfapps.in30.hana.ondemand.com/portal/index.html" class="linkclass"/>
+				<html:ul class="ulclass">
+<html:li>
+<Text text="Please note: Link will be expired on 30 Apr 24. From 1 May 24 onwards, please connect:" />
+<Link text="gst.support@airindia.com"  target="_blank" href="mailto:gstsupport@airindia.com" class="linkclass"/>
+</html:li>
+</html:ul> -->
+                <!-- <Text text="Please note: Link will be expired on 30 Apr 24. From 1 May 24 onwards, please connect:" />
+				<Link text="gstsupport@airindia.com" target="_blank" href="mailto:gstsupport@airindia.com"/> -->
+            
+						</VBox>
+						</content>
+					</Panel>
+					<Panel id="p2" width="auto" expandable="true" expanded="false" expandAnimation="true" headerText="I am a B2B customer, I haven’t received my invoice within the mentioned time limit.
+                     How can I get my invoices?" class="sapUiResponsiveMargin">
+						<content>
+						<VBox layout="ResponsiveGridLayout">
+						
+						<Text  id="912" text="In case of non-receipt of GST invoice, please register on GST.AI and download the invoices pertaining to your booking made on or after Apr 23.  In case you do not find your ticket on GST.AI, please connect with" />
+						<Link text="gst.support@airindia.com"  target="_blank" href="mailto:gstsupport@airindia.com" class="linkclass"/>
+						<Text  id="i2" text="Please note that no GST invoice will be generated for the tickets originating outside India. " />
+						</VBox>
+						</content>
+					</Panel>
+					<Panel id="B2c" width="auto" expandable="true" expanded="false" expandAnimation="true" headerText="I am a B2C customer, when will I receive my GST tax invoice?" class="sapUiResponsiveMargin">
+						<content>
+						<VBox layout="ResponsiveGridLayout">
+						<Text  id="b2c1" text="As per Rule 54 (4) of the CGST Rules, 2017, the electronic ticket in the global standard
+format (and without further modifications) for Airlines is acceptable as a tax-compliant
+invoice for GST purposes, regardless of the value of the transaction for B2C customers.
+Hence, the ticket itinerary can be considered as invoice." />
+						
+						</VBox>
+						</content>
+					</Panel>
+					<Panel id="B2c1" width="auto" expandable="true" expanded="false" expandAnimation="true" headerText="I am a B2C customer and need an invoice. Can I request the invoice as a guest, and
+where can I download it?" class="sapUiResponsiveMargin">
+						<content>
+						<VBox layout="ResponsiveGridLayout">
+							<html:ul class="ulclass">
+					<html:li>
+						<Text text="Refer answer in earlier question. Further GST.AI is only for corporates, agents, B2B and
+not for B2C customers." />
+							<!-- <Link text="gst.support@airindia.com"  target="_blank" href="mailto:gstsupport@airindia.com" class="linkclass"/>
+								<Text text="for further assistance." /> -->
+					</html:li>
+					</html:ul>
+						<!-- <Text  id="b2c11" text="As a B2C customers, you cannot register on GST.AI. However, B2C customer have been provided with the facility of downloading the GST invoice from the GST login page directly." /> -->
+						
+						</VBox>
+						</content>
+					</Panel>
+					<Panel id="gst" width="auto" expandable="true" expanded="false" expandAnimation="true" headerText="Is there any requirement for electronic ticket receipts issued to be signed or digitally signed for GST purposes? " class="sapUiResponsiveMargin">
+						<content>
+						<VBox layout="ResponsiveGridLayout">
+						<Text  id="gst1" text=" No. According to Rule 54 (4) of the CGST Rules, 2017 in the case of passenger
+                        transportation service, a tax invoice shall include a ticket in any form, whether or not
+                        serially numbered, and whether or not containing the address of the recipient but
+                        containing other information as mentioned under Rule 46 of the Rules ibid. As the
+                        electronic tickets issued by the Airlines are in the global standard format, such electronic
+                        ticket receipts are not required to be signed or digitally signed." />
+						
+						</VBox>
+						</content>
+					</Panel>
+					<Panel id="gstt1" width="auto" expandable="true" expanded="false" expandAnimation="true" headerText="What action should I take if the name written on the invoices issued is incorrect?" class="sapUiResponsiveMargin">
+						<content>
+						<VBox layout="ResponsiveGridLayout">
+						<Text  id="gst11" text="Invoices are issued as per details provided by registered GST customers on GST.AI
+while booking." />
+                <html:ul class="ulclass">
+					<html:li>
+						<Text text="Please note that name can be corrected by sending mail to " />
+							<Link text="gst.support@airindia.com"  target="_blank" href="mailto:gstsupport@airindia.com" class="linkclass"/>
+								<Text text="for prospective months." />
+					</html:li>
+					</html:ul>
+						<!-- <Text  id="gst12" text="Please note that name can be corrected by sending mail to GSTsupport@airindia.com for prospective months." /> -->
+						</VBox>
+						</content>
+					</Panel>
+					<Panel id="gsttin1" width="auto" expandable="true" expanded="false" expandAnimation="true" headerText="What action should I do if a ticket  is incorrectly invoiced in my GSTIN?" class="sapUiResponsiveMargin">
+						<content>
+						<VBox layout="ResponsiveGridLayout">
+						<Text  id="gst1in1" text="In such cases, please login with your credentials on GST.AI and amend the GSTIN details on invoices. Please refer “Help” section to follow the process." />
+						
+						</VBox>
+						</content>
+					</Panel>
+						</VBox>
+						</content>
+					</Panel>
+
+
+			<Panel id="panel_qa1" width="auto" expandable="true" expanded="false" expandAnimation="true" headerText="Specific queries for Agents:" class="sapUiResponsiveMargin">
+				<content>
+					<VBox layout="ResponsiveGridLayout">
+					<Panel id="panel_qaa1" width="auto" expandable="true" expanded="false" expandAnimation="true" headerText="Where do I record the GST information and of whom?" class="sapUiResponsiveMargin">
+						<content>
+						<VBox layout="ResponsiveGridLayout">
+						<Text id="a1" text="GST details of the corporate passengers and all other registered passengers travelling
+for business reasons for whom you have created the booking shall be recorded under the
+Special Service Request (‘SSR') segment against the Booking Reference Number."/>
+						</VBox>
+						</content>
+					</Panel>
+					
+					<Panel id="panel_qaa2" width="auto" expandable="true" expanded="false" expandAnimation="true" headerText="Can I download the invoices of the booking made by me for the customers?" class="sapUiResponsiveMargin">
+						<content>
+						<VBox layout="ResponsiveGridLayout">
+						<Text  id="a25" text="Yes, you can download the invoices of the booking made by you from “Booking for” sub section of “Document” section in GST.AI." />
+						</VBox>
+						</content>
+					</Panel>
+
+					<Panel id="panel_qaag4" width="auto" expandable="true" expanded="false" expandAnimation="true" headerText="If I forgot to add the GST details or on the request of customers, can I add GSTIN details on the invoice of the bookings made by me?" class="sapUiResponsiveMargin">
+						<content>
+						<VBox layout="ResponsiveGridLayout">
+						<Text  id="a24" text="Yes, you can add or delete the GSTIN details of the corporate passengers and all other registered passengers travelling for business reasons for whom you have made the bookings. However, the same needs to be approved by Air India on GST.AI." />
+									
+                <html:ul class="ulclass">
+					<html:li>
+						<Text text="Moreover, In case your customer is not registered with GST.AI, please connect " />
+							<Link text="gst.support@airindia.com"  target="_blank" href="mailto:gstsupport@airindia.com" class="linkclass"/>
+								<Text text=".The detailed procedure is available for your ready reference in your account under “Help“section." />
+					</html:li>
+					</html:ul>
+						<!-- <Text  id="a284" text="	Moreover, In case your customer is not registered with GST.AI, please connect gst.support@airindia.com.The detailed procedure is available for your ready reference in your account under “Help“section." /> -->
+						
+						</VBox>
+						</content>
+					</Panel>
+
+					<Panel id="panel_qaag6" width="auto" expandable="true" expanded="false" expandAnimation="true" headerText="Do I need to upload data on the GST.AI every week to facilitate TCS computation?" class="sapUiResponsiveMargin">
+						<content>
+						<VBox layout="ResponsiveGridLayout">
+						<Text  id="a23" text="No, data to facilitate TCS liability will be available for you to download in real-time,
+based on the confirmation of e-commerce IATA code provided by you." />
+						
+						</VBox>
+						</content>
+					</Panel>
+					
+						</VBox>
+						</content>
+					</Panel>
+		</Page>
+	</mvc:View>

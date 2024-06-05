@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <script>
+        window['sap-ushell-config'] = {
+            defaultRenderer: 'fiori2',
+            applications: {
+                "audittrail-app": {
+                    title: 'audittrail',
+                    description: 'audittrail',
+                    additionalInformation: 'SAPUI5.Component=ns.audittrail',
+                    applicationType: 'URL',
+                    url: " ./fiori/audittrail/webapp",
+                    navigationMode: 'embedded'
+                },
+                "amendments-app": {
+                    title: 'amendments',
+                    description: 'amendments',
+                    additionalInformation: 'SAPUI5.Component=ns.amendments',
+                    applicationType: 'URL',
+                    url: "./fiori/amendments/webapp",
+                    navigationMode: 'embedded'
+                },
+                "documents-app": {
+                    title: 'documents',
+                    description: 'documents',
+                    additionalInformation: 'SAPUI5.Component=ns.documents',
+                    applicationType: 'URL',
+                    url: "./fiori/documents/webapp",
+                    navigationMode: 'embedded'
+                },
+                "amendmentrequests-app": {
+                    title: 'amendmentrequests',
+                    description: 'amendmentrequests',
+                    additionalInformation: 'SAPUI5.Component=ns.amendmentrequests',
+                    applicationType: 'URL',
+                    url: "./fiori/amendmentrequests/webapp",
+                    navigationMode: 'embedded'
+                },
+                "taxcodes-app": {
+                    title: 'taxcodes',
+                    description: 'taxcodes',
+                    additionalInformation: 'SAPUI5.Component=ns.taxcodes',
+                    applicationType: 'URL',
+                    url: "./fiori/taxcodes/webapp",
+                    navigationMode: 'embedded'
+                },
+                "attachments-app": {
+                    title: 'attachments',
+                    description: 'attachments',
+                    additionalInformation: 'SAPUI5.Component=ns.attachments',
+                    applicationType: 'URL',
+                    url: "./fiori/attachments/webapp",
+                    navigationMode: 'embedded'
+                },
+                "transactiontypes-app": {
+                    title: 'transactiontypes',
+                    description: 'transactiontypes',
+                    additionalInformation: 'SAPUI5.Component=ns.transactiontypes',
+                    applicationType: 'URL',
+                    url: "./fiori/transactiontypes/webapp",
+                    navigationMode: 'embedded'
+                },
+                "taxcompositions-app": {
+                    title: 'taxcompositions',
+                    description: 'taxcompositions',
+                    additionalInformation: 'SAPUI5.Component=ns.taxcompositions',
+                    applicationType: 'URL',
+                    url: "./fiori/taxcompositions/webapp",
+                    navigationMode: 'embedded'
+                },
+                "airportcode-app": {
+                    title: 'airportcode',
+                    description: 'airportcode',
+                    additionalInformation: 'SAPUI5.Component=ns.airportcode',
+                    applicationType: 'URL',
+                    url: "./fiori/airportcode/webapp",
+                    navigationMode: 'embedded'
+                }
+            }
+        };
+    </script>
+
+    <script src="https://ui5.sap.com/test-resources/sap/ushell/bootstrap/sandbox.js"></script>
+    <script src="https://ui5.sap.com/resources/sap-ui-core.js" data-sap-ui-libs="sap.m, sap.ushell, sap.fe.templates"
+        data-sap-ui-compatVersion="edge" data-sap-ui-theme="sap_fiori_3" data-sap-ui-frameOptions="allow"
+        data-sap-ui-bindingSyntax="complex"></script>
+    <script>
+        sap.ui.getCore().attachInit(function () {
+            sap.ushell.Container.createRenderer().placeAt('content');
+        });
+    </script>
+</head>
+
+<body class="sapUiBody" id="content"></body>
+
+</html>

@@ -1,0 +1,273 @@
+{
+  "_version": "1.49.0",
+  "sap.app": {
+    "id": "admindashboard",
+    "type": "application",
+    "i18n": "i18n/i18n.properties",
+    "applicationVersion": {
+      "version": "0.0.1"
+    },
+    "title": "{{appTitle}}",
+    "description": "{{appDescription}}",
+    "resources": "resources.json",
+    "sourceTemplate": {
+      "id": "@sap/generator-fiori:basic",
+      "version": "1.10.4",
+      "toolsId": "13a5bd73-a7e8-4de0-879b-92836682a405"
+    }
+  },
+  "sap.ui": {
+    "technology": "UI5",
+    "icons": {
+      "icon": "",
+      "favIcon": "",
+      "phone": "",
+      "phone@2": "",
+      "tablet": "",
+      "tablet@2": ""
+    },
+    "deviceTypes": {
+      "desktop": true,
+      "tablet": true,
+      "phone": true
+    }
+  },
+  "sap.ui5": {
+    "flexEnabled": true,
+    "dependencies": {
+      "minUI5Version": "1.117.0",
+      "libs": {
+        "sap.m": {},
+        "sap.ui.core": {},
+        "sap.f": {},
+        "sap.suite.ui.generic.template": {},
+        "sap.ui.comp": {},
+        "sap.ui.generic.app": {},
+        "sap.ui.table": {},
+        "sap.ushell": {}
+      }
+    },
+    "contentDensities": {
+      "compact": true,
+      "cozy": true
+    },
+    "models": {
+      "i18n": {
+        "type": "sap.ui.model.resource.ResourceModel",
+        "settings": {
+          "bundleName": "admindashboard.i18n.i18n"
+        }
+      }
+    },
+    "resources": {
+      "css": [
+        {
+          "uri": "css/style.css"
+        }
+      ]
+    },
+    "routing": {
+      "config": {
+        "routerClass": "sap.m.routing.Router",
+        "viewType": "XML",
+        "async": true,
+        "viewPath": "admindashboard.view",
+        "controlAggregation": "pages",
+        "controlId": "idNavContainer",
+        "clearControlAggregation": false
+      },
+      "routes": [
+        {
+          "name": "Dashboard",
+          "pattern": "",
+          "target": [
+            "Dashboard"
+          ]
+        },
+        {
+          "name": "TransactionTypes",
+          "pattern": "TransactionTypes",
+          "target": [
+            "TransactionTypes"
+          ]
+        },
+        {
+          "name": "TaxRates",
+          "pattern": "TaxRates",
+          "target": [
+            "TaxRates"
+          ]
+        },
+        {
+          "name": "TaxCodes",
+          "pattern": "TaxCodes",
+          "target": [
+            "TaxCodes"
+          ]
+        },
+        {
+          "name": "TaxCompositions",
+          "pattern": "TaxCompositions",
+          "target": [
+            "TaxCompositions"
+          ]
+        },
+        {
+          "name": "TaxRules",
+          "pattern": "TaxRules",
+          "target": [
+            "TaxRules"
+          ]
+        },
+        {
+          "name": "AirportCodes",
+          "pattern": "AirportCodes",
+          "target": [
+            "AirportCodes"
+          ]
+        },
+        {
+          "name": "StateCodes",
+          "pattern": "StateCodes",
+          "target": [
+            "StateCodes"
+          ]
+        },
+        {
+          "name": "RFISC",
+          "pattern": "RFISC",
+          "target": [
+            "RFISC"
+          ]
+        },
+        {
+          "name": "FOP",
+          "pattern": "FOP",
+          "target": [
+            "FOP"
+          ]
+        },
+        {
+          "name": "Company",
+          "pattern": "Company",
+          "target": [
+            "Company"
+          ]
+        },
+        {
+          "name": "Test",
+          "pattern": "Test",
+          "target": [
+            "Test"
+          ]
+        },
+        {
+          "name": "amendments",
+          "pattern": "amendments",
+          "target": [
+            "amendments"
+          ]
+        }
+      ],
+      "targets": {
+        "Dashboard": {
+          "viewType": "XML",
+          "transition": "slide",
+          "clearControlAggregation": false,
+          "viewId": "Dashboard",
+          "viewName": "Dashboard"
+        },
+        "TransactionTypes": {
+          "viewType": "XML",
+          "transition": "slide",
+          "clearControlAggregation": false,
+          "viewId": "TransactionTypes",
+          "viewName": "TransactionTypes"
+        },
+        "TaxRates": {
+          "viewType": "XML",
+          "transition": "slide",
+          "clearControlAggregation": false,
+          "viewId": "TaxRates",
+          "viewName": "TaxRates"
+        },
+        "TaxCodes": {
+          "viewType": "XML",
+          "transition": "slide",
+          "clearControlAggregation": false,
+          "viewId": "TaxCodes",
+          "viewName": "TaxCodes"
+        },
+        "TaxCompositions": {
+          "viewType": "XML",
+          "transition": "slide",
+          "clearControlAggregation": false,
+          "viewId": "TaxCompositions",
+          "viewName": "TaxCompositions"
+        },
+        "TaxRules": {
+          "viewType": "XML",
+          "transition": "slide",
+          "clearControlAggregation": false,
+          "viewId": "TaxRules",
+          "viewName": "TaxRules"
+        },
+        "AirportCodes": {
+          "viewType": "XML",
+          "transition": "slide",
+          "clearControlAggregation": false,
+          "viewId": "AirportCodes",
+          "viewName": "AirportCodes"
+        },
+        "StateCodes": {
+          "viewType": "XML",
+          "transition": "slide",
+          "clearControlAggregation": false,
+          "viewId": "StateCodes",
+          "viewName": "StateCodes"
+        },
+        "RFISC": {
+          "viewType": "XML",
+          "transition": "slide",
+          "clearControlAggregation": false,
+          "viewId": "RFISC",
+          "viewName": "RFISC"
+        },
+        "FOP": {
+          "viewType": "XML",
+          "transition": "slide",
+          "clearControlAggregation": false,
+          "viewId": "FOP",
+          "viewName": "FOP"
+        },
+        "Company": {
+          "viewType": "XML",
+          "transition": "slide",
+          "clearControlAggregation": false,
+          "viewId": "Company",
+          "viewName": "Company"
+        },
+        "Test": {
+          "viewType": "XML",
+          "transition": "slide",
+          "clearControlAggregation": false,
+          "viewId": "Test",
+          "viewName": "Test"
+        },
+        "amendments": {
+          "viewType": "XML",
+          "transition": "slide",
+          "clearControlAggregation": false,
+          "viewId": "amendments",
+          "viewName": "amendments"
+        }
+      }
+    },
+    "rootView": {
+      "viewName": "admindashboard.view.App",
+      "type": "XML",
+      "async": true,
+      "id": "App"
+    }
+  }
+}

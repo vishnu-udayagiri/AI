@@ -1,0 +1,30 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
+    <TableSelectDialog id="myDialog" title="Status Message"  titleAlignment="Center" search="handleSearchInv" liveChange="handleSearchInv"  cancel="handleClose" items="{validateModel>/}" class="dialogFragment sapMSFF">
+        <ColumnListItem>
+            <cells>
+    <Text text="{validateModel>invoiceNumber}"/>
+    <Text text="{validateModel>gstin}"/>
+     <Text text="{validateModel>message}"/>
+            </cells>
+        </ColumnListItem>
+        <columns>
+            <Column width="10em">
+                <header>
+                    <Text text="Invoice Number"/>
+                </header>
+            </Column>
+             <Column width="10em">
+                <header>
+                    <Text text="New GSTIN"/>
+                </header>
+            </Column>
+              <Column width="10em">
+                <header>
+                    <Text text="Status"/>
+                </header>
+            </Column>
+        </columns>
+        
+        <!-- <Button class="sapUiSmallMarginEnd" text="Upload Excel" type="Accept" icon="sap-icon://upload" press="handleUploadPress" width="150px"/> -->
+    </TableSelectDialog>
+</core:FragmentDefinition>

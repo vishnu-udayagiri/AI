@@ -1,0 +1,207 @@
+{
+  "_version": "1.49.0",
+  "sap.app": {
+    "id": "ns.amendments",
+    "type": "application",
+    "i18n": "i18n/i18n.properties",
+    "applicationVersion": {
+      "version": "0.1.1"
+    },
+    "crossNavigation": {
+      "inbounds": {
+        "amendment-display": {
+          "signature": {
+            "parameters": {},
+            "additionalParameters": "allowed"
+          },
+          "semanticObject": "Amendment",
+          "action": "display",
+          "title": "Approve Amendments",
+          "info": "Pending Approvals",
+          "subTitle": "",
+          "icon": "sap-icon://approvals",
+          "indicatorDataSource": {
+            "dataSource": "mainService",
+            "path": "pendingForApproval/$count",
+            "refresh": 5
+          }
+        }
+      }
+    },
+    "title": "{{appTitle}}",
+    "description": "{{appDescription}}",
+    "resources": "resources.json",
+    "sourceTemplate": {
+      "id": "@sap/generator-fiori:lrop",
+      "version": "1.11.1",
+      "toolsId": "421a07b0-4565-4a32-a96c-536058a1e90a"
+    },
+    "dataSources": {
+      "mainService": {
+        "uri": "/amendment/",
+        "type": "OData",
+        "settings": {
+          "annotations": [],
+          "localUri": "localService/metadata.xml",
+          "odataVersion": "4.0"
+        }
+      }
+    }
+  },
+  "sap.ui": {
+    "technology": "UI5",
+    "icons": {
+      "icon": "",
+      "favIcon": "",
+      "phone": "",
+      "phone@2": "",
+      "tablet": "",
+      "tablet@2": ""
+    },
+    "deviceTypes": {
+      "desktop": true,
+      "tablet": true,
+      "phone": true
+    }
+  },
+  "sap.ui5": {
+    "flexEnabled": true,
+    "dependencies": {
+      "minUI5Version": "1.118.1",
+      "libs": {
+        "sap.m": {},
+        "sap.ui.core": {},
+        "sap.ushell": {},
+        "sap.fe.templates": {}
+      }
+    },
+    "contentDensities": {
+      "compact": true,
+      "cozy": true
+    },
+    "models": {
+      "i18n": {
+        "type": "sap.ui.model.resource.ResourceModel",
+        "settings": {
+          "bundleName": "ns.amendments.i18n.i18n"
+        }
+      },
+      "": {
+        "dataSource": "mainService",
+        "preload": true,
+        "settings": {
+          "synchronizationMode": "None",
+          "operationMode": "Server",
+          "autoExpandSelect": true,
+          "earlyRequests": true
+        }
+      },
+      "@i18n": {
+        "type": "sap.ui.model.resource.ResourceModel",
+        "uri": "i18n/i18n.properties"
+      }
+    },
+    "resources": {
+      "css": []
+    },
+    "routing": {
+      "config": {},
+      "routes": [
+        {
+          "pattern": ":?query:",
+          "name": "InvoiceList",
+          "target": "InvoiceList"
+        },
+        {
+          "pattern": "Invoice({key}):?query:",
+          "name": "InvoiceObjectPage",
+          "target": "InvoiceObjectPage"
+        }
+      ],
+      "targets": {
+        "InvoiceList": {
+          "type": "Component",
+          "id": "InvoiceList",
+          "name": "sap.fe.templates.ListReport",
+          "options": {
+            "settings": {
+              "entitySet": "Invoice",
+              "variantManagement": "Page",
+              "initialLoad": "Enabled",
+              "navigation": {
+                "Invoice": {
+                  "detail": {
+                    "route": "InvoiceObjectPage"
+                  }
+                }
+              },
+              "controlConfiguration": {
+                "@com.sap.vocabularies.UI.v1.LineItem": {
+                  "actions": {
+                    "download": {
+                      "press": "ns.amendments.custom.customActions.downloadInvoice",
+                      "text": "Download",
+                      "enabled": true,
+                      "visible": true,
+                      "inline": false,
+                      "requiresSelection": true
+                    },
+                    "preview": {
+                      "press": "ns.amendments.custom.customActions.previewDocument",
+                      "text": "Preview",
+                      "enabled": true,
+                      "visible": true,
+                      "inline": false,
+                      "requiresSelection": true
+                    },
+                    "approve": {
+                      "press": "ns.amendments.custom.customActions.approveAmendment",
+                      "text": "Approve",
+                      "enabled": true,
+                      "visible": true,
+                      "inline": false,
+                      "requiresSelection": true
+                    },
+                    "reject": {
+                      "press": "ns.amendments.custom.customActions.rejectAmendment",
+                      "text": "Reject",
+                      "enabled": true,
+                      "visible": true,
+                      "inline": false,
+                      "requiresSelection": true
+                    }
+                  },
+                  "tableSettings": {
+                    "type": "GridTable"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "InvoiceObjectPage": {
+          "type": "Component",
+          "id": "InvoiceObjectPage",
+          "name": "sap.fe.templates.ObjectPage",
+          "options": {
+            "settings": {
+              "editableHeaderContent": false,
+              "entitySet": "Invoice",
+              "controlConfiguration": {
+                "InvoiceItems/@com.sap.vocabularies.UI.v1.LineItem": {
+                  "tableSettings": {
+                    "type": "GridTable"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "sap.cloud": {
+    "public": true,
+    "service": "cpapp.service"
+  }
+}

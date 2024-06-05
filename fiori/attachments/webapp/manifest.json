@@ -1,0 +1,165 @@
+{
+  "_version": "1.49.0",
+  "sap.app": {
+    "id": "ns.attachments",
+    "type": "application",
+    "i18n": "i18n/i18n.properties",
+    "applicationVersion": {
+      "version": "0.1.1"
+    },
+    "crossNavigation": {
+      "inbounds": {
+        "attachments-display": {
+          "signature": {
+            "parameters": {},
+            "additionalParameters": "allowed"
+          },
+          "semanticObject": "Attachments",
+          "action": "display",
+          "title": "Attachment Configuration",
+          "info": "",
+          "subTitle": "",
+          "icon": "sap-icon://attachment"
+        }
+      }
+    },
+    "title": "{{appTitle}}",
+    "description": "{{appDescription}}",
+    "resources": "resources.json",
+    "sourceTemplate": {
+      "id": "@sap/generator-fiori:lrop",
+      "version": "1.11.1",
+      "toolsId": "e7456efe-8456-4c9a-98e7-abde18d3f6a0"
+    },
+    "dataSources": {
+      "mainService": {
+        "uri": "/config/",
+        "type": "OData",
+        "settings": {
+          "annotations": [],
+          "localUri": "localService/metadata.xml",
+          "odataVersion": "4.0"
+        }
+      }
+    }
+  },
+  "sap.ui": {
+    "technology": "UI5",
+    "icons": {
+      "icon": "",
+      "favIcon": "",
+      "phone": "",
+      "phone@2": "",
+      "tablet": "",
+      "tablet@2": ""
+    },
+    "deviceTypes": {
+      "desktop": true,
+      "tablet": true,
+      "phone": true
+    }
+  },
+  "sap.ui5": {
+    "flexEnabled": true,
+    "dependencies": {
+      "minUI5Version": "1.118.1",
+      "libs": {
+        "sap.m": {},
+        "sap.ui.core": {},
+        "sap.ushell": {},
+        "sap.fe.templates": {}
+      }
+    },
+    "contentDensities": {
+      "compact": true,
+      "cozy": true
+    },
+    "models": {
+      "i18n": {
+        "type": "sap.ui.model.resource.ResourceModel",
+        "settings": {
+          "bundleName": "ns.attachments.i18n.i18n"
+        }
+      },
+      "": {
+        "dataSource": "mainService",
+        "preload": true,
+        "settings": {
+          "synchronizationMode": "None",
+          "operationMode": "Server",
+          "autoExpandSelect": true,
+          "earlyRequests": true
+        }
+      },
+      "@i18n": {
+        "type": "sap.ui.model.resource.ResourceModel",
+        "uri": "i18n/i18n.properties"
+      }
+    },
+    "resources": {
+      "css": []
+    },
+    "routing": {
+      "config": {},
+      "routes": [
+        {
+          "pattern": ":?query:",
+          "name": "DocumentCategoryList",
+          "target": "DocumentCategoryList"
+        },
+        {
+          "pattern": "DocumentCategory({key}):?query:",
+          "name": "DocumentCategoryObjectPage",
+          "target": "DocumentCategoryObjectPage"
+        }
+      ],
+      "targets": {
+        "DocumentCategoryList": {
+          "type": "Component",
+          "id": "DocumentCategoryList",
+          "name": "sap.fe.templates.ListReport",
+          "options": {
+            "settings": {
+              "entitySet": "DocumentCategory",
+              "variantManagement": "Page",
+              "initialLoad": "Enabled",
+              "navigation": {
+                "DocumentCategory": {
+                  "detail": {
+                    "route": "DocumentCategoryObjectPage"
+                  }
+                }
+              },
+              "controlConfiguration": {
+                "@com.sap.vocabularies.UI.v1.LineItem": {
+                  "tableSettings": {
+                    "type": "GridTable"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "DocumentCategoryObjectPage": {
+          "type": "Component",
+          "id": "DocumentCategoryObjectPage",
+          "name": "sap.fe.templates.ObjectPage",
+          "options": {
+            "settings": {
+              "editableHeaderContent": false,
+              "entitySet": "DocumentCategory"
+            }
+          }
+        }
+      }
+    }
+  },
+  "sap.fiori": {
+    "registrationIds": [],
+    "archeType": "transactional"
+  },
+  "sap.cloud": {
+    "public": true,
+    "service": "cpapp.service"
+  }
+}

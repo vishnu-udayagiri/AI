@@ -1,0 +1,178 @@
+<mvc:View controllerName="ns.generatetaxrules.controller.generateTaxRule"
+    xmlns:f="sap.ui.layout.form"
+    xmlns:core="sap.ui.core"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+    xmlns:t="sap.ui.table" class="sapUiSizeCompact">
+    <Page showHeader="false">
+        <Panel width="auto" class="sapUiResponsiveMargin">
+            <content>
+                <f:SimpleForm id="SimpleFormChangeColumn_twoGroups234" editable="true" layout="ColumnLayout" columnsM="2" columnsL="3" columnsXL="6">
+                    <f:toolbar>
+                        <Toolbar id="TB1">
+                            <ToolbarSpacer />
+                            <Button icon="sap-icon://process" text="Process" type="Emphasized" press="onProcessRule" tooltip="Process Tax Rule"/>
+                            <Button icon="sap-icon://reset" press="onReset" tooltip="Reset filters"/>
+                        </Toolbar>
+                    </f:toolbar>
+                    <f:content>
+                        <Label text="Transaction Type"/>
+                        <Select id="sel_TransactionCode" forceSelection="false" showSecondaryValues="true" required="true" change="onChangeTransactionCode">
+                            <core:ListItem key="TKTT" text="Ticket" additionalText="TKTT"/>
+                            <core:ListItem key="EMD" text="EMD" additionalText="EMD"/>
+                        </Select>
+
+                        <Label text="Ticket Issue Date"/>
+                        <DatePicker id="sel_TcktIssueDate" displayFormat="MM-dd-yyyy" valueFormat="yyyy-MM-dd" required="true" change="onLiveChange"/>
+
+                        <Label text="From"/>
+                        <Input id="sel_OrginAirport" class="sapUiSmallMarginBottom" type="Text" placeholder="Select Airport" showValueHelp="true" valueHelpOnly="true" valueHelpIconSrc="sap-icon://value-help" valueHelpRequest="handleValueHelp"/>
+
+                        <Label text="To"/>
+                        <Input id="sel_DestinationAirport" class="sapUiSmallMarginBottom" type="Text" placeholder="Select Airport" showValueHelp="true" valueHelpOnly="true" valueHelpIconSrc="sap-icon://value-help" valueHelpRequest="handleValueHelp"/>
+
+                        <Label text="Class of Travel"/>
+                        <Select id="sel_TicketClass" items="{FilterDatamodel>/bookingClass}" forceSelection="false" showSecondaryValues="true" required="true" >
+                            <core:ListItem key="{FilterDatamodel>CabinForRules}" text="{FilterDatamodel>Description}" additionalText="{FilterDatamodel>CabinForRules}"/>
+                        </Select>
+
+                        <!-- <Label text="Routing Type"/>
+                        <Select id="sel_RoutingType" items="{FilterDatamodel>/routingType}" forceSelection="false" showSecondaryValues="true" required="true" change="onLiveChange">
+                            <core:ListItem key="{FilterDatamodel>code}" text="{FilterDatamodel>name}" additionalText="{FilterDatamodel>code}"/>
+                        </Select> -->
+
+                        <Label text="RFISC"/>
+                        <Select id="sel_RFISC" visible="false" items="{FilterDatamodel>/emdRFISCs}" forceSelection="false" showSecondaryValues="true" required="true" change="onLiveChange">
+                            <core:ListItem key="{FilterDatamodel>RFISC}" text="{FilterDatamodel>RFISCDescription}" additionalText="{FilterDatamodel>RFISC}"/>
+                        </Select>
+
+                        <Label />
+                        <CheckBox id="cb_isSEZ" text="Has SEZ" class="sapUiTinyMarginTop sapUiTinyMarginBottom"/>
+
+                        <Label />
+                        <CheckBox id="cb_isB2B" text="Has Passenger GSTIN" select="onSelectB2B" class="sapUiTinyMarginTop sapUiTinyMarginBottom"/>
+
+                        <Label text="State of passenger GSTIN"/>
+                        <Select id="sel_statePassengerGSTIN" visible="false" items="{FilterDatamodel>/stateCodes}" forceSelection="false" showSecondaryValues="true" required="true" change="onLiveChange">
+                            <core:ListItem key="{FilterDatamodel>stateCode}" text="{FilterDatamodel>stateName}" additionalText="{FilterDatamodel>stateCode}"/>
+                        </Select>
+
+                    </f:content>
+                </f:SimpleForm>
+            </content>
+        </Panel>
+        <Panel id="panel_table" visible="false" width="auto" class="sapUiResponsiveMargin">
+            <content>
+                <t:Table id="tbl_amendment" rows="{taxRuleModel>/}" rowSelectionChange="OnSelectChange" firstVisibleRowChanged="onScroll" rowActionCount="3" threshold="10" columnMove="onColumnMove" selectionMode="MultiToggle" sort="onSort" visibleRowCount="8" ariaLabelledBy="title">
+                    <t:extension>
+                        <OverflowToolbar style="Clear">
+                            <Title id="title" text="Tax Rules"/>
+                        </OverflowToolbar>
+                    </t:extension>
+                    <!-- <t:noData>
+                        <IllustratedMessage enableVerticalResponsiveness="true" />
+                    </t:noData> -->
+                    <t:columns>
+                        <t:Column id="col_ticketClass" filterProperty="TICKETCLASS" sortProperty="TICKETCLASS">
+                            <Label text="Ticket Class" />
+                            <t:template>
+                                <Text text="{taxRuleModel>TICKETCLASS}" />
+                            </t:template>
+                        </t:Column>
+                        <t:Column id="col_RFISC" filterProperty="RFISC" sortProperty="RFISC">
+                            <Label text="RFISC" />
+                            <t:template>
+                                <Text text="{taxRuleModel>RFISC}" />
+                            </t:template>
+                        </t:Column>
+                        <t:Column id="col_eIndia" filterProperty="EINDIA" sortProperty="EINDIA">
+                            <Label text="E India" />
+                            <t:template>
+                                <Text text="{taxRuleModel>EINDIA}" />
+                            </t:template>
+                        </t:Column>
+                        <t:Column id="col_exemptedZone" filterProperty="EXEMPTEDZONE" sortProperty="EXEMPTEDZONE">
+                            <Label text="Exempted Zone" />
+                            <t:template>
+                                <Text text="{taxRuleModel>EXEMPTEDZONE}" />
+                            </t:template>
+                        </t:Column>
+                        <t:Column filterProperty="B2B" sortProperty="B2B">
+                            <Label text="B2B" />
+                            <t:template>
+                                <Text text="{taxRuleModel>B2B}" />
+                            </t:template>
+                        </t:Column>
+                        <t:Column filterProperty="ISSEZ" sortProperty="ISSEZ">
+                            <Label text="IS SEZ" />
+                            <t:template>
+                                <Text text="{taxRuleModel>ISSEZ}" />
+                            </t:template>
+                        </t:Column>
+                        <t:Column filterProperty="INTRASTATE" sortProperty="INTRASTATE">
+                            <Label text="Intrastate" />
+                            <t:template>
+                                <Text text="{taxRuleModel>INTRASTATE}" />
+                            </t:template>
+                        </t:Column>
+                        <t:Column filterProperty="ISUT" sortProperty="ISUT">
+                            <Label text="IS UT" />
+                            <t:template>
+                                <Text text="{taxRuleModel>ISUT}" />
+                            </t:template>
+                        </t:Column>
+                        <t:Column filterProperty="RULEID" sortProperty="RULEID">
+                            <Label text="Rule" />
+                            <t:template>
+                                <Text text="{taxRuleModel>RULEID}" />
+                            </t:template>
+                        </t:Column>
+                        <t:Column filterProperty="VALIDFROM" sortProperty="VALIDFROM">
+                            <Label text="Valid From" />
+                            <t:template>
+                                <Text text="{
+            path: 'taxRuleModel>VALIDFROM',
+            formatter: '.formatDate'
+        }" />
+                            </t:template>
+                        </t:Column>
+
+                        <t:Column filterProperty="VALIDTO" sortProperty="VALIDTO">
+                            <Label text="Valid To" />
+                            <t:template>
+                                <Text text="{
+            path: 'taxRuleModel>VALIDTO',
+            formatter: '.formatDate'
+        }" />
+                            </t:template>
+                        </t:Column>
+                        <t:Column id="col_placeOfSupply" visible="false" filterProperty="STATENAME" sortProperty="STATENAME">
+                            <Label text="Place of supply" />
+                            <t:template>
+                                <Text text="{taxRuleModel>STATENAME}" />
+                            </t:template>
+                        </t:Column>
+                        <t:Column filterProperty="TAXCODE" sortProperty="TAXCODE">
+                            <Label text="Tax Code" />
+                            <t:template>
+                                <Text text="{taxRuleModel>TAXCODE}" />
+                            </t:template>
+                        </t:Column>
+                        <t:Column filterProperty="TAXTYPE" sortProperty="TAXTYPE">
+                            <Label text="Tax Type" />
+                            <t:template>
+                                <Text text="{taxRuleModel>TAXTYPE}" />
+                            </t:template>
+                        </t:Column>
+                        <t:Column filterProperty="RATE" sortProperty="RATE">
+                            <Label text="Rate" />
+                            <t:template>
+                                <Text text="{taxRuleModel>RATE}" />
+                            </t:template>
+                        </t:Column>
+                    </t:columns>
+                </t:Table>
+            </content>
+        </Panel>
+    </Page>
+</mvc:View>

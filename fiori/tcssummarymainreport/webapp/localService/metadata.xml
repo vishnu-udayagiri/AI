@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="4.0" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+    <edmx:Reference Uri="https://sap.github.io/odata-vocabularies/vocabularies/Common.xml">
+        <edmx:Include Alias="Common" Namespace="com.sap.vocabularies.Common.v1"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Core.V1.xml">
+        <edmx:Include Alias="Core" Namespace="Org.OData.Core.V1"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="https://sap.github.io/odata-vocabularies/vocabularies/UI.xml">
+        <edmx:Include Alias="UI" Namespace="com.sap.vocabularies.UI.v1"/>
+    </edmx:Reference>
+    <edmx:DataServices>
+        <Schema Namespace="tcsSummaryMAINService" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+            <EntityContainer Name="EntityContainer">
+                <EntitySet Name="tcsSummaryMAIN" EntityType="tcsSummaryMAINService.tcsSummaryMAIN"/>
+                <FunctionImport Name="getCSRFToken" Function="tcsSummaryMAINService.getCSRFToken"/>
+                <ActionImport Name="exportAll" Action="tcsSummaryMAINService.exportAll"/>
+            </EntityContainer>
+            <EntityType Name="tcsSummaryMAIN">
+                <Property Name="ID" Type="Edm.String" MaxLength="36" Nullable="false"/>
+                <Property Name="IATANUMBER" Type="Edm.String" MaxLength="10"/>
+                <Property Name="YEAR" Type="Edm.Int32"/>
+                <Property Name="MONTH" Type="Edm.Int32"/>
+                <Property Name="GSTR_MONTH" Type="Edm.String" MaxLength="23"/>
+                <Property Name="OTA_GSTIN" Type="Edm.String" MaxLength="15"/>
+                <Property Name="AIRLINE_GSTN" Type="Edm.String" MaxLength="15"/>
+                <Property Name="TRANSACTIONTYPE" Type="Edm.String" MaxLength="10"/>
+                <Property Name="DOCUMENTTYPE" Type="Edm.String" MaxLength="20" Nullable="false"/>
+                <Property Name="ORGINALINVOICEDATE" Type="Edm.Date"/>
+                <Property Name="PS_STATENAME" Type="Edm.String" MaxLength="50"/>
+                <Property Name="STATE_OF_DEPOSIT" Type="Edm.String" MaxLength="2"/>
+                <Property Name="TAXABLE" Type="Edm.Decimal" Scale="2" Precision="18"/>
+                <Property Name="NONTAXABLE" Type="Edm.Decimal" Scale="2" Precision="18"/>
+                <Property Name="TCS_PERC_GST_VALUE" Type="Edm.Decimal" Scale="2" Precision="16"/>
+                <Property Name="TCS_CGST" Type="Edm.Decimal" Scale="2" Precision="16"/>
+                <Property Name="TCS_SGST_UTGST" Type="Edm.Decimal" Scale="2" Precision="16"/>
+                <Property Name="TCS_IGST" Type="Edm.Decimal" Scale="2" Precision="16"/>
+                <Property Name="TOTAL_TICKET_VALUE" Type="Edm.Decimal" Scale="2" Precision="16"/>
+            </EntityType>
+            <Function Name="getCSRFToken" IsBound="false" IsComposable="false">
+                <ReturnType Type="Edm.String"/>
+            </Function>
+            <Action Name="exportAll" IsBound="false">
+                <Parameter Name="fields" Type="Edm.String"/>
+                <ReturnType Type="Edm.String"/>
+            </Action>
+            <Annotations Target="tcsSummaryMAINService.tcsSummaryMAIN/ID">
+                <Annotation Term="Common.Label" String="ID"/>
+            </Annotations>
+            <Annotations Target="tcsSummaryMAINService.tcsSummaryMAIN/IATANUMBER">
+                <Annotation Term="Common.Label" String="IATA Number"/>
+            </Annotations>
+            <Annotations Target="tcsSummaryMAINService.tcsSummaryMAIN/YEAR">
+                <Annotation Term="Common.Label" String="Year"/>
+            </Annotations>
+            <Annotations Target="tcsSummaryMAINService.tcsSummaryMAIN/MONTH">
+                <Annotation Term="Common.Label" String="Month"/>
+            </Annotations>
+            <Annotations Target="tcsSummaryMAINService.tcsSummaryMAIN/GSTR_MONTH">
+                <Annotation Term="Common.Label" String="GSTR Month"/>
+            </Annotations>
+            <Annotations Target="tcsSummaryMAINService.tcsSummaryMAIN/OTA_GSTIN">
+                <Annotation Term="Common.Label" String="OTG GSTIN"/>
+            </Annotations>
+            <Annotations Target="tcsSummaryMAINService.tcsSummaryMAIN/AIRLINE_GSTN">
+                <Annotation Term="Common.Label" String="Airline GSTIN"/>
+            </Annotations>
+            <Annotations Target="tcsSummaryMAINService.tcsSummaryMAIN/TRANSACTIONTYPE">
+                <Annotation Term="Common.Label" String="Transaction Type"/>
+            </Annotations>
+            <Annotations Target="tcsSummaryMAINService.tcsSummaryMAIN/DOCUMENTTYPE">
+                <Annotation Term="Common.Label" String="Document Type"/>
+            </Annotations>
+            <Annotations Target="tcsSummaryMAINService.tcsSummaryMAIN/ORGINALINVOICEDATE">
+                <Annotation Term="Common.Label" String="Orginal Invoice Date"/>
+            </Annotations>
+            <Annotations Target="tcsSummaryMAINService.tcsSummaryMAIN/PS_STATENAME">
+                <Annotation Term="Common.Label" String="PS Statename"/>
+            </Annotations>
+            <Annotations Target="tcsSummaryMAINService.tcsSummaryMAIN/STATE_OF_DEPOSIT">
+                <Annotation Term="Common.Label" String="State of Deposit"/>
+            </Annotations>
+            <Annotations Target="tcsSummaryMAINService.tcsSummaryMAIN/TAXABLE">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="Common.Label" String="Taxable"/>
+            </Annotations>
+            <Annotations Target="tcsSummaryMAINService.tcsSummaryMAIN/NONTAXABLE">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="Common.Label" String="Non Taxable"/>
+            </Annotations>
+            <Annotations Target="tcsSummaryMAINService.tcsSummaryMAIN/TCS_PERC_GST_VALUE">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="Common.Label" String="TCS PERC GST Value"/>
+            </Annotations>
+            <Annotations Target="tcsSummaryMAINService.tcsSummaryMAIN/TCS_CGST">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="Common.Label" String="TCS CGST"/>
+            </Annotations>
+            <Annotations Target="tcsSummaryMAINService.tcsSummaryMAIN/TCS_SGST_UTGST">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="Common.Label" String="TCS SGST UTGST"/>
+            </Annotations>
+            <Annotations Target="tcsSummaryMAINService.tcsSummaryMAIN/TCS_IGST">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="Common.Label" String="TCS IGST"/>
+            </Annotations>
+            <Annotations Target="tcsSummaryMAINService.tcsSummaryMAIN/TOTAL_TICKET_VALUE">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="Common.Label" String="Total Ticket Value"/>
+            </Annotations>
+        </Schema>
+    </edmx:DataServices>
+</edmx:Edmx>

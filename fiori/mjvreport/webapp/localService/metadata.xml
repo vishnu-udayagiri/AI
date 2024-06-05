@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="4.0" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+    <edmx:Reference Uri="https://sap.github.io/odata-vocabularies/vocabularies/Common.xml">
+        <edmx:Include Alias="Common" Namespace="com.sap.vocabularies.Common.v1"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Core.V1.xml">
+        <edmx:Include Alias="Core" Namespace="Org.OData.Core.V1"/>
+    </edmx:Reference>
+    <edmx:DataServices>
+        <Schema Namespace="MJVReportService" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+            <EntityContainer Name="EntityContainer">
+                <EntitySet Name="mjvreport" EntityType="MJVReportService.mjvreport"/>
+                <FunctionImport Name="getCSRFToken" Function="MJVReportService.getCSRFToken"/>
+                <ActionImport Name="exportAll" Action="MJVReportService.exportAll"/>
+            </EntityContainer>
+            <EntityType Name="mjvreport">
+                <Property Name="SUPPLIERGSTIN" Type="Edm.String" MaxLength="15"/>
+                <Property Name="GSTR1PERIOD" Type="Edm.String" MaxLength="6"/>
+                <Property Name="CC_1GLACCOUNT" Type="Edm.String" MaxLength="13"/>
+                <Property Name="SAPBUSINESSPLACE" Type="Edm.String" MaxLength="4"/>
+                <Property Name="SAPSECTONCODE" Type="Edm.String" MaxLength="4"/>
+                <Property Name="POSTINGKEY" Type="Edm.String" MaxLength="2"/>
+                <Property Name="DTYPE" Type="Edm.String" MaxLength="3"/>
+                <Property Name="DOCDATE" Type="Edm.Date"/>
+                <Property Name="DOCNO" Type="Edm.String" MaxLength="12"/>
+                <Property Name="DOCTYPE" Type="Edm.String" MaxLength="13"/>
+                <Property Name="BUKRS" Type="Edm.String" MaxLength="4"/>
+                <Property Name="BUDAT" Type="Edm.Date"/>
+                <Property Name="WAERS" Type="Edm.String" MaxLength="3"/>
+                <Property Name="XBLNR" Type="Edm.String" MaxLength="12"/>
+                <Property Name="BKTXT" Type="Edm.String" MaxLength="25"/>
+                <Property Name="SGTXT" Type="Edm.String" MaxLength="25"/>
+                <Property Name="GSBER" Type="Edm.String" MaxLength="3"/>
+                <Property Name="KOSTL" Type="Edm.String" MaxLength="8"/>
+                <Property Name="XREF3" Type="Edm.String" MaxLength="15"/>
+                <Property Name="SERIAL" Type="Edm.Int32"/>
+                <Property Name="AMOUNT" Type="Edm.Decimal" Scale="2" Precision="16"/>
+            </EntityType>
+            <Function Name="getCSRFToken" IsBound="false" IsComposable="false">
+                <ReturnType Type="Edm.String"/>
+            </Function>
+            <Action Name="exportAll" IsBound="false">
+                <Parameter Name="fields" Type="Edm.String"/>
+                <ReturnType Type="Edm.String"/>
+            </Action>
+            <Annotations Target="MJVReportService.mjvreport/SUPPLIERGSTIN">
+                <Annotation Term="Common.Label" String="Supplier GSTIN"/>
+            </Annotations>
+            <Annotations Target="MJVReportService.mjvreport/GSTR1PERIOD">
+                <Annotation Term="Common.Label" String="GSTR1 Period"/>
+            </Annotations>
+            <Annotations Target="MJVReportService.mjvreport/CC_1GLACCOUNT">
+                <Annotation Term="Common.Label" String="Account"/>
+            </Annotations>
+            <Annotations Target="MJVReportService.mjvreport/SAPBUSINESSPLACE">
+                <Annotation Term="Common.Label" String="Business Place"/>
+            </Annotations>
+            <Annotations Target="MJVReportService.mjvreport/SAPSECTONCODE">
+                <Annotation Term="Common.Label" String="Section Code"/>
+            </Annotations>
+            <Annotations Target="MJVReportService.mjvreport/POSTINGKEY">
+                <Annotation Term="Common.Label" String="Posting Key"/>
+            </Annotations>
+            <Annotations Target="MJVReportService.mjvreport/DTYPE">
+                <Annotation Term="Common.Label" String="Type"/>
+            </Annotations>
+            <Annotations Target="MJVReportService.mjvreport/DOCDATE">
+                <Annotation Term="Common.Label" String="Document Date"/>
+            </Annotations>
+            <Annotations Target="MJVReportService.mjvreport/DOCNO">
+                <Annotation Term="Common.Label" String="DOC NO"/>
+            </Annotations>
+            <Annotations Target="MJVReportService.mjvreport/DOCTYPE">
+                <Annotation Term="Common.Label" String="Document Type"/>
+            </Annotations>
+            <Annotations Target="MJVReportService.mjvreport/BUKRS">
+                <Annotation Term="Common.Label" String="Company Code"/>
+            </Annotations>
+            <Annotations Target="MJVReportService.mjvreport/BUDAT">
+                <Annotation Term="Common.Label" String="Posting Date"/>
+            </Annotations>
+            <Annotations Target="MJVReportService.mjvreport/WAERS">
+                <Annotation Term="Common.Label" String="Currenecy"/>
+            </Annotations>
+            <Annotations Target="MJVReportService.mjvreport/XBLNR">
+                <Annotation Term="Common.Label" String="Reference"/>
+            </Annotations>
+            <Annotations Target="MJVReportService.mjvreport/BKTXT">
+                <Annotation Term="Common.Label" String="Document Header Text"/>
+            </Annotations>
+            <Annotations Target="MJVReportService.mjvreport/SGTXT">
+                <Annotation Term="Common.Label" String="Text"/>
+            </Annotations>
+            <Annotations Target="MJVReportService.mjvreport/GSBER">
+                <Annotation Term="Common.Label" String="Business Area"/>
+            </Annotations>
+            <Annotations Target="MJVReportService.mjvreport/KOSTL">
+                <Annotation Term="Common.Label" String="Cost Centre"/>
+            </Annotations>
+            <Annotations Target="MJVReportService.mjvreport/XREF3">
+                <Annotation Term="Common.Label" String="Reference key 3"/>
+            </Annotations>
+            <Annotations Target="MJVReportService.mjvreport/SERIAL">
+                <Annotation Term="Common.Label" String="Seq Number"/>
+            </Annotations>
+            <Annotations Target="MJVReportService.mjvreport/AMOUNT">
+                <Annotation Term="Common.Label" String="Amount"/>
+            </Annotations>
+        </Schema>
+    </edmx:DataServices>
+</edmx:Edmx>

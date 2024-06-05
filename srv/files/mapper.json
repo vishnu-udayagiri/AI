@@ -1,0 +1,451 @@
+{
+    "Version": {
+        "type": "string",
+        "value": [
+            "VERSION"
+        ]
+    },
+    "Irn": {
+        "type": "string",
+        "value": []
+    },
+    "TranDtls": {
+        "TaxSch": {
+            "type": "string",
+            "value": [
+                "TAXSCH",
+                "TAXSCH"
+            ]
+        },
+        "SupTyp": {
+            "type": "string",
+            "value": [
+                "SECTIONTYPE"
+            ]
+        },
+        "RegRev": {
+            "type": "string",
+            "value": [
+                "ISREVERSECHARGEAPPLICABLE"
+            ]
+        },
+        "EcmGstin": {
+            "type": "string",
+            "value": [
+                "ECOM GSTIN"
+            ]
+        },
+        "IgstOnIntra": {
+            "type": "string",
+            "value": [
+                "IGST ON INTRA"
+            ]
+        }
+    },
+    "DocDtls": {
+        "Typ": {
+            "type": "string",
+            "value": [
+                "DOCUMENTTYPE"
+            ]
+        },
+        "NumberField": {
+            "type": "string",
+            "value": [
+                "NUMBERFIELD"
+            ]
+        },
+        "DateField": {
+            "type": "string",
+            "value": [
+                "DATEFIELD"
+            ]
+        },
+        "No": {
+            "type": "string",
+            "value": [
+                "INVOICENUMBER"
+            ]
+        },
+        "Dt": {
+            "type": "date string",
+            "value": [
+                "INVOICEDATE"
+            ]
+        },
+        "PNR": {
+            "type": "string",
+            "value": [
+                "PNR"
+            ]
+        },
+        "RefDocTyp": {
+            "type": "string",
+            "value": [
+                "TRANSACTIONCODE"
+            ]
+        },
+        "RefDocNo": {
+            "type": "string",
+            "value": [
+                "TICKETNUMBER"
+            ]
+        },
+        "IssueTyp": {
+            "type": "string",
+            "value": [
+                "ISSUEINDICATOR"
+            ]
+        },
+        "Routing": {
+            "type": "string",
+            "value": [
+                "FULLROUTING"
+            ]
+        },
+        "Direction": {
+            "type": "string",
+            "value": [
+                "DIRECTIONINDICATOR"
+            ]
+        },
+        "IsCancelled": {
+            "type": "string",
+            "value": [
+                "ISCANCELLED"
+            ]
+        },
+        "InvType": {
+            "type": "string",
+            "value": [
+                "SECTIONTYPE"
+            ]
+        },
+        "Transaction": {
+            "type": "string",
+            "value": [
+                "TRANSACTIONTYPE"
+            ]
+        },
+        "Signatory": {
+            "type": "string",
+            "value": [
+                "SIGNATORY"
+            ]
+        }
+
+    },
+    "SellerDtls": {
+        "Gstin": {
+            "type": "string",
+            "value": [
+                "SUPPLIERGSTIN"
+            ]
+        },
+        "LglNm": {
+            "type": "string",
+            "value": [
+                "COMPANY_DESCRIPTION"
+            ]
+        },
+        "Addr1": {
+            "type": "string",
+            "value": [
+                "AIRPORTCODES_ADDRESS"
+            ]
+        },
+        "Addr2": {
+            "type": "string",
+            "value": [
+                "SELLER ADDRESS 2",
+                "SELLER ADDR2"
+            ]
+        },
+        "Loc": {
+            "type": "string",
+            "value": [
+                "PLACEOFSUPPLY"
+            ]
+        },
+        "Stcd": {
+            "type": "string",
+            "value": [
+                "PLACEOFSUPPLY"
+            ]
+        }
+    },
+    "BuyerDtls": {
+        "Gstin": {
+            "type": "string",
+            "value": [
+                "PASSENGERGSTIN"
+            ]
+        },
+        "LglNm": {
+            "type": "string",
+            "value": [
+                "BILLTONAME"
+            ]
+        },
+        "PassengerName": {
+            "type": "string",
+            "value": [
+                "PASSANGERNAME"
+            ]
+        },
+        "Pos": {
+            "type": "string",
+            "value": [
+                "COMPANYGSTINADRESSES_STATE"
+            ]
+        },
+        "Addr1": {
+            "type": "string",
+            "value": [
+                "BILLTOFULLADDRESS"
+            ]
+        },
+        "Addr2": {
+            "type": "string",
+            "value": [
+                ""
+            ]
+        },
+        "Loc": {
+            "type": "string",
+            "value": [
+                "PLACEOFSUPPLY"
+            ]
+        },
+        "Stcd": {
+            "type": "string",
+            "value": [
+                "STATECODE"
+            ]
+        },
+        "State": {
+            "type": "string",
+            "value": [
+                "BUYERSTATE"
+            ]
+        },
+        "OriginalInvoiceNumber": {
+            "type": "string",
+            "value": [
+                "ORIGINALINVOICENUMBER"
+            ]
+        },
+        "OriginalInvoiceDate": {
+            "type": "string",
+            "value": [
+                "ORGINALINVOICEDATE"
+            ]
+        },
+        "OriginalDocumentNumber": {
+            "type": "string",
+            "value": [
+                "ORIGINALDOCUMENTNBR"
+            ]
+        }
+    },
+    "ItemList": [
+        {
+            "SlNo": {
+                "type": "string",
+                "value": [
+                    "INVOICESLNO"
+                ]
+            },
+            "PrdDesc": {
+                "type": "string",
+                "value": [
+                    "DESCOFSERVICE"
+                ]
+            },
+            "HsnCd": {
+                "type": "string",
+                "value": [
+                    "HSNCODE"
+                ]
+            },
+            "Qty": {
+                "type": "number",
+                "value": [
+                    "QTY"
+                ]
+            },
+            "Unit": {
+                "type": "string",
+                "value": [
+                    "UNIT"
+                ]
+            },
+            "UnitPrice": {
+                "type": "number money",
+                "value": [
+                    "VALUEOFSERVICE"
+                ]
+            },
+            "TotAmt": {
+                "type": "number money",
+                "value": [
+                    "ASSESSABLE VALUE",
+                    "TOTAL AMOUNT",
+                    "GROSS AMOUNT"
+                ]
+            },
+            "Discount": {
+                "type": "number money",
+                "value": [
+                    "DISCOUNT"
+                ]
+            },
+            "PreTaxVal": {
+                "type": "number money",
+                "value": [
+                    "NETTAXABLEVALUE"
+                ]
+            },
+            "AssAmt": {
+                "type": "number money",
+                "value": [
+                    "OTHERTAXABLE"
+                ]
+            },
+            "NonTaxable": {
+                "type": "number money",
+                "value": [
+                    "NONTAXABLE"
+                ]
+            },
+            "GstRt": {
+                "type": "string",
+                "value": [
+                    "GSTRATE"
+                ]
+            },
+            "IgstAmt": {
+                "type": "number money",
+                "value": [
+                    "COLLECTEDIGST"
+                ]
+            },
+            "CgstAmt": {
+                "type": "number money",
+                "value": [
+                    "COLLECTEDCGST"
+                ]
+            },
+            "SgstAmt": {
+                "type": "number money",
+                "value": [
+                    "COLLECTEDSGST"
+                ]
+            },
+            "CesRt": {
+                "type": "number money",
+                "value": [
+                    "CESS1RATE"
+                ]
+            },
+            "CesAmt": {
+                "type": "number money",
+                "value": [
+                    "CESS1AMOUNT"
+                ]
+            },
+            "CesNonAdvlAmt": {
+                "type": "number money",
+                "value": [
+                    "CESS2AMOUNT"
+                ]
+            },
+            "TotItemVal": {
+                "type": "number money",
+                "value": [
+                    "TOTALVALUE"
+                ]
+            }
+        }
+    ],
+    "ValDtls": {
+        "CgstRt": {
+            "type": "number",
+            "value": [
+                "CGSTRATE"
+            ]
+        },
+        "SgstRt": {
+            "type": "number",
+            "value": [
+                "CGSTRATE"
+            ]
+        },
+        "IgstRt": {
+            "type": "number",
+            "value": [
+                "IGSTRATE"
+            ]
+        },
+        "UgstRt": {
+            "type": "number",
+            "value": [
+                "UGSTRT"
+            ]
+        },
+        "AssVal": {
+            "type": "number money",
+            "value": [
+                "TOTALNETTAXABLEVALUE"
+            ]
+        },
+        "CgstVal": {
+            "type": "number money",
+            "value": [
+                "TOTALCOLLECTEDCGST"
+            ]
+        },
+        "SgstVal": {
+            "type": "number money",
+            "value": [
+                "TOTALCOLLECTEDSGST"
+            ]
+        },
+        "IgstVal": {
+            "type": "number money",
+            "value": [
+                "TOTALCOLLECTEDIGST"
+            ]
+        },
+        "CesVal": {
+            "type": "number",
+            "value": [
+                "CESS1AMOUNT+"
+            ]
+        },
+        "Discount": {
+            "type": "number money",
+            "value": [
+                "TOTALDISCOUNT"
+            ]
+        },
+        "TotInvVal": {
+            "type": "number money",
+            "value": [
+                "TOTALTOTALVALUE"
+            ]
+        },
+        "TaxableCalculation": {
+            "type": "string",
+            "value": [
+                "TAXABLECALCULATION"
+            ]
+        },
+        "NonTaxableCalculation": {
+            "type": "string",
+            "value": [
+                "NONTAXABLECALCULATION"
+            ]
+        }
+    }
+}

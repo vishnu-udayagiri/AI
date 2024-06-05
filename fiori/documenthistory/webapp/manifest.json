@@ -1,0 +1,174 @@
+{
+    "_version": "1.49.0",
+    "sap.app": {
+        "id": "ns.documenthistory",
+        "type": "application",
+        "i18n": "i18n/i18n.properties",
+        "applicationVersion": {
+            "version": "0.0.1"
+        },
+        "crossNavigation": {
+            "inbounds": {
+                "documenthistory-display": {
+                    "signature": {
+                        "parameters": {},
+                        "additionalParameters": "allowed"
+                    },
+                    "semanticObject": "documenthistory",
+                    "action": "display",
+                    "title": "Document History",
+                    "info": "",
+                    "subTitle": "",
+                    "icon": "sap-icon://work-history"
+                }
+            }
+        },
+        "title": "{{appTitle}}",
+        "description": "{{appDescription}}",
+        "resources": "resources.json",
+        "sourceTemplate": {
+            "id": "@sap/generator-fiori:lrop",
+            "version": "1.11.1",
+            "toolsId": "6c274388-c85d-4ef9-aa7b-d90258512de7"
+        },
+        "dataSources": {
+            "mainService": {
+                "uri": "/documentHistory/",
+                "type": "OData",
+                "settings": {
+                    "annotations": [],
+                    "localUri": "localService/metadata.xml",
+                    "odataVersion": "4.0"
+                }
+            }
+        }
+    },
+    "sap.ui": {
+        "technology": "UI5",
+        "icons": {
+            "icon": "",
+            "favIcon": "",
+            "phone": "",
+            "phone@2": "",
+            "tablet": "",
+            "tablet@2": ""
+        },
+        "deviceTypes": {
+            "desktop": true,
+            "tablet": true,
+            "phone": true
+        }
+    },
+    "sap.ui5": {
+        "flexEnabled": true,
+        "dependencies": {
+            "minUI5Version": "1.120.1",
+            "libs": {
+                "sap.m": {},
+                "sap.ui.core": {},
+                "sap.ushell": {},
+                "sap.fe.templates": {}
+            }
+        },
+        "contentDensities": {
+            "compact": true,
+            "cozy": true
+        },
+        "models": {
+            "i18n": {
+                "type": "sap.ui.model.resource.ResourceModel",
+                "settings": {
+                    "bundleName": "ns.documenthistory.i18n.i18n"
+                }
+            },
+            "": {
+                "dataSource": "mainService",
+                "preload": true,
+                "settings": {
+                    "synchronizationMode": "None",
+                    "operationMode": "Server",
+                    "autoExpandSelect": true,
+                    "earlyRequests": true
+                }
+            },
+            "@i18n": {
+                "type": "sap.ui.model.resource.ResourceModel",
+                "uri": "i18n/i18n.properties"
+            }
+        },
+        "resources": {
+            "css": []
+        },
+        "routing": {
+            "routes": [
+                {
+                    "pattern": ":?query:",
+                    "name": "documentHistoryList",
+                    "target": "documentHistoryList"
+                },
+                {
+                    "pattern": "documentHistory({key}):?query:",
+                    "name": "documentHistoryObjectPage",
+                    "target": "documentHistoryObjectPage"
+                }
+            ],
+            "targets": {
+                "documentHistoryList": {
+                    "type": "Component",
+                    "id": "documentHistoryList",
+                    "name": "sap.fe.templates.ListReport",
+                    "options": {
+                        "settings": {
+                            "entitySet": "documentHistory",
+                            "variantManagement": "Page",
+                            "controlConfiguration": {
+                                "@com.sap.vocabularies.UI.v1.LineItem": {
+                                    "tableSettings": {
+                                        "type": "GridTable"
+                                    },
+                                    "actions": {
+                                        "download": {
+                                            "press": "ns.documenthistory.custom.customActions.downloadInvoice",
+                                            "text": "Download",
+                                            "enabled": true,
+                                            "visible": true,
+                                            "inline": false,
+                                            "requiresSelection": true
+                                        },
+                                        "preview": {
+                                            "press": "ns.documenthistory.custom.customActions.previewDocument",
+                                            "text": "Preview",
+                                            "enabled": true,
+                                            "visible": true,
+                                            "inline": false,
+                                            "requiresSelection": true
+                                          }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "documentHistoryObjectPage": {
+                    "type": "Component",
+                    "id": "documentHistoryObjectPage",
+                    "name": "sap.fe.templates.ObjectPage",
+                    "options": {
+                        "settings": {
+                            "editableHeaderContent": false,
+                            "entitySet": "documentHistory"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "sap.fiori": {
+        "registrationIds": [],
+        "archeType": "transactional"
+    },
+    "sap.cloud": {
+        "public": true,
+        "service": "cpapp.service"
+    }
+}

@@ -1,0 +1,169 @@
+{
+    "_version": "1.49.0",
+    "sap.app": {
+        "id": "ns.taxrates",
+        "type": "application",
+        "i18n": "i18n/i18n.properties",
+        "applicationVersion": {
+            "version": "0.1.1"
+        },
+        "crossNavigation": {
+            "inbounds": {
+                "taxRates-display": {
+                    "signature": {
+                        "parameters": {},
+                        "additionalParameters": "allowed"
+                    },
+                    "semanticObject": "TaxRates",
+                    "action": "display",
+                    "title": "Tax Rates",
+                    "info": "",
+                    "subTitle": "",
+                    "icon": "sap-icon://my-sales-order"
+                }
+            }
+        },
+        "title": "{{appTitle}}",
+        "description": "{{appDescription}}",
+        "resources": "resources.json",
+        "sourceTemplate": {
+            "id": "@sap/generator-fiori:lrop",
+            "version": "1.11.1",
+            "toolsId": "e47575b3-df5e-4f43-8bf0-32f8624f63c7"
+        },
+        "dataSources": {
+            "mainService": {
+                "uri": "/master/",
+                "type": "OData",
+                "settings": {
+                    "annotations": [],
+                    "localUri": "localService/metadata.xml",
+                    "odataVersion": "4.0"
+                }
+            }
+        }
+    },
+    "sap.ui": {
+        "technology": "UI5",
+        "icons": {
+            "icon": "",
+            "favIcon": "",
+            "phone": "",
+            "phone@2": "",
+            "tablet": "",
+            "tablet@2": ""
+        },
+        "deviceTypes": {
+            "desktop": true,
+            "tablet": true,
+            "phone": true
+        }
+    },
+    "sap.ui5": {
+        "flexEnabled": true,
+        "dependencies": {
+            "minUI5Version": "1.119.0",
+            "libs": {
+                "sap.m": {},
+                "sap.ui.core": {},
+                "sap.ushell": {},
+                "sap.fe.templates": {}
+            }
+        },
+        "contentDensities": {
+            "compact": true,
+            "cozy": true
+        },
+        "models": {
+            "i18n": {
+                "type": "sap.ui.model.resource.ResourceModel",
+                "settings": {
+                    "bundleName": "ns.taxrates.i18n.i18n"
+                }
+            },
+            "": {
+                "dataSource": "mainService",
+                "preload": true,
+                "settings": {
+                    "synchronizationMode": "None",
+                    "operationMode": "Server",
+                    "autoExpandSelect": true,
+                    "earlyRequests": true
+                }
+            },
+            "@i18n": {
+                "type": "sap.ui.model.resource.ResourceModel",
+                "uri": "i18n/i18n.properties"
+            }
+        },
+        "resources": {
+            "css": []
+        },
+        "routing": {
+            "routes": [
+                {
+                    "pattern": ":?query:",
+                    "name": "TaxRatesList",
+                    "target": "TaxRatesList"
+                },
+                {
+                    "pattern": "TaxRates({key}):?query:",
+                    "name": "TaxRatesObjectPage",
+                    "target": "TaxRatesObjectPage"
+                }
+            ],
+            "targets": {
+                "TaxRatesList": {
+                    "type": "Component",
+                    "id": "TaxRatesList",
+                    "name": "sap.fe.templates.ListReport",
+                    "options": {
+                        "settings": {
+                            "entitySet": "TaxRates",
+                            "variantManagement": "Page",
+                            "initialLoad": "Enabled",
+                            "navigation": {
+                                "TaxRates": {
+                                    "detail": {
+                                        "route": "TaxRatesObjectPage"
+                                    }
+                                }
+                            },
+                            "controlConfiguration": {
+                              "@com.sap.vocabularies.UI.v1.LineItem": {
+                                "tableSettings": {
+                                  "type": "GridTable"
+                                }
+                              }
+                            }
+                        }
+                    }
+                },
+                "TaxRatesObjectPage": {
+                    "type": "Component",
+                    "id": "TaxRatesObjectPage",
+                    "name": "sap.fe.templates.ObjectPage",
+                    "options": {
+                        "settings": {
+                            "editableHeaderContent": false,
+                            "entitySet": "TaxRates"
+                        }
+                    }
+                }
+            }
+        },
+        "extends": {
+            "extensions": {
+                "sap.ui.controllerExtensions": {}
+            }
+        }
+    },
+    "sap.fiori": {
+        "registrationIds": [],
+        "archeType": "transactional"
+    },
+    "sap.cloud": {
+        "public": true,
+        "service": "cpapp.service"
+    }
+}

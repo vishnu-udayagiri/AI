@@ -1,0 +1,25 @@
+<mvc:View xmlns:core="sap.ui.core" xmlns="sap.m"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns:mc="sap.suite.ui.microchart"
+    xmlns:t="sap.ui.table"
+    xmlns:form="sap.ui.layout.form" controllerName="airindiagst.controller.userManual">
+    <Page showHeader="false" class="backGroundImage">
+    
+				<!-- <PDFViewer source="{/Source}" title="{/Title}" height="{/Height}">
+				<layoutData>
+					<FlexItemData growFactor="1" />
+				</layoutData>
+			</PDFViewer> -->
+            	<FlexBox direction="Column" renderType="Div" class="sapUiSmallMargin">
+			<FlexBox>
+				<Link
+				text="For general queries click here."
+				target="_blank"
+				href="https://airindia-gst.cfapps.in30.hana.ondemand.com/portal/index.html#/faq" />
+			</FlexBox>
+            </FlexBox>
+			<PDFViewer id="pdfViewer" source="css/images/Travel_Partners_B2A_User_Manual.pdf" width="100%"/>
+            
+        
+    </Page>
+</mvc:View>

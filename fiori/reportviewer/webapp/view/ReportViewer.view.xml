@@ -1,0 +1,125 @@
+<mvc:View controllerName="ns.reportviewer.controller.ReportViewer"
+    xmlns:f="sap.ui.layout.form"
+    xmlns:core="sap.ui.core"
+    xmlns:u="sap.ui.unified"
+    xmlns:l="sap.ui.layout"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns:fb="sap.ui.comp.filterbar"
+    xmlns:wc="sap.ui.webc.main"
+    xmlns="sap.m"
+    xmlns:columnmenu="sap.m.table.columnmenu"
+    xmlns:sap.ui.fl="sap.ui.fl"
+    xmlns:sap.ui.dt="sap.ui.dt"
+    xmlns:vm="sap.ui.fl.variants"
+    xmlns:t="sap.ui.table" class="sapUiSizeCompact">
+    <Page showHeader="false" class="backGroundImage">
+        <Panel width="auto" class="sapUiResponsiveMargin">
+            <content>
+                <fb:FilterBar id="filterbar" persistencyKey="myPersKey" useToolbar="false" search=".onSearch" clear=".onClear" showClearOnFB="true" filterChange=".onFilterChange" afterVariantLoad=".onAfterVariantLoad">
+                    <fb:filterGroupItems>
+
+                        <fb:FilterGroupItem name="JOBNAME" label="Job Name" groupName="Group1" visibleInFilterBar="true">
+                            <fb:control>
+                                <Select id="sel_jobName" items="{filterModel>/JOBNAME}" forceSelection="false" change="onChangeFilter">
+                                    <core:ListItem key="{filterModel>}" text="{filterModel>}"/>
+                                </Select>
+                            </fb:control>
+                        </fb:FilterGroupItem>
+
+                        <fb:FilterGroupItem name="FILENAME" label="File Name" groupName="Group1" visibleInFilterBar="true">
+                            <fb:control>
+                                <Select id="sel_fileName" items="{filterModel>/FILENAME}" forceSelection="false" change="onChangeFilter">
+                                    <core:ListItem key="{filterModel>}" text="{filterModel>}"/>
+                                </Select>
+                            </fb:control>
+                        </fb:FilterGroupItem>
+
+                        <fb:FilterGroupItem name="STATUS" label="Status" groupName="Group1" visibleInFilterBar="true">
+                            <fb:control>
+                                <Select id="sel_status" items="{filterModel>/STATUS}" forceSelection="false" change="onChangeFilter">
+                                    <core:ListItem key="{filterModel>}" text="{filterModel>}"/>
+                                </Select>
+                            </fb:control>
+                        </fb:FilterGroupItem>
+
+                        <fb:FilterGroupItem name="REQDATETIME" label="Requested Date" groupName="Group1" visibleInFilterBar="true">
+                            <fb:control>
+                                <DatePicker id="dp_reqDateTime" valueFormat="yyyy-MM-dd" displayFormat="dd-MM-yyyy" change="onChangeFilter"></DatePicker>
+                            </fb:control>
+                        </fb:FilterGroupItem>
+
+                    </fb:filterGroupItems>
+                </fb:FilterBar>
+            </content>
+        </Panel>
+        <Panel id="panel_table" width="auto" class="sapUiResponsiveMargin">
+            <content>
+
+                <t:Table id="tbl_reportViewer" visible="false" rows="{reportViewer>/}" rowActionCount="1" selectionMode="MultiToggle" firstVisibleRowChanged="" threshold="100" visibleRowCount="07" ariaLabelledBy="title" columnMove="onColumnMove" sort="onSort" sap.ui.fl:flexibility="sap/m/flexibility/EngineFlex">
+                    <t:noData>
+                        <IllustratedMessage enableVerticalResponsiveness="true" />
+                    </t:noData>
+                    <t:columns>
+                        <t:Column id="col_ID" minWidth="150px" filterProperty="ID" tooltip="ID" visible="false">
+                            <Label text="ID"/>
+                            <t:template>
+                                <Text text="{ path: 'reportViewer>ID'}"/>
+                            </t:template>
+                        </t:Column>
+
+                        <t:Column id="col_FileName" minWidth="150px" filterProperty="FILENAME" tooltip="File Name">
+                            <Label text="File Name"/>
+                            <t:template>
+                                <Text text="{ path: 'reportViewer>FILENAME'}"/>
+                            </t:template>
+                        </t:Column>
+
+                        <t:Column id="col_ReqEmail" minWidth="150px" filterProperty="REQEMAIL" tooltip="Required Email">
+                            <Label text="Requested Email"/>
+                            <t:template>
+                                <Text text="{ path: 'reportViewer>REQEMAIL'}"/>
+                            </t:template>
+                        </t:Column>
+
+                        <t:Column id="col_ReqDateTime" minWidth="150px" filterProperty="REQDATETIME" tooltip="Requested DateTime">
+                            <Label text="Requested DateTime"/>
+                            <t:template>
+                                <Text text="{ path: 'reportViewer>REQDATETIME' ,formatter : '.formatDate'}"/>
+                            </t:template>
+                        </t:Column>
+
+                        <t:Column id="col_JobName" minWidth="150px" filterProperty="JOBNAME" tooltip="Job Name">
+                            <Label text="Job Name"/>
+                            <t:template>
+                                <Text text="{ path: 'reportViewer>JOBNAME'}"/>
+                            </t:template>
+                        </t:Column>
+
+                        <t:Column id="col_CompletedDateTime" minWidth="150px" filterProperty="COMPLETEDDATETIME" tooltip="Completed DateTime">
+                            <Label text="Completed DateTime"/>
+                            <t:template>
+                                <Text text="{ path: 'reportViewer>COMPLETEDDATETIME' ,formatter : '.formatDate'}"/>
+                            </t:template>
+                        </t:Column>
+
+                        <t:Column id="col_Status" minWidth="150px" filterProperty="STATUS" tooltip="Status">
+                            <Label text="Status"/>
+                            <t:template>
+                                <ObjectStatus text="{ path: 'reportViewer>STATUS' }" state="{path: 'reportViewer>STATUS', 
+                                        formatter: '.setStatusState'}" icon="{path: 'reportViewer>STATUS', formatter: '.setStatusIcon'}" />
+                            </t:template>
+                        </t:Column>
+                    </t:columns>
+                    <t:rowActionTemplate>
+                        <t:RowAction>
+                            <t:items>
+                                <t:RowActionItem icon="sap-icon://download" press="onDownloadReport" visible="{reportViewer>ISCOMPLETED}"/>
+                            </t:items>
+                        </t:RowAction>
+                    </t:rowActionTemplate>
+                </t:Table>
+
+            </content>
+        </Panel>
+    </Page>
+</mvc:View>

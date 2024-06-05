@@ -1,0 +1,16 @@
+<core:FragmentDefinition xmlns="sap.m"
+    xmlns:l="sap.ui.layout"
+    xmlns:f="sap.ui.layout.form"
+    xmlns:core="sap.ui.core">
+    <Dialog title="State the reason for rejection" titleAlignment="Center">
+        <f:SimpleForm editable="true">
+            <Label text="Reason" id="lbl-reasonAmend"/>
+            <TextArea id="inp-textArea" liveChange="onInputRejectReason" rows="4"/>
+        </f:SimpleForm>
+        <OverflowToolbar>
+            <ToolbarSpacer/>
+            <Button text="Reject" type="Emphasized" press="onRejection"/>
+            <Button text="Close" type="Reject" press="oncloseRejectionFragment"/>
+        </OverflowToolbar>
+    </Dialog>
+</core:FragmentDefinition>

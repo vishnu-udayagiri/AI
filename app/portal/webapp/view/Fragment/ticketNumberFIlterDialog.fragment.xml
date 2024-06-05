@@ -1,0 +1,8 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
+	<SelectDialog title="Select Ticket Number"    multiSelect="true" rememberSelections="true"
+		showClearButton="true"  items="{path :'FilterDatamodel>/ticketNumber/'}" search="handleValueHelpSearchticketNum"
+		 confirm="handleValueHelpCloseticketNum" cancel="">
+		<StandardListItem iconDensityAware="false" iconInset="false" 
+			title="{FilterDatamodel>}"/>
+	</SelectDialog>
+</core:FragmentDefinition>

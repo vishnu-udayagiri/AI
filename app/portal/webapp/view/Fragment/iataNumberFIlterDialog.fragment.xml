@@ -1,0 +1,11 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
+    <SelectDialog title="Select IATA Number" multiSelect="true" items="{path :'FilterDatamodel>/iataNumber/'}" search="handleValueHelpSearchiataNum"
+        confirm="handleValueHelpCloseiataNum" rememberSelections="true"
+        showClearButton="true" cancel="" >
+        <StandardListItem  iconDensityAware="false" iconInset="false"
+            title="{FilterDatamodel>IATANUMBER}" description="{FilterDatamodel>LEGALNAME}"/>
+<!--         
+         <StandardListItem  iconDensityAware="false" iconInset="false"  selected="true"
+            title="{FilterDatamodel>CODE}" description="{FilterDatamodel>DESCR}"/> -->
+    </SelectDialog>
+</core:FragmentDefinition>

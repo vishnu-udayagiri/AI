@@ -1,0 +1,380 @@
+<mvc:View xmlns:mvc="sap.ui.core.mvc" controllerName="airindiagst.controller.Registration"
+    xmlns:uxap="sap.uxap"
+    xmlns="sap.m" height="100%"
+    xmlns:f="sap.ui.layout.form"
+    xmlns:core="sap.ui.core"
+    xmlns:u="sap.ui.unified"
+    xmlns:wc="sap.ui.webc.main"
+    xmlns:l="sap.ui.layout"
+    xmlns:t="sap.ui.table" class="sapUiSizeCompact">
+    <uxap:ObjectPageLayout id="ObjectPageLayout" upperCaseAnchorBar="false" showFooter="true" alwaysShowContentHeader="true">
+        <uxap:sections>
+            <!-- Company Details -->
+            <uxap:ObjectPageSection titleUppercase="false">
+                <uxap:subSections>
+                    <uxap:ObjectPageSubSection id="obj-page1" title="Company Details">
+                    <uxap:actions>
+							<Button id="hintcompany" ariaHasPopup="Dialog" icon="sap-icon://hint" tooltip="Help" type="Transparent" press="onpresshintcompany"/>
+						</uxap:actions>
+                        <f:SimpleForm editable="true" layout="ColumnLayout" columnsM="2" columnsL="3" columnsXL="6">
+                            <f:content>
+                                <Label text="Category"/>
+                                <Select id="sel-category" required="true" selectedKey="{companyDetailModel>/CATEGORY}" items="{masterDataModel>/category}" forceSelection="false" change="onChangeCategory" editable="{= ${/toggleAdmin}}">
+                                    <core:Item key="{masterDataModel>key}" text="{masterDataModel>text}" />
+                                </Select>
+                                <Label text="IATA Code"/>
+                                <Input id="inp-AgentiataCode" type="Number" placeholder="Enter your HE / GE." value="{companyDetailModel>/AGENTCODE}" change="onChangeIATA" maxLength="10" visible="false" required="true" editable="{= ${/toggleAdmin}}"/>
+
+                                <!-- <Label text="IATA Code"/>
+                                <MultiInput id="inp-iataCode" enableTableAutoPopinMode="false" valueHelpIconSrc="sap-icon://add-document" valueHelpOnly="true" valueHelpRequest="onAddIataCodes" required="true" visible="false" maxLength="6" editable="{= ${/toggleAdmin}}" tokens="{
+                                  path: 'agentCodeDialogModel>/'
+                                    }">
+                                    <tokens>
+                                        <Token key="{agentCodeDialogModel>IATACODE}" text="{agentCodeDialogModel>IATACODE}" editable="false"/>
+                                    </tokens>
+                                </MultiInput> -->
+                                <Label id="lbl-companyName" text="Company Name" />
+                                <Input id="inp-companyName" required="true" value="{companyDetailModel>/COMPANYNAME}"  maxLength="255"  liveChange="onLiveValidateForInputCC" editable="{= ${/toggleAdmin}}"/>
+                                <Label id="lbl-consltCountry" visible="false" text="Consulate Country"/>
+                                <ComboBox items="{masterDataModel>/country}" showSecondaryValues="true" editable="false" id="sel-consltCountry" required="true" visible="false">
+                                    <core:ListItem key="{masterDataModel>code}" text="{masterDataModel>description}"/>
+                                </ComboBox>
+                                <Label id="lbl-CompRegNo" text="Company Registration Number" />
+                                <Input id="inp-CompRegNo" value="{companyDetailModel>/COMPANYREGISTRATIONNUMBER}" liveChange="onLiveValidateForInputCRN" maxLength="21" editable="{= ${/toggleAdmin}}"/>
+                                <Label text="Company PAN" />
+                                <Input id="inp-companyPAN" required="true" value="{companyDetailModel>/COMPANYPAN}" editable="false" placeholder="AAAAA1234A" class="transformToUpperCase" liveChange="onLiveValidateForInput" maxLength="10"/>
+                                <Label text="Company TAN" />
+                                <Input id="inp-companyTAN" value="{companyDetailModel>/COMPANYTAN}" required="true" liveChange="onLiveValidateForInputTAN" maxLength="10" editable="{= ${/toggleAdmin}}"/>
+                                <Label text="Website"/>
+                                <Input id="inp-website" value="{companyDetailModel>/WEBSITE}" type="Url" maxLength="241" liveChange="onLiveValidateForInput"  change="onValidateEmail" editable="{= ${/toggleAdmin}}"/>
+                                <Label text="Contact Number"/>
+                                <MaskInput id="inp-companyPhone" required="true" mask="999 999 9999" value="{companyDetailModel>/CONTACTNUMBER}"  editable="{= ${/toggleAdmin}}"/>
+                                <Label text="Address" />
+                                <TextArea id="inp-address" required="true" value="{companyDetailModel>/ADDRESS}" liveChange="onLiveValidateForInput" rows="4" maxLength="251" editable="{= ${/toggleAdmin}}"/>
+                                <Label text="Country"/>
+                                <Select id="sel-country" required="true" selectedKey="{companyDetailModel>/COUNTRY_CODE}" items="{masterDataModel>/country}" change="onLiveValidateForSelect" editable="false">
+                                    <core:Item key="{masterDataModel>code}" text="{masterDataModel>description}"/>
+                                </Select>
+                                <Label text="State" />
+                                <Select id="sel-state" required="true" selectedKey="{companyDetailModel>/STATE}" items="{masterDataModel>/states}" change="onLiveValidateForSelect" forceSelection="false" editable="{= ${/toggleAdmin}}">
+                                    <core:Item key="{masterDataModel>code}" text="{masterDataModel>description}"/>
+                                </Select>
+                                 <Label id="lbl_region" text="Region" />
+                                <Input id="inp-region" required="false" value="{companyDetailModel>/REGION}" maxLength="40" liveChange="onLiveValidateForInputRegion" editable="{= ${/toggleAdmin}}"/>
+                                <Label text="City" />
+                                <Input id="inp-city" required="true" value="{companyDetailModel>/CITY}" maxLength="40" liveChange="onLiveValidateForInputCity" editable="{= ${/toggleAdmin}}"/>
+                                <Label text="Postal Code" />
+                                <Input id="inp-pinCode" required="true" maxLength="10" value="{companyDetailModel>/PINCODE}" liveChange="onLiveValidateForInput" editable="{= ${/toggleAdmin}}"/>
+                                <Label/>
+                                <CheckBox id="cb-ecomOperator" text="E-commerce operator?" visible="false" selected="{companyDetailModel>/ISECOMMERCEOPERATOR}" editable="{= ${/toggleAdmin}}"/>
+                                <!-- <Label/>
+                                <CheckBox id="cb-gstAsSez" text="Registered for GST as SEZ unit?" selected="{companyDetailModel>/isRegisteredForGstAsSezUnit}"/>
+                                <Label/>
+                                <CheckBox id="cb-gstPsuUnit" text="Registered for GST as PSU unit?" selected="{companyDetailModel>/isRegisteredForGstAsPsuUnit}"/> -->
+                            </f:content>
+                        </f:SimpleForm>
+                    </uxap:ObjectPageSubSection>
+                </uxap:subSections>
+            </uxap:ObjectPageSection>
+
+            <!-- GSTIN Details -->
+            <uxap:ObjectPageSection titleUppercase="false" visible="{= ${/toggleAdmin}}">
+                <uxap:subSections>
+                    <uxap:ObjectPageSubSection id="ttl-GSTINDetails" title="GSTIN Details">
+                    <uxap:actions>
+							<Button id="hintgstdetails" icon="sap-icon://hint" tooltip="Help" type="Transparent" press="onpresshintgstdetails"/>
+						</uxap:actions>
+                        <l:VerticalLayout width="100%" id="oVerticalContentGSTIN">
+                            <t:Table id="idGSTDetailsTable" visibleRowCount="6" rowSelectionChange="onChangeGSTRow" selectionMode="MultiToggle" rows="{GSTDetailModel>/}" rowActionCount="1">
+                                <t:columns>
+                                    <t:Column width="175px">
+                                        <Label id="lbl-gstin" text="GSTIN"/>
+                                        <t:template>
+                                            <Text text="{GSTDetailModel>GSTIN}"/>
+                                        </t:template>
+                                    </t:Column>
+                                    <t:Column width="65px" hAlign="Center" tooltip="Default GSTIN">
+                                        <Label text="Default"/>
+                                        <t:template>
+                                            <CheckBox select="onDefaultGSTINSelect" selected="{GSTDetailModel>DEFAULT}"/>
+                                        </t:template>
+                                    </t:Column>
+                                    <t:Column id="type" width="95px">
+                                        <Label text="Type"/>
+                                        <t:template>
+                                            <!-- <Text text="{path: 'GSTDetailModel>GSTTYPE', formatter: '.formatter.setStatusText'}"/> -->
+                                            <Text text="{GSTDetailModel>GSTTYPE}"/>
+                                        </t:template>
+                                    </t:Column>
+                                    <t:Column id="certificate" width="82px" tooltip="GSTIN Certificate" hAlign="Center">
+                                        <Label text="Certificate" />
+                                        <t:template>
+                                            <HBox >
+                                                <u:FileUploader id="_IDGenFileUploader1" fileAllowed="handleUploadGSTINFile" tooltip="Browse GSTIN Certificate" width="100%" buttonOnly="true" iconOnly="true" visible="{= !${GSTDetailModel>GSTCERTIFICATE} ? true : false}" icon="sap-icon://attachment" maximumFileSize="0.4" sameFilenameAllowed="true" fileSizeExceed="onFileSizeExceeded" fileType="jpg,jpeg,png,docx,doc,pdf"/>
+                                                <Button icon="sap-icon://vds-file" tooltip="View / Download File" type="Success" press="onDownloadGSTINAttachment" visible="{= ${GSTDetailModel>GSTCERTIFICATE} ? true : false}"/>
+                                                <Button icon="sap-icon://delete" type="Transparent" press="onDeleteGSTINAttachment" visible="{= ${GSTDetailModel>GSTCERTIFICATE} ? true : false}"/>
+                                            </HBox>
+                                        </t:template>
+                                    </t:Column>
+                                      <t:Column width="70px">
+                                        <Label text="Status"/>
+                                        <t:template>
+                                            <Text text="{path: 'GSTDetailModel>STATUS', formatter: '.formatter.setStatusText'}"/>
+                                        </t:template>
+                                    </t:Column>
+                                    <t:Column id="dateofIssue" width="143px">
+                                        <Label text="Date of Issue"/>
+                                        <t:template>
+                                            <Text text="{GSTDetailModel>DATEOFISSUEGST}"/>
+                                        </t:template>
+                                    </t:Column>
+                                    <t:Column id="arnnumber" width="154px">
+                                        <Label text="Legal Name"/>
+                                        <t:template>
+                                            <Text text="{GSTDetailModel>LEGALNAME}"/>
+                                        </t:template>
+                                    </t:Column>
+                                    <t:Column id="dateofIssueArn" width="143px">
+                                        <Label text="Trade Name"/>
+                                        <t:template>
+                                            <Text text="{GSTDetailModel>TRADENAME}"/>
+                                        </t:template>
+                                    </t:Column>
+                                    <!-- <t:Column width="6%">
+                                        <Label text="Registered for GST as SEZ unit?" tooltip="Registered for GST as SEZ unit?"/>
+                                        <t:template>
+                                            <CheckBox selected="{
+                                                path: 'GSTDetailModel>/ISREGISTEREDFORGSTASSEZUNIT',
+                                                type: 'sap.ui.model.type.String'
+                                            }"/>
+                                        </t:template>
+                                    </t:Column>
+                                    <t:Column width="6%">
+                                        <Label text="Registered for GST as PSU unit?" tooltip="Registered for GST as PSU unit?"/>
+                                        <t:template>
+                                            <CheckBox selected="{GSTDetailModel>/ISREGISTEREDFORGSTASPSUUNIT}"/>
+                                        </t:template>
+                                    </t:Column> -->
+                                    <t:Column id="lastvalidated" visible="false" width="130px">
+                                        <Label text="Last Validated On"/>
+                                        <t:template>
+                                            <Text text="{GSTDetailModel>LASTVALIDATEDON}"/>
+                                        </t:template>
+                                    </t:Column>
+                                    <t:Column minWidth="286px">
+                                        <Label text="Address"/>
+                                        <t:template>
+                                            <Text wrappingType="Hyphenated" text="{= ${GSTDetailModel>ADDRESS}}"/>
+                                        </t:template>
+                                    </t:Column>
+                                </t:columns>
+                                <t:rowActionTemplate>
+                                    <t:RowAction id="gstrowaction">
+                                        <t:items>
+                                            <t:RowActionItem icon="sap-icon://add-activity" press="onAddGSTINAddress"/>
+                                        </t:items>
+                                    </t:RowAction>
+                                </t:rowActionTemplate>
+                            </t:Table>
+                        </l:VerticalLayout>
+                    </uxap:ObjectPageSubSection>
+                </uxap:subSections>
+            </uxap:ObjectPageSection>
+
+            <!-- IATA Details -->
+            <uxap:ObjectPageSection titleUppercase="false" visible="{= ${/toggleAdmin}}">
+                <uxap:subSections>
+                    <uxap:ObjectPageSubSection id="ttl-IATADetails" visible="false" title="IATA Details">
+                    <uxap:actions>
+							<Button id="hintiatadetails" icon="sap-icon://hint" tooltip="Help" type="Transparent" press="onpresshintiatadetails"/>
+						</uxap:actions>
+                        <l:VerticalLayout width="100%" id="oVerticalContentIATA">
+                            <t:Table id="idIATADetailsTable" visibleRowCount="6" rowSelectionChange="onChangeGSTRow" selectionMode="None" rows="{IATADetailModel>/}">
+                                <t:columns>
+                                    <t:Column width="155px">
+                                        <Label text="IATA Number"/>
+                                        <t:template>
+                                            <Text text="{IATADetailModel>IATANUMBER}"/>
+                                        </t:template>
+                                    </t:Column>
+                                    <t:Column id="col_cb-ecomOperator" visible="{= ${companyDetailModel>/CATEGORY} === '01' || ${companyDetailModel>/CATEGORY} === '02'}" hAlign="Center" minWidth="130px" tooltip="Please tick if this is an Ecommerce operator">
+										<Label id="_IDGenLabel50" text="Ecommerce operator"/>
+										<t:template>
+											<CheckBox id="_IDGenCheckBox1" selected="{IATADetailModel>ISECOMMERCEOPERATOR}" enabled="{= !${/toggleEdit}}" tooltip="Please tick if this is an Ecommerce operator" visible="{= ${companyDetailModel>/CATEGORY} === '01' || ${companyDetailModel>/CATEGORY} === '02'}" editable="{= !${/toggleEdit} &amp;&amp; ${rolesModel>/ISADMIN}}"/>
+										</t:template>
+									</t:Column>
+                                     <t:Column width="155px">
+                                        <Label text="Type"/>
+                                        <t:template>
+                                        <Text text="{path: 'IATADetailModel>SITETYPE', formatter: '.formatter.setTypeText'}"/>
+                                        </t:template>
+                                    </t:Column>
+                                    <t:Column width="320px">
+                                        <Label text="Legal Name"/>
+                                        <t:template>
+                                            <Text text="{IATADetailModel>LEGALNAME}"/>
+                                        </t:template>
+                                    </t:Column>
+                                    <!-- <t:Column width="175px">
+                                        <Label text="Cross Ref. Agent Number"/>
+                                        <t:template>
+                                            <Text text="{IATADetailModel>CROSSREFERENCEAGENTNUM}"/>
+                                        </t:template>
+                                    </t:Column> -->
+                                    <t:Column width="320px">
+                                        <Label text="Trade Name"/>
+                                        <t:template>
+                                            <Text text="{IATADetailModel>TRADENAME}"/>
+                                        </t:template>
+                                    </t:Column>
+                                    <!-- <t:Column width="175px">
+                                        <Label text="Site Type"/>
+                                        <t:template>
+                                            <Text text="{IATADetailModel>SITETYPE}"/>
+                                        </t:template>
+                                    </t:Column> -->
+                                    <t:Column minWidth="286px">
+                                        <Label text="Address"/>
+                                        <t:template>
+                                            <Text wrappingType="Hyphenated" text="{= ${IATADetailModel>CITY} + ',' + ${IATADetailModel>REGION} + ', ' + ${IATADetailModel>COUNTRYNAME} + ',' + ${IATADetailModel>POSTALCODE}}"/>
+                                        </t:template>
+                                    </t:Column>
+                                </t:columns>
+                            </t:Table>
+                        </l:VerticalLayout>
+                    </uxap:ObjectPageSubSection>
+                </uxap:subSections>
+            </uxap:ObjectPageSection>
+
+            <!-- Attachments -->
+            <uxap:ObjectPageSection titleUppercase="false" visible="{= ${/toggleAdmin}}">
+                <uxap:subSections>
+                    <uxap:ObjectPageSubSection id="ttl-Attachments" title="Attachments">
+                    <uxap:actions>
+							<Button id="hintattachments" icon="sap-icon://hint" tooltip="Help" type="Transparent" press="onpresshintattachments"/>
+						</uxap:actions>
+                        <l:VerticalLayout width="100%" id="oVerticalContent">
+                            <t:Table id="tbl-attachment" rows="{attachmentModel>/}" selectionMode="None" visibleRowCount="5" rowActionCount="1" fixedColumnCount="1">
+                                <t:columns>
+                                    <t:Column width="20rem">
+                                        <Label text="Document Type" />
+                                        <t:template>
+                                            <Text text="{attachmentModel>DOCUMENTNAME}" wrapping="false" />
+                                        </t:template>
+                                    </t:Column>
+                                    <t:Column width="6rem" hAlign="Center">
+                                        <Label text="Mandatory" />
+                                        <t:template>
+                                            <core:Icon src="sap-icon://accept" visible="{attachmentModel>ISMANDATORY}" />
+                                        </t:template>
+                                    </t:Column>
+                                    <t:Column width="187px">
+                                        <Label text="Issue Date"/>
+                                        <t:template>
+                                            <DatePicker id="dp-issuedOn" maxDate="{viewModel>/maxDate}" value="{attachmentModel>ISSUEDON}" change="handleDateChange" displayFormat="yyyy-MM-dd" valueFormat="yyyy-MM-dd" editable="{= !${/toggleEdit}}"/>
+                                        </t:template>
+                                    </t:Column>
+                                    <t:Column width="187px">
+                                        <Label text="Valid From"/>
+                                        <t:template>
+                                            <DatePicker id="dp-validFrom" value="{attachmentModel>VALIDFROM}" change="handleDateChange" displayFormat="yyyy-MM-dd" valueFormat="yyyy-MM-dd" editable="{= !${/toggleEdit}}"/>
+                                        </t:template>
+                                    </t:Column>
+                                    <t:Column width="187px">
+                                        <Label text="Valid To"/>
+                                        <t:template>
+                                            <DatePicker id="dp-validTo" value="{attachmentModel>VALIDTO}" change="handleDateChange" displayFormat="yyyy-MM-dd" valueFormat="yyyy-MM-dd" editable="{= !${/toggleEdit}}"/>
+                                        </t:template>
+                                    </t:Column>
+                                    <t:Column minWidth="150px">
+                                        <Label text="File Type" />
+                                        <t:template>
+                                            <Text text="{attachmentModel>MIMETYPE}" wrapping="false"/>
+                                        </t:template>
+                                    </t:Column>
+                                    <t:Column minWidth="150px">
+                                        <Label text="File Name" />
+                                        <t:template>
+                                            <Text text="{attachmentModel>FILENAME}" wrapping="false"/>
+                                        </t:template>
+                                    </t:Column>
+                                    <t:Column width="3rem">
+                                        <Label text="" />
+                                        <t:template>
+                                            <HBox >
+                                                <u:FileUploader id="_IDGenFileUploader2" fileAllowed="handleUploadFile" buttonOnly="true" width="100%" iconOnly="true" icon="sap-icon://attachment" visible="{= !${attachmentModel>FILENAME} ? true : false}" maximumFileSize="0.4" sameFilenameAllowed="true" fileSizeExceed="onFileSizeExceeded" fileType="jpg,jpeg,png,docx,doc,pdf" />
+                                                <Button icon="sap-icon://vds-file" tooltip="View / Download File" type="Success" press="onDownloadAttachment" visible="{= ${attachmentModel>FILENAME} ? true : false}"/>
+                                            </HBox>
+                                        </t:template>
+                                    </t:Column>
+                                </t:columns>
+                                <t:rowActionTemplate>
+                                    <t:RowAction>
+                                        <t:items>
+                                            <t:RowActionItem icon="sap-icon://delete" press="onDeleteAttachment" visible="{= ${attachmentModel>FILENAME} ? true : false}"/>
+                                        </t:items>
+                                    </t:RowAction>
+                                </t:rowActionTemplate>
+                            </t:Table>
+                            <MessageStrip class="sapUiSmallMarginTop" text="Upload a JPG,JPEG,PNG,DOC or PDF file of up to 400KB" showIcon="true"/>
+
+                        </l:VerticalLayout>
+                    </uxap:ObjectPageSubSection>
+                </uxap:subSections>
+            </uxap:ObjectPageSection>
+
+            <!-- User Details -->
+            <uxap:ObjectPageSection titleUppercase="false">
+                <uxap:subSections>
+                    <uxap:ObjectPageSubSection title="User Details">
+                    <uxap:actions>
+							<Button id="hintuserinfo" icon="sap-icon://hint" tooltip="Help" type="Transparent" press="onpresshintuserinfo"/>
+						</uxap:actions>
+                        <f:SimpleForm editable="true" layout="ColumnLayout" columnsM="2" columnsL="3" columnsXL="4">
+                            <f:content>
+                                <Label text="Title" required="true"/>
+                                <Select id="sel-title" forceSelection="false" selectedKey="{userDetailModel>/TITLE}" change="onLiveValidateForSelect">
+                                    <core:Item key="Mr" text="Mr"/>
+                                    <core:Item key="Mrs" text="Mrs"/>
+                                    <core:Item key="Ms" text="Ms"/>
+                                    <core:Item key="Dr" text="Dr"/>
+                                    <core:Item key="Prof" text="Prof"/>
+                                </Select>
+                                <Label text="First Name" required="true"/>
+                                <Input id="inp-firstName" value="{userDetailModel>/FIRSTNAME}" liveChange="onLiveValidateForInputfirstName" maxLength="40"/>
+                                <Label text="Last Name" required="true"/>
+                                <Input id="inp-lastName" value="{userDetailModel>/LASTNAME}" liveChange="onLiveValidateForInputLastName" maxLength="40"/>
+                                <Label text="Login Email Address" />
+                                <Input id="inp-loginEmail" required="true" editable="false" value="{userDetailModel>/LOGINEMAIL}" tooltip="Login User Email" liveChange="onLiveValidateForInput" maxLength="255"/>
+                                <Label text="Mobile Number" required="true"/>
+                                <MaskInput id="inp-userMobile" mask="999 999 9999" value="{userDetailModel>/MOBILE}" />
+                                <!-- <Label text="Address"/>
+                                <TextArea id="inp-userAddress" value="{userDetailModel>/ADDRESS}" rows="4" maxLength="251" liveChange="onLiveValidateForInput"/> -->
+                                <Label text="Default Period"/>
+                                <Select forceSelection="false" selectedKey="CY">
+                                    <core:Item key="CM" text="Current Month"/>
+                                    <!-- <core:Item key="PM" text="Previous Month"/> -->
+                                    <core:Item key="CY" text="Current Financial Year"/>
+                                </Select>
+                                <Label/>
+                                <Image id="img-captcha" src="" width="15rem" class="sapUiSmallMarginBegin"/>
+                                <Label text="Enter Captcha" required="true"/>
+                                <Input id="inp-captcha" type="Text" maxLength="6" valueHelpIconSrc="sap-icon://refresh" showValueHelp="true" valueHelpRequest="onFetchOrRefreshCaptcha" liveChange="onVerifyCaptcha"/>
+
+                            </f:content>
+                        </f:SimpleForm>
+                    </uxap:ObjectPageSubSection>
+                </uxap:subSections>
+            </uxap:ObjectPageSection>
+
+
+
+        </uxap:sections>
+        <uxap:footer >
+            <OverflowToolbar id="overFlowToolbar" visible="true">
+                <ToolbarSpacer />
+                <Button type="Emphasized" text="Submit" press="onPressSubmit" />
+            </OverflowToolbar>
+        </uxap:footer>
+    </uxap:ObjectPageLayout>
+</mvc:View>

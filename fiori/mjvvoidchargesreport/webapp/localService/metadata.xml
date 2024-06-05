@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="4.0" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+    <edmx:Reference Uri="https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Capabilities.V1.xml">
+        <edmx:Include Alias="Capabilities" Namespace="Org.OData.Capabilities.V1"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="https://sap.github.io/odata-vocabularies/vocabularies/Common.xml">
+        <edmx:Include Alias="Common" Namespace="com.sap.vocabularies.Common.v1"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Core.V1.xml">
+        <edmx:Include Alias="Core" Namespace="Org.OData.Core.V1"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="https://sap.github.io/odata-vocabularies/vocabularies/UI.xml">
+        <edmx:Include Alias="UI" Namespace="com.sap.vocabularies.UI.v1"/>
+    </edmx:Reference>
+    <edmx:DataServices>
+        <Schema Namespace="MJVvoidchargesReportService" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+            <EntityContainer Name="EntityContainer">
+                <EntitySet Name="mjvvoidchargesreport" EntityType="MJVvoidchargesReportService.mjvvoidchargesreport"/>
+                <EntitySet Name="valueListGSTR1PERIOD" EntityType="MJVvoidchargesReportService.valueListGSTR1PERIOD"/>
+                <FunctionImport Name="getCSRFToken" Function="MJVvoidchargesReportService.getCSRFToken"/>
+                <ActionImport Name="exportAll" Action="MJVvoidchargesReportService.exportAll"/>
+            </EntityContainer>
+            <EntityType Name="mjvvoidchargesreport">
+                <Property Name="SUPPLIERGSTIN" Type="Edm.String" MaxLength="15"/>
+                <Property Name="GSTR1PERIOD" Type="Edm.String" MaxLength="6"/>
+                <Property Name="CC_1GLACCOUNT" Type="Edm.String" MaxLength="13"/>
+                <Property Name="SAPBUSINESSPLACE" Type="Edm.String" MaxLength="4"/>
+                <Property Name="SAPSECTONCODE" Type="Edm.String" MaxLength="4"/>
+                <Property Name="POSTINGKEY" Type="Edm.String" MaxLength="2"/>
+                <Property Name="DTYPE" Type="Edm.String" MaxLength="3"/>
+                <Property Name="DOCDATE" Type="Edm.Date"/>
+                <Property Name="DOCNO" Type="Edm.String" MaxLength="12"/>
+                <Property Name="DOCTYPE" Type="Edm.String" MaxLength="13"/>
+                <Property Name="BUKRS" Type="Edm.String" MaxLength="4"/>
+                <Property Name="BUDAT" Type="Edm.Date"/>
+                <Property Name="WAERS" Type="Edm.String" MaxLength="3"/>
+                <Property Name="XBLNR" Type="Edm.String" MaxLength="12"/>
+                <Property Name="BKTXT" Type="Edm.String" MaxLength="25"/>
+                <Property Name="SGTXT" Type="Edm.String" MaxLength="25"/>
+                <Property Name="GSBER" Type="Edm.String" MaxLength="3"/>
+                <Property Name="KOSTL" Type="Edm.String" MaxLength="8"/>
+                <Property Name="XREF3" Type="Edm.String" MaxLength="15"/>
+                <Property Name="SERIAL" Type="Edm.Int32"/>
+                <Property Name="AMOUNT" Type="Edm.Decimal" Scale="2" Precision="16"/>
+            </EntityType>
+            <EntityType Name="valueListGSTR1PERIOD">
+                <Property Name="GSTR1PERIOD" Type="Edm.String" MaxLength="15"/>
+            </EntityType>
+            <Function Name="getCSRFToken" IsBound="false" IsComposable="false">
+                <ReturnType Type="Edm.String"/>
+            </Function>
+            <Action Name="exportAll" IsBound="false">
+                <Parameter Name="fields" Type="Edm.String"/>
+                <ReturnType Type="Edm.String"/>
+            </Action>
+            <Annotations Target="MJVvoidchargesReportService.EntityContainer/mjvvoidchargesreport">
+                <Annotation Term="Capabilities.FilterRestrictions">
+                    <Record Type="Capabilities.FilterRestrictionsType">
+                        <PropertyValue Property="RequiresFilter" Bool="true"/>
+                        <PropertyValue Property="RequiredProperties">
+                            <Collection>
+                                <PropertyPath>GSTR1PERIOD</PropertyPath>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="MJVvoidchargesReportService.mjvvoidchargesreport/SUPPLIERGSTIN">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="Common.Label" String="Supplier GSTIN"/>
+            </Annotations>
+            <Annotations Target="MJVvoidchargesReportService.mjvvoidchargesreport/GSTR1PERIOD">
+                <Annotation Term="Common.Label" String="GSTR1 Period"/>
+            </Annotations>
+            <Annotations Target="MJVvoidchargesReportService.mjvvoidchargesreport/CC_1GLACCOUNT">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="Common.Label" String="Account"/>
+            </Annotations>
+            <Annotations Target="MJVvoidchargesReportService.mjvvoidchargesreport/SAPBUSINESSPLACE">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="Common.Label" String="Business Place"/>
+            </Annotations>
+            <Annotations Target="MJVvoidchargesReportService.mjvvoidchargesreport/SAPSECTONCODE">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="Common.Label" String="Section Code"/>
+            </Annotations>
+            <Annotations Target="MJVvoidchargesReportService.mjvvoidchargesreport/POSTINGKEY">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="Common.Label" String="Posting Key"/>
+            </Annotations>
+            <Annotations Target="MJVvoidchargesReportService.mjvvoidchargesreport/DTYPE">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="Common.Label" String="Type"/>
+            </Annotations>
+            <Annotations Target="MJVvoidchargesReportService.mjvvoidchargesreport/DOCDATE">
+                <Annotation Term="Common.Label" String="Document Date"/>
+            </Annotations>
+            <Annotations Target="MJVvoidchargesReportService.mjvvoidchargesreport/DOCNO">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="Common.Label" String="DOC NO"/>
+            </Annotations>
+            <Annotations Target="MJVvoidchargesReportService.mjvvoidchargesreport/DOCTYPE">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="Common.Label" String="Document Type"/>
+            </Annotations>
+            <Annotations Target="MJVvoidchargesReportService.mjvvoidchargesreport/BUKRS">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="Common.Label" String="Company Code"/>
+            </Annotations>
+            <Annotations Target="MJVvoidchargesReportService.mjvvoidchargesreport/BUDAT">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="Common.Label" String="Posting Date"/>
+            </Annotations>
+            <Annotations Target="MJVvoidchargesReportService.mjvvoidchargesreport/WAERS">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="Common.Label" String="Currenecy"/>
+            </Annotations>
+            <Annotations Target="MJVvoidchargesReportService.mjvvoidchargesreport/XBLNR">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="Common.Label" String="Reference"/>
+            </Annotations>
+            <Annotations Target="MJVvoidchargesReportService.mjvvoidchargesreport/BKTXT">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="Common.Label" String="Document Header Text"/>
+            </Annotations>
+            <Annotations Target="MJVvoidchargesReportService.mjvvoidchargesreport/SGTXT">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="Common.Label" String="Text"/>
+            </Annotations>
+            <Annotations Target="MJVvoidchargesReportService.mjvvoidchargesreport/GSBER">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="Common.Label" String="Business Area"/>
+            </Annotations>
+            <Annotations Target="MJVvoidchargesReportService.mjvvoidchargesreport/KOSTL">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="Common.Label" String="Profit Centre"/>
+            </Annotations>
+            <Annotations Target="MJVvoidchargesReportService.mjvvoidchargesreport/XREF3">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="Common.Label" String="Reference key 3"/>
+            </Annotations>
+            <Annotations Target="MJVvoidchargesReportService.mjvvoidchargesreport/SERIAL">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="Common.Label" String="Seq Number"/>
+            </Annotations>
+            <Annotations Target="MJVvoidchargesReportService.mjvvoidchargesreport/AMOUNT">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="Common.Label" String="Amount"/>
+            </Annotations>
+            <Annotations Target="MJVvoidchargesReportService.valueListGSTR1PERIOD/GSTR1PERIOD">
+                <Annotation Term="Common.Label" String="GSTR1 Period"/>
+            </Annotations>
+        </Schema>
+    </edmx:DataServices>
+</edmx:Edmx>

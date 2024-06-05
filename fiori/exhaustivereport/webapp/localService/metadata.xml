@@ -1,0 +1,334 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="4.0" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+    <edmx:Reference Uri="https://sap.github.io/odata-vocabularies/vocabularies/Common.xml">
+        <edmx:Include Alias="Common" Namespace="com.sap.vocabularies.Common.v1"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Core.V1.xml">
+        <edmx:Include Alias="Core" Namespace="Org.OData.Core.V1"/>
+    </edmx:Reference>
+    <edmx:DataServices>
+        <Schema Namespace="Reports" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+            <EntityContainer Name="EntityContainer">
+                <EntitySet Name="valueListSectionType" EntityType="Reports.valueListSectionType"/>
+                <EntitySet Name="valueListTicketIssueDate" EntityType="Reports.valueListTicketIssueDate"/>
+                <EntitySet Name="valueListCompany" EntityType="Reports.valueListCompany"/>
+                <EntitySet Name="valueListIataNumber" EntityType="Reports.valueListIataNumber"/>
+                <EntitySet Name="valueListTransactionType" EntityType="Reports.valueListTransactionType"/>
+                <EntitySet Name="valueListGstDifference" EntityType="Reports.valueListGstDifference"/>
+                <EntitySet Name="DiscrepancyReport" EntityType="Reports.DiscrepancyReport"/>
+                <EntitySet Name="valueListTaxInvoiceType" EntityType="Reports.valueListTaxInvoiceType"/>
+                <EntitySet Name="valueListReferenceNumber" EntityType="Reports.valueListReferenceNumber"/>
+                <EntitySet Name="valueListReferenceDate" EntityType="Reports.valueListReferenceDate"/>
+                <EntitySet Name="valueListOrginalTicket" EntityType="Reports.valueListOrginalTicket"/>
+                <EntitySet Name="valueListB2BORB2C" EntityType="Reports.valueListB2BORB2C"/>
+                <EntitySet Name="valueListGSTIN" EntityType="Reports.valueListGSTIN"/>
+                <EntitySet Name="valueListSupplierGSTIN" EntityType="Reports.valueListSupplierGSTIN"/>
+                <EntitySet Name="exhaustiveReport" EntityType="Reports.exhaustiveReport"/>
+            </EntityContainer>
+            <EntityType Name="valueListSectionType">
+                <Property Name="B2B_B2C_INDICATOR" Type="Edm.String" MaxLength="3"/>
+            </EntityType>
+            <EntityType Name="valueListTicketIssueDate">
+                <Property Name="DATE_OF_ISSUE" Type="Edm.Date"/>
+            </EntityType>
+            <EntityType Name="valueListCompany">
+                <Property Name="AIRLINE_CODE" Type="Edm.String" MaxLength="4" Nullable="false"/>
+            </EntityType>
+            <EntityType Name="valueListIataNumber">
+                <Property Name="AGENT_CODE" Type="Edm.String" MaxLength="10"/>
+            </EntityType>
+            <EntityType Name="valueListTransactionType">
+                <Property Name="TRANSACTION_TYPE" Type="Edm.String" MaxLength="10"/>
+            </EntityType>
+            <EntityType Name="valueListGstDifference">
+                <Property Name="GST_DIFFERENCE" Type="Edm.Decimal" Scale="3" Precision="14"/>
+            </EntityType>
+            <EntityType Name="DiscrepancyReport">
+                <Property Name="GST_COLLECTED" Type="Edm.Decimal" Scale="3" Precision="14"/>
+                <Property Name="GST_RATE" Type="Edm.Decimal" Scale="3" Precision="14"/>
+                <Property Name="AIRLINE_CODE" Type="Edm.String" MaxLength="4" Nullable="false"/>
+                <Property Name="MAIN_TICKET_NUMBER" Type="Edm.String" MaxLength="15"/>
+                <Property Name="DATE_OF_ISSUE" Type="Edm.Date"/>
+                <Property Name="AGENT_CODE" Type="Edm.String" MaxLength="10"/>
+                <Property Name="B2B_B2C_INDICATOR" Type="Edm.String" MaxLength="3"/>
+                <Property Name="ROUTING" Type="Edm.String" MaxLength="255"/>
+                <Property Name="TAXABLE_AMOUNT" Type="Edm.Decimal" Scale="2" Precision="16"/>
+                <Property Name="SGST_AMOUNT" Type="Edm.Decimal" Scale="2" Precision="16"/>
+                <Property Name="CGST_AMOUNT" Type="Edm.Decimal" Scale="2" Precision="16"/>
+                <Property Name="IGST_AMOUNT" Type="Edm.Decimal" Scale="2" Precision="16"/>
+                <Property Name="TRANSACTION_TYPE" Type="Edm.String" MaxLength="10"/>
+                <Property Name="BASIC_FARE" Type="Edm.Decimal" Scale="2" Precision="16"/>
+                <Property Name="GST_DIFFERENCE" Type="Edm.Decimal" Scale="3" Precision="14"/>
+                <Property Name="GST_DERIVED" Type="Edm.Decimal" Scale="3" Precision="14"/>
+            </EntityType>
+            <EntityType Name="valueListTaxInvoiceType">
+                <Property Name="TAX_INVOICE_TYPE" Type="Edm.String" MaxLength="20"/>
+            </EntityType>
+            <EntityType Name="valueListReferenceNumber">
+                <Property Name="REFERENCE_NUMBER" Type="Edm.String" MaxLength="16"/>
+            </EntityType>
+            <EntityType Name="valueListReferenceDate">
+                <Property Name="REFERENCE_DATE" Type="Edm.Date"/>
+            </EntityType>
+            <EntityType Name="valueListOrginalTicket">
+                <Property Name="ORIGINAL_TKT" Type="Edm.String" MaxLength="15"/>
+            </EntityType>
+            <EntityType Name="valueListB2BORB2C">
+                <Property Name="B2B_OR_B2C" Type="Edm.String" MaxLength="3"/>
+            </EntityType>
+            <EntityType Name="valueListGSTIN">
+                <Property Name="GSTIN" Type="Edm.String" MaxLength="15"/>
+            </EntityType>
+            <EntityType Name="valueListSupplierGSTIN">
+                <Property Name="AI_GSTIN_NO" Type="Edm.String" MaxLength="15"/>
+            </EntityType>
+            <EntityType Name="exhaustiveReport">
+                <Property Name="TAX_INVOICE_TYPE" Type="Edm.String" MaxLength="20"/>
+                <Property Name="REFERENCE_NUMBER" Type="Edm.String" MaxLength="16"/>
+                <Property Name="REFERENCE_DATE" Type="Edm.Date"/>
+                <Property Name="ORIGINAL_TKT" Type="Edm.String" MaxLength="15"/>
+                <Property Name="B2B_OR_B2C" Type="Edm.String" MaxLength="3"/>
+                <Property Name="GSTIN" Type="Edm.String" MaxLength="15"/>
+                <Property Name="PAX_NAME" Type="Edm.String" MaxLength="255"/>
+                <Property Name="SECTOR_JOURNEY" Type="Edm.String" MaxLength="255"/>
+                <Property Name="INTERNATIONAL_DOMESTIC" Type="Edm.String" MaxLength="1"/>
+                <Property Name="XON0_IN_CASE_OF_GOI" Type="Edm.String" MaxLength="16"/>
+                <Property Name="FOP_DTLS" Type="Edm.String" MaxLength="13"/>
+                <Property Name="AI_GSTIN_NO" Type="Edm.String" MaxLength="15"/>
+                <Property Name="PLACE_OF_SUPPLY" Type="Edm.String" MaxLength="255"/>
+                <Property Name="PAN_NO" Type="Edm.String" MaxLength="10"/>
+                <Property Name="HSN_CODE" Type="Edm.String" MaxLength="8"/>
+                <Property Name="TOTAL_TAXABLE_VALUE" Type="Edm.Decimal" Scale="2" Precision="16"/>
+                <Property Name="DISCOUNT" Type="Edm.Decimal" Scale="2" Precision="16"/>
+                <Property Name="NET_TAXABLE_VALUE" Type="Edm.Decimal" Scale="2" Precision="16"/>
+                <Property Name="CGST_AMOUNT" Type="Edm.Decimal" Scale="2" Precision="16"/>
+                <Property Name="CGST_RATE" Type="Edm.Decimal" Scale="2" Precision="16"/>
+                <Property Name="SGST_AMOUNT" Type="Edm.Decimal" Scale="2" Precision="16"/>
+                <Property Name="SGST_RATE" Type="Edm.Decimal" Scale="2" Precision="16"/>
+                <Property Name="UGST_AMOUNT" Type="Edm.Decimal" Scale="2" Precision="16"/>
+                <Property Name="UGST_RATE" Type="Edm.Decimal" Scale="2" Precision="16"/>
+                <Property Name="IGST_AMOUNT" Type="Edm.Decimal" Scale="2" Precision="16"/>
+                <Property Name="IGST_RATE" Type="Edm.Decimal" Scale="2" Precision="16"/>
+                <Property Name="GST_VALUE" Type="Edm.Decimal" Scale="3" Precision="14"/>
+                <Property Name="ADDRESS_OF_CORPORATE" Type="Edm.String" MaxLength="255"/>
+                <Property Name="STATE_CODE" Type="Edm.String" MaxLength="2"/>
+                <Property Name="STATE" Type="Edm.String" MaxLength="50"/>
+                <Property Name="TRANSACTION_CODE" Type="Edm.String" MaxLength="10"/>
+                <Property Name="ACTIVITY" Type="Edm.String" MaxLength="10"/>
+                <Property Name="DOCUMENT_NUMBER" Type="Edm.String" MaxLength="15"/>
+                <Property Name="DOCUMENT_DATE" Type="Edm.Date"/>
+                <Property Name="IATA_OFFICE" Type="Edm.String" MaxLength="10"/>
+                <Property Name="ENDORSEMENT_DTLS" Type="Edm.String" MaxLength="100"/>
+                <Property Name="BASE_FARE" Type="Edm.Decimal" Scale="2" Precision="16"/>
+                <Property Name="TOTAL_FARE" Type="Edm.Decimal" Scale="2" Precision="16"/>
+                <Property Name="REASON_FOR_ISSUANCE_SUB_CODE" Type="Edm.String" MaxLength="3"/>
+                <Property Name="OPERATING_CABIN_CLASS" Type="Edm.String" MaxLength="1"/>
+                <Property Name="Place_of_Embarkation" Type="Edm.String" MaxLength="3"/>
+                <Property Name="Place_of_Disembarkation" Type="Edm.String" MaxLength="3"/>
+                <Property Name="LIABILITY_DISCHARGE_STATE" Type="Edm.String" MaxLength="2"/>
+                <Property Name="TAX_1" Type="Edm.String" MaxLength="6"/>
+                <Property Name="TAX_AMOUNT_1" Type="Edm.Decimal" Scale="2" Precision="16"/>
+                <Property Name="TAX_2" Type="Edm.String" MaxLength="6"/>
+                <Property Name="TAX_AMOUNT_2" Type="Edm.Decimal" Scale="2" Precision="16"/>
+                <Property Name="TAX_3" Type="Edm.String" MaxLength="6"/>
+                <Property Name="TAX_AMOUNT_3" Type="Edm.Decimal" Scale="2" Precision="16"/>
+                <Property Name="TAX_4" Type="Edm.String" MaxLength="6"/>
+                <Property Name="TAX_AMOUNT_4" Type="Edm.Decimal" Scale="2" Precision="16"/>
+                <Property Name="TAX_5" Type="Edm.String" MaxLength="6"/>
+                <Property Name="TAX_AMOUNT_5" Type="Edm.Decimal" Scale="2" Precision="16"/>
+                <Property Name="TAX_6" Type="Edm.String" MaxLength="6"/>
+                <Property Name="TAX_AMOUNT_6" Type="Edm.Decimal" Scale="2" Precision="16"/>
+                <Property Name="TAX_7" Type="Edm.String" MaxLength="6"/>
+                <Property Name="TAX_AMOUNT_7" Type="Edm.Decimal" Scale="2" Precision="16"/>
+                <Property Name="TAX_8" Type="Edm.String" MaxLength="6"/>
+                <Property Name="TAX_AMOUNT_8" Type="Edm.Decimal" Scale="2" Precision="16"/>
+                <Property Name="TAX_9" Type="Edm.String" MaxLength="6"/>
+                <Property Name="TAX_AMOUNT_9" Type="Edm.Decimal" Scale="2" Precision="16"/>
+                <Property Name="TAX_10" Type="Edm.String" MaxLength="6"/>
+                <Property Name="TAX_AMOUNT_10" Type="Edm.Decimal" Scale="2" Precision="16"/>
+                <Property Name="TAX_11" Type="Edm.String" MaxLength="6"/>
+                <Property Name="TAX_AMOUNT_11" Type="Edm.Decimal" Scale="2" Precision="16"/>
+                <Property Name="TAX_12" Type="Edm.String" MaxLength="6"/>
+                <Property Name="TAX_AMOUNT_12" Type="Edm.Decimal" Scale="2" Precision="16"/>
+                <Property Name="TAX_13" Type="Edm.String" MaxLength="6"/>
+                <Property Name="TAX_AMOUNT_13" Type="Edm.Decimal" Scale="2" Precision="16"/>
+                <Property Name="TAX_14" Type="Edm.String" MaxLength="6"/>
+                <Property Name="TAX_AMOUNT_14" Type="Edm.Decimal" Scale="2" Precision="16"/>
+                <Property Name="TAX_15" Type="Edm.String" MaxLength="6"/>
+                <Property Name="TAX_AMOUNT_15" Type="Edm.Decimal" Scale="2" Precision="16"/>
+                <Property Name="TAX_16" Type="Edm.String" MaxLength="6"/>
+                <Property Name="TAX_AMOUNT_16" Type="Edm.Decimal" Scale="2" Precision="16"/>
+                <Property Name="TAX_17" Type="Edm.String" MaxLength="6"/>
+                <Property Name="TAX_AMOUNT_17" Type="Edm.Decimal" Scale="2" Precision="16"/>
+                <Property Name="TAX_18" Type="Edm.String" MaxLength="6"/>
+                <Property Name="TAX_AMOUNT_18" Type="Edm.Decimal" Scale="2" Precision="16"/>
+                <Property Name="TAX_19" Type="Edm.String" MaxLength="6"/>
+                <Property Name="TAX_AMOUNT_19" Type="Edm.Decimal" Scale="2" Precision="16"/>
+                <Property Name="TAX_20" Type="Edm.String" MaxLength="6"/>
+                <Property Name="TAX_AMOUNT_20" Type="Edm.Decimal" Scale="2" Precision="16"/>
+            </EntityType>
+            <Annotations Target="Reports.valueListSectionType/B2B_B2C_INDICATOR">
+                <Annotation Term="Common.Label" String="Section Type"/>
+            </Annotations>
+            <Annotations Target="Reports.valueListTicketIssueDate/DATE_OF_ISSUE">
+                <Annotation Term="Common.Label" String="Ticket Issue Date"/>
+            </Annotations>
+            <Annotations Target="Reports.valueListIataNumber/AGENT_CODE">
+                <Annotation Term="Common.Label" String="IATA Number"/>
+            </Annotations>
+            <Annotations Target="Reports.valueListGstDifference/GST_DIFFERENCE">
+                <Annotation Term="Core.Computed" Bool="true"/>
+            </Annotations>
+            <Annotations Target="Reports.DiscrepancyReport/GST_COLLECTED">
+                <Annotation Term="Core.Computed" Bool="true"/>
+            </Annotations>
+            <Annotations Target="Reports.DiscrepancyReport/GST_RATE">
+                <Annotation Term="Core.Computed" Bool="true"/>
+            </Annotations>
+            <Annotations Target="Reports.DiscrepancyReport/MAIN_TICKET_NUMBER">
+                <Annotation Term="Common.Label" String="Ticket Number"/>
+            </Annotations>
+            <Annotations Target="Reports.DiscrepancyReport/DATE_OF_ISSUE">
+                <Annotation Term="Common.Label" String="Ticket Issue Date"/>
+            </Annotations>
+            <Annotations Target="Reports.DiscrepancyReport/AGENT_CODE">
+                <Annotation Term="Common.Label" String="IATA Number"/>
+            </Annotations>
+            <Annotations Target="Reports.DiscrepancyReport/B2B_B2C_INDICATOR">
+                <Annotation Term="Common.Label" String="Section Type"/>
+            </Annotations>
+            <Annotations Target="Reports.DiscrepancyReport/ROUTING">
+                <Annotation Term="Common.Label" String="Full Routing"/>
+            </Annotations>
+            <Annotations Target="Reports.DiscrepancyReport/TAXABLE_AMOUNT">
+                <Annotation Term="Common.Label" String="Net Taxable Value"/>
+            </Annotations>
+            <Annotations Target="Reports.DiscrepancyReport/SGST_AMOUNT">
+                <Annotation Term="Common.Label" String="SGST Amount"/>
+            </Annotations>
+            <Annotations Target="Reports.DiscrepancyReport/CGST_AMOUNT">
+                <Annotation Term="Common.Label" String="CGST Amount"/>
+            </Annotations>
+            <Annotations Target="Reports.DiscrepancyReport/IGST_AMOUNT">
+                <Annotation Term="Common.Label" String="IGST Amount"/>
+            </Annotations>
+            <Annotations Target="Reports.DiscrepancyReport/GST_DIFFERENCE">
+                <Annotation Term="Core.Computed" Bool="true"/>
+            </Annotations>
+            <Annotations Target="Reports.DiscrepancyReport/GST_DERIVED">
+                <Annotation Term="Core.Computed" Bool="true"/>
+            </Annotations>
+            <Annotations Target="Reports.valueListTaxInvoiceType/TAX_INVOICE_TYPE">
+                <Annotation Term="Common.Label" String="Document Type"/>
+            </Annotations>
+            <Annotations Target="Reports.valueListReferenceNumber/REFERENCE_NUMBER">
+                <Annotation Term="Common.Label" String="Invoice Number"/>
+            </Annotations>
+            <Annotations Target="Reports.valueListReferenceDate/REFERENCE_DATE">
+                <Annotation Term="Common.Label" String="Invoice Date"/>
+            </Annotations>
+            <Annotations Target="Reports.valueListOrginalTicket/ORIGINAL_TKT">
+                <Annotation Term="Common.Label" String="Ticket Number"/>
+            </Annotations>
+            <Annotations Target="Reports.valueListB2BORB2C/B2B_OR_B2C">
+                <Annotation Term="Common.Label" String="Section Type"/>
+            </Annotations>
+            <Annotations Target="Reports.valueListGSTIN/GSTIN">
+                <Annotation Term="Common.Label" String="Passenger GSTIN"/>
+            </Annotations>
+            <Annotations Target="Reports.valueListSupplierGSTIN/AI_GSTIN_NO">
+                <Annotation Term="Common.Label" String="Supplier GSTIN"/>
+            </Annotations>
+            <Annotations Target="Reports.exhaustiveReport/TAX_INVOICE_TYPE">
+                <Annotation Term="Common.Label" String="Document Type"/>
+            </Annotations>
+            <Annotations Target="Reports.exhaustiveReport/REFERENCE_NUMBER">
+                <Annotation Term="Common.Label" String="Invoice Number"/>
+            </Annotations>
+            <Annotations Target="Reports.exhaustiveReport/REFERENCE_DATE">
+                <Annotation Term="Common.Label" String="Invoice Date"/>
+            </Annotations>
+            <Annotations Target="Reports.exhaustiveReport/ORIGINAL_TKT">
+                <Annotation Term="Common.Label" String="Ticket Number"/>
+            </Annotations>
+            <Annotations Target="Reports.exhaustiveReport/B2B_OR_B2C">
+                <Annotation Term="Common.Label" String="Section Type"/>
+            </Annotations>
+            <Annotations Target="Reports.exhaustiveReport/GSTIN">
+                <Annotation Term="Common.Label" String="Passenger GSTIN"/>
+            </Annotations>
+            <Annotations Target="Reports.exhaustiveReport/PAX_NAME">
+                <Annotation Term="Common.Label" String="Bill To Name"/>
+            </Annotations>
+            <Annotations Target="Reports.exhaustiveReport/SECTOR_JOURNEY">
+                <Annotation Term="Common.Label" String="Full Routing"/>
+            </Annotations>
+            <Annotations Target="Reports.exhaustiveReport/INTERNATIONAL_DOMESTIC">
+                <Annotation Term="Common.Label" String="Routing Type"/>
+            </Annotations>
+            <Annotations Target="Reports.exhaustiveReport/XON0_IN_CASE_OF_GOI">
+                <Annotation Term="Common.Label" String="XO Number"/>
+            </Annotations>
+            <Annotations Target="Reports.exhaustiveReport/FOP_DTLS">
+                <Annotation Term="Common.Label" String="FOP"/>
+            </Annotations>
+            <Annotations Target="Reports.exhaustiveReport/AI_GSTIN_NO">
+                <Annotation Term="Common.Label" String="Supplier GSTIN"/>
+            </Annotations>
+            <Annotations Target="Reports.exhaustiveReport/PLACE_OF_SUPPLY">
+                <Annotation Term="Common.Label" String="Place of Supply"/>
+            </Annotations>
+            <Annotations Target="Reports.exhaustiveReport/PAN_NO">
+                <Annotation Term="Core.Computed" Bool="true"/>
+            </Annotations>
+            <Annotations Target="Reports.exhaustiveReport/HSN_CODE">
+                <Annotation Term="Common.Label" String="HSN Code"/>
+            </Annotations>
+            <Annotations Target="Reports.exhaustiveReport/TOTAL_TAXABLE_VALUE">
+                <Annotation Term="Common.Label" String="Total Taxable Value"/>
+            </Annotations>
+            <Annotations Target="Reports.exhaustiveReport/DISCOUNT">
+                <Annotation Term="Common.Label" String="Discount"/>
+            </Annotations>
+            <Annotations Target="Reports.exhaustiveReport/NET_TAXABLE_VALUE">
+                <Annotation Term="Common.Label" String="Net Taxable Value"/>
+            </Annotations>
+            <Annotations Target="Reports.exhaustiveReport/CGST_AMOUNT">
+                <Annotation Term="Common.Label" String="CGST Amount"/>
+            </Annotations>
+            <Annotations Target="Reports.exhaustiveReport/CGST_RATE">
+                <Annotation Term="Common.Label" String="CGST Rate"/>
+            </Annotations>
+            <Annotations Target="Reports.exhaustiveReport/SGST_AMOUNT">
+                <Annotation Term="Common.Label" String="SGST Amount"/>
+            </Annotations>
+            <Annotations Target="Reports.exhaustiveReport/SGST_RATE">
+                <Annotation Term="Common.Label" String="SGST Rate"/>
+            </Annotations>
+            <Annotations Target="Reports.exhaustiveReport/UGST_AMOUNT">
+                <Annotation Term="Common.Label" String="UTGST Amount"/>
+            </Annotations>
+            <Annotations Target="Reports.exhaustiveReport/UGST_RATE">
+                <Annotation Term="Common.Label" String="UTGST Rate"/>
+            </Annotations>
+            <Annotations Target="Reports.exhaustiveReport/IGST_AMOUNT">
+                <Annotation Term="Common.Label" String="IGST Amount"/>
+            </Annotations>
+            <Annotations Target="Reports.exhaustiveReport/IGST_RATE">
+                <Annotation Term="Common.Label" String="IGST Rate"/>
+            </Annotations>
+            <Annotations Target="Reports.exhaustiveReport/GST_VALUE">
+                <Annotation Term="Core.Computed" Bool="true"/>
+            </Annotations>
+            <Annotations Target="Reports.exhaustiveReport/Place_of_Embarkation">
+                <Annotation Term="Core.Computed" Bool="true"/>
+            </Annotations>
+            <Annotations Target="Reports.exhaustiveReport/Place_of_Disembarkation">
+                <Annotation Term="Core.Computed" Bool="true"/>
+            </Annotations>
+            <Annotations Target="Reports.exhaustiveReport/LIABILITY_DISCHARGE_STATE">
+                <Annotation Term="Core.Computed" Bool="true"/>
+            </Annotations>
+        </Schema>
+    </edmx:DataServices>
+</edmx:Edmx>

@@ -1,0 +1,208 @@
+{
+  "_version": "1.49.0",
+  "sap.app": {
+    "id": "ns.amendmentrequests",
+    "type": "application",
+    "i18n": "i18n/i18n.properties",
+    "applicationVersion": {
+      "version": "0.1.1"
+    },
+    "crossNavigation": {
+      "inbounds": {
+        "intent1": {
+          "signature": {
+            "parameters": {},
+            "additionalParameters": "allowed"
+          },
+          "semanticObject": "Object",
+          "action": "display",
+          "title": "Request for Amendment",
+          "info": "",
+          "subTitle": "",
+          "icon": "sap-icon://order-status"
+        }
+      }
+    },
+    "title": "{{appTitle}}",
+    "description": "{{appDescription}}",
+    "resources": "resources.json",
+    "sourceTemplate": {
+      "id": "@sap/generator-fiori:lrop",
+      "version": "1.11.1",
+      "toolsId": "b793a0ee-24a4-4f33-b06d-90db8f7b69bf"
+    },
+    "dataSources": {
+      "mainService": {
+        "uri": "/amendmentrequest/",
+        "type": "OData",
+        "settings": {
+          "annotations": [],
+          "localUri": "localService/metadata.xml",
+          "odataVersion": "4.0"
+        }
+      }
+    }
+  },
+  "sap.ui": {
+    "technology": "UI5",
+    "icons": {
+      "icon": "",
+      "favIcon": "",
+      "phone": "",
+      "phone@2": "",
+      "tablet": "",
+      "tablet@2": ""
+    },
+    "deviceTypes": {
+      "desktop": true,
+      "tablet": true,
+      "phone": true
+    }
+  },
+  "sap.ui5": {
+    "flexEnabled": true,
+    "dependencies": {
+      "minUI5Version": "1.118.1",
+      "libs": {
+        "sap.m": {},
+        "sap.ui.core": {},
+        "sap.ushell": {},
+        "sap.fe.templates": {}
+      }
+    },
+    "contentDensities": {
+      "compact": true,
+      "cozy": true
+    },
+    "models": {
+      "i18n": {
+        "type": "sap.ui.model.resource.ResourceModel",
+        "settings": {
+          "bundleName": "ns.amendmentrequests.i18n.i18n"
+        }
+      },
+      "": {
+        "dataSource": "mainService",
+        "preload": true,
+        "settings": {
+          "synchronizationMode": "None",
+          "operationMode": "Server",
+          "autoExpandSelect": true,
+          "earlyRequests": true
+        }
+      },
+      "@i18n": {
+        "type": "sap.ui.model.resource.ResourceModel",
+        "uri": "i18n/i18n.properties"
+      }
+    },
+    "resources": {
+      "css": []
+    },
+    "routing": {
+      "config": {},
+      "routes": [
+        {
+          "pattern": ":?query:",
+          "name": "InvoiceList",
+          "target": "InvoiceList"
+        },
+        {
+          "pattern": "Invoice({key}):?query:",
+          "name": "InvoiceObjectPage",
+          "target": "InvoiceObjectPage"
+        },
+        {
+          "pattern": "Invoice({key})/InvoiceItems({key2}):?query:",
+          "name": "InvoiceItemsObjectPage",
+          "target": "InvoiceItemsObjectPage"
+        }
+      ],
+      "targets": {
+        "InvoiceList": {
+          "type": "Component",
+          "id": "InvoiceList",
+          "name": "sap.fe.templates.ListReport",
+          "options": {
+            "settings": {
+              "entitySet": "Invoice",
+              "variantManagement": "Page",
+              "navigation": {
+                "Invoice": {
+                  "detail": {
+                    "route": "InvoiceObjectPage"
+                  }
+                }
+              },
+              "controlConfiguration": {
+                "@com.sap.vocabularies.UI.v1.LineItem": {
+                  "tableSettings": {
+                    "type": "GridTable"
+                  },
+                  "actions": {
+                    "reject": {
+                      "press": "ns.amendmentrequests.custom.customActions.requestAmendment",
+                      "enabled": true,
+                      "text": "Request",
+                      "requiresSelection": true
+                    },
+                    "approve": {
+                      "press": "ns.amendmentrequests.custom.customActions.requestBulkAmendment",
+                      "enabled": true,
+                      "text": "Upload"
+                    },
+                    "exportAll": {
+                      "press": "ns.amendmentrequests.custom.customActions.exportAll",
+                      "text": "Export All",
+                      "enabled": true,
+                      "visible": true,
+                      "inline": false,
+                      "requiresSelection": false
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "InvoiceObjectPage": {
+          "type": "Component",
+          "id": "InvoiceObjectPage",
+          "name": "sap.fe.templates.ObjectPage",
+          "options": {
+            "settings": {
+              "editableHeaderContent": false,
+              "entitySet": "Invoice",
+              "controlConfiguration": {
+                "InvoiceItems/@com.sap.vocabularies.UI.v1.LineItem": {
+                  "tableSettings": {
+                    "type": "GridTable"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "InvoiceItemsObjectPage": {
+          "type": "Component",
+          "id": "InvoiceItemsObjectPage",
+          "name": "sap.fe.templates.ObjectPage",
+          "options": {
+            "settings": {
+              "editableHeaderContent": false,
+              "entitySet": "InvoiceItems"
+            }
+          }
+        }
+      }
+    }
+  },
+  "sap.fiori": {
+    "registrationIds": [],
+    "archeType": "transactional"
+  },
+  "sap.cloud": {
+    "public": true,
+    "service": "cpapp.service"
+  }
+}

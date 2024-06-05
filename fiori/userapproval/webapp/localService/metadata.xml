@@ -1,0 +1,734 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="4.0" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+    <edmx:Reference Uri="https://sap.github.io/odata-vocabularies/vocabularies/Common.xml">
+        <edmx:Include Alias="Common" Namespace="com.sap.vocabularies.Common.v1"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Core.V1.xml">
+        <edmx:Include Alias="Core" Namespace="Org.OData.Core.V1"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="https://sap.github.io/odata-vocabularies/vocabularies/UI.xml">
+        <edmx:Include Alias="UI" Namespace="com.sap.vocabularies.UI.v1"/>
+    </edmx:Reference>
+    <edmx:DataServices>
+        <Schema Namespace="userService" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+            <EntityContainer Name="EntityContainer">
+                <EntitySet Name="valueListCategory" EntityType="userService.valueListCategory"/>
+                <EntitySet Name="valueListCountry" EntityType="userService.valueListCountry">
+                    <NavigationPropertyBinding Path="Country" Target="Countries"/>
+                </EntitySet>
+                <EntitySet Name="valueListCompanyName" EntityType="userService.valueListCompanyName"/>
+                <EntitySet Name="CompanyMasters" EntityType="userService.CompanyMasters">
+                    <NavigationPropertyBinding Path="country" Target="Countries"/>
+                    <NavigationPropertyBinding Path="consulateEmbassyCountry" Target="Countries"/>
+                    <NavigationPropertyBinding Path="CategoryMaster" Target="CategoryMaster"/>
+                    <NavigationPropertyBinding Path="CompanyUsers" Target="CompanyUsers"/>
+                    <NavigationPropertyBinding Path="CompanyUserRoles" Target="CompanyUserRoles"/>
+                    <NavigationPropertyBinding Path="StateCodes" Target="StateCodes"/>
+                    <NavigationPropertyBinding Path="CompanyGSTIN" Target="CompanyGSTIN"/>
+                </EntitySet>
+                <EntitySet Name="CompanyUsers" EntityType="userService.CompanyUsers">
+                    <NavigationPropertyBinding Path="CompanyMasters" Target="CompanyMasters"/>
+                    <NavigationPropertyBinding Path="CompanyUserRoles" Target="CompanyUserRoles"/>
+                </EntitySet>
+                <EntitySet Name="CompanyUserRoles" EntityType="userService.CompanyUserRoles">
+                    <NavigationPropertyBinding Path="CompanyMasters" Target="CompanyMasters"/>
+                    <NavigationPropertyBinding Path="CompanyUsers" Target="CompanyUsers"/>
+                </EntitySet>
+                <EntitySet Name="CategoryMaster" EntityType="userService.CategoryMaster"/>
+                <EntitySet Name="StateCodes" EntityType="userService.StateCodes">
+                    <NavigationPropertyBinding Path="country" Target="Countries"/>
+                </EntitySet>
+                <EntitySet Name="CompanyGSTINAdresses" EntityType="userService.CompanyGSTINAdresses">
+                    <NavigationPropertyBinding Path="StateCodes" Target="StateCodes"/>
+                </EntitySet>
+                <EntitySet Name="CompanyGSTIN" EntityType="userService.CompanyGSTIN">
+                    <NavigationPropertyBinding Path="country" Target="Countries"/>
+                    <NavigationPropertyBinding Path="CompanyMasters" Target="CompanyMasters"/>
+                    <NavigationPropertyBinding Path="CompanyGSTINAdresses" Target="CompanyGSTINAdresses"/>
+                    <NavigationPropertyBinding Path="StateCodes" Target="StateCodes"/>
+                </EntitySet>
+                <EntitySet Name="initiatedUsers" EntityType="userService.initiatedUsers">
+                    <NavigationPropertyBinding Path="country" Target="Countries"/>
+                    <NavigationPropertyBinding Path="consulateEmbassyCountry" Target="Countries"/>
+                    <NavigationPropertyBinding Path="CategoryMaster" Target="CategoryMaster"/>
+                    <NavigationPropertyBinding Path="CompanyUsers" Target="CompanyUsers"/>
+                    <NavigationPropertyBinding Path="CompanyUserRoles" Target="CompanyUserRoles"/>
+                    <NavigationPropertyBinding Path="StateCodes" Target="StateCodes"/>
+                    <NavigationPropertyBinding Path="CompanyGSTIN" Target="CompanyGSTIN"/>
+                </EntitySet>
+                <EntitySet Name="Countries" EntityType="userService.Countries">
+                    <NavigationPropertyBinding Path="texts" Target="Countries_texts"/>
+                    <NavigationPropertyBinding Path="localized" Target="Countries_texts"/>
+                </EntitySet>
+                <EntitySet Name="Countries_texts" EntityType="userService.Countries_texts"/>
+                <FunctionImport Name="getCSRFToken" Function="userService.getCSRFToken"/>
+                <ActionImport Name="assignAsAdmin" Action="userService.assignAsAdmin"/>
+            </EntityContainer>
+            <EntityType Name="valueListCategory">
+                <Property Name="Category" Type="Edm.String" MaxLength="3"/>
+                <Property Name="Name" Type="Edm.String" MaxLength="50"/>
+            </EntityType>
+            <EntityType Name="valueListCountry">
+                <NavigationProperty Name="Country" Type="userService.Countries">
+                    <ReferentialConstraint Property="Country_code" ReferencedProperty="code"/>
+                </NavigationProperty>
+                <Property Name="Country_code" Type="Edm.String" MaxLength="3"/>
+                <Property Name="Name" Type="Edm.String" MaxLength="1000"/>
+            </EntityType>
+            <EntityType Name="valueListCompanyName">
+                <Property Name="companyName" Type="Edm.String" MaxLength="256"/>
+            </EntityType>
+            <EntityType Name="CompanyMasters">
+                <Key>
+                    <PropertyRef Name="ID"/>
+                </Key>
+                <Property Name="ID" Type="Edm.Guid" Nullable="false"/>
+                <Property Name="companyName" Type="Edm.String" MaxLength="255"/>
+                <Property Name="companyRegistrationNumber" Type="Edm.String" MaxLength="21"/>
+                <Property Name="companyPan" Type="Edm.String" MaxLength="10"/>
+                <Property Name="companyTan" Type="Edm.String" MaxLength="10"/>
+                <Property Name="address" Type="Edm.String" MaxLength="500"/>
+                <NavigationProperty Name="country" Type="userService.Countries">
+                    <ReferentialConstraint Property="country_code" ReferencedProperty="code"/>
+                </NavigationProperty>
+                <Property Name="country_code" Type="Edm.String" MaxLength="3"/>
+                <Property Name="state" Type="Edm.String" MaxLength="3"/>
+                <Property Name="city" Type="Edm.String" MaxLength="40"/>
+                <Property Name="pincode" Type="Edm.String" MaxLength="6"/>
+                <Property Name="contactNumber" Type="Edm.String" MaxLength="13"/>
+                <Property Name="website" Type="Edm.String" MaxLength="255"/>
+                <Property Name="category" Type="Edm.String" MaxLength="3"/>
+                <Property Name="isEcommerceOperator" Type="Edm.Boolean" DefaultValue="false"/>
+                <NavigationProperty Name="consulateEmbassyCountry" Type="userService.Countries">
+                    <ReferentialConstraint Property="consulateEmbassyCountry_code" ReferencedProperty="code"/>
+                </NavigationProperty>
+                <Property Name="consulateEmbassyCountry_code" Type="Edm.String" MaxLength="3"/>
+                <NavigationProperty Name="CategoryMaster" Type="userService.CategoryMaster">
+                    <ReferentialConstraint Property="category" ReferencedProperty="code"/>
+                </NavigationProperty>
+                <NavigationProperty Name="CompanyUsers" Type="Collection(userService.CompanyUsers)"/>
+                <NavigationProperty Name="CompanyUserRoles" Type="userService.CompanyUserRoles">
+                    <ReferentialConstraint Property="ID" ReferencedProperty="companyId"/>
+                </NavigationProperty>
+                <NavigationProperty Name="StateCodes" Type="userService.StateCodes">
+                    <ReferentialConstraint Property="state" ReferencedProperty="stateCode"/>
+                </NavigationProperty>
+                <NavigationProperty Name="CompanyGSTIN" Type="Collection(userService.CompanyGSTIN)"/>
+            </EntityType>
+            <EntityType Name="CompanyUsers">
+                <Key>
+                    <PropertyRef Name="ID"/>
+                    <PropertyRef Name="companyId"/>
+                </Key>
+                <Property Name="ID" Type="Edm.Guid" Nullable="false"/>
+                <Property Name="companyId" Type="Edm.Guid" Nullable="false"/>
+                <Property Name="loginEmail" Type="Edm.String" MaxLength="255" Nullable="false"/>
+                <Property Name="title" Type="Edm.String" MaxLength="4" Nullable="false"/>
+                <Property Name="firstName" Type="Edm.String" MaxLength="40" Nullable="false"/>
+                <Property Name="lastName" Type="Edm.String" MaxLength="40" Nullable="false"/>
+                <Property Name="mobile" Type="Edm.String" MaxLength="13" Nullable="false"/>
+                <Property Name="lastLoggedOn" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="lastPasswordChangedOn" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="loginAttempts" Type="Edm.Int32"/>
+                <Property Name="failedAttempts" Type="Edm.Int32"/>
+                <Property Name="lastFailedLoginDate" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="status" Type="Edm.String" MaxLength="1"/>
+                <Property Name="reasonForDeactivation" Type="Edm.String" MaxLength="255"/>
+                <Property Name="criticality" Type="Edm.Int32"/>
+                <NavigationProperty Name="CompanyMasters" Type="userService.CompanyMasters">
+                    <ReferentialConstraint Property="companyId" ReferencedProperty="ID"/>
+                </NavigationProperty>
+                <NavigationProperty Name="CompanyUserRoles" Type="userService.CompanyUserRoles">
+                    <ReferentialConstraint Property="ID" ReferencedProperty="userId"/>
+                </NavigationProperty>
+            </EntityType>
+            <EntityType Name="CompanyUserRoles">
+                <Key>
+                    <PropertyRef Name="companyId"/>
+                    <PropertyRef Name="userId"/>
+                </Key>
+                <Property Name="createdAt" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="createdBy" Type="Edm.String" MaxLength="255"/>
+                <Property Name="modifiedAt" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="modifiedBy" Type="Edm.String" MaxLength="255"/>
+                <Property Name="companyId" Type="Edm.Guid" Nullable="false"/>
+                <Property Name="userId" Type="Edm.Guid" Nullable="false"/>
+                <Property Name="validFrom" Type="Edm.Date"/>
+                <Property Name="validTill" Type="Edm.Date"/>
+                <Property Name="isAdmin" Type="Edm.Boolean" DefaultValue="false"/>
+                <Property Name="canAddGSTIN" Type="Edm.Boolean" DefaultValue="false"/>
+                <Property Name="canEditGSTINAddress" Type="Edm.Boolean" DefaultValue="false"/>
+                <Property Name="canAmendmentRequest" Type="Edm.Boolean" DefaultValue="false"/>
+                <Property Name="canAmendmentApprove" Type="Edm.Boolean" DefaultValue="false"/>
+                <Property Name="canEditGst" Type="Edm.Boolean" DefaultValue="false"/>
+                <Property Name="approvedBy" Type="Edm.String" MaxLength="255"/>
+                <Property Name="approvedOn" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="approvedAt" Type="Edm.DateTimeOffset" Precision="7"/>
+                <NavigationProperty Name="CompanyMasters" Type="userService.CompanyMasters">
+                    <ReferentialConstraint Property="companyId" ReferencedProperty="ID"/>
+                </NavigationProperty>
+                <NavigationProperty Name="CompanyUsers" Type="userService.CompanyUsers">
+                    <ReferentialConstraint Property="userId" ReferencedProperty="ID"/>
+                    <ReferentialConstraint Property="companyId" ReferencedProperty="companyId"/>
+                </NavigationProperty>
+            </EntityType>
+            <EntityType Name="CategoryMaster">
+                <Key>
+                    <PropertyRef Name="code"/>
+                </Key>
+                <Property Name="code" Type="Edm.String" MaxLength="3" Nullable="false"/>
+                <Property Name="description" Type="Edm.String" MaxLength="50"/>
+                <Property Name="isAgent" Type="Edm.Boolean" DefaultValue="false"/>
+            </EntityType>
+            <EntityType Name="StateCodes">
+                <Key>
+                    <PropertyRef Name="stateCode"/>
+                </Key>
+                <Property Name="stateCode" Type="Edm.String" MaxLength="2" Nullable="false"/>
+                <Property Name="stateName" Type="Edm.String" MaxLength="50"/>
+                <NavigationProperty Name="country" Type="userService.Countries">
+                    <ReferentialConstraint Property="country_code" ReferencedProperty="code"/>
+                </NavigationProperty>
+                <Property Name="country_code" Type="Edm.String" MaxLength="3"/>
+                <Property Name="region" Type="Edm.String" MaxLength="10"/>
+            </EntityType>
+            <EntityType Name="CompanyGSTINAdresses">
+                <Property Name="companyId" Type="Edm.Guid"/>
+                <Property Name="gstin" Type="Edm.String" MaxLength="15"/>
+                <Property Name="type" Type="Edm.String" MaxLength="15"/>
+                <Property Name="useForInvoicePrinting" Type="Edm.Boolean" DefaultValue="false"/>
+                <Property Name="effectiveFrom" Type="Edm.Date"/>
+                <Property Name="effectiveTill" Type="Edm.Date"/>
+                <Property Name="address" Type="Edm.String" MaxLength="500"/>
+                <Property Name="state" Type="Edm.String" MaxLength="3"/>
+                <Property Name="city" Type="Edm.String" MaxLength="40"/>
+                <Property Name="pincode" Type="Edm.String" MaxLength="6"/>
+                <NavigationProperty Name="StateCodes" Type="userService.StateCodes">
+                    <ReferentialConstraint Property="state" ReferencedProperty="stateCode"/>
+                </NavigationProperty>
+            </EntityType>
+            <EntityType Name="CompanyGSTIN">
+                <Key>
+                    <PropertyRef Name="companyId"/>
+                    <PropertyRef Name="GSTIN"/>
+                </Key>
+                <Property Name="companyId" Type="Edm.Guid" Nullable="false"/>
+                <Property Name="GSTIN" Type="Edm.String" MaxLength="15" Nullable="false"/>
+                <Property Name="gsttype" Type="Edm.String" MaxLength="20"/>
+                <Property Name="dateOfIssueGST" Type="Edm.Date"/>
+                <Property Name="default" Type="Edm.Boolean" DefaultValue="false"/>
+                <Property Name="ARNNo" Type="Edm.String" MaxLength="25"/>
+                <Property Name="dateOfIssueARN" Type="Edm.Date"/>
+                <Property Name="address" Type="Edm.String" MaxLength="510"/>
+                <NavigationProperty Name="country" Type="userService.Countries">
+                    <ReferentialConstraint Property="country_code" ReferencedProperty="code"/>
+                </NavigationProperty>
+                <Property Name="country_code" Type="Edm.String" MaxLength="3"/>
+                <Property Name="state" Type="Edm.String" MaxLength="3"/>
+                <Property Name="city" Type="Edm.String" MaxLength="40"/>
+                <Property Name="pincode" Type="Edm.String" MaxLength="10"/>
+                <Property Name="status" Type="Edm.String" MaxLength="10"/>
+                <Property Name="lastValidatedOn" Type="Edm.Date"/>
+                <NavigationProperty Name="CompanyMasters" Type="userService.CompanyMasters">
+                    <ReferentialConstraint Property="companyId" ReferencedProperty="ID"/>
+                </NavigationProperty>
+                <NavigationProperty Name="CompanyGSTINAdresses" Type="Collection(userService.CompanyGSTINAdresses)"/>
+                <NavigationProperty Name="StateCodes" Type="userService.StateCodes">
+                    <ReferentialConstraint Property="state" ReferencedProperty="stateCode"/>
+                </NavigationProperty>
+            </EntityType>
+            <EntityType Name="initiatedUsers">
+                <Key>
+                    <PropertyRef Name="ID"/>
+                </Key>
+                <Property Name="ID" Type="Edm.Guid" Nullable="false"/>
+                <Property Name="companyName" Type="Edm.String" MaxLength="255"/>
+                <Property Name="companyRegistrationNumber" Type="Edm.String" MaxLength="21"/>
+                <Property Name="companyPan" Type="Edm.String" MaxLength="10"/>
+                <Property Name="companyTan" Type="Edm.String" MaxLength="10"/>
+                <Property Name="address" Type="Edm.String" MaxLength="500"/>
+                <NavigationProperty Name="country" Type="userService.Countries">
+                    <ReferentialConstraint Property="country_code" ReferencedProperty="code"/>
+                </NavigationProperty>
+                <Property Name="country_code" Type="Edm.String" MaxLength="3"/>
+                <Property Name="state" Type="Edm.String" MaxLength="3"/>
+                <Property Name="city" Type="Edm.String" MaxLength="40"/>
+                <Property Name="pincode" Type="Edm.String" MaxLength="6"/>
+                <Property Name="contactNumber" Type="Edm.String" MaxLength="13"/>
+                <Property Name="website" Type="Edm.String" MaxLength="255"/>
+                <Property Name="category" Type="Edm.String" MaxLength="3"/>
+                <Property Name="isEcommerceOperator" Type="Edm.Boolean" DefaultValue="false"/>
+                <NavigationProperty Name="consulateEmbassyCountry" Type="userService.Countries">
+                    <ReferentialConstraint Property="consulateEmbassyCountry_code" ReferencedProperty="code"/>
+                </NavigationProperty>
+                <Property Name="consulateEmbassyCountry_code" Type="Edm.String" MaxLength="3"/>
+                <NavigationProperty Name="CategoryMaster" Type="userService.CategoryMaster">
+                    <ReferentialConstraint Property="category" ReferencedProperty="code"/>
+                </NavigationProperty>
+                <NavigationProperty Name="CompanyUsers" Type="Collection(userService.CompanyUsers)"/>
+                <NavigationProperty Name="CompanyUserRoles" Type="userService.CompanyUserRoles">
+                    <ReferentialConstraint Property="ID" ReferencedProperty="companyId"/>
+                </NavigationProperty>
+                <NavigationProperty Name="StateCodes" Type="userService.StateCodes">
+                    <ReferentialConstraint Property="state" ReferencedProperty="stateCode"/>
+                </NavigationProperty>
+                <NavigationProperty Name="CompanyGSTIN" Type="Collection(userService.CompanyGSTIN)"/>
+            </EntityType>
+            <EntityType Name="Countries">
+                <Key>
+                    <PropertyRef Name="code"/>
+                </Key>
+                <Property Name="name" Type="Edm.String" MaxLength="255"/>
+                <Property Name="descr" Type="Edm.String" MaxLength="1000"/>
+                <Property Name="code" Type="Edm.String" MaxLength="3" Nullable="false"/>
+                <NavigationProperty Name="texts" Type="Collection(userService.Countries_texts)">
+                    <OnDelete Action="Cascade"/>
+                </NavigationProperty>
+                <NavigationProperty Name="localized" Type="userService.Countries_texts">
+                    <ReferentialConstraint Property="code" ReferencedProperty="code"/>
+                </NavigationProperty>
+            </EntityType>
+            <EntityType Name="Countries_texts">
+                <Key>
+                    <PropertyRef Name="locale"/>
+                    <PropertyRef Name="code"/>
+                </Key>
+                <Property Name="locale" Type="Edm.String" MaxLength="14" Nullable="false"/>
+                <Property Name="name" Type="Edm.String" MaxLength="255"/>
+                <Property Name="descr" Type="Edm.String" MaxLength="1000"/>
+                <Property Name="code" Type="Edm.String" MaxLength="3" Nullable="false"/>
+            </EntityType>
+            <ComplexType Name="Users">
+                <Property Name="userId" Type="Edm.String" MaxLength="36"/>
+                <Property Name="companyId" Type="Edm.String" MaxLength="36"/>
+            </ComplexType>
+            <Action Name="unBlockUser" IsBound="true">
+                <Parameter Name="_it" Type="userService.CompanyUsers"/>
+                <ReturnType Type="Edm.String"/>
+            </Action>
+            <Action Name="blockUser" IsBound="true">
+                <Parameter Name="_it" Type="userService.CompanyUsers"/>
+                <Parameter Name="reason" Type="Edm.String"/>
+            </Action>
+            <Function Name="getCSRFToken" IsBound="false" IsComposable="false">
+                <ReturnType Type="Edm.String"/>
+            </Function>
+            <Action Name="assignAsAdmin" IsBound="false">
+                <Parameter Name="users" Type="Collection(userService.Users)" Nullable="false"/>
+                <ReturnType Type="Edm.String"/>
+            </Action>
+            <Annotations Target="userService.valueListCategory/Category">
+                <Annotation Term="Common.Label" String="Category"/>
+            </Annotations>
+            <Annotations Target="userService.valueListCountry/Country">
+                <Annotation Term="Common.Label" String="Country"/>
+                <Annotation Term="Core.Description" String="{i18n>CountryCode.Description}"/>
+                </Annotations>
+                <Annotations Target="userService.valueListCountry/Country_code">
+                    <Annotation Term="Common.Label" String="Country"/>
+                    <Annotation Term="Common.ValueList">
+                        <Record Type="Common.ValueListType">
+                            <PropertyValue Property="Label" String="Country"/>
+                            <PropertyValue Property="CollectionPath" String="Countries"/>
+                            <PropertyValue Property="Parameters">
+                                <Collection>
+                                    <Record Type="Common.ValueListParameterInOut">
+                                        <PropertyValue Property="LocalDataProperty" PropertyPath="Country_code"/>
+                                        <PropertyValue Property="ValueListProperty" String="code"/>
+                                    </Record>
+                                    <Record Type="Common.ValueListParameterDisplayOnly">
+                                        <PropertyValue Property="ValueListProperty" String="name"/>
+                                    </Record>
+                                </Collection>
+                            </PropertyValue>
+                        </Record>
+                    </Annotation>
+                    <Annotation Term="Core.Description" String="{i18n>CountryCode.Description}"/>
+                    </Annotations>
+                    <Annotations Target="userService.valueListCountry/Name">
+                        <Annotation Term="Common.Label" String="{i18n>Description}"/>
+                        </Annotations>
+                        <Annotations Target="userService.valueListCompanyName/companyName">
+                            <Annotation Term="Common.Label" String="User Name"/>
+                        </Annotations>
+                        <Annotations Target="userService.CompanyMasters/ID">
+                            <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                        </Annotations>
+                        <Annotations Target="userService.CompanyMasters/companyName">
+                            <Annotation Term="Common.Label" String="Company Name"/>
+                        </Annotations>
+                        <Annotations Target="userService.CompanyMasters/companyRegistrationNumber">
+                            <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                            <Annotation Term="Common.Label" String="Registration Number"/>
+                        </Annotations>
+                        <Annotations Target="userService.CompanyMasters/companyPan">
+                            <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                            <Annotation Term="Common.Label" String="PAN"/>
+                        </Annotations>
+                        <Annotations Target="userService.CompanyMasters/companyTan">
+                            <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                            <Annotation Term="Common.Label" String="TAN"/>
+                        </Annotations>
+                        <Annotations Target="userService.CompanyMasters/address">
+                            <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                            <Annotation Term="Common.Label" String="Address"/>
+                        </Annotations>
+                        <Annotations Target="userService.CompanyMasters/country">
+                            <Annotation Term="Common.Label" String="Country"/>
+                            <Annotation Term="Core.Description" String="{i18n>CountryCode.Description}"/>
+                            </Annotations>
+                            <Annotations Target="userService.CompanyMasters/country_code">
+                                <Annotation Term="Common.Label" String="Country"/>
+                                <Annotation Term="Common.ValueList">
+                                    <Record Type="Common.ValueListType">
+                                        <PropertyValue Property="Label" String="Country"/>
+                                        <PropertyValue Property="CollectionPath" String="Countries"/>
+                                        <PropertyValue Property="Parameters">
+                                            <Collection>
+                                                <Record Type="Common.ValueListParameterInOut">
+                                                    <PropertyValue Property="LocalDataProperty" PropertyPath="country_code"/>
+                                                    <PropertyValue Property="ValueListProperty" String="code"/>
+                                                </Record>
+                                                <Record Type="Common.ValueListParameterDisplayOnly">
+                                                    <PropertyValue Property="ValueListProperty" String="name"/>
+                                                </Record>
+                                            </Collection>
+                                        </PropertyValue>
+                                    </Record>
+                                </Annotation>
+                                <Annotation Term="Core.Description" String="{i18n>CountryCode.Description}"/>
+                                </Annotations>
+                                <Annotations Target="userService.CompanyMasters/state">
+                                    <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                                    <Annotation Term="Common.Label" String="State"/>
+                                </Annotations>
+                                <Annotations Target="userService.CompanyMasters/city">
+                                    <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                                    <Annotation Term="Common.Label" String="City"/>
+                                </Annotations>
+                                <Annotations Target="userService.CompanyMasters/pincode">
+                                    <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                                    <Annotation Term="Common.Label" String="Pincode"/>
+                                </Annotations>
+                                <Annotations Target="userService.CompanyMasters/contactNumber">
+                                    <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                                    <Annotation Term="Common.Label" String="Contact Number"/>
+                                </Annotations>
+                                <Annotations Target="userService.CompanyMasters/website">
+                                    <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                                    <Annotation Term="Common.Label" String="Website"/>
+                                </Annotations>
+                                <Annotations Target="userService.CompanyMasters/category">
+                                    <Annotation Term="Common.Label" String="Category"/>
+                                </Annotations>
+                                <Annotations Target="userService.CompanyMasters/isEcommerceOperator">
+                                    <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                                    <Annotation Term="Common.Label" String="Is E-commerce Operator"/>
+                                </Annotations>
+                                <Annotations Target="userService.CompanyMasters/consulateEmbassyCountry">
+                                    <Annotation Term="Common.Label" String="Consulate / Embassy"/>
+                                    <Annotation Term="Core.Description" String="{i18n>CountryCode.Description}"/>
+                                    </Annotations>
+                                    <Annotations Target="userService.CompanyMasters/consulateEmbassyCountry_code">
+                                        <Annotation Term="Common.Label" String="Consulate / Embassy"/>
+                                        <Annotation Term="Common.ValueList">
+                                            <Record Type="Common.ValueListType">
+                                                <PropertyValue Property="Label" String="Consulate / Embassy"/>
+                                                <PropertyValue Property="CollectionPath" String="Countries"/>
+                                                <PropertyValue Property="Parameters">
+                                                    <Collection>
+                                                        <Record Type="Common.ValueListParameterInOut">
+                                                            <PropertyValue Property="LocalDataProperty" PropertyPath="consulateEmbassyCountry_code"/>
+                                                            <PropertyValue Property="ValueListProperty" String="code"/>
+                                                        </Record>
+                                                        <Record Type="Common.ValueListParameterDisplayOnly">
+                                                            <PropertyValue Property="ValueListProperty" String="name"/>
+                                                        </Record>
+                                                    </Collection>
+                                                </PropertyValue>
+                                            </Record>
+                                        </Annotation>
+                                        <Annotation Term="Core.Description" String="{i18n>CountryCode.Description}"/>
+                                        </Annotations>
+                                        <Annotations Target="userService.CompanyUsers/loginEmail">
+                                            <Annotation Term="Common.Label" String="Email"/>
+                                        </Annotations>
+                                        <Annotations Target="userService.CompanyUsers/title">
+                                            <Annotation Term="Common.Label" String="Title"/>
+                                        </Annotations>
+                                        <Annotations Target="userService.CompanyUsers/firstName">
+                                            <Annotation Term="Common.Label" String="First Name"/>
+                                        </Annotations>
+                                        <Annotations Target="userService.CompanyUsers/lastName">
+                                            <Annotation Term="Common.Label" String="Last Name"/>
+                                        </Annotations>
+                                        <Annotations Target="userService.CompanyUsers/mobile">
+                                            <Annotation Term="Common.Label" String="Mobile"/>
+                                        </Annotations>
+                                        <Annotations Target="userService.CompanyUsers/lastLoggedOn">
+                                            <Annotation Term="Common.Label" String="Last Logged On"/>
+                                        </Annotations>
+                                        <Annotations Target="userService.CompanyUsers/lastPasswordChangedOn">
+                                            <Annotation Term="Common.Label" String="Last Password Changed On"/>
+                                        </Annotations>
+                                        <Annotations Target="userService.CompanyUsers/loginAttempts">
+                                            <Annotation Term="Common.Label" String="Login Attempts"/>
+                                        </Annotations>
+                                        <Annotations Target="userService.CompanyUsers/failedAttempts">
+                                            <Annotation Term="Common.Label" String="Failed Attempts"/>
+                                        </Annotations>
+                                        <Annotations Target="userService.CompanyUsers/lastFailedLoginDate">
+                                            <Annotation Term="Common.Label" String="Last Failed Login Date"/>
+                                        </Annotations>
+                                        <Annotations Target="userService.CompanyUsers/status">
+                                            <Annotation Term="Common.Label" String="Status"/>
+                                        </Annotations>
+                                        <Annotations Target="userService.CompanyUsers/reasonForDeactivation">
+                                            <Annotation Term="Common.Label" String="Reason"/>
+                                        </Annotations>
+                                        <Annotations Target="userService.CompanyUsers/criticality">
+                                            <Annotation Term="Core.Computed" Bool="true"/>
+                                        </Annotations>
+                                        <Annotations Target="userService.unBlockUser(userService.CompanyUsers)">
+                                            <Annotation Term="Common.SideEffects">
+                                                <Record Type="Common.SideEffectsType">
+                                                    <PropertyValue Property="TargetProperties">
+                                                        <Collection>
+                                                            <String>_it/status</String>
+                                                            <String>_it/reasonForDeactivation</String>
+                                                            <String>_it/criticality</String>
+                                                        </Collection>
+                                                    </PropertyValue>
+                                                </Record>
+                                            </Annotation>
+                                        </Annotations>
+                                        <Annotations Target="userService.blockUser(userService.CompanyUsers)">
+                                            <Annotation Term="Common.SideEffects">
+                                                <Record Type="Common.SideEffectsType">
+                                                    <PropertyValue Property="TargetProperties">
+                                                        <Collection>
+                                                            <String>_it/status</String>
+                                                            <String>_it/reasonForDeactivation</String>
+                                                            <String>_it/criticality</String>
+                                                        </Collection>
+                                                    </PropertyValue>
+                                                </Record>
+                                            </Annotation>
+                                        </Annotations>
+                                        <Annotations Target="userService.blockUser(userService.CompanyUsers)/reason">
+                                            <Annotation Term="Common.Label" String="Rejection Reason"/>
+                                        </Annotations>
+                                        <Annotations Target="userService.CompanyUserRoles/createdAt">
+                                            <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                                            <Annotation Term="Core.Immutable" Bool="true"/>
+                                            <Annotation Term="Core.Computed" Bool="true"/>
+                                            <Annotation Term="Common.Label" String="{i18n>CreatedAt}"/>
+                                            </Annotations>
+                                            <Annotations Target="userService.CompanyUserRoles/createdBy">
+                                                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                                                <Annotation Term="Core.Immutable" Bool="true"/>
+                                                <Annotation Term="Core.Computed" Bool="true"/>
+                                                <Annotation Term="Core.Description" String="{i18n>UserID.Description}"/>
+                                                    <Annotation Term="Common.Label" String="{i18n>CreatedBy}"/>
+                                                    </Annotations>
+                                                    <Annotations Target="userService.CompanyUserRoles/modifiedAt">
+                                                        <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                                                        <Annotation Term="Core.Computed" Bool="true"/>
+                                                        <Annotation Term="Common.Label" String="{i18n>ChangedAt}"/>
+                                                        </Annotations>
+                                                        <Annotations Target="userService.CompanyUserRoles/modifiedBy">
+                                                            <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                                                            <Annotation Term="Core.Computed" Bool="true"/>
+                                                            <Annotation Term="Core.Description" String="{i18n>UserID.Description}"/>
+                                                                <Annotation Term="Common.Label" String="{i18n>ChangedBy}"/>
+                                                                </Annotations>
+                                                                <Annotations Target="userService.StateCodes/country">
+                                                                    <Annotation Term="Common.Label" String="{i18n>Country}"/>
+                                                                        <Annotation Term="Core.Description" String="{i18n>CountryCode.Description}"/>
+                                                                        </Annotations>
+                                                                        <Annotations Target="userService.StateCodes/country_code">
+                                                                            <Annotation Term="Common.Label" String="{i18n>Country}"/>
+                                                                                <Annotation Term="Common.ValueList">
+                                                                                    <Record Type="Common.ValueListType">
+                                                                                        <PropertyValue Property="Label" String="{i18n>Country}"/>
+                                                                                            <PropertyValue Property="CollectionPath" String="Countries"/>
+                                                                                            <PropertyValue Property="Parameters">
+                                                                                                <Collection>
+                                                                                                    <Record Type="Common.ValueListParameterInOut">
+                                                                                                        <PropertyValue Property="LocalDataProperty" PropertyPath="country_code"/>
+                                                                                                        <PropertyValue Property="ValueListProperty" String="code"/>
+                                                                                                    </Record>
+                                                                                                    <Record Type="Common.ValueListParameterDisplayOnly">
+                                                                                                        <PropertyValue Property="ValueListProperty" String="name"/>
+                                                                                                    </Record>
+                                                                                                </Collection>
+                                                                                            </PropertyValue>
+                                                                                        </Record>
+                                                                                    </Annotation>
+                                                                                    <Annotation Term="Core.Description" String="{i18n>CountryCode.Description}"/>
+                                                                                    </Annotations>
+                                                                                    <Annotations Target="userService.CompanyGSTIN/gsttype">
+                                                                                        <Annotation Term="Core.Computed" Bool="true"/>
+                                                                                    </Annotations>
+                                                                                    <Annotations Target="userService.CompanyGSTIN/country">
+                                                                                        <Annotation Term="Common.Label" String="{i18n>Country}"/>
+                                                                                            <Annotation Term="Core.Description" String="{i18n>CountryCode.Description}"/>
+                                                                                            </Annotations>
+                                                                                            <Annotations Target="userService.CompanyGSTIN/country_code">
+                                                                                                <Annotation Term="Common.Label" String="{i18n>Country}"/>
+                                                                                                    <Annotation Term="Common.ValueList">
+                                                                                                        <Record Type="Common.ValueListType">
+                                                                                                            <PropertyValue Property="Label" String="{i18n>Country}"/>
+                                                                                                                <PropertyValue Property="CollectionPath" String="Countries"/>
+                                                                                                                <PropertyValue Property="Parameters">
+                                                                                                                    <Collection>
+                                                                                                                        <Record Type="Common.ValueListParameterInOut">
+                                                                                                                            <PropertyValue Property="LocalDataProperty" PropertyPath="country_code"/>
+                                                                                                                            <PropertyValue Property="ValueListProperty" String="code"/>
+                                                                                                                        </Record>
+                                                                                                                        <Record Type="Common.ValueListParameterDisplayOnly">
+                                                                                                                            <PropertyValue Property="ValueListProperty" String="name"/>
+                                                                                                                        </Record>
+                                                                                                                    </Collection>
+                                                                                                                </PropertyValue>
+                                                                                                            </Record>
+                                                                                                        </Annotation>
+                                                                                                        <Annotation Term="Core.Description" String="{i18n>CountryCode.Description}"/>
+                                                                                                        </Annotations>
+                                                                                                        <Annotations Target="userService.CompanyGSTIN/status">
+                                                                                                            <Annotation Term="Core.Computed" Bool="true"/>
+                                                                                                        </Annotations>
+                                                                                                        <Annotations Target="userService.initiatedUsers/ID">
+                                                                                                            <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                                                                                                        </Annotations>
+                                                                                                        <Annotations Target="userService.initiatedUsers/companyName">
+                                                                                                            <Annotation Term="Common.Label" String="Company Name"/>
+                                                                                                        </Annotations>
+                                                                                                        <Annotations Target="userService.initiatedUsers/companyRegistrationNumber">
+                                                                                                            <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                                                                                                            <Annotation Term="Common.Label" String="Registration Number"/>
+                                                                                                        </Annotations>
+                                                                                                        <Annotations Target="userService.initiatedUsers/companyPan">
+                                                                                                            <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                                                                                                            <Annotation Term="Common.Label" String="PAN"/>
+                                                                                                        </Annotations>
+                                                                                                        <Annotations Target="userService.initiatedUsers/companyTan">
+                                                                                                            <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                                                                                                            <Annotation Term="Common.Label" String="TAN"/>
+                                                                                                        </Annotations>
+                                                                                                        <Annotations Target="userService.initiatedUsers/address">
+                                                                                                            <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                                                                                                            <Annotation Term="Common.Label" String="Address"/>
+                                                                                                        </Annotations>
+                                                                                                        <Annotations Target="userService.initiatedUsers/country">
+                                                                                                            <Annotation Term="Common.Label" String="Country"/>
+                                                                                                            <Annotation Term="Core.Description" String="{i18n>CountryCode.Description}"/>
+                                                                                                            </Annotations>
+                                                                                                            <Annotations Target="userService.initiatedUsers/country_code">
+                                                                                                                <Annotation Term="Common.Label" String="Country"/>
+                                                                                                                <Annotation Term="Common.ValueList">
+                                                                                                                    <Record Type="Common.ValueListType">
+                                                                                                                        <PropertyValue Property="Label" String="Country"/>
+                                                                                                                        <PropertyValue Property="CollectionPath" String="Countries"/>
+                                                                                                                        <PropertyValue Property="Parameters">
+                                                                                                                            <Collection>
+                                                                                                                                <Record Type="Common.ValueListParameterInOut">
+                                                                                                                                    <PropertyValue Property="LocalDataProperty" PropertyPath="country_code"/>
+                                                                                                                                    <PropertyValue Property="ValueListProperty" String="code"/>
+                                                                                                                                </Record>
+                                                                                                                                <Record Type="Common.ValueListParameterDisplayOnly">
+                                                                                                                                    <PropertyValue Property="ValueListProperty" String="name"/>
+                                                                                                                                </Record>
+                                                                                                                            </Collection>
+                                                                                                                        </PropertyValue>
+                                                                                                                    </Record>
+                                                                                                                </Annotation>
+                                                                                                                <Annotation Term="Core.Description" String="{i18n>CountryCode.Description}"/>
+                                                                                                                </Annotations>
+                                                                                                                <Annotations Target="userService.initiatedUsers/state">
+                                                                                                                    <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                                                                                                                    <Annotation Term="Common.Label" String="State"/>
+                                                                                                                </Annotations>
+                                                                                                                <Annotations Target="userService.initiatedUsers/city">
+                                                                                                                    <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                                                                                                                    <Annotation Term="Common.Label" String="City"/>
+                                                                                                                </Annotations>
+                                                                                                                <Annotations Target="userService.initiatedUsers/pincode">
+                                                                                                                    <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                                                                                                                    <Annotation Term="Common.Label" String="Pincode"/>
+                                                                                                                </Annotations>
+                                                                                                                <Annotations Target="userService.initiatedUsers/contactNumber">
+                                                                                                                    <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                                                                                                                    <Annotation Term="Common.Label" String="Contact Number"/>
+                                                                                                                </Annotations>
+                                                                                                                <Annotations Target="userService.initiatedUsers/website">
+                                                                                                                    <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                                                                                                                    <Annotation Term="Common.Label" String="Website"/>
+                                                                                                                </Annotations>
+                                                                                                                <Annotations Target="userService.initiatedUsers/category">
+                                                                                                                    <Annotation Term="Common.Label" String="Category"/>
+                                                                                                                </Annotations>
+                                                                                                                <Annotations Target="userService.initiatedUsers/isEcommerceOperator">
+                                                                                                                    <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                                                                                                                    <Annotation Term="Common.Label" String="Is E-commerce Operator"/>
+                                                                                                                </Annotations>
+                                                                                                                <Annotations Target="userService.initiatedUsers/consulateEmbassyCountry">
+                                                                                                                    <Annotation Term="Common.Label" String="Consulate / Embassy"/>
+                                                                                                                    <Annotation Term="Core.Description" String="{i18n>CountryCode.Description}"/>
+                                                                                                                    </Annotations>
+                                                                                                                    <Annotations Target="userService.initiatedUsers/consulateEmbassyCountry_code">
+                                                                                                                        <Annotation Term="Common.Label" String="Consulate / Embassy"/>
+                                                                                                                        <Annotation Term="Common.ValueList">
+                                                                                                                            <Record Type="Common.ValueListType">
+                                                                                                                                <PropertyValue Property="Label" String="Consulate / Embassy"/>
+                                                                                                                                <PropertyValue Property="CollectionPath" String="Countries"/>
+                                                                                                                                <PropertyValue Property="Parameters">
+                                                                                                                                    <Collection>
+                                                                                                                                        <Record Type="Common.ValueListParameterInOut">
+                                                                                                                                            <PropertyValue Property="LocalDataProperty" PropertyPath="consulateEmbassyCountry_code"/>
+                                                                                                                                            <PropertyValue Property="ValueListProperty" String="code"/>
+                                                                                                                                        </Record>
+                                                                                                                                        <Record Type="Common.ValueListParameterDisplayOnly">
+                                                                                                                                            <PropertyValue Property="ValueListProperty" String="name"/>
+                                                                                                                                        </Record>
+                                                                                                                                    </Collection>
+                                                                                                                                </PropertyValue>
+                                                                                                                            </Record>
+                                                                                                                        </Annotation>
+                                                                                                                        <Annotation Term="Core.Description" String="{i18n>CountryCode.Description}"/>
+                                                                                                                        </Annotations>
+                                                                                                                        <Annotations Target="userService.Countries">
+                                                                                                                            <Annotation Term="UI.Identification">
+                                                                                                                                <Collection>
+                                                                                                                                    <Record Type="UI.DataField">
+                                                                                                                                        <PropertyValue Property="Value" Path="name"/>
+                                                                                                                                    </Record>
+                                                                                                                                </Collection>
+                                                                                                                            </Annotation>
+                                                                                                                        </Annotations>
+                                                                                                                        <Annotations Target="userService.Countries/name">
+                                                                                                                            <Annotation Term="Common.Label" String="{i18n>Name}"/>
+                                                                                                                            </Annotations>
+                                                                                                                            <Annotations Target="userService.Countries/descr">
+                                                                                                                                <Annotation Term="Common.Label" String="{i18n>Description}"/>
+                                                                                                                                </Annotations>
+                                                                                                                                <Annotations Target="userService.Countries/code">
+                                                                                                                                    <Annotation Term="Common.Text" Path="name"/>
+                                                                                                                                    <Annotation Term="Common.Label" String="{i18n>CountryCode}"/>
+                                                                                                                                    </Annotations>
+                                                                                                                                    <Annotations Target="userService.Countries_texts/locale">
+                                                                                                                                        <Annotation Term="Common.Label" String="{i18n>LanguageCode}"/>
+                                                                                                                                        </Annotations>
+                                                                                                                                        <Annotations Target="userService.Countries_texts/name">
+                                                                                                                                            <Annotation Term="Common.Label" String="{i18n>Name}"/>
+                                                                                                                                            </Annotations>
+                                                                                                                                            <Annotations Target="userService.Countries_texts/descr">
+                                                                                                                                                <Annotation Term="Common.Label" String="{i18n>Description}"/>
+                                                                                                                                                </Annotations>
+                                                                                                                                                <Annotations Target="userService.Countries_texts/code">
+                                                                                                                                                    <Annotation Term="Common.Text" Path="name"/>
+                                                                                                                                                    <Annotation Term="Common.Label" String="{i18n>CountryCode}"/>
+                                                                                                                                                    </Annotations>
+                                                                                                                                                </Schema>
+                                                                                                                                            </edmx:DataServices>
+                                                                                                                                        </edmx:Edmx>

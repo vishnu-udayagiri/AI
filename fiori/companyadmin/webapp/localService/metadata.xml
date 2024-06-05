@@ -1,0 +1,312 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="4.0" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+    <edmx:Reference Uri="https://sap.github.io/odata-vocabularies/vocabularies/Common.xml">
+        <edmx:Include Alias="Common" Namespace="com.sap.vocabularies.Common.v1"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Core.V1.xml">
+        <edmx:Include Alias="Core" Namespace="Org.OData.Core.V1"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="https://sap.github.io/odata-vocabularies/vocabularies/UI.xml">
+        <edmx:Include Alias="UI" Namespace="com.sap.vocabularies.UI.v1"/>
+    </edmx:Reference>
+    <edmx:DataServices>
+        <Schema Namespace="ConfigService" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+            <EntityContainer Name="EntityContainer">
+                <EntitySet Name="AuditTrail" EntityType="ConfigService.AuditTrail">
+                    <NavigationPropertyBinding Path="Company" Target="Company"/>
+                </EntitySet>
+                <EntitySet Name="Company" EntityType="ConfigService.Company"/>
+                <EntitySet Name="DocumentCategory" EntityType="ConfigService.DocumentCategory">
+                    <NavigationPropertyBinding Path="SiblingEntity" Target="DocumentCategory"/>
+                </EntitySet>
+                <EntitySet Name="companyAdmin" EntityType="ConfigService.companyAdmin">
+                    <NavigationPropertyBinding Path="SiblingEntity" Target="companyAdmin"/>
+                </EntitySet>
+                <EntitySet Name="InvoiceSignatory" EntityType="ConfigService.InvoiceSignatory">
+                    <NavigationPropertyBinding Path="Company" Target="Company"/>
+                </EntitySet>
+                <EntitySet Name="AppConfig" EntityType="ConfigService.AppConfig">
+                    <NavigationPropertyBinding Path="Company" Target="Company"/>
+                </EntitySet>
+                <FunctionImport Name="getConfigurationDetails" Function="ConfigService.getConfigurationDetails"/>
+                <ActionImport Name="saveConfigurationDetails" Action="ConfigService.saveConfigurationDetails"/>
+            </EntityContainer>
+            <EntityType Name="AuditTrail">
+                <Key>
+                    <PropertyRef Name="ID"/>
+                </Key>
+                <Property Name="ID" Type="Edm.Guid" Nullable="false"/>
+                <Property Name="companyCode" Type="Edm.String" MaxLength="4" Nullable="false"/>
+                <Property Name="companyId" Type="Edm.String" MaxLength="255"/>
+                <Property Name="module" Type="Edm.String" MaxLength="50" Nullable="false"/>
+                <Property Name="eventId" Type="Edm.String" MaxLength="50" Nullable="false"/>
+                <Property Name="eventName" Type="Edm.String" MaxLength="255"/>
+                <Property Name="businessDocumentId" Type="Edm.String" MaxLength="50"/>
+                <Property Name="finalStatus" Type="Edm.String" MaxLength="10"/>
+                <Property Name="finalStatusMessageText" Type="Edm.String" MaxLength="255"/>
+                <Property Name="userId" Type="Edm.String" MaxLength="255"/>
+                <Property Name="createdAt" Type="Edm.DateTimeOffset" Precision="7" Nullable="false"/>
+                <Property Name="createdBy" Type="Edm.String" MaxLength="255"/>
+                <Property Name="modifiedAt" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="modifiedBy" Type="Edm.String" MaxLength="255"/>
+                <Property Name="attributeName" Type="Edm.String" MaxLength="255"/>
+                <Property Name="oldValue" Type="Edm.String" MaxLength="500"/>
+                <Property Name="newValue" Type="Edm.String" MaxLength="500"/>
+                <NavigationProperty Name="Company" Type="ConfigService.Company">
+                    <ReferentialConstraint Property="companyCode" ReferencedProperty="code"/>
+                </NavigationProperty>
+            </EntityType>
+            <EntityType Name="Company">
+                <Key>
+                    <PropertyRef Name="code"/>
+                </Key>
+                <Property Name="code" Type="Edm.String" MaxLength="4" Nullable="false"/>
+                <Property Name="description" Type="Edm.String" MaxLength="50"/>
+            </EntityType>
+            <EntityType Name="DocumentCategory">
+                <Key>
+                    <PropertyRef Name="documentTypeCode"/>
+                    <PropertyRef Name="IsActiveEntity"/>
+                </Key>
+                <Property Name="documentTypeCode" Type="Edm.String" MaxLength="5" Nullable="false"/>
+                <Property Name="documentName" Type="Edm.String" MaxLength="120"/>
+                <Property Name="description" Type="Edm.String" MaxLength="100"/>
+                <Property Name="isMandatory" Type="Edm.Boolean" DefaultValue="false"/>
+                <Property Name="IsActiveEntity" Type="Edm.Boolean" Nullable="false" DefaultValue="true"/>
+                <Property Name="HasActiveEntity" Type="Edm.Boolean" Nullable="false" DefaultValue="false"/>
+                <Property Name="HasDraftEntity" Type="Edm.Boolean" Nullable="false" DefaultValue="false"/>
+                <NavigationProperty Name="DraftAdministrativeData" Type="ConfigService.DraftAdministrativeData" ContainsTarget="true"/>
+                <NavigationProperty Name="SiblingEntity" Type="ConfigService.DocumentCategory"/>
+            </EntityType>
+            <EntityType Name="companyAdmin">
+                <Key>
+                    <PropertyRef Name="company"/>
+                    <PropertyRef Name="email"/>
+                    <PropertyRef Name="IsActiveEntity"/>
+                </Key>
+                <Property Name="company" Type="Edm.String" MaxLength="4" Nullable="false"/>
+                <Property Name="email" Type="Edm.String" MaxLength="255" Nullable="false"/>
+                <Property Name="name" Type="Edm.String" MaxLength="255"/>
+                <Property Name="role" Type="Edm.String" MaxLength="50"/>
+                <Property Name="IsActiveEntity" Type="Edm.Boolean" Nullable="false" DefaultValue="true"/>
+                <Property Name="HasActiveEntity" Type="Edm.Boolean" Nullable="false" DefaultValue="false"/>
+                <Property Name="HasDraftEntity" Type="Edm.Boolean" Nullable="false" DefaultValue="false"/>
+                <NavigationProperty Name="DraftAdministrativeData" Type="ConfigService.DraftAdministrativeData" ContainsTarget="true"/>
+                <NavigationProperty Name="SiblingEntity" Type="ConfigService.companyAdmin"/>
+            </EntityType>
+            <EntityType Name="InvoiceSignatory">
+                <Key>
+                    <PropertyRef Name="company"/>
+                    <PropertyRef Name="ValidFrom"/>
+                </Key>
+                <Property Name="company" Type="Edm.String" MaxLength="4" Nullable="false"/>
+                <Property Name="ValidFrom" Type="Edm.Date" Nullable="false"/>
+                <Property Name="ValidTill" Type="Edm.Date"/>
+                <Property Name="SignatoryName" Type="Edm.String" MaxLength="255"/>
+                <Property Name="SignatureFile" Type="Edm.String"/>
+                <NavigationProperty Name="Company" Type="ConfigService.Company">
+                    <ReferentialConstraint Property="company" ReferencedProperty="code"/>
+                </NavigationProperty>
+            </EntityType>
+            <EntityType Name="AppConfig">
+                <Key>
+                    <PropertyRef Name="company"/>
+                </Key>
+                <Property Name="company" Type="Edm.String" MaxLength="4" Nullable="false"/>
+                <Property Name="value" Type="Edm.String" MaxLength="10"/>
+                <Property Name="cutOverDate" Type="Edm.Date"/>
+                <Property Name="isAdminApproval" Type="Edm.Boolean" DefaultValue="false"/>
+                <NavigationProperty Name="Company" Type="ConfigService.Company">
+                    <ReferentialConstraint Property="company" ReferencedProperty="code"/>
+                </NavigationProperty>
+            </EntityType>
+            <EntityType Name="DraftAdministrativeData">
+                <Key>
+                    <PropertyRef Name="DraftUUID"/>
+                </Key>
+                <Property Name="DraftUUID" Type="Edm.Guid" Nullable="false"/>
+                <Property Name="CreationDateTime" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="CreatedByUser" Type="Edm.String" MaxLength="256"/>
+                <Property Name="DraftIsCreatedByMe" Type="Edm.Boolean"/>
+                <Property Name="LastChangeDateTime" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="LastChangedByUser" Type="Edm.String" MaxLength="256"/>
+                <Property Name="InProcessByUser" Type="Edm.String" MaxLength="256"/>
+                <Property Name="DraftIsProcessedByMe" Type="Edm.Boolean"/>
+            </EntityType>
+            <Action Name="draftPrepare" IsBound="true" EntitySetPath="in">
+                <Parameter Name="in" Type="ConfigService.DocumentCategory"/>
+                <Parameter Name="SideEffectsQualifier" Type="Edm.String"/>
+                <ReturnType Type="ConfigService.DocumentCategory"/>
+            </Action>
+            <Action Name="draftPrepare" IsBound="true" EntitySetPath="in">
+                <Parameter Name="in" Type="ConfigService.companyAdmin"/>
+                <Parameter Name="SideEffectsQualifier" Type="Edm.String"/>
+                <ReturnType Type="ConfigService.companyAdmin"/>
+            </Action>
+            <Action Name="draftActivate" IsBound="true" EntitySetPath="in">
+                <Parameter Name="in" Type="ConfigService.DocumentCategory"/>
+                <ReturnType Type="ConfigService.DocumentCategory"/>
+            </Action>
+            <Action Name="draftActivate" IsBound="true" EntitySetPath="in">
+                <Parameter Name="in" Type="ConfigService.companyAdmin"/>
+                <ReturnType Type="ConfigService.companyAdmin"/>
+            </Action>
+            <Action Name="draftEdit" IsBound="true" EntitySetPath="in">
+                <Parameter Name="in" Type="ConfigService.DocumentCategory"/>
+                <Parameter Name="PreserveChanges" Type="Edm.Boolean"/>
+                <ReturnType Type="ConfigService.DocumentCategory"/>
+            </Action>
+            <Action Name="draftEdit" IsBound="true" EntitySetPath="in">
+                <Parameter Name="in" Type="ConfigService.companyAdmin"/>
+                <Parameter Name="PreserveChanges" Type="Edm.Boolean"/>
+                <ReturnType Type="ConfigService.companyAdmin"/>
+            </Action>
+            <Function Name="getConfigurationDetails" IsBound="false" IsComposable="false">
+                <ReturnType Type="Edm.String"/>
+            </Function>
+            <Action Name="saveConfigurationDetails" IsBound="false">
+                <Parameter Name="Data" Type="Edm.String"/>
+                <ReturnType Type="Edm.String"/>
+            </Action>
+            <Annotations Target="ConfigService.AuditTrail/ID">
+                <Annotation Term="UI.Hidden" Bool="true"/>
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+            </Annotations>
+            <Annotations Target="ConfigService.AuditTrail/eventName">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+            </Annotations>
+            <Annotations Target="ConfigService.AuditTrail/businessDocumentId">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+            </Annotations>
+            <Annotations Target="ConfigService.AuditTrail/finalStatus">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+            </Annotations>
+            <Annotations Target="ConfigService.AuditTrail/finalStatusMessageText">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+            </Annotations>
+            <Annotations Target="ConfigService.AuditTrail/createdAt">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+            </Annotations>
+            <Annotations Target="ConfigService.AuditTrail/createdBy">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+            </Annotations>
+            <Annotations Target="ConfigService.AuditTrail/modifiedAt">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+            </Annotations>
+            <Annotations Target="ConfigService.AuditTrail/modifiedBy">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+            </Annotations>
+            <Annotations Target="ConfigService.AuditTrail/attributeName">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+            </Annotations>
+            <Annotations Target="ConfigService.AuditTrail/oldValue">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+            </Annotations>
+            <Annotations Target="ConfigService.AuditTrail/newValue">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+            </Annotations>
+            <Annotations Target="ConfigService.EntityContainer/DocumentCategory">
+                <Annotation Term="Common.DraftRoot">
+                    <Record Type="Common.DraftRootType">
+                        <PropertyValue Property="ActivationAction" String="ConfigService.draftActivate"/>
+                        <PropertyValue Property="EditAction" String="ConfigService.draftEdit"/>
+                        <PropertyValue Property="PreparationAction" String="ConfigService.draftPrepare"/>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="ConfigService.DocumentCategory/documentTypeCode">
+                <Annotation Term="Common.Label" String="Document Type Code"/>
+            </Annotations>
+            <Annotations Target="ConfigService.DocumentCategory/documentName">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="Common.Label" String="Document Name"/>
+            </Annotations>
+            <Annotations Target="ConfigService.DocumentCategory/description">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="Common.Label" String="Document Type Description"/>
+            </Annotations>
+            <Annotations Target="ConfigService.DocumentCategory/isMandatory">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="Common.Label" String="Is Mandatory "/>
+            </Annotations>
+            <Annotations Target="ConfigService.DocumentCategory/IsActiveEntity">
+                <Annotation Term="UI.Hidden" Bool="true"/>
+            </Annotations>
+            <Annotations Target="ConfigService.DocumentCategory/HasActiveEntity">
+                <Annotation Term="UI.Hidden" Bool="true"/>
+            </Annotations>
+            <Annotations Target="ConfigService.DocumentCategory/HasDraftEntity">
+                <Annotation Term="UI.Hidden" Bool="true"/>
+            </Annotations>
+            <Annotations Target="ConfigService.DocumentCategory/DraftAdministrativeData">
+                <Annotation Term="UI.Hidden" Bool="true"/>
+            </Annotations>
+            <Annotations Target="ConfigService.EntityContainer/companyAdmin">
+                <Annotation Term="Common.DraftRoot">
+                    <Record Type="Common.DraftRootType">
+                        <PropertyValue Property="ActivationAction" String="ConfigService.draftActivate"/>
+                        <PropertyValue Property="EditAction" String="ConfigService.draftEdit"/>
+                        <PropertyValue Property="PreparationAction" String="ConfigService.draftPrepare"/>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="ConfigService.companyAdmin/company">
+                <Annotation Term="Common.Label" String="Company"/>
+            </Annotations>
+            <Annotations Target="ConfigService.companyAdmin/email">
+                <Annotation Term="Common.Label" String="Email"/>
+            </Annotations>
+            <Annotations Target="ConfigService.companyAdmin/name">
+                <Annotation Term="Common.Label" String="Name"/>
+            </Annotations>
+            <Annotations Target="ConfigService.companyAdmin/role">
+                <Annotation Term="Common.Label" String="Role"/>
+            </Annotations>
+            <Annotations Target="ConfigService.companyAdmin/IsActiveEntity">
+                <Annotation Term="UI.Hidden" Bool="true"/>
+            </Annotations>
+            <Annotations Target="ConfigService.companyAdmin/HasActiveEntity">
+                <Annotation Term="UI.Hidden" Bool="true"/>
+            </Annotations>
+            <Annotations Target="ConfigService.companyAdmin/HasDraftEntity">
+                <Annotation Term="UI.Hidden" Bool="true"/>
+            </Annotations>
+            <Annotations Target="ConfigService.companyAdmin/DraftAdministrativeData">
+                <Annotation Term="UI.Hidden" Bool="true"/>
+            </Annotations>
+            <Annotations Target="ConfigService.InvoiceSignatory/company">
+                <Annotation Term="Common.Label" String="Company"/>
+            </Annotations>
+            <Annotations Target="ConfigService.DraftAdministrativeData">
+                <Annotation Term="Common.Label" String="{i18n>Draft_DraftAdministrativeData}"/>
+                </Annotations>
+                <Annotations Target="ConfigService.DraftAdministrativeData/DraftUUID">
+                    <Annotation Term="UI.Hidden" Bool="true"/>
+                    <Annotation Term="Common.Label" String="{i18n>Draft_DraftUUID}"/>
+                    </Annotations>
+                    <Annotations Target="ConfigService.DraftAdministrativeData/CreationDateTime">
+                        <Annotation Term="Common.Label" String="{i18n>Draft_CreationDateTime}"/>
+                        </Annotations>
+                        <Annotations Target="ConfigService.DraftAdministrativeData/CreatedByUser">
+                            <Annotation Term="Common.Label" String="{i18n>Draft_CreatedByUser}"/>
+                            </Annotations>
+                            <Annotations Target="ConfigService.DraftAdministrativeData/DraftIsCreatedByMe">
+                                <Annotation Term="UI.Hidden" Bool="true"/>
+                                <Annotation Term="Common.Label" String="{i18n>Draft_DraftIsCreatedByMe}"/>
+                                </Annotations>
+                                <Annotations Target="ConfigService.DraftAdministrativeData/LastChangeDateTime">
+                                    <Annotation Term="Common.Label" String="{i18n>Draft_LastChangeDateTime}"/>
+                                    </Annotations>
+                                    <Annotations Target="ConfigService.DraftAdministrativeData/LastChangedByUser">
+                                        <Annotation Term="Common.Label" String="{i18n>Draft_LastChangedByUser}"/>
+                                        </Annotations>
+                                        <Annotations Target="ConfigService.DraftAdministrativeData/InProcessByUser">
+                                            <Annotation Term="Common.Label" String="{i18n>Draft_InProcessByUser}"/>
+                                            </Annotations>
+                                            <Annotations Target="ConfigService.DraftAdministrativeData/DraftIsProcessedByMe">
+                                                <Annotation Term="UI.Hidden" Bool="true"/>
+                                                <Annotation Term="Common.Label" String="{i18n>Draft_DraftIsProcessedByMe}"/>
+                                                </Annotations>
+                                            </Schema>
+                                        </edmx:DataServices>
+                                    </edmx:Edmx>

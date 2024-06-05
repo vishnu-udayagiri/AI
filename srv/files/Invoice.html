@@ -1,0 +1,495 @@
+<html>
+
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <style>
+    .watermark {
+      background-repeat: no-repeat;
+      background-position-x: center;
+      background-position-y: center;
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      opacity: 0.3;
+      display: none;
+    }
+    .hideBos{
+      *bosHideFields*
+    }
+    #thPrdDesc{
+      *PrdDesc*
+    }
+    page[size="A4"] {
+      width: 21cm;
+      height: 29.7cm;
+      margin: 1cm 1.5cm 1.5cm 1.5cm;
+      display: block;
+    }
+  </style>
+</head>
+
+<body>
+  <page size="A4">
+    <div id="divWatermark" class="watermark" *watermarkCancel*></div>
+    <table id="tblHeader"
+      style="border-spacing: 0; border-color: #fff; border-collapse: collapse; font-family: Arial, Helvetica, sans-serif; font-size: 11px; padding: 3px;"
+      border="0" width="100%">
+      <tbody>
+        <tr>
+
+          <td
+            style="border-collapse: collapse; font-family: Arial, Helvetica, sans-serif; font-size: 11px; padding: 3px; border-color: #999;"
+            align="center" valign="top" width="70%">
+            <table
+              style="border-spacing: 0; border-color: #fff; border-collapse: collapse; font-family: Arial, Helvetica, sans-serif; font-size: 11px; padding: 3px;"
+              border="0" width="100%">
+              <tbody>
+                <tr>
+                  <td align="center" valign="top" colspan="2">
+                    <h3 style="margin-bottom: 5px;font-size:15px">[SellerDtls_LglNm]</h3>
+                    <p
+                      style="text-align: center; font-size: 11px; font-family: Arial, Helvetica, sans-serif; margin: 0;">
+                      [SellerDtls_Addr1]<br>
+                      GSTIN : [SellerDtls_Gstin]</p>
+                    <h3 style="margin-bottom: 5px;font-size:15px">
+                      [DocDtls_Typ]</h3>
+                    &nbsp;
+                  </td>
+                </tr>
+
+                <tr>
+                  <td valign="top" align="right" colspan="2">
+                    <table width="100%" border="0"
+                      style="border-spacing: 0; border-color: #fff; border-collapse: collapse; font-family: Arial, Helvetica, sans-serif; font-size: 11px; padding: 3px;"
+                      align="center">
+                      <tbody>
+                        <tr>
+                          <td width="86%" align="right"><strong> [DocDtls_NumberField]</strong></td>
+                          <td width="1%" align="center">: </td>
+                          <td width="13%" align="left">
+                            <p>[DocDtls_No]
+                            </p>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td align="right">[DocDtls_DateField]</td>
+                          <td align="center">: </td>
+                          <td align="left">[DocDtls_Dt]</td>
+                        </tr>
+                        <tr>
+                          <td align="right" colspan="3">
+                            <hr>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </td>
+                </tr>
+
+                <tr>
+                  <td valign="top" align="center" width="50%">
+                    <table
+                      style="border-spacing: 0; border-color: #fff; border-collapse: collapse; font-family: Arial, Helvetica, sans-serif; font-size: 11px; padding: 3px;"
+                      border="0" width="100%">
+                      <tbody>
+                        <tr>
+                          <td width="28%">Customer</td>
+                          <td width="2%" align="center"><strong> :</strong></td>
+                          <td width="70%"><strong>[BuyerDtls_LglNm]</strong></td>
+                        </tr>
+                        <tr>
+                          <td>Address</td>
+                          <td align="center"><strong>:</strong></td>
+                          <td>[BuyerDtls_Addr1]</td>
+                        </tr>
+                        <tr>
+                          <td>State/ Union Territory</td>
+                          <td align="center"><strong>:</strong></td>
+                          <td>[BuyerDtls_State]</td>
+                        </tr>
+                        <tr>
+                          <td>State / Union Territory Code</td>
+                          <td align="center"><strong>:</strong></td>
+                          <td>[BuyerDtls_Stcd]</td>
+                        </tr>
+                        <tr>
+                          <td>Customer GSTIN</td>
+                          <td align="center"><strong>:</strong></td>
+                          <td>[BuyerDtls_Gstin]</td>
+                        </tr>
+                        <tr>
+                          <td>Supply Type</td>
+                          <td align="center"><strong>:</strong></td>
+                          <td>[DocDtls_InvType]</td>
+                        </tr>
+                        <tr>
+                          <td>Place of Supply</td>
+                          <td align="center"><strong>:</strong></td>
+                          <td>[SellerDtls_Loc]</td>
+                        </tr>
+                        <tr class="hideBos">
+                          <td>Whether Reverse Charge applicable?</td>
+                          <td align="center"><strong>:</strong></td>
+                          <td>[TranDtls_RegRev]</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </td>
+                  <td valign="top" align="center" width="48%">
+                    <table
+                      style="border-spacing: 0; border-color: #fff; border-collapse: collapse; font-family: Arial, Helvetica, sans-serif; font-size: 11px; padding: 3px;"
+                      border="0" width="100%">
+                      <tbody>
+                        <tr>
+                          <td align="right">Reference Document Type </td>
+                          <td align="right">:</td>
+                          <td align="left">[DocDtls_RefDocTyp]</td>
+                        </tr>
+                        <tr>
+                          <td align="right">PNR </td>
+                          <td align="right">:</td>
+                          <td align="left">[DocDtls_PNR]</td>
+                        </tr>
+                        <tr>
+                          <td align="right">Reference Document Number</td>
+                          <td align="right">:</td>
+                          <td align="left">[DocDtls_RefDocNo]</td>
+                        </tr>
+                        <tr>
+                          <td align="right">Passenger Name</td>
+                          <td align="right">:</td>
+                          <td align="left">[BuyerDtls_PassengerName]</td>
+                        </tr>
+                        <tr>
+                          <td align="right">Transaction</td>
+                          <td align="right">:</td>
+                          <td align="left">[DocDtls_Transaction]</td>
+                        </tr>
+                        <tr>
+                          <td align="right">Issue Type</td>
+                          <td align="right">:</td>
+                          <td align="left">[DocDtls_IssueTyp]</td>
+                        </tr>
+                        <tr>
+                          <td align="right">Routing</td>
+                          <td align="right">:</td>
+                          <td align="left">[DocDtls_Routing]</td>
+                        </tr>
+                        <tr>
+                          <td align="right">Direction</td>
+                          <td align="right">:</td>
+                          <td align="left">[DocDtls_Direction]</td>
+                        </tr>
+                        <div class="OriginalInvoiceDetails">
+                          <tr>
+                            <td align="right">Original Invoice Number </td>
+                            <td align="right">:</td>
+                            <td align="left">[BuyerDtls_OriginalInvoiceNumber]</td>
+                          </tr>
+                          <tr>
+                            <td align="right">Original Invoice Date </td>
+                            <td align="right">:</td>
+                            <td align="left">[BuyerDtls_OriginalInvoiceDate]</td>
+                          </tr>
+                          <tr>
+                            <td align="right">Original Ref Document </td>
+                            <td align="right">:</td>
+                            <td align="left">[BuyerDtls_OriginalDocumentNumber]</td>
+                          </tr>
+                        </div>
+                      </tbody>
+                    </table>
+                  </td>
+
+                </tr>
+              </tbody>
+            </table>
+          </td>
+
+        </tr>
+        <tr>
+          <td
+            style="border-collapse: collapse; font-family: Arial, Helvetica, sans-serif; font-size: 11px; padding: 3px; border-color: #999;"
+            colspan="3" align="right">All Amounts in INR </td>
+        </tr>
+      </tbody>
+      <tbody>
+        <tr>
+          <td
+            style="border-collapse: collapse; font-family: Arial, Helvetica, sans-serif; font-size: 11px; padding: 3px; border-color: #999;"
+            colspan="3" align="right">
+            <table id="tblContent" class="grid"
+              style="border-spacing: 0; border-color: #999; border-collapse: collapse; font-family: Arial, Helvetica, sans-serif; font-size: 11px; padding: 3px;"
+              border="1" width="100%">
+              <thead>
+                <tr bgcolor="#C0C0C0">
+                  <th rowspan="2" align="left"
+                    style="text-align:center;border-collapse: collapse; font-family: Arial, Helvetica, sans-serif; font-size: 11px; padding: 3px; border-color: #999;"
+                    width="2%">
+                    <strong>Sl. No.</strong>
+                  </th>
+                  <th id="thPrdDesc" rowspan="2" align="left"
+                    style="border-collapse: collapse; font-family: Arial, Helvetica, sans-serif; font-size: 11px; padding: 3px; border-color: #999;">
+                    <strong>HSN Code/ Description of Services</strong>
+                  </th>
+                  <th width="3%" rowspan="2" align="center"
+                    style="display:none;border-collapse: collapse; font-family: Arial, Helvetica, sans-serif; font-size: 11px; padding: 3px; border-color: #999;">
+                    Qty</th>
+                  <th width="5%" rowspan="2" align="center"
+                    style="display:none;border-collapse: collapse; font-family: Arial, Helvetica, sans-serif; font-size: 11px; padding: 3px; border-color: #999;">
+                    Unit</th>
+                  <th width="12%" rowspan="2" align="center"
+                    style="border-collapse: collapse; font-family: Arial, Helvetica, sans-serif; font-size: 11px; padding: 3px; border-color: #999;">
+                    <strong>Value of service</strong>
+                  </th>
+                  <th width="8%" colspan="2" align="center"
+                    style="border-collapse: collapse; font-family: Arial, Helvetica, sans-serif; font-size: 11px; padding: 3px; border-color: #999;">
+                    <strong>Other Taxes and Amounts</strong>
+                  </th>
+                  <th width="8%" rowspan="2" align="center"
+                    style="border-collapse: collapse; display: none; font-family: Arial, Helvetica, sans-serif; font-size: 11px; padding: 3px; border-color: #999;">
+                    <strong>Total taxable value</strong>
+                  </th>
+                  <th width="8%" rowspan="2" align="center"
+                    style="border-collapse: collapse; font-family: Arial, Helvetica, sans-serif; font-size: 11px; padding: 3px; border-color: #999;">
+                    <strong>Discount</strong>
+                  </th>
+                  <th width="8%" rowspan="2" align="center"
+                    style="border-collapse: collapse; font-family: Arial, Helvetica, sans-serif; font-size: 11px; padding: 3px; border-color: #999;">
+                    <strong>Net taxable value</strong>
+                  </th>
+                  <th width="7%" rowspan="2" align="center"
+                    style="border-collapse: collapse; font-family: Arial, Helvetica, sans-serif; font-size: 11px; padding: 3px; border-color: #999;" class="hideBos">
+                    <strong>GST %</strong>
+                  </th>
+                  <th width="10%" class="hideBos" rowspan="2" align="center"
+                    style="border-collapse: collapse; font-family: Arial, Helvetica, sans-serif; font-size: 11px; padding: 3px; border-color: #999;">
+                    CGST <br /> [ValDtls_CgstRt]%</th>
+                  <th width="10%" rowspan="2" align="center"
+                    style="border-collapse: collapse; font-family: Arial, Helvetica, sans-serif; font-size: 11px; padding: 3px; border-color: #999;"class="hideBos">
+                    SGST/ UTGST <br /> [ValDtls_CgstRt]%</th>
+                  <th rowspan="2" class="hideBos" align="center"
+                    style="border-collapse: collapse; font-family: Arial, Helvetica, sans-serif; font-size: 11px; padding: 3px; border-color: #999;"
+                    width="10%">
+                    IGST <br /> [ValDtls_IgstRt]%</th>
+                  <th rowspan="2" align="center"
+                    style="border-collapse: collapse; font-family: Arial, Helvetica, sans-serif; font-size: 11px; padding: 3px; border-color: #999;"
+                    width="10%">
+                    Total Value</th>
+
+                </tr>
+                <tr>
+                  <th align="center" bgcolor="#C0C0C0"
+                    style="border-collapse: collapse; font-family: Arial, Helvetica, sans-serif; font-size: 11px; padding: 3px; border-color: #999;">
+                    Taxable*</th>
+                  <th align="center" bgcolor="#C0C0C0"
+                    style="border-collapse: collapse; font-family: Arial, Helvetica, sans-serif; font-size: 11px; padding: 3px; border-color: #999;">
+                    Non Taxable*</th>
+                </tr>
+
+                <tr class="ListItem">
+                  <td
+                    style="text-align:center;border-collapse: collapse; font-family: Arial, Helvetica, sans-serif; font-size: 11px; padding: 3px; border-color: #999;"
+                    align="left">[SLNO]</td>
+                  <td
+                    style="border-collapse: collapse; font-family: Arial, Helvetica, sans-serif; font-size: 11px; padding: 3px; border-color: #999;"
+                    align="left">[HsnCd]- <br />Domestic/International Scheduled Air transport services of passengers
+                  </td>
+                  <td
+                    style="display:none;text-align:center;border-collapse: collapse; font-family: Arial, Helvetica, sans-serif; font-size: 11px; padding: 3px; border-color: #999;"
+                    align="left">1</td>
+                  <td align="left"
+                    style="display:none;border-collapse: collapse; font-family: Arial, Helvetica, sans-serif; font-size: 11px; padding: 3px; border-color: #999;">
+                    Others</td>
+                  <td align="right"
+                    style="border-collapse: collapse; font-family: Arial, Helvetica, sans-serif; font-size: 11px; padding: 3px; border-color: #999;">
+                    [UnitPrice]</td>
+                  <td align="right"
+                    style="border-collapse: collapse; font-family: Arial, Helvetica, sans-serif; font-size: 11px; padding: 3px; border-color: #999;">
+                    [AssAmt]</td>
+                  <td align="right"
+                    style="border-collapse: collapse; font-family: Arial, Helvetica, sans-serif; font-size: 11px; padding: 3px; border-color: #999;">
+                    [NonTaxable]</td>
+                  <td align="right"
+                    style="border-collapse: collapse; font-family: Arial, Helvetica, sans-serif; font-size: 11px; padding: 3px; border-color: #999;">
+                    [Discount]
+                  </td>
+                  <td
+                    style="border-collapse: collapse; font-family: Arial, Helvetica, sans-serif; font-size: 11px; padding: 3px; border-color: #999;"
+                    align="right">[PreTaxVal]</td>
+                  <td
+                    style="display: none; border-collapse: collapse; font-family: Arial, Helvetica, sans-serif; font-size: 11px; padding: 3px; border-color: #999;"
+                    align="right"></td>
+                  <td
+                    style="display: none; border-collapse: collapse; font-family: Arial, Helvetica, sans-serif; font-size: 11px; padding: 3px; border-color: #999;"
+                    align="right"></td>
+                  <td class="hideBos" align="right"
+                    style="border-collapse: collapse; font-family: Arial, Helvetica, sans-serif; font-size: 11px; padding: 3px; border-color: #999;">
+                    [GstRt] %</td>
+                  <td class="hideBos" align="right"
+                    style="border-collapse: collapse; font-family: Arial, Helvetica, sans-serif; font-size: 11px; padding: 3px; border-color: #999;">
+                    [CgstAmt]
+                  </td>
+                  <td class="hideBos" align="right"
+                    style="border-collapse: collapse; font-family: Arial, Helvetica, sans-serif; font-size: 11px; padding: 3px; border-color: #999;">
+                    [SgstAmt]
+                  </td>
+                  <td class="hideBos" align="right"
+                    style="border-collapse: collapse; font-family: Arial, Helvetica, sans-serif; font-size: 11px; padding: 3px; border-color: #999;">
+                    [IgstAmt]
+                  </td>
+                  <td align="right"
+                    style="border-collapse: collapse; font-family: Arial, Helvetica, sans-serif; font-size: 11px; padding: 3px; border-color: #999;">
+                    [TotItemVal]
+                  </td>
+                </tr>
+                <tr>
+
+                  <td align="left" bgcolor="#C0C0C0"
+                    style="border-collapse: collapse; font-family: Arial, Helvetica, sans-serif; font-size: 11px; padding: 3px; border-color: #999;">
+                    <strong>Total</strong>
+                  </td>
+                  <td align="left" bgcolor="#C0C0C0"
+                    style="display:none;text-align:center;border-collapse: collapse; font-family: Arial, Helvetica, sans-serif; font-size: 11px; padding: 3px; border-color: #999;">
+                    &nbsp;
+
+                  </td>
+                  <td align="left" bgcolor="#C0C0C0"
+                    style="display:none;border-collapse: collapse; font-family: Arial, Helvetica, sans-serif; font-size: 11px; padding: 3px; border-color: #999;">
+                    &nbsp;
+
+                  </td>
+                  <td align="right" bgcolor="#C0C0C0"
+                    style="border-collapse: collapse; font-family: Arial, Helvetica, sans-serif; font-size: 11px; padding: 3px; border-color: #999;">
+                  </td>
+                  <td align="right" bgcolor="#C0C0C0"
+                    style="border-collapse: collapse; font-family: Arial, Helvetica, sans-serif; font-size: 11px; padding: 3px; border-color: #999;">
+                    <strong>[ValDtls_ValueOfServiceTot]</strong>
+                  </td>
+                  <td align="right" bgcolor="#C0C0C0"
+                    style="border-collapse: collapse; font-family: Arial, Helvetica, sans-serif; font-size: 11px; padding: 3px; border-color: #999;">
+                    <strong>[ValDtls_OthTaxableTot]</strong>
+                  </td>
+                  <td align="right" bgcolor="#C0C0C0"
+                    style="border-collapse: collapse; font-family: Arial, Helvetica, sans-serif; font-size: 11px; padding: 3px; border-color: #999;">
+                    <strong>[ValDtls_OthNonTaxableTot]</strong>
+                  </td>
+                  <td align="right" bgcolor="#C0C0C0"
+                    style="border-collapse: collapse; font-family: Arial, Helvetica, sans-serif; font-size: 11px; padding: 3px; border-color: #999;">
+                    <strong></strong>
+                  </td>
+                  <td align="right" bgcolor="#C0C0C0"
+                    style="border-collapse: collapse; font-family: Arial, Helvetica, sans-serif; font-size: 11px; padding: 3px; border-color: #999;">
+                    <strong>[ValDtls_NetTaxValueTot]</strong>
+                  </td>
+                  <td align="right" bgcolor="#C0C0C0"
+                    style="display: none; border-collapse: collapse; font-family: Arial, Helvetica, sans-serif; font-size: 11px; padding: 3px; border-color: #999;">
+                    <strong>170.00</strong>
+                  </td>
+                  <td align="right" bgcolor="#C0C0C0"
+                    style="display: none; border-collapse: collapse; font-family: Arial, Helvetica, sans-serif; font-size: 11px; padding: 3px; border-color: #999;">
+                    <strong>170.00</strong>
+                  </td>
+                  <td align="right" class="hideBos" bgcolor="#C0C0C0"
+                    style="border-collapse: collapse; font-family: Arial, Helvetica, sans-serif; font-size: 11px; padding: 3px; border-color: #999;">
+                  </td>
+                  <td align="right" class="hideBos" bgcolor="#C0C0C0"
+                    style="border-collapse: collapse; font-family: Arial, Helvetica, sans-serif; font-size: 11px; padding: 3px; border-color: #999;">
+                    <strong>[ValDtls_CGSTAmountTot]</strong>
+                  </td>
+                  <td align="right" class="hideBos" bgcolor="#C0C0C0"
+                    style="border-collapse: collapse; font-family: Arial, Helvetica, sans-serif; font-size: 11px; padding: 3px; border-color: #999;">
+                    <strong>[ValDtls_SGSTAmountTot]</strong>
+                  </td>
+                  <td align="right" class="hideBos" bgcolor="#C0C0C0"
+                    style="border-collapse: collapse; font-family: Arial, Helvetica, sans-serif; font-size: 11px; padding: 3px; border-color: #999;">
+                    <strong>[ValDtls_IGSTAmountTot]</strong>
+                  </td>
+                  <td align="right" bgcolor="#C0C0C0"
+                    style="border-collapse: collapse; font-family: Arial, Helvetica, sans-serif; font-size: 11px; padding: 3px; border-color: #999;">
+                    <strong>[ValDtls_TotInvVal]</strong>
+                  </td>
+                </tr>
+
+                <!-- <tr id="CesNonAdVal" class="removeIfEmpty" *CesNonAdVal*>
+                <td
+                  style=" border-collapse: collapse; font-family: Arial, Helvetica, sans-serif; font-size: 11px; padding: 3px; border:none"
+                  colspan="3" align="left">&nbsp;</td>
+                <td
+                  style=" border-collapse: collapse; font-family: Arial, Helvetica, sans-serif; font-size: 11px; padding: 3px; border:none"
+                  colspan="3" align="left"><strong>Cess NonAdvol: </strong></td>
+                <td
+                  style=" border:none;border-right: 1px solid #999;border-collapse: collapse; font-family: Arial, Helvetica, sans-serif; font-size: 11px; padding: 3px;"
+                  colspan="1" align="right"><strong>[CesNonAdVal]</strong></td>
+              </tr> -->
+
+
+              </thead>
+            </table>
+          </td>
+        </tr>
+        <tr>
+          <td
+            style="border-collapse: collapse; font-family: Arial, Helvetica, sans-serif; font-size: 11px; padding: 3px; border-color: #999;"
+            colspan="3" align="right">
+            <table border="0" width="100%">
+              <tbody>
+                <tr>
+                  <td
+                    style="text-align:left;border-collapse: collapse; font-family: Arial, Helvetica, sans-serif; font-size: 11px; padding: 3px; border-color: #999;"
+                    valign="top"><strong>Invoice value (in words)</strong></td>
+                </tr>
+                <tr>
+                  <td
+                    style="text-align:left;border-collapse: collapse; font-family: Arial, Helvetica, sans-serif; font-size: 11px; padding: 3px; border-color: #999;"
+                    valign="top"><strong>[amount_in_words]</strong></td>
+                </tr>
+                <tr>
+
+                  <td
+                    style="border-collapse: collapse; font-family: Arial, Helvetica, sans-serif; font-size: 11px; padding: 3px; border-color: #999;"
+                    width="65%">
+                    <p style><br>
+                      <br>
+                      <br>
+                    <div id="TaxableDetails" *TaxableCalculation*>
+                      Other Taxable fare details: [ValDtls_TaxableCalculation] <br>
+                    </div>
+                    <br>
+                    <div id="NonTaxableDetails" *NonTaxableCalculation*>
+                      Non-taxable fare details: [ValDtls_NonTaxableCalculation]</p>
+                    </div>
+                    <br>
+                    <p><strong>PSF/UDF/ADF is collected by AIR INDIA LTD. on behalf of Airport Operator as a pure agent.
+                        AIR INDIA LTD. has not supplied any service against collection of PSF/UDF/ADF from
+                        passengers.<br>
+                        <br>
+                        Declaration
+                        <br>
+                        Certified that the particulars given above are true and correct<br>
+
+
+                        <br>
+                        I/We hereby declare that though our aggregate turnover in any preceding financial year from
+                        2017-18 onwards is more than the aggregate turnover notified under sub-rule (4) of rule 48, we
+                        are
+                        not required to prepare an invoice in terms of the provisions of the said sub-rule.</strong></p>
+                  </td>
+                  <td
+                    style="text-align:right;border-collapse: collapse; font-family: Arial, Helvetica, sans-serif; font-size: 11px; padding: 3px; border-color: #999;"
+                    valign="top" width="35%">
+                    <p><strong>Signature</strong></p>
+                    <p><strong>For AIR INDIA LTD&nbsp;</strong></p><img src="[DocDtls_Signatory]" width="100"><br>
+                    <strong><br>
+                      AUTHORIZED SIGNATORY</strong>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </page>
+</body>
+</html>

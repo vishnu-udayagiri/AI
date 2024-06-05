@@ -1,0 +1,168 @@
+{
+  "_version": "1.49.0",
+  "sap.app": {
+    "id": "ns.reconciliationreport",
+    "type": "application",
+    "i18n": "i18n/i18n.properties",
+    "applicationVersion": {
+      "version": "0.0.1"
+    },
+    "crossNavigation": {
+      "inbounds": {
+        "reconciliationReport-display": {
+          "signature": {
+            "parameters": {},
+            "additionalParameters": "allowed"
+          },
+          "semanticObject": "reconciliationReport",
+          "action": "display",
+          "title": "Reconciliation Report",
+          "info": "",
+          "subTitle": "",
+          "icon": "sap-icon://my-sales-order"
+        }
+      }
+    },
+    "title": "{{appTitle}}",
+    "description": "{{appDescription}}",
+    "resources": "resources.json",
+    "sourceTemplate": {
+      "id": "@sap/generator-fiori:lrop",
+      "version": "1.11.1",
+      "toolsId": "083f82cb-d585-4aa7-ad8e-a01701c5d8b1"
+    },
+    "dataSources": {
+      "mainService": {
+        "uri": "/reconciliationReport/",
+        "type": "OData",
+        "settings": {
+          "annotations": [],
+          "localUri": "localService/metadata.xml",
+          "odataVersion": "4.0"
+        }
+      }
+    }
+  },
+  "sap.platform.cf": {
+    "ui5VersionNumber":"1.118.1"
+  },
+  "sap.ui": {
+    "technology": "UI5",
+    "icons": {
+      "icon": "",
+      "favIcon": "",
+      "phone": "",
+      "phone@2": "",
+      "tablet": "",
+      "tablet@2": ""
+    },
+    "deviceTypes": {
+      "desktop": true,
+      "tablet": true,
+      "phone": true
+    }
+  },
+  "sap.ui5": {
+    "flexEnabled": true,
+    "dependencies": {
+      "minUI5Version": "1.120.4",
+      "libs": {
+        "sap.m": {},
+        "sap.ui.core": {},
+        "sap.ushell": {},
+        "sap.fe.templates": {}
+      }
+    },
+    "contentDensities": {
+      "compact": true,
+      "cozy": true
+    },
+    "models": {
+      "i18n": {
+        "type": "sap.ui.model.resource.ResourceModel",
+        "settings": {
+          "bundleName": "ns.reconciliationreport.i18n.i18n"
+        }
+      },
+      "": {
+        "dataSource": "mainService",
+        "preload": true,
+        "settings": {
+          "synchronizationMode": "None",
+          "operationMode": "Server",
+          "autoExpandSelect": true,
+          "earlyRequests": true
+        }
+      },
+      "@i18n": {
+        "type": "sap.ui.model.resource.ResourceModel",
+        "uri": "i18n/i18n.properties"
+      }
+    },
+    "resources": {
+      "css": []
+    },
+    "routing": {
+      "config": {},
+      "routes": [
+        {
+          "pattern": ":?query:",
+          "name": "RECONCILIATIONVIEW1List",
+          "target": "RECONCILIATIONVIEW1List"
+        },
+        {
+          "pattern": "RECONCILIATIONVIEW1({key}):?query:",
+          "name": "RECONCILIATIONVIEW1ObjectPage",
+          "target": "RECONCILIATIONVIEW1ObjectPage"
+        }
+      ],
+      "targets": {
+        "RECONCILIATIONVIEW1List": {
+          "type": "Component",
+          "id": "RECONCILIATIONVIEW1List",
+          "name": "sap.fe.templates.ListReport",
+          "options": {
+            "settings": {
+              "entitySet": "RECONCILIATIONVIEW1",
+              "variantManagement": "Page",
+              "initialLoad": "Enabled",
+              "navigation": {
+                "RECONCILIATIONVIEW1": {
+                  "detail": {
+                    "route": "RECONCILIATIONVIEW1ObjectPage"
+                  }
+                }
+              },
+              "controlConfiguration": {
+                "@com.sap.vocabularies.UI.v1.LineItem": {
+                  "tableSettings": {
+                    "type": "GridTable"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "RECONCILIATIONVIEW1ObjectPage": {
+          "type": "Component",
+          "id": "RECONCILIATIONVIEW1ObjectPage",
+          "name": "sap.fe.templates.ObjectPage",
+          "options": {
+            "settings": {
+              "editableHeaderContent": false,
+              "entitySet": "RECONCILIATIONVIEW1"
+            }
+          }
+        }
+      }
+    }
+  },
+  "sap.fiori": {
+    "registrationIds": [],
+    "archeType": "transactional"
+  },
+  "sap.cloud": {
+    "public": true,
+    "service": "cpapp.service"
+  }
+}

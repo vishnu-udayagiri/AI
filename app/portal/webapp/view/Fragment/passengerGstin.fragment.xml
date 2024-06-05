@@ -1,0 +1,8 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
+	<SelectDialog  title="Select Passenger GSTIN" multiSelect="true" items="{path :'FilterDatamodel>/passengerGSTIN',sorter : {path:'',ascending: true}}" search="handleValueHelpSearchpassengergstin"
+		confirm="handleValueHelpClosepassengergstin" rememberSelections="true" 
+		showClearButton="true" cancel="">
+		<StandardListItem iconDensityAware="false" iconInset="false" 
+			title="{FilterDatamodel>}"/>
+	</SelectDialog>
+</core:FragmentDefinition>

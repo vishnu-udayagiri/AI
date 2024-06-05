@@ -1,0 +1,668 @@
+<mvc:View controllerName="ns.dashboard.controller.Dashboard"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core"
+    xmlns:layout="sap.ui.layout"
+    xmlns:fb="sap.ui.comp.filterbar"
+    xmlns:viz="sap.viz.ui5.controls"
+    xmlns:viz.data="sap.viz.ui5.data"
+    xmlns:viz.feeds="sap.viz.ui5.controls.common.feeds" class="sapUiSizeCompact" displayBlock="true" height="100%"
+    xmlns:chart="sap.suite.ui.commons"
+    xmlns:form="sap.ui.layout.form"
+    xmlns:html="http://www.w3.org/1999/xhtml"
+    xmlns:vizData="sap.viz.ui5.data"
+    xmlns:vizFeeds="sap.viz.ui5.controls.common.feeds">
+    <App id="app">
+        <pages>
+            <Page id="page" title="Admin Dashboard" showFooter="true" showHeader="false">
+                <content>
+                    <!-- <layout:VerticalLayout id="containerLayout" width="100%"> -->
+                    <Panel width="auto">
+                        <fb:FilterBar id="filterbar" persistencyKey="myPersKey" useToolbar="false" search=".onSearch" filterChange=".onFilterChange" afterVariantLoad=".onAfterVariantLoad">
+                            <fb:filterGroupItems>
+                                <fb:FilterGroupItem name="Supplier GSTIN" label="Supplier GSTIN" groupName="Group1" visibleInFilterBar="true">
+                                    <fb:control>
+                                        <MultiInput id="minp-GSTINAI" type="Text" valueHelpOnly="true" textFormatMode="Key" placeholder="Supplier GSTIN..." showValueHelp="true" valueHelpRequest="handleValueHelpSupplierGSTIN" valueLiveUpdate="true"/>
+                                    </fb:control>
+                                </fb:FilterGroupItem>
+                                <fb:FilterGroupItem name="Financial Year and Month" label="Financial year and Month" groupName="Group1" visibleInFilterBar="true">
+                                    <fb:control>
+                                        <DatePicker class="disabledDateInput" id="dp-financialYear" value="{
+                                            'path': '/valueDP11',
+                                            'type': 'sap.ui.model.type.Date',
+                                            'formatOptions': {
+                                                'pattern': 'yyyy'
+                                            }
+                                        }" displayFormat="yyyy-MM" valueFormat="yyyy-MM" change="onFinancialYearChange"/>
+                                    </fb:control>
+                                </fb:FilterGroupItem>
+                                <fb:FilterGroupItem name="Document Type" label="Document Type" groupName="Group1" visibleInFilterBar="true">
+                                    <fb:control>
+                                        <MultiComboBox id="fbmc-DocType" selectionChange="handleSelectedDocType" showSelectAll="true" placeholder="Select Document Type.." width="350px">
+                                            <items>
+                                                <core:Item key="INVOICE" text="GST Invoices"/>
+                                                <core:Item key="DEBIT" text="Debit Note"/>
+                                                <core:Item key="CREDIT" text="Credit Note"/>
+                                                <core:Item key="BOS" text="Bill of Supply"/>
+                                                <core:Item key="BOSCN" text="Bill of Supply Credit"/>
+                                                <core:Item key="BOSDN" text="Bill of Supply Debit"/>
+                                            </items>
+                                        </MultiComboBox>
+                                    </fb:control>
+                                </fb:FilterGroupItem>
+                                <fb:FilterGroupItem name="Section Type" label="Section Type" groupName="Group1" visibleInFilterBar="true">
+                                    <fb:control>
+                                        <MultiComboBox id="fbmc-secType" selectionChange="handleSelectedSecType" showSelectAll="true" placeholder="Select Section Type.." width="350px">
+                                            <items>
+                                                <core:Item key="B2B" text="B2B"/>
+                                                <core:Item key="B2C" text="B2C"/>
+                                            </items>
+                                        </MultiComboBox>
+                                    </fb:control>
+                                </fb:FilterGroupItem>
+                                <fb:FilterGroupItem name="Quarter" label="Quarter" groupName="Group1" visibleInFilterBar="true">
+                                    <fb:control>
+                                        <ComboBox id="fbmc-Quarter" selectionChange="handleSelectedQuarterType" placeholder="Select Quarter.." width="350px">
+                                            <items>
+                                                <core:Item key="Q1" text="First Quarter"/>
+                                                <core:Item key="Q2" text="Second Quarter"/>
+                                                <core:Item key="Q3" text="Third Quarter"/>
+                                                <core:Item key="Q4" text="Fourth Quarter"/>
+                                            </items>
+                                        </ComboBox>
+                                    </fb:control>
+                                </fb:FilterGroupItem>
+                                <fb:FilterGroupItem id="fbmc-Year" name="Year" label="year" groupName="Group1" visibleInFilterBar="true" visible="false">
+                                    <fb:control>
+                                        <DatePicker class="disabledDateInput" id="fbdat-Year" value="{
+						'path': '/valueDP11',
+						'type': 'sap.ui.model.type.Date',
+						'formatOptions': {
+							'pattern': 'yyyy'
+						}
+					}" displayFormat="{i18n>yyyy}" valueFormat="yyyy" change="onFinancialYearChange"/>
+                                    </fb:control>
+                                </fb:FilterGroupItem>
+                                <fb:FilterGroupItem name="Document Date" label="Document Date" groupName="Group1" visibleInFilterBar="true">
+                                    <fb:control>
+                                        <DateRangeSelection class="disabledDateInput" id="fbdat-invoiceDate" delimiter=" to " dateValue="" secondDateValue="" minDate="" maxDate="" change="" placeholder="Choose a date range from calendar.." displayFormat="{i18n>dd/MM/yyyy}"/>
+                                    </fb:control>
+                                </fb:FilterGroupItem>
+                            </fb:filterGroupItems>
+                        </fb:FilterBar>
+                    </Panel>
+                    <Panel width="auto">
+                        <layout:BlockLayout id="BlockLayout" background="Dashboard" keepFontSize="true">
+                            <layout:BlockLayoutRow accentCells="Accent1">
+                                <!-- Section wise Breakup of tax Liability -->
+                                <layout:BlockLayoutCell>
+                                    <layout:FixFlex id="idFlexPieSection" minFlexSize="500">
+                                        <layout:flexContent>
+                                            <chart:ChartContainer autoAdjustHeight="true" id="chartContainerSection" title="Section wise breakup of tax liability" showFullScreen="true" showLegendButton="true" showSelectionDetails="false" showZoom="false">
+                                                <chart:ChartContainerContent icon="sap-icon://filter-analytics" title="Dashboard">
+                                                    <chart:content>
+                                                        <viz:VizFrame id="idVizFrame_sectionWise" vizType="pie" selectData="onSelectDataSectionWise" deselectData="onSelectDataSectionWise" uiConfig="{applicationSet:'fiori'}" vizProperties="{
+                                                            plotArea: { 
+                                                                drawingEffect: '',
+                                                                dataLabel:{
+                                                                    visible: true,
+                                                                    type:'value',
+                                                                    formatString:'CustomFloatFormat_F2'
+                                                                }
+                                                                
+                                                                 
+                                                            },
+                                                            title: { 
+                                                                text: ''
+                                                            },
+                                                            legend: { 
+                                                                visible: true, 
+                                                                title: { 
+                                                                    visible: false 
+                                                                }
+                                                            },
+                                                            legendGroup:{
+                                                                layout:{
+                                                                    position: 'bottom'
+                                                                }
+                                                            }
+                                                            
+                                                        }">
+                                                            <viz:dataset>
+                                                                <viz.data:FlattenedDataset data="{oSectionWiseLiabiityFilterModel>/}">
+                                                                    <viz.data:dimensions>
+                                                                        <viz.data:DimensionDefinition name="Type" value="{oSectionWiseLiabiityFilterModel>sectionType}"/>
+                                                                    </viz.data:dimensions>
+                                                                    <viz.data:measures>
+                                                                        <viz.data:MeasureDefinition name="Amount" value="{oSectionWiseLiabiityFilterModel>totalInvoiceValue}"/>
+                                                                    </viz.data:measures>
+                                                                </viz.data:FlattenedDataset>
+                                                            </viz:dataset>
+                                                            <viz:feeds>
+                                                                <viz.feeds:FeedItem uid="size" type="Measure" values="Amount"/>
+                                                                <viz.feeds:FeedItem uid="color" type="Dimension" values="Type"/>
+                                                            </viz:feeds>
+                                                            <viz:dependents>
+                                                                <viz:Popover id="idPopOver_sectionWise" visible="false"></viz:Popover>
+                                                            </viz:dependents>
+                                                        </viz:VizFrame>
+                                                    </chart:content>
+                                                </chart:ChartContainerContent>
+                                                <chart:ChartContainerContent icon="sap-icon://table-view" title="Table">
+                                                    <chart:content>
+                                                        <Table id="idTbl_sectionWise" items="{ path: 'oSectionWiseLiabiityFilterModel>/' }">
+                                                            <headerToolbar>
+                                                                <OverflowToolbar>
+                                                                    <ToolbarSpacer />
+                                                                    <Button icon='sap-icon://excel-attachment' press="onExport"/>
+                                                                </OverflowToolbar>
+                                                            </headerToolbar>
+                                                            <columns>
+                                                                <Column demandPopin="true">
+                                                                    <Label design="Bold" text="Section Type"/>
+                                                                </Column>
+                                                                <Column demandPopin="true">
+                                                                    <Label design="Bold" text="Total "/>
+                                                                </Column>
+                                                            </columns>
+                                                            <ColumnListItem press="">
+                                                                <Text text="{oSectionWiseLiabiityFilterModel>sectionType}"></Text>
+                                                                <Text text="{oSectionWiseLiabiityFilterModel>totalInvoiceValue}"></Text>
+                                                            </ColumnListItem>
+                                                        </Table>
+                                                    </chart:content>
+                                                </chart:ChartContainerContent>
+                                            </chart:ChartContainer>
+                                        </layout:flexContent>
+                                    </layout:FixFlex>
+                                </layout:BlockLayoutCell>
+                                <!-- Tax Type wise Breakup of tax Liability -->
+                                <layout:BlockLayoutCell>
+                                    <layout:FixFlex id="idFlexPieTaxType" minFlexSize="500">
+                                        <layout:flexContent>
+                                            <chart:ChartContainer autoAdjustHeight="true" id="chartContainerTaxType" title="Tax type wise breakup of tax liability" showFullScreen="true" showLegendButton="true" showSelectionDetails="false" showZoom="false">
+                                                <chart:ChartContainerContent icon="sap-icon://filter-analytics" title="Dashboard">
+                                                    <chart:content>
+                                                        <viz:VizFrame id="idVizFrame_taxWise" vizType="pie" selectData="onSelectDataTaxTypeWise" deselectData="onSelectDataTaxTypeWise" uiConfig="{applicationSet:'fiori'}" vizProperties="{
+                                                            plotArea: { 
+                                                                drawingEffect: '',
+                                                                dataLabel:{
+                                                                    visible: true,
+                                                                    type:'value',
+                                                                    formatString:'CustomFloatFormat_F2'
+                                                                } 
+                                                            },
+                                                            title: { 
+                                                                text: ''
+                                                            },
+                                                            legend: { 
+                                                                visible: true, 
+                                                                title: { 
+                                                                    visible: false 
+                                                                }
+                                                            },
+                                                            legendGroup:{
+                                                                layout:{
+                                                                    position: 'bottom'
+                                                                }
+                                                            }
+                                                        }">
+                                                            <viz:dataset>
+                                                                <viz.data:FlattenedDataset data="{oTaxWiseLiabiityFilterModel>/}">
+                                                                    <viz.data:dimensions>
+                                                                        <viz.data:DimensionDefinition name="Type" value="{oTaxWiseLiabiityFilterModel>TaxType}"/>
+                                                                    </viz.data:dimensions>
+                                                                    <viz.data:measures>
+                                                                        <viz.data:MeasureDefinition name="Amount" value="{oTaxWiseLiabiityFilterModel>totalInvoiceValue}"/>
+                                                                    </viz.data:measures>
+                                                                </viz.data:FlattenedDataset>
+                                                            </viz:dataset>
+                                                            <viz:feeds>
+                                                                <viz.feeds:FeedItem uid="size" type="Measure" values="Amount"/>
+                                                                <viz.feeds:FeedItem uid="color" type="Dimension" values="Type"/>
+                                                            </viz:feeds>
+                                                            <viz:dependents>
+                                                                <viz:Popover id="idPopOver_taxWise" visible="false"></viz:Popover>
+                                                            </viz:dependents>
+                                                        </viz:VizFrame>
+                                                    </chart:content>
+                                                </chart:ChartContainerContent>
+                                                <chart:ChartContainerContent icon="sap-icon://table-view" title="Table">
+                                                    <chart:content>
+                                                        <Table id="idTbl__taxWise" items="{ path: 'oTaxWiseLiabiityFilterModel>/' }">
+                                                            <headerToolbar>
+                                                                <OverflowToolbar>
+                                                                    <ToolbarSpacer />
+                                                                    <Button icon='sap-icon://excel-attachment' press="onExport"/>
+                                                                </OverflowToolbar>
+                                                            </headerToolbar>
+                                                            <columns>
+                                                                <Column demandPopin="true">
+                                                                    <Label design="Bold" text="Type"/>
+                                                                </Column>
+                                                                <Column demandPopin="true">
+                                                                    <Label design="Bold" text="Amount "/>
+                                                                </Column>
+                                                            </columns>
+                                                            <ColumnListItem press="">
+                                                                <Text text="{oTaxWiseLiabiityFilterModel>TaxType}"></Text>
+                                                                <Text text="{oTaxWiseLiabiityFilterModel>totalInvoiceValue}"></Text>
+                                                            </ColumnListItem>
+                                                        </Table>
+                                                    </chart:content>
+                                                </chart:ChartContainerContent>
+                                            </chart:ChartContainer>
+
+                                        </layout:flexContent>
+                                    </layout:FixFlex>
+                                </layout:BlockLayoutCell>
+                            </layout:BlockLayoutRow>
+                        </layout:BlockLayout>
+                        <layout:BlockLayout id="BlockLayout1" background="Dashboard" keepFontSize="true">
+                            <layout:BlockLayoutRow accentCells="Accent1">
+                                <!-- State wise Breakup of tax Liability -->
+                                <layout:BlockLayoutCell>
+                                    <layout:FixFlex id="idFlexPieTaxTypeState" minFlexSize="500">
+                                        <layout:flexContent>
+                                            <chart:ChartContainer autoAdjustHeight="true" id="chartContainerTaxTypeState" title="Region wise breakup of tax liability" showFullScreen="true" showLegendButton="true" showSelectionDetails="false" showZoom="false">
+                                                <chart:ChartContainerContent icon="sap-icon://filter-analytics" title="Dashboard">
+                                                    <chart:content>
+                                                        <viz:VizFrame id="idVizFrame_stateWise" vizType="pie" selectData="onSelectDataStateWise" deselectData="onSelectDataStateWise" uiConfig="{applicationSet:'fiori'}" vizProperties="{
+                                                            plotArea: { 
+                                                                drawingEffect: '',
+                                                                dataLabel:{
+                                                                    visible: true,
+                                                                    type:'value',
+                                                                    formatString:'CustomFloatFormat_F2'
+                                                                } 
+                                                            },
+                                                            title: { 
+                                                                text: ''
+                                                            },
+                                                            legend: { 
+                                                                visible: true, 
+                                                                title: { 
+                                                                    visible: false 
+                                                                }
+                                                            },
+                                                            legendGroup:{
+                                                                layout:{
+                                                                    position: 'bottom'
+                                                                }
+                                                            }
+                                                        }">
+                                                            <viz:dataset>
+                                                                <viz.data:FlattenedDataset data="{oStateWiseLiabiityFilterModel>/}">
+                                                                    <viz.data:dimensions>
+                                                                        <viz.data:DimensionDefinition name="State" value="{oStateWiseLiabiityFilterModel>region}"/>
+                                                                    </viz.data:dimensions>
+                                                                    <viz.data:measures>
+                                                                        <viz.data:MeasureDefinition name="Amount" value="{oStateWiseLiabiityFilterModel>amount}"/>
+                                                                    </viz.data:measures>
+                                                                </viz.data:FlattenedDataset>
+                                                            </viz:dataset>
+                                                            <viz:feeds>
+                                                                <viz.feeds:FeedItem uid="size" type="Measure" values="Amount"/>
+                                                                <viz.feeds:FeedItem uid="color" type="Dimension" values="State"/>
+                                                            </viz:feeds>
+                                                            <viz:dependents>
+                                                                <viz:Popover id="idPopOver_stateWise" visible="false"></viz:Popover>
+                                                            </viz:dependents>
+                                                        </viz:VizFrame>
+                                                    </chart:content>
+                                                </chart:ChartContainerContent>
+                                                <chart:ChartContainerContent icon="sap-icon://table-view" title="Table">
+                                                    <chart:content>
+                                                        <Table id="idTbl__regionWise" items="{ path: 'oStateWiseLiabiityFilterModel>/' }">
+                                                            <headerToolbar>
+                                                                <OverflowToolbar>
+                                                                    <ToolbarSpacer />
+                                                                    <Button icon='sap-icon://excel-attachment' press="onExport"/>
+                                                                </OverflowToolbar>
+                                                            </headerToolbar>
+                                                            <columns>
+                                                                <Column demandPopin="true">
+                                                                    <Label design="Bold" text="State"/>
+                                                                </Column>
+                                                                <Column demandPopin="true">
+                                                                    <Label design="Bold" text="Amount "/>
+                                                                </Column>
+                                                            </columns>
+                                                            <ColumnListItem press="">
+                                                                <Text text="{oStateWiseLiabiityFilterModel>region}"></Text>
+                                                                <Text text="{oStateWiseLiabiityFilterModel>amount}"></Text>
+                                                            </ColumnListItem>
+                                                        </Table>
+                                                    </chart:content>
+                                                </chart:ChartContainerContent>
+                                            </chart:ChartContainer>
+                                        </layout:flexContent>
+                                    </layout:FixFlex>
+                                </layout:BlockLayoutCell>
+                                <!-- Sales wise Breakup of tax Liability -->
+                                <layout:BlockLayoutCell>
+                                    <layout:FixFlex id="idFlexPieSalesWiseBreakUp" minFlexSize="500">
+                                        <layout:flexContent>
+                                            <chart:ChartContainer autoAdjustHeight="true" id="chartContainerSalesWiseBreakUp" title="Sales wise breakup " showFullScreen="true" showLegendButton="true" showSelectionDetails="false" showZoom="false">
+                                                <chart:ChartContainerContent icon="sap-icon://filter-analytics" title="Dashboard">
+                                                    <chart:content>
+                                                        <viz:VizFrame id="idVizFrame_SalesWiseBreakUp" vizType="pie" selectData="onSelectDataSalesWiseBreakUp" deselectData="onSelectDataSalesWiseBreakUp" uiConfig="{applicationSet:'fiori'}" vizProperties="{
+                                                            plotArea: { 
+                                                                drawingEffect: '',
+                                                                dataLabel:{
+                                                                    visible: true,
+                                                                    type:'value',
+                                                                    formatString:'CustomFloatFormat_F2'
+                                                                } 
+                                                            },
+                                                            title: { 
+                                                                text: ''
+                                                            },
+                                                            legend: { 
+                                                                visible: true, 
+                                                                title: { 
+                                                                    visible: false 
+                                                                }
+                                                            },
+                                                            legendGroup:{
+                                                                layout:{
+                                                                    position: 'bottom'
+                                                                }
+                                                            }
+                                                        }">
+                                                            <viz:dataset>
+                                                                <viz.data:FlattenedDataset data="{oSalesWiseBreakUpFilterModel>/}">
+                                                                    <viz.data:dimensions>
+                                                                        <viz.data:DimensionDefinition name="Type" value="{oSalesWiseBreakUpFilterModel>type}"/>
+                                                                    </viz.data:dimensions>
+                                                                    <viz.data:measures>
+                                                                        <viz.data:MeasureDefinition name="Amount" value="{oSalesWiseBreakUpFilterModel>totalInvoiceValue}"/>
+                                                                    </viz.data:measures>
+                                                                </viz.data:FlattenedDataset>
+                                                            </viz:dataset>
+                                                            <viz:feeds>
+                                                                <viz.feeds:FeedItem uid="size" type="Measure" values="Amount"/>
+                                                                <viz.feeds:FeedItem uid="color" type="Dimension" values="Type"/>
+                                                            </viz:feeds>
+                                                            <viz:dependents>
+                                                                <viz:Popover id="idPopOver_SalesWiseBreakUp" visible="false"></viz:Popover>
+                                                            </viz:dependents>
+                                                        </viz:VizFrame>
+                                                    </chart:content>
+                                                </chart:ChartContainerContent>
+                                                <chart:ChartContainerContent icon="sap-icon://table-view" title="Table">
+                                                    <chart:content>
+                                                        <Table id="idTbl__salesWise" items="{ path: 'oSalesWiseBreakUpFilterModel>/' }">
+                                                            <headerToolbar>
+                                                                <OverflowToolbar>
+                                                                    <ToolbarSpacer />
+                                                                    <Button icon='sap-icon://excel-attachment' press="onExport"/>
+                                                                </OverflowToolbar>
+                                                            </headerToolbar>
+                                                            <columns>
+                                                                <Column demandPopin="true">
+                                                                    <Label design="Bold" text="Type"/>
+                                                                </Column>
+                                                                <Column demandPopin="true">
+                                                                    <Label design="Bold" text="Amount "/>
+                                                                </Column>
+                                                            </columns>
+                                                            <ColumnListItem press="">
+                                                                <Text text="{oSalesWiseBreakUpFilterModel>type}"></Text>
+                                                                <Text text="{oSalesWiseBreakUpFilterModel>totalInvoiceValue}"></Text>
+                                                            </ColumnListItem>
+                                                        </Table>
+                                                    </chart:content>
+                                                </chart:ChartContainerContent>
+                                            </chart:ChartContainer>
+                                        </layout:flexContent>
+                                    </layout:FixFlex>
+                                </layout:BlockLayoutCell>
+                            </layout:BlockLayoutRow>
+                        </layout:BlockLayout>
+                        <layout:BlockLayout id="BlockLayout2" background="Dashboard" keepFontSize="true">
+                            <layout:BlockLayoutRow accentCells="Accent1">
+
+                                <layout:BlockLayoutCell>
+                                    <layout:FixFlex id="idFlexPieTaxRateWiseBreakUp" minFlexSize="500">
+                                        <layout:flexContent>
+                                            <chart:ChartContainer autoAdjustHeight="true" id="chartContainerTaxRateWiseBreakUp" title="Tax rate wise sales breakup" showFullScreen="true" showLegendButton="true" showSelectionDetails="false" showZoom="false">
+                                                <chart:ChartContainerContent icon="sap-icon://filter-analytics" title="Dashboard">
+                                                    <chart:content>
+                                                        <viz:VizFrame id="idVizFrame_TaxRateWiseBreakUp" vizType="pie" selectData="onSelectDataTaxRateWiseBreakUp" deselectData="onSelectDataTaxRateWiseBreakUp" uiConfig="{applicationSet:'fiori'}" vizProperties="{
+                                                            plotArea: { 
+                                                                drawingEffect: '',
+                                                                dataLabel:{
+                                                                    visible: true,
+                                                                    type:'value',
+                                                                    formatString:'CustomFloatFormat_F2'
+                                                                } 
+                                                            },
+                                                            title: { 
+                                                                text: ''
+                                                            },
+                                                            legend: { 
+                                                                visible: true, 
+                                                                title: { 
+                                                                    visible: false 
+                                                                }
+                                                            },
+                                                            legendGroup:{
+                                                                layout:{
+                                                                    position: 'bottom'
+                                                                }
+                                                            }
+                                                        }">
+                                                            <viz:dataset>
+                                                                <viz.data:FlattenedDataset data="{oTaxRateWiseBreakUpFilterModel>/}">
+                                                                    <viz.data:dimensions>
+                                                                        <viz.data:DimensionDefinition name="TaxRate" value="{oTaxRateWiseBreakUpFilterModel>taxRate}"/>
+                                                                    </viz.data:dimensions>
+                                                                    <viz.data:measures>
+                                                                        <viz.data:MeasureDefinition name="Amount" value="{oTaxRateWiseBreakUpFilterModel>totalInvoiceValue}"/>
+                                                                    </viz.data:measures>
+                                                                </viz.data:FlattenedDataset>
+                                                            </viz:dataset>
+                                                            <viz:feeds>
+                                                                <viz.feeds:FeedItem uid="size" type="Measure" values="Amount"/>
+                                                                <viz.feeds:FeedItem uid="color" type="Dimension" values="TaxRate"/>
+                                                            </viz:feeds>
+                                                            <viz:dependents>
+                                                                <viz:Popover id="idPopOver_TaxRateWiseBreakUp" visible="false"></viz:Popover>
+                                                            </viz:dependents>
+                                                        </viz:VizFrame>
+                                                    </chart:content>
+                                                </chart:ChartContainerContent>
+                                                <chart:ChartContainerContent icon="sap-icon://table-view" title="Table">
+                                                    <chart:content>
+                                                        <Table id="idTbl__taxrateWise" items="{ path: 'oTaxRateWiseBreakUpFilterModel>/' }">
+                                                            <headerToolbar>
+                                                                <OverflowToolbar>
+                                                                    <ToolbarSpacer />
+                                                                    <Button icon='sap-icon://excel-attachment' press="onExport"/>
+                                                                </OverflowToolbar>
+                                                            </headerToolbar>
+                                                            <columns>
+                                                                <Column demandPopin="true">
+                                                                    <Label design="Bold" text="TaxRate"/>
+                                                                </Column>
+                                                                <Column demandPopin="true">
+                                                                    <Label design="Bold" text="Amount"/>
+                                                                </Column>
+                                                            </columns>
+                                                            <ColumnListItem press="">
+                                                                <Text text="{oTaxRateWiseBreakUpFilterModel>taxRate}"></Text>
+                                                                <Text text="{oTaxRateWiseBreakUpFilterModel>totalInvoiceValue}"></Text>
+                                                            </ColumnListItem>
+                                                        </Table>
+                                                    </chart:content>
+                                                </chart:ChartContainerContent>
+                                            </chart:ChartContainer>
+                                        </layout:flexContent>
+                                    </layout:FixFlex>
+                                </layout:BlockLayoutCell>
+                            </layout:BlockLayoutRow>
+                        </layout:BlockLayout>
+                      <layout:BlockLayout  visible="true" background="Dashboard" keepFontSize="true">
+                             <layout:BlockLayoutRow accentCells="Accent1">
+                                    <!-- Trend Chart -->
+                                    <layout:BlockLayoutCell>
+                                        <layout:FixFlex id="idFlexPTrendChart3" minFlexSize="100">
+                                            <layout:flexContent>
+                                            <Panel >
+                                                <fb:FilterBar persistencyKey="myPersKey" showGoOnFB="false" showFilterConfiguration="false" useToolbar="false">
+                                                    <fb:filterGroupItems>
+                                                        <fb:FilterGroupItem name="Trend" label="Trend" groupName="Group1" visibleInFilterBar="true">
+                                                            <fb:control>
+                                                                <Select id="fbmc-TrendType" change="handleChangeTrendType">
+                                                                    <items>
+                                                                        <core:Item key="1D" text="1D"/>
+                                                                        <core:Item key="1W" text="1W"/>
+                                                                        <core:Item key="1M" text="1M"/>
+                                                                        <core:Item key="1Y" text="1Y"/>
+                                                                        <core:Item key="3Y" text="3Y"/>
+                                                                        <core:Item key="5Y" text="5Y"/>
+                                                                        <!-- <core:Item key="Quarter" text="Quarter"/> -->
+                                                                        <!-- <core:Item key="5Y" text="5Y"/> -->
+                                                                    </items>
+                                                                </Select>
+                                                            </fb:control>
+                                                        </fb:FilterGroupItem>
+                                                    </fb:filterGroupItems>
+                                                </fb:FilterBar>
+                                            </Panel>
+                                        </layout:flexContent>
+                                        <!-- <layout:layoutData>
+                                            <layout:SplitterLayoutData size="20%"/>
+                                        </layout:layoutData> -->
+                                        </layout:FixFlex>
+                                    </layout:BlockLayoutCell>
+                                </layout:BlockLayoutRow>
+                                <layout:BlockLayoutRow id="BlockLayout3" visible="true" accentCells="Accent1">
+                                    <!-- Trend Chart -->
+                                    <layout:BlockLayoutCell>
+                                        <layout:FixFlex id="idFlexPTrendChart" minFlexSize="500">
+                                            <layout:flexContent>
+                                                <chart:ChartContainer autoAdjustHeight="true" id="container1" title="Trend Chart" showFullScreen="true" showLegendButton="true" showSelectionDetails="true" showZoom="true">
+                                                    <chart:ChartContainerContent id="chartContainerTrendChart" visible="true" icon="sap-icon://filter-analytics" title="Dashboard">
+                                                        <chart:content>
+                                                            <viz:VizFrame id="idVizFrame_TrendChart" height='100%' width="100%"  vizType="timeseries_line" selectData="onSelectTrendData" deselectData="onSelectTrendData" uiConfig="{applicationSet:'fiori'}" vizProperties="{
+                                                            plotArea: { 
+                                                                drawingEffect: '',
+                                                                dataLabel:{
+                                                                    visible: true,
+                                                                    type:'value',
+                                                                    formatString:'CustomFloatFormat_F2'
+                                                                } 
+                                                            },
+                                                            timeAxis: {
+                                                                levels: ['day','year'],
+                                                                title: {
+                                                                    visible: false
+                                                                }
+                                                            },
+                                                            valueAxis: {
+                                                                title: {
+                                                                    visible: false
+                                                                }
+                                                            },
+                                                            title: {
+                                                                visible: false
+                                                            },
+                                                            legend: {
+                                                                visible: false
+                                                            }
+                                                        }">
+                                                                <viz:dataset>
+                                                                    <viz.data:FlattenedDataset data="{trendDataModel>/}">
+                                                                        <viz.data:dimensions>
+                                                                            <viz.data:DimensionDefinition name="Date" id="trendlabel" value="{trendDataModel>TRENDLABEL}" dataType='date'/>
+                                                                        </viz.data:dimensions>
+                                                                        <viz.data:measures>
+                                                                            <viz.data:MeasureDefinition name="Revenue" value="{trendDataModel>TOTAL}" />
+                                                                        </viz.data:measures>
+                                                                    </viz.data:FlattenedDataset>
+                                                                </viz:dataset>
+
+                                                                <viz:feeds>
+                                                                    <viz.feeds:FeedItem id='valueAxisFeed' uid="valueAxis" type="Measure" values="Revenue" />
+                                                                    <viz.feeds:FeedItem id='categoryAxisFeed' uid="timeAxis" type="Dimension" values="Date" />
+                                                                </viz:feeds>
+                                                                <viz:dependents>
+                                                                    <viz:Popover id="idPopOver_TrendChart" visible="false"></viz:Popover>
+                                                                </viz:dependents>
+                                                            </viz:VizFrame>
+                                                        </chart:content>
+                                                    </chart:ChartContainerContent>
+                                                </chart:ChartContainer>
+                                            </layout:flexContent>
+                                        </layout:FixFlex>
+                                    </layout:BlockLayoutCell>
+                                </layout:BlockLayoutRow>
+                                 <layout:BlockLayoutRow id="BlockLayout4" visible="false" accentCells="Accent1">
+                                    <!-- Trend Chart -->
+                                    <layout:BlockLayoutCell>
+                                        <layout:FixFlex id="idFlexPTrendChart1" minFlexSize="500">
+                                            <layout:flexContent>
+                                             <chart:ChartContainer autoAdjustHeight="true" id="container" title="Trend Chart" showFullScreen="true" showLegendButton="true" showSelectionDetails="true" showZoom="true">
+                                                  <chart:ChartContainerContent id="chartContainerTrendChart1" visible="true" icon="sap-icon://filter-analytics" title="Dashboard">
+                                                        <chart:content>
+                                                            <viz:VizFrame id="idVizFrame_TrendChart1" height='100%' width="100%"  vizType="line" selectData="onSelectTrendData" deselectData="onSelectTrendData" uiConfig="{applicationSet:'fiori'}" vizProperties="{
+                                                            plotArea: { 
+                                                                drawingEffect: '',
+                                                                dataLabel:{
+                                                                    visible: true,
+                                                                    type:'value',
+                                                                    formatString:'CustomFloatFormat_F2'
+                                                                } 
+                                                            },
+                                                            categoryAxis: {
+                                                                title: {
+                                                                    visible: false
+                                                                }
+                                                            },
+                                                            valueAxis: {
+                                                                title: {
+                                                                    visible: false
+                                                                }
+                                                            },
+                                                            title: {
+                                                                visible: false
+                                                            },
+                                                            legend: {
+                                                                visible: false
+                                                            }
+                                                        }">
+                                                                <viz:dataset>
+                                                                    <viz.data:FlattenedDataset data="{trendDataModel>/}">
+                                                                        <viz.data:dimensions>
+                                                                            <viz.data:DimensionDefinition name="Date" id="trendlabel1" value="{trendDataModel>TRENDLABEL}"/>
+                                                                        </viz.data:dimensions>
+                                                                        <viz.data:measures>
+                                                                            <viz.data:MeasureDefinition name="Revenue" value="{trendDataModel>TOTAL}" />
+                                                                        </viz.data:measures>
+                                                                    </viz.data:FlattenedDataset>
+                                                                </viz:dataset>
+
+                                                                <viz:feeds>
+                                                                    <viz.feeds:FeedItem id='valueAxisFeed1' uid="valueAxis" type="Measure" values="Revenue" />
+                                                                    <viz.feeds:FeedItem id='categoryAxisFeed1' uid="categoryAxis" type="Dimension" values="Date" />
+                                                                </viz:feeds>
+                                                                <viz:dependents>
+                                                                    <viz:Popover id="idPopOver_TrendChart1" visible="false"></viz:Popover>
+                                                                </viz:dependents>
+                                                            </viz:VizFrame>
+                                                        </chart:content>
+                                                    </chart:ChartContainerContent>
+                                                    </chart:ChartContainer>
+                                            </layout:flexContent>
+                                        </layout:FixFlex>
+                                    </layout:BlockLayoutCell>
+                                </layout:BlockLayoutRow>
+                            </layout:BlockLayout>
+                    </Panel>
+                </content>
+            </Page>
+        </pages>
+    </App>
+</mvc:View>

@@ -1,0 +1,171 @@
+{
+  "_version": "1.49.0",
+  "sap.app": {
+    "id": "ns.tcssummarydetailsreport",
+    "type": "application",
+    "i18n": "i18n/i18n.properties",
+    "applicationVersion": {
+      "version": "0.0.1"
+    },
+    "crossNavigation": {
+      "inbounds": {
+        "taxRules-display": {
+          "signature": {
+            "parameters": {},
+            "additionalParameters": "allowed"
+          },
+          "semanticObject": "TCSSummaryDetails",
+          "action": "display",
+          "title": "TCS Summary Details",
+          "info": "",
+          "subTitle": "",
+          "icon": "sap-icon://customer-financial-fact-sheet"
+        }
+      }
+    },
+    "title": "{{appTitle}}",
+    "description": "{{appDescription}}",
+    "resources": "resources.json",
+    "sourceTemplate": {
+      "id": "@sap/generator-fiori:lrop",
+      "version": "1.11.1",
+      "toolsId": "e663c0b7-0e92-4056-9518-4249611814f5"
+    },
+    "dataSources": {
+      "mainService": {
+        "uri": "/tcsSummaryDetail/",
+        "type": "OData",
+        "settings": {
+          "annotations": [],
+          "localUri": "localService/metadata.xml",
+          "odataVersion": "4.0"
+        }
+      }
+    }
+  },
+  "sap.platform.cf": {
+    "ui5VersionNumber":"1.118.1"
+  },
+  "sap.ui": {
+    "technology": "UI5",
+    "icons": {
+      "icon": "",
+      "favIcon": "",
+      "phone": "",
+      "phone@2": "",
+      "tablet": "",
+      "tablet@2": ""
+    },
+    "deviceTypes": {
+      "desktop": true,
+      "tablet": true,
+      "phone": true
+    }
+  },
+  "sap.ui5": {
+    "flexEnabled": true,
+    "dependencies": {
+      "minUI5Version": "1.119.1",
+      "libs": {
+        "sap.m": {},
+        "sap.ui.core": {},
+        "sap.ushell": {},
+        "sap.fe.templates": {}
+      }
+    },
+    "contentDensities": {
+      "compact": true,
+      "cozy": true
+    },
+    "models": {
+      "i18n": {
+        "type": "sap.ui.model.resource.ResourceModel",
+        "settings": {
+          "bundleName": "ns.tcssummarydetailsreport.i18n.i18n"
+        }
+      },
+      "": {
+        "dataSource": "mainService",
+        "preload": true,
+        "settings": {
+          "synchronizationMode": "None",
+          "operationMode": "Server",
+          "autoExpandSelect": true,
+          "earlyRequests": true
+        }
+      },
+      "@i18n": {
+        "type": "sap.ui.model.resource.ResourceModel",
+        "uri": "i18n/i18n.properties"
+      }
+    },
+    "resources": {
+      "css": []
+    },
+    "routing": {
+      "config": {},
+      "routes": [
+        {
+          "pattern": ":?query:",
+          "name": "tcsSummaryDetailsList",
+          "target": "tcsSummaryDetailsList"
+        },
+        {
+          "pattern": "tcsSummaryDetails({key}):?query:",
+          "name": "tcsSummaryDetailsObjectPage",
+          "target": "tcsSummaryDetailsObjectPage"
+        }
+      ],
+      "targets": {
+        "tcsSummaryDetailsList": {
+          "type": "Component",
+          "id": "tcsSummaryDetailsList",
+          "name": "sap.fe.templates.ListReport",
+          "options": {
+            "settings": {
+              "entitySet": "tcsSummaryDetails",
+              "variantManagement": "Page",
+              "initialLoad": "Enabled",
+              "controlConfiguration": {
+                "@com.sap.vocabularies.UI.v1.LineItem": {
+                  "tableSettings": {
+                    "type": "GridTable"
+                  },
+                  "actions": {
+                    "exportAll": {
+                      "press": "ns.tcssummarydetailsreport.custom.customActions.exportAll",
+                      "text": "Export All",
+                      "enabled": true,
+                      "visible": true,
+                      "inline": false,
+                      "requiresSelection": false
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "tcsSummaryDetailsObjectPage": {
+          "type": "Component",
+          "id": "tcsSummaryDetailsObjectPage",
+          "name": "sap.fe.templates.ObjectPage",
+          "options": {
+            "settings": {
+              "editableHeaderContent": false,
+              "entitySet": "tcsSummaryDetails"
+            }
+          }
+        }
+      }
+    }
+  },
+  "sap.fiori": {
+    "registrationIds": [],
+    "archeType": "transactional"
+  },
+  "sap.cloud": {
+    "public": true,
+    "service": "cpapp.service"
+  }
+}

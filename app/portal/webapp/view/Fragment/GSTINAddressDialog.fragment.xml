@@ -1,0 +1,80 @@
+<core:FragmentDefinition xmlns:main="sap.ui.webc.main"
+    xmlns="sap.m"
+    xmlns:l="sap.ui.layout"
+    xmlns:core="sap.ui.core"
+    xmlns:f="sap.ui.layout.form"
+    xmlns:u="sap.ui.unified"
+    xmlns:t="sap.ui.table" class="sapUiSizeCompact">
+
+    <Dialog id="GSTDetailsDialog" title="Address Details {gstinDialogModel>/GSTIN}">
+        <content>
+            <l:VerticalLayout id="oVCGSTINDialog">
+                <t:Table id="tbl-GSTINaddress" visibleRowCount="6" rowSelectionChange="onChangeGSTRow" selectionMode="None" rows="{gstinDialogModel>/addresses}" rowActionCount="1" class="sapUiTinyMargin">
+                    <t:extension>
+                        <OverflowToolbar style="Clear">
+                            <Title id="title" text="Addresses"/>
+                            <ToolbarSpacer/>
+                            <Button text="Add" icon="sap-icon://add-activity" type="Transparent" press="onAddNewAddress" visible="{= !${/toggleEdit} &amp;&amp; ${rolesModel>/CANEDITGST}}"/>
+                        </OverflowToolbar>
+                    </t:extension>
+                    <t:columns>
+                        <t:Column width="103px" tooltip="Address Type">
+                            <Label text="Type"/>
+                            <t:template>
+                                <Text text="{gstinDialogModel>TYPE}"/>
+                            </t:template>
+                        </t:Column>
+                        <t:Column width="120px" hAlign="Center" tooltip="Invoice Printing">
+                            <Label text="Inv Printing"/>
+                            <t:template>
+                                <CheckBox selected="{gstinDialogModel>USEFORINVOICEPRINTING}" select="onChangeIncoicePrinting" />
+                            </t:template>
+                        </t:Column>
+                        <t:Column minWidth="320px">
+                            <Label text="Address" required="true"/>
+                            <t:template>
+                                <Input value="{gstinDialogModel>ADDRESS}" width="100%" editable="{= ${gstinDialogModel>TYPE} === 'Additional'}"/>
+                            </t:template>
+                        </t:Column>
+                        <t:Column minWidth="173px">
+                            <Label text="Country / State"/>
+                            <t:template>
+                                <Text text="{path: 'gstinDialogModel>COUNTRY_CODE', formatter: '.setCountryDesc'},
+								{path: 'gstinDialogModel>STATE', formatter: '.setStateDesc'}"/>
+                            </t:template>
+                        </t:Column>
+                        <t:Column minWidth="138px">
+                            <Label text="City" required="false"/>
+                            <t:template>
+                                <Input value="{gstinDialogModel>CITY}" liveChange="onLiveValidateForInputCity" editable="{= ${gstinDialogModel>TYPE} === 'Additional'}"/>
+                            </t:template>
+                        </t:Column>
+                        <t:Column width="104px">
+                            <Label text="Pincode" required="true"/>
+                            <t:template>
+                                <MaskInput mask="999999" value="{gstinDialogModel>PINCODE}" editable="{= ${gstinDialogModel>TYPE} === 'Additional'}"/>
+                            </t:template>
+                        </t:Column>
+                        <t:Column minWidth="150px">
+                            <Label text="Effective From" required="true"/>
+                            <t:template>
+                                <DatePicker id="dp-effectiveDate" change="handleDateChange" value="{gstinDialogModel>EFFECTIVEFROM}" valueFormat="yyyy-MM-dd" displayFormat="yyyy-MM-dd" minDate="{viewModel>/minDate}" editable="{= ${gstinDialogModel>TYPE} === 'Additional'}"/>
+                            </t:template>
+                        </t:Column>
+                    </t:columns>
+                    <t:rowActionTemplate>
+                        <t:RowAction id="_IDGenRowAction1">
+                            <t:items>
+                                <t:RowActionItem id="_IDGenRowActionItem1" icon="sap-icon://delete" press="onDeleteGSTINAddress" visible="{= ${gstinDialogModel>TYPE} === 'Additional'}" />
+                            </t:items>
+                        </t:RowAction>
+                    </t:rowActionTemplate>
+                </t:Table>
+            </l:VerticalLayout>
+        </content>
+
+        <endButton>
+            <Button text="Close" type="Reject" press="onCloseAddNewGSTINAddress"/>
+        </endButton>
+    </Dialog>
+</core:FragmentDefinition>

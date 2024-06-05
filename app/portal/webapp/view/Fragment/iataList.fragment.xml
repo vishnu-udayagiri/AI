@@ -1,0 +1,9 @@
+<core:FragmentDefinition xmlns="sap.m"
+    xmlns:core="sap.ui.core">
+    <SelectDialog title="Select the IATA(s)" 
+    items="{path :'iataListModel>/',sorter: {path:'IATANUMBER',descending: true}}"
+     search="onSearchIATAPress" multiSelect="true" 
+      confirm="onSelectIATAList" cancel="onSelectIATAList">
+        <StandardListItem iconDensityAware="false" iconInset="false" title="{iataListModel>IATANUMBER}"/>
+    </SelectDialog>
+</core:FragmentDefinition>

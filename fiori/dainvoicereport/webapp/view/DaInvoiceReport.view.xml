@@ -1,0 +1,105 @@
+<mvc:View controllerName="ns.dainvoicereport.controller.DaInvoiceReport"
+    xmlns:mvc="sap.ui.core.mvc"  xmlns:fb="sap.ui.comp.filterbar" xmlns:t="sap.ui.table" xmlns:sap.ui.fl="sap.ui.fl" displayBlock="true"
+    xmlns="sap.m">
+    <App id="app">
+        <pages>
+            <Page id="page" title="DA Invoice Reconciliation Report" showFooter="true" showHeader="false">
+                <content>
+                    <!-- <layout:VerticalLayout id="containerLayout" width="100%"> -->
+                    <Panel width="auto">
+                        <fb:FilterBar id="filterbar" persistencyKey="myPersKey" useToolbar="false" search=".onSearch" filterChange=".onFilterChange" afterVariantLoad=".onAfterVariantLoad">
+                            <fb:filterGroupItems>
+                              
+                                <fb:FilterGroupItem mandatory="true" name="DA Period" label="GSTR1 Period" groupName="Group1" visibleInFilterBar="true">
+							<fb:control>
+								<DatePicker  enabled="true" id="dp-financialYear" placeholder="Month Year" valueFormat="MM/yyyy" displayFormat="MM/yyyy" value="{path: 'DocHeaderModel>/poedate', type: 'sap.ui.model.type.DateTime', formatOptions: {pattern: 'MM/yyyy', strictParsing: true , UTC: true}}" visible="{path: 'visible_Model>/poedate_visible',formatter: 'General.Formatter.setVisible'}" editable="{path: 'xBRIxI_EDSGENHD_A1Type_Model>/poedate_editable',formatter: 'General.Formatter.setEditable'}" required="{path: 'xBRIxI_EDSGENHD_A1Type_Model>/poedate_required',formatter: 'General.Formatter.setRequired'}"></DatePicker>
+							</fb:control>
+						</fb:FilterGroupItem>
+                            </fb:filterGroupItems>
+                        </fb:FilterBar>
+                    </Panel>
+                    <Panel id="panel_table" width="auto" class="sapUiResponsiveMargin">
+			<content>
+				<t:Table id="tbl_dainvoice" visible="true" rows="{DataModel>/}" rowActionCount="1" selectionMode="None" threshold="100" visibleRowCount="" firstVisibleRowChanged="" ariaLabelledBy="title" columnMove="onColumnMove"
+                 sort="onSort" 
+                 sap.ui.fl:flexibility="sap/m/flexibility/EngineFlex">
+					<t:extension>
+						<OverflowToolbar style="Clear">
+							<Title id="title" text="DA Invoice Reconciliation Report"/>
+							<ToolbarSpacer/>
+							<ObjectStatus state="Information" id="txt-inr" text="* All amounts in the table are denominated in Indian Rupees (INR)."></ObjectStatus>
+							<ToggleButton id="btn-excel" tooltip="Download Excel Report" icon="sap-icon://excel-attachment" pressed="false" press="onPressExportExcel"/>
+						</OverflowToolbar>
+					</t:extension>
+					<t:noData>
+                        <IllustratedMessage enableVerticalResponsiveness="true"/>
+                    </t:noData>
+					<t:columns>
+						<t:Column id="col_gstr1period1" minWidth="150px" filterProperty="GSTR1PERIOD_1" autoResizable="true" tooltip="GSTR1 Period 1" sortProperty="GSTR1PERIOD_1">
+							<Label text="GSTR1 Period 1"/>
+							<t:template>
+								<Text text="{DataModel>GSTR1PERIOD_1}"/>
+							</t:template>
+						</t:Column>
+						<t:Column id="col_usecasecal" minWidth="200px" filterProperty="USECASE_CAL" tooltip="Use Case Cal">
+							<Label text="Use Case Cal"/>
+							<t:template>
+								<Text text="{DataModel>USECASE_CAL}"/>
+							</t:template>
+						</t:Column>
+						<t:Column id="col_documenttypecal" minWidth="170px" filterProperty="DOCUMENTTYPE_CAL" tooltip="Document Type Cal" autoResizable="true" sortProperty="DOCUMENTTYPE_CAL">
+							<Label text="Document Type Cal"/>
+							<t:template>
+								<Text text="{DataModel>DOCUMENTTYPE_CAL}"/>
+							</t:template>
+						</t:Column>
+						<t:Column id="col_k3da" minWidth="130px" hAlign="Right" filterProperty="K3_DA" tooltip="K3 DA">
+							<Label text="K3 DA"/>
+							<t:template>
+								<Text text="{DataModel>K3_DA}"/>
+							</t:template>
+						</t:Column>
+						<t:Column id="col_cptax" minWidth="150px" hAlign="Right" filterProperty="CP_TAX" autoResizable="true" tooltip="CP Tax" sortProperty="CP_TAX">
+							<Label text="CP Tax"/>
+							<t:template>
+								<Text text="{DataModel>CP_TAX}"/>
+							</t:template>
+						</t:Column>
+						<t:Column id="col_obtax" minWidth="120px" hAlign="Right" filterProperty="OB_TAX" autoResizable="true" tooltip="OB Tax" sortProperty="OB_TAX">
+							<Label text="OB Tax"/>
+							<t:template>
+								<Text text="{DataModel>OB_TAX}"/>
+							</t:template>
+						</t:Column>						
+						<t:Column id="col_voidchargestax" minWidth="150px" hAlign="Right" filterProperty="VOIDCHARGES_TAX" tooltip="Void Charges Tax">
+							<Label text="Void Charges Tax"/>
+							<t:template>
+								<Text text="{DataModel>VOIDCHARGES_TAX}"/>
+							</t:template>
+						</t:Column>					
+						<t:Column id="col_k3inv" minWidth="120px" hAlign="Right" filterProperty="K3_INV" autoResizable="true" tooltip="K3 INV" sortProperty="K3_INV">
+							<Label text="K3 INV"/>
+							<t:template>
+								<Text text="{DataModel>K3_INV}"/>
+								<!-- <Text text="{path: 'DataModel>K3_INV', formatter: '.formatNewDateChange'}"/> -->
+							</t:template>
+						</t:Column>
+						
+						
+					</t:columns>
+					<t:footer>
+						<Toolbar>
+							<ToolbarSpacer/>
+							<!-- <Link id="morelink" text="More.." press="onScroll" ></Link> -->
+							<Title id="table_footer"></Title>
+							<ToolbarSpacer/>
+						</Toolbar>
+					</t:footer>
+				</t:Table>
+			</content>
+		</Panel>
+                </content>
+            </Page>
+        </pages>
+    </App>
+</mvc:View>

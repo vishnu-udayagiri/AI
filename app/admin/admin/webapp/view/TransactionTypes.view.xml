@@ -1,0 +1,98 @@
+<mvc:View xmlns:core="sap.ui.core" controllerName="admindashboard.controller.TransactionTypes" class="sapUiSizeCompact"
+    xmlns:l="sap.ui.layout"
+    xmlns="sap.m"
+    xmlns:form="sap.ui.layout.form"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns:t="sap.ui.table">
+    <Page showHeader="false">
+        <l:VerticalLayout id="containerLayout" width="100%">
+            <Panel width="auto" class="sapUiSmallMargin" accessibleRole="Region">
+                <headerToolbar>
+                    <OverflowToolbar>
+                        <Title id="idTitle" text="{i18n>titleTransactionTypeCreate}"/>
+                        <ToolbarSpacer />
+                        <Button id="ID_CreateService" press="onCreateTransType" text="{i18n>btnTxtCreate}" icon="sap-icon://create" visible="{= !${/toggleEdit}}"/>
+                        <!-- Edit Press -->
+                        <Button id="ID_SaveService" press="onUpdateTransType" text="{i18n>btnTxtSave}" icon="sap-icon://save" visible="{= ${/toggleEdit}}"/>
+                        <Button id="ID_CancelService" press="onCancelEditTransType" text="{i18n>btnTxtCancel}" icon="sap-icon://cancel" type="Reject" visible="{= ${/toggleEdit}}"/>
+                    </OverflowToolbar>
+                </headerToolbar>
+                <content>
+                    <form:SimpleForm layout="ColumnLayout" columnsM="2" columnsL="3" columnsXL="4">
+                        <form:content>
+                            <Label text="{i18n>txtTransactionType}" required="true"/>
+                            <Input id="idTransType" value="{newTransListModel>/transactionType}" editable="{= !${/toggleEdit}}" maxLength="10"/>
+
+                            <Label text="{i18n>txtTransactionTypeText}"/>
+                            <Input id="idTransText" value="{newTransListModel>/transactionText}" maxLength="50" />
+
+                            <Label text="{i18n>txtTransactionTypeHsn}"/>
+                            <Input id="idHsn" value="{newTransListModel>/hsn}" maxLength="8" />
+
+                            <Label text="{i18n>txtTransactionTypeHsnText}"/>
+                            <Input id="idHsnText" value="{newTransListModel>/hsnText}" maxLength="30" />
+
+                            <Label text="{i18n>txtTransactionTypeTaxCode}"/>
+                            <Select id="idTaxCode" selectedKey="{newTransListModel>/taxCode}" forceSelection="false" items="{taxCodeModel>/}">
+                                <core:ListItem key="{taxCodeModel>taxCode}" text="{taxCodeModel>description}"/>
+                            </Select>
+                        </form:content>
+                    </form:SimpleForm>
+                </content>
+            </Panel>
+            <Panel width="auto" class="sapUiSmallMargin">
+                <headerToolbar>
+                    <OverflowToolbar>
+                        <Title text="{i18n>txtTransactionTypes}"/>
+                        <ToolbarSpacer />
+                        <!-- <Button press="onUploadExcel" icon="sap-icon://excel-attachment"/> -->
+                    </OverflowToolbar>
+                </headerToolbar>
+                <content>
+                    <t:Table rowActionCount="2" visibleRowCount="8" rows="{transListModel>/}" enableColumnReordering="false" selectionMode="Single" id="idTransTypeList">
+                        <t:columns>
+                            <t:Column filterProperty="transactionType">
+                                <Label text="{i18n>txtTransactionType}"/>
+                                <t:template>
+                                    <Text text="{transListModel>transactionType}"/>
+                                </t:template>
+                            </t:Column>
+                            <t:Column filterProperty="transactionText">
+                                <Label text="{i18n>txtTransactionTypeText}"/>
+                                <t:template>
+                                    <Text text="{transListModel>transactionText}"/>
+                                </t:template>
+                            </t:Column>
+                            <t:Column filterProperty="hsn">
+                                <Label text="{i18n>txtTransactionTypeHsn}"/>
+                                <t:template>
+                                    <Text text="{transListModel>hsn}"/>
+                                </t:template>
+                            </t:Column>
+                            <t:Column filterProperty="hsnText">
+                                <Label text="{i18n>txtTransactionTypeHsnText}"/>
+                                <t:template>
+                                    <Text text="{transListModel>hsnText}"/>
+                                </t:template>
+                            </t:Column>
+                            <t:Column filterProperty="taxCode">
+                                <Label text="{i18n>txtTransactionTypeTaxCode}"/>
+                                <t:template>
+                                    <Text text="{path: 'transListModel>taxCode', formatter: '.formatter.formatTaxCode'}"/>
+                                </t:template>
+                            </t:Column>
+                        </t:columns>
+                        <t:rowActionTemplate>
+                            <t:RowAction>
+                                <t:items>
+                                    <t:RowActionItem icon="sap-icon://edit" press="onTransTypeEditPress"/>
+                                    <t:RowActionItem type="Delete" icon="sap-icon://delete" press="onTransTypeDeletePress"/>
+                                </t:items>
+                            </t:RowAction>
+                        </t:rowActionTemplate>
+                    </t:Table>
+                </content>
+            </Panel>
+        </l:VerticalLayout>
+    </Page>
+</mvc:View>

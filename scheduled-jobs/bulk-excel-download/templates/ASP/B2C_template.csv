@@ -1,0 +1,1 @@
+SupplierGSTIN,ReturnPeriod,TransactionType,Month,OrgPOS,OrgHSNorSAC,OrgUnitOfMeasurement,OrgQuantity,OrgRate,OrgTaxableValue,OrgeComGSTIN,OrgeComSupplyValue,NewPOS,NewHSNorSAC,NewUnitOfMeasurement,NewQuantity,NewRate,NewTaxableValue,NeweComGSTIN,NeweComSupplyValue,IntegratedTaxAmount,CentralTaxAmount,StateUTTaxAmount,CessAmount,TotalValue

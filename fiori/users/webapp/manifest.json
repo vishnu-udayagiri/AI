@@ -1,0 +1,250 @@
+{
+  "_version": "1.49.0",
+  "sap.app": {
+    "id": "ns.users",
+    "type": "application",
+    "i18n": "i18n/i18n.properties",
+    "applicationVersion": {
+      "version": "0.1.1"
+    },
+    "crossNavigation": {
+      "inbounds": {
+        "intent1": {
+          "signature": {
+            "parameters": {},
+            "additionalParameters": "allowed"
+          },
+          "semanticObject": "companyDetails",
+          "action": "display",
+          "title": "Customer Master",
+          "info": "",
+          "subTitle": "",
+          "icon": "sap-icon://order-status"
+        }
+      }
+    },
+    "title": "{{appTitle}}",
+    "description": "{{appDescription}}",
+    "resources": "resources.json",
+    "sourceTemplate": {
+      "id": "@sap/generator-fiori:lrop",
+      "version": "1.11.1",
+      "toolsId": "6a1fecd2-3cd2-4549-9d16-3ac4836951d8"
+    },
+    "dataSources": {
+      "mainService": {
+        "uri": "/user/",
+        "type": "OData",
+        "settings": {
+          "annotations": [],
+          "localUri": "localService/metadata.xml",
+          "odataVersion": "4.0"
+        }
+      }
+    }
+  },
+  "sap.ui": {
+    "technology": "UI5",
+    "icons": {
+      "icon": "",
+      "favIcon": "",
+      "phone": "",
+      "phone@2": "",
+      "tablet": "",
+      "tablet@2": ""
+    },
+    "deviceTypes": {
+      "desktop": true,
+      "tablet": true,
+      "phone": true
+    }
+  },
+  "sap.ui5": {
+    "flexEnabled": true,
+    "dependencies": {
+      "minUI5Version": "1.119.2",
+      "libs": {
+        "sap.m": {},
+        "sap.ui.core": {},
+        "sap.ushell": {},
+        "sap.fe.templates": {}
+      }
+    },
+    "contentDensities": {
+      "compact": true,
+      "cozy": true
+    },
+    "models": {
+      "i18n": {
+        "type": "sap.ui.model.resource.ResourceModel",
+        "settings": {
+          "bundleName": "ns.users.i18n.i18n"
+        }
+      },
+      "": {
+        "dataSource": "mainService",
+        "preload": true,
+        "settings": {
+          "synchronizationMode": "None",
+          "operationMode": "Server",
+          "autoExpandSelect": true,
+          "earlyRequests": true
+        }
+      },
+      "@i18n": {
+        "type": "sap.ui.model.resource.ResourceModel",
+        "uri": "i18n/i18n.properties"
+      }
+    },
+    "resources": {
+      "css": []
+    },
+    "routing": {
+      "config": {},
+      "routes": [
+        {
+          "pattern": ":?query:",
+          "name": "CompanyMastersList",
+          "target": "CompanyMastersList"
+        },
+        {
+          "pattern": "CompanyMasters({key}):?query:",
+          "name": "CompanyMastersObjectPage",
+          "target": "CompanyMastersObjectPage"
+        },
+        {
+          "pattern": "CompanyMasters({key})/CompanyGSTIN({key2}):?query:",
+          "name": "CompanyGSTINObjectPage",
+          "target": "CompanyGSTINObjectPage"
+        }
+      ],
+      "targets": {
+        "CompanyMastersList": {
+          "type": "Component",
+          "id": "CompanyMastersList",
+          "name": "sap.fe.templates.ListReport",
+          "options": {
+            "settings": {
+              "entitySet": "CompanyMasters",
+              "variantManagement": "Page",
+              "initialLoad": "Enabled",
+              "navigation": {
+                "CompanyMasters": {
+                  "detail": {
+                    "route": "CompanyMastersObjectPage"
+                  }
+                }
+              },
+              "controlConfiguration": {
+                "@com.sap.vocabularies.UI.v1.LineItem": {
+                  "tableSettings": {
+                    "type": "GridTable"
+                  },
+                  "actions": {
+                    "exportAll": {
+                      "press": "ns.users.custom.customActions.exportAll",
+                      "text": "Export All",
+                      "requiresSelection": true
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "CompanyMastersObjectPage": {
+          "type": "Component",
+          "id": "CompanyMastersObjectPage",
+          "name": "sap.fe.templates.ObjectPage",
+          "options": {
+            "settings": {
+              "editableHeaderContent": false,
+              "entitySet": "CompanyMasters",
+              "enhanceI18n": "i18n/i18n.properties",
+              "controlConfiguration": {
+                "CompanyUsers/@com.sap.vocabularies.UI.v1.LineItem": {
+                  "actions": {
+                    "assignAsAdmin": {
+                      "press": "ns.users.custom.customActions.assignAsAdmin",
+                      "text": "Assign as Admin",
+                      "requiresSelection": true
+                    },
+                    "activate": {
+                      "press": "ns.users.custom.customActions.activateAdmin",
+                      "text": "Activate",
+                      "requiresSelection": true
+                    },
+                    "deactivate": {
+                      "press": "ns.users.custom.customActions.deactivateAdmin",
+                      "text": "Deactivate",
+                      "requiresSelection": true
+                    }
+                  },
+                  "tableSettings": {
+                    "type": "GridTable"
+                  }
+                },
+                "CompanyGSTIN/@com.sap.vocabularies.UI.v1.LineItem": {
+                  "tableSettings": {
+                    "type": "GridTable"
+                  }
+                },
+                "CompanyIATA/@com.sap.vocabularies.UI.v1.LineItem": {
+                  "tableSettings": {
+                    "type": "GridTable"
+                  }
+                },
+                "CompanyDocuments/@com.sap.vocabularies.UI.v1.LineItem": {
+                  "tableSettings": {
+                    "type": "GridTable"
+                  },
+                  "actions": {
+                    "viewDocument": {
+                      "press": "ns.users.custom.customActions.viewDocument",
+                      "text": "Download",
+                      "inline": false,
+                      "requiresSelection": true
+                    }
+                  }
+                }
+              },
+              "navigation": {
+                "CompanyGSTIN": {
+                  "detail": {
+                    "route": "CompanyGSTINObjectPage"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "CompanyGSTINObjectPage": {
+          "type": "Component",
+          "id": "CompanyGSTINObjectPage",
+          "name": "sap.fe.templates.ObjectPage",
+          "options": {
+            "settings": {
+              "editableHeaderContent": false,
+              "entitySet": "CompanyGSTIN",
+              "controlConfiguration": {
+                "CompanyGSTINAdresses/@com.sap.vocabularies.UI.v1.LineItem": {
+                  "tableSettings": {
+                    "type": "GridTable"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "sap.fiori": {
+    "registrationIds": [],
+    "archeType": "transactional"
+  },
+  "sap.cloud": {
+    "public": true,
+    "service": "cpapp.service"
+  }
+}

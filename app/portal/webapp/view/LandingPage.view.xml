@@ -1,0 +1,197 @@
+<mvc:View xmlns:core="sap.ui.core"
+    xmlns="sap.m"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns:mc="sap.suite.ui.microchart"
+    xmlns:t="sap.ui.table"
+    xmlns:form="sap.ui.layout.form" controllerName="airindiagst.controller.LandingPage">
+    <Page showHeader="false" class="backGroundImage">
+        <Panel class="sapUiSmallMargin" backgroundDesign="Transparent">
+        <Panel id="panel_qaa1" width="auto" expandable="false" expanded="true" expandAnimation="false" backgroundDesign="Transparent"  headerText="GST.AI Dashboard" class="sapUiResponsiveMargin">
+						<content>
+            <OverflowToolbar design="Transparent" style="Clear">
+
+                <MultiComboBox id="fbmc-GSTIN" valueState="None" valueStateText="Default Buyer GSTIN" selectionChange="handleSelectedGSTIN" selectedKeys="" showSelectAll="true" width="350px" items="{ path: 'USERModel>/gstlist/'}">
+                    <core:Item key="{USERModel>GSTIN}" text="{USERModel>GSTIN}"/>
+                </MultiComboBox>
+
+                <ComboBox id="fbmc-TIMELINE" placeholder="Choose Period.." valueState="None" valueStateText="Default Period" selectionChange="handleSelectedPeriod" width="350px" selectedKey="">
+                    <items>
+                        <core:Item key="CM" text="Current Month"/>
+                        <core:Item key="PM" text="Previous Month"/>
+                        <core:Item key="CY" text="Current Financial Year"/>
+                        <core:Item key="PY" text="Previous Financial Year"/>
+                    </items>
+                </ComboBox>
+
+                <Button text="Go" press="OnclickGO" tooltip="Enter" type="Emphasized"></Button>
+
+                <DatePicker  id="fbdat-financialYear" value="{
+						'path': '/valueDP11',
+						'type': 'sap.ui.model.type.Date',
+						'formatOptions': {
+							'pattern': 'yyyy'
+						}
+					}" displayFormat="{i18n>yyyy}" change="onFinancialYearChange"/>
+                <DateRangeSelection  id="fbdat-invoiceDate" delimiter=" to " dateValue="" secondDateValue="" minDate="" maxDate="" placeholder="Choose a date range from calendar.." change="handleChange" displayFormat="{i18n>dd/MM/yyyy}"/>
+
+            </OverflowToolbar>
+     </content>
+            </Panel>
+            <!-- <GenericTile class="sapUiTinyMargin tileLayout" header="Profile" press="onPressProfile" appShortcut = "{USERModel>/userName}" systemInfo = "{USERModel>/compantName}">
+                <TileContent>
+                    <ImageContent src="sap-icon://customer"/>
+                     <core:Icon src="sap-icon://person-placeholder" color="#E69A17"></core:Icon>
+                </TileContent>
+            </GenericTile> -->
+         <Panel id="panel_qaa2" width="auto" expandable="false" backgroundDesign="Transparent" expanded="true" expandAnimation="false" headerText="" class="sapUiResponsiveMargin">
+						<content>
+            <GenericTile  id="b2bcard" tooltip="View consolidated information on the total tax for the selected GSTIN and period." class="sapUiTinyMargin tileLayout" header="GST" subheader="Goods and Services Tax" frameType="TwoByOne" press="press">
+                <TileContent footerColor="Error">
+                    <mc:ComparisonMicroChart size="Auto" view="Responsive" scale="INR" press="press">
+                        <mc:data>
+                            <mc:ComparisonMicroChartData tooltip="IGST" title="IGST" displayValue="{USERModel>/igstAmount}" value="{path: '{USERModel>/igstAmount}'}" color="Critical" />
+                            <mc:ComparisonMicroChartData tooltip="SGST/UTGST" title="SGST/UTGST" displayValue="{USERModel>/sgstAmount}" value="{path: '{USERModel>/sgstAmount}'}" color="Neutral"/>
+                            <mc:ComparisonMicroChartData tooltip="CGST" title="CGST" displayValue="{USERModel>/cgstAmount}" value="{path: '{USERModel>/cgstAmount}'}" color="Good"/>
+                        </mc:data>
+                    </mc:ComparisonMicroChart>
+                </TileContent>
+                <TileContent>
+                    <!-- <NumericContent scale="{USERModel>/totalTax} INR" value=" " valueColor="Error" indicator="None" /> -->
+                    <NewsContent tooltip="Total Tax Amount" contentText=" {USERModel>/totalTax} INR " subheader="Total Tax" />
+                </TileContent>
+            </GenericTile>
+              <GenericTile id="mybookingcard"  tooltip="View consolidated information on the total tax for the selected GSTIN and period." class="sapUiTinyMargin tileLayout" header="My Bookings" subheader="Goods and Services Tax" frameType="TwoByOne" press="press">
+                <TileContent footerColor="Error" >
+                    <mc:ComparisonMicroChart size="Auto" view="Responsive" scale=" INR" press="press">
+                        <mc:data>
+                            <mc:ComparisonMicroChartData tooltip="IGST" title="IGST" displayValue="{USERModel>/igstAmount}" value="{path: '{USERModel>/igstAmount}'}" color="Neutral" />
+                            <mc:ComparisonMicroChartData tooltip="SGST/UTGST" title="SGST/UTGST" displayValue="{USERModel>/sgstAmount}" value="{path: '{USERModel>/sgstAmount}'}" color="Neutral"/>
+                            <mc:ComparisonMicroChartData tooltip="CGST" title="CGST" displayValue="{USERModel>/cgstAmount}" value="{path: '{USERModel>/cgstAmount}'}" color="Neutral"/>
+                                                    </mc:data>
+                    </mc:ComparisonMicroChart>
+                </TileContent>
+                <TileContent>
+                    <!-- <NumericContent scale="{USERModel>/totalTax} INR" value=" " valueColor="Error" indicator="None" /> -->
+                    <NewsContent tooltip="Total Tax Amount" contentText=" {USERModel>/totalTax} INR " subheader="Total Tax" />
+                </TileContent>
+            </GenericTile>
+              <GenericTile id="bookedthroughcard"  tooltip="View consolidated information on the total tax for the selected GSTIN and period." class="sapUiTinyMargin tileLayout" header="Booked For" subheader="Goods and Services Tax" frameType="TwoByOne" press="press">
+                <TileContent footerColor="Error" footer="">
+                    <mc:ComparisonMicroChart size="Auto" view="Responsive" scale=" INR" press="press">
+                        <mc:data>
+                            <mc:ComparisonMicroChartData tooltip="IGST" title="IGST" displayValue="{USERModel>/iataigstAmount}" value="{path: '{USERModel>/iataigstAmount}'}" color="Neutral" />
+                            <mc:ComparisonMicroChartData tooltip="SGST/UTGST" title="SGST/UTGST" displayValue="{USERModel>/iatasgstAmount}" value="{path: '{USERModel>/iatasgstAmount}'}" color="Neutral"/>
+                            <mc:ComparisonMicroChartData tooltip="CGST" title="CGST" displayValue="{USERModel>/iatacgstAmount}" value="{path: '{USERModel>/iatacgstAmount}'}" color="Neutral"/>
+                        </mc:data>
+                    </mc:ComparisonMicroChart>
+                </TileContent>
+                <TileContent>
+                    <!-- <NumericContent scale="{USERModel>/totalTax} INR" value=" " valueColor="Error" indicator="None" /> -->
+                    <NewsContent tooltip="Total Tax Amount" contentText=" {USERModel>/iatatotalTax} INR " subheader="Total Tax" />
+                </TileContent>
+            </GenericTile>
+             </content>
+            </Panel>
+           
+            <Panel id="panel_qaa0" width="auto" expandable="false" expanded="true" backgroundDesign="Transparent" expandAnimation="false" headerText="Choose a category" class="sapUiResponsiveMargin">
+						<content>
+             <GenericTile id="subusertile" class="sapUiTinyMargin tileLayout" visible="true" tooltip="View and edit your details." header="Profile" tileBadge="5" press="onPressProfile">
+                <TileContent id="profileTile" footer="">
+                 <ImageContent id="profileIcon" visible="true" src="sap-icon://customer"/>
+                <!-- <NumericContent id="profilePendingValue" visible="false" icon="sap-icon://customer" scale="" value="{USERModel>/userPending}" valueColor="Error" indicator="None" withMargin="false" /> -->
+               
+                   			<!-- <FeedContent id="profilePendingValue" contentText="{USERModel>/userName}"
+						 subheader="{USERModel>/compantName}" value="{USERModel>/userPending}" valueColor="Error"/> -->
+                </TileContent>
+            </GenericTile>
+            <GenericTile id="admintile" class="sapUiTinyMargin tileLayout" visible="false" tooltip="View and edit your details." header="Profile" tileBadge="5" press="onPressProfile">
+                <TileContent id="profileTile1" footer="">
+                 <!-- <ImageContent id="profileIcon" visible="true" src="sap-icon://customer"/> -->
+                <NumericContent id="profilePendingValue" icon="sap-icon://customer" color="red" scale="" value="{USERModel>/userPending}" valueColor="Neutral" indicator="None" withMargin="false" />
+                   			<!-- <FeedContent id="profilePendingValue" contentText="{USERModel>/userName}"
+						 subheader="{USERModel>/compantName}" value="{USERModel>/userPending}" valueColor="Error"/> -->
+                </TileContent>
+            </GenericTile>
+            <GenericTile id="documentstile" class="sapUiTinyMargin tileLayout" tooltip="View and download your GST invoices for the current F.Y. Total My Bookings : {USERModel>/myBooking}, Booked For: {USERModel>/bookedThrough}" header="Documents" subheader="" press="onPressGSTInvoices">
+                <TileContent>
+                    <NumericContent  icon="sap-icon://travel-itinerary" scale="" value="{ path: 'USERModel>/totalInvoice', formatter: '.formatDocumentType' }" valueColor="Neutral" indicator="None" withMargin="false" />
+                </TileContent>
+            </GenericTile>
+
+            <GenericTile class="sapUiTinyMargin tileLayout" visible="false" tooltip="View and download your GST invoices for the previous F.Y." header="Document History" subheader="" press="onPressGSTInvoicesHistory">
+                <TileContent>
+                    <ImageContent src="sap-icon://history"/>
+                    <!-- <NumericContent icon="sap-icon://history" color="#E69A17" scale="" value="" valueColor="Error" indicator="None" withMargin="false" /> -->
+                    <!-- <core:Icon src="sap-icon://history" color="#E69A17"></core:Icon> -->
+
+                </TileContent>
+            </GenericTile>
+            <GenericTile id="priorTO" class="sapUiTinyMargin tileLayout" tooltip="Documents From April 23 To March 24" header="Documents From April 23 To March 24" subheader="" press="onpressDocumentHistoryPriorTo">
+                <TileContent>
+                    <ImageContent src="sap-icon://history"/>
+                </TileContent>
+            </GenericTile>
+            <!-- <SlideTile class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout">
+		    <tiles> <GenericTile frameType="TwoByOne" press="press" header="GST" subheader="Goods and Services Tax">
+				<TileContent footer="GSTIN {USERModel>/defaultGSTIN}"> <NewsContent contentText="IGST Amount : {USERModel>/igstAmount}" subheader="" />
+				</TileContent>
+			</GenericTile> <GenericTile frameType="TwoByOne" press="press" header="GST" subheader="Goods and Services Tax">
+				<TileContent footer="GSTIN {USERModel>/defaultGSTIN}"> <NewsContent contentText="SGST Amount : {USERModel>/sgstAmount}" subheader="" />
+				</TileContent>
+			</GenericTile> <GenericTile frameType="TwoByOne" press="press" header="GST" subheader="Goods and Services Tax">
+				<TileContent footer="GSTIN {USERModel>/defaultGSTIN}"> <NewsContent contentText="CGST Amount : {USERModel>/cgstAmount}" subheader="" />
+				</TileContent>
+			</GenericTile>
+		    </tiles>
+	            </SlideTile> -->
+            <GenericTile class="sapUiTinyMargin tileLayout" tooltip="Request amendments to your invoice. Account admin controls rights." header="Request for Amendment" subheader="" press="onPressAmendmentRequest">
+                <TileContent>
+                    <!-- <NumericContent icon="sap-icon://pending" scale="" value="{USERModel>/totalAmendmentPending}" valueColor="Error" indicator="None" withMargin="false" /> -->
+                    <ImageContent src="sap-icon://request"/>
+                </TileContent>
+            </GenericTile>
+
+            <GenericTile class="sapUiTinyMargin tileLayout" id="approvertile" tooltip="Approve the requested amendments for invoices here. Total amendments pending for approval : {USERModel>/totAmends}" header="Approve Amendments" subheader="" press="onPressAmmendment">
+                <TileContent>
+                  <NumericContent icon="sap-icon://pending" scale="" value="{USERModel>/totalAmendmentPending}" valueColor="Neutral" indicator="None" withMargin="false" />
+                  
+                    <!-- <NumericContent icon="sap-icon://trip-report" scale="" value="{USERModel>/totalAmendment}" valueColor="Error" indicator="None" withMargin="false" /> -->
+                </TileContent>
+            </GenericTile>
+
+            <GenericTile id="tile-audittrail" class="sapUiTinyMargin tileLayout" visible="false" tooltip="View the trail of changes done so far." header="Audit Trail" subheader="" press="onPressAuditLog">
+                <TileContent>
+                    <!-- <NumericContent icon="sap-icon://manager-insight" scale="K" value="15" valueColor="Error" indicator="None" withMargin="false" /> -->
+                    <ImageContent src="sap-icon://manager-insight"/>
+
+                </TileContent>
+            </GenericTile>
+            <GenericTile class="sapUiTinyMargin tileLayout" visible="true" tooltip="View reports like Invoices, GSTIN Master, and TCS Summary." header="Reports" subheader="" press="onPressReports">
+                <TileContent>
+                    <!-- <NumericContent icon="sap-icon://manager-insight" scale="K" value="15" valueColor="Error" indicator="None" withMargin="false" /> -->
+                    <ImageContent src="sap-icon://collections-management"/>
+
+                </TileContent>
+            </GenericTile>
+
+             <GenericTile class="sapUiTinyMargin tileLayout" visible="true" tooltip="If you have any doubt or required any help " header="Help and Support" subheader="" press="onPressUserManual">
+                <TileContent>
+                    <!-- <NumericContent icon="sap-icon://manager-insight" scale="K" value="15" valueColor="Error" indicator="None" withMargin="false" /> -->
+                    <ImageContent src="sap-icon://learning-assistant"/>
+
+                </TileContent>
+            </GenericTile>
+            </content>
+            </Panel>
+           
+
+        </Panel>
+        <!-- <footer>
+        	<OverflowToolbar> <MessageStrip class="sapUiTinyMargin" text="Invoices and the coresponding consoldated informations are based on the default period and default GSTIN {USERModel>/defaultGSTIN} choosed" type="Information" showIcon="true">
+	    </MessageStrip>
+        <ToolbarSpacer/>
+       	</OverflowToolbar>
+		</footer> -->
+
+    </Page>
+</mvc:View>

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <link href="./css/images/logo.png" rel="shortcut icon" type="image/x-icon" />
+  <title>GST Application | Air India</title>
+  <style>
+    html,
+    body,
+    body>div,
+    #container,
+    #container-uiarea {
+      height: 100%;
+    }
+  </style>
+  <script id="sap-ui-bootstrap" src="https://sapui5.hana.ondemand.com/1.116.0/resources/sap-ui-core.js"
+    data-sap-ui-theme="sap_horizon" data-sap-ui-resourceroots='{
+            "airindiagst": "./"
+        }' data-sap-ui-oninit="module:sap/ui/core/ComponentSupport" data-sap-ui-compatVersion="edge"
+    data-sap-ui-async="true" data-sap-ui-frameOptions="trusted"></script>
+
+  <script type="text/javascript">
+    var idleTime = 0;
+
+    $(document).ready(function () {
+      // Increment the idle time counter every minute.
+      var idleInterval = setInterval(timerIncrement, 60000); // 1 minute
+
+      // Zero the idle timer on mouse movement.
+      $(this).mousemove(function (e) {
+        idleTime = 0;
+      });
+      $(this).keypress(function (e) {
+        idleTime = 0;
+      });
+    });
+
+    function timerIncrement() {
+      idleTime = idleTime + 1;
+      const jwt = sessionStorage.getItem("jwt");
+      if (jwt) {
+        if (idleTime == 10) {
+          this.oDialog = sap.m.MessageBox.warning(`Due to inactivity, you are going to be signed out in 5 Minutes.`, {
+            title: 'Attention',
+            actions: ["Continue Working", "Sign Out"],
+            emphasizedAction: "Continue Working",
+            onClose: function (sAction) {
+              if (sAction == "Sign Out") {
+                sessionStorage.clear();
+                window.location.replace("/portal/index.html");
+              } else {
+                idleTime = 0;
+              }
+            }
+          });
+        } else if (idleTime == 15) { // 15 minutes
+          sessionStorage.clear();
+          window.location.replace("/portal/index.html");
+        }
+      }
+
+    }
+  </script>
+</head>
+
+<body class="sapUiBody sapUiSizeCompact" id="content">
+  <div data-sap-ui-component data-name="airindiagst" data-id="container" data-settings='{"id" : "airindiagst"}'
+    data-handle-validation="true"></div>
+</body>
+
+</html>

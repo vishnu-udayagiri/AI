@@ -1,0 +1,320 @@
+<mvc:View controllerName="airindiagst.controller.registerfaq"
+	xmlns:f="sap.ui.layout.form"
+	xmlns:core="sap.ui.core"
+	xmlns:u="sap.ui.unified"
+	xmlns:l="sap.ui.layout"
+	xmlns:mvc="sap.ui.core.mvc"
+	xmlns:fb="sap.ui.comp.filterbar"
+	xmlns:wc="sap.ui.webc.main"
+	xmlns="sap.m"
+	xmlns:columnmenu="sap.m.table.columnmenu"
+	xmlns:html="http://www.w3.org/1999/xhtml"
+	xmlns:sap.ui.fl="sap.ui.fl"
+	xmlns:sap.ui.dt="sap.ui.dt"
+	xmlns:vm="sap.ui.fl.variants"
+	xmlns:t="sap.ui.table" class="sapUiSizeCompact">
+	<Page showHeader="false" class="backGroundImage">
+		<!-- <Panel width="auto" class="sapUiResponsiveMargin">
+			<content>
+				<OverflowToolbar>
+					<ToolbarSpacer/>
+					<Label text="Air India Login FAQ" design="Bold"/>
+					<ToolbarSpacer/>
+				</OverflowToolbar>
+			</content>
+		</Panel> -->
+		
+	<Panel id="panel_qa0" width="auto" expandable="true" expanded="true" expandAnimation="true" headerText="Corporates and Agents:"  class="sapUiResponsiveMargin">
+			<content>
+			<Text text="" />
+			<Text class="fntcls" text="Welcome to the GST.AI! Whether you're representing a Consulate/Embassy, UN Body, Overseas Agent, or a Taxpayer in India, our registration process is simple and straightforward. Here are the FAQs on how to get started:"/>
+				<VBox layout="ResponsiveGridLayout">
+				<Panel id="panel_qaa0" width="auto" expandable="true" expanded="false" expandAnimation="true" headerText="How do I create an account on the GST.AI?" class="sapUiResponsiveMargin">
+					<content>
+					<VBox layout="ResponsiveGridLayout">
+					<Text id="a0" text="To create an account, click on the 'Register Now' link and choose the relevant category based on your customer type."/>
+					<!-- <Text id="anb" text="	i.	Centralized GST registration under a single PAN."/>
+					<Text id="amb"	text="	ii.	Convenient download and updating of invoices."/>
+					<Text id="ald" text="	iii.Access to TCS data downloads facilitated by OTAs."/> -->
+					</VBox>
+					</content>
+				</Panel>
+				<Panel id="panel_newqa2" width="auto" expandable="true" expanded="false" expandAnimation="true" headerText="What are the categories listed on the GST.AI?" class="sapUiResponsiveMargin">
+					<content>
+					<VBox layout="ResponsiveGridLayout">
+					<Text id="answer2" text="GST.AI provides the following categories:"/>
+					<html:ul>
+					<html:li>
+						<Text id="anb" text="Taxpayer in India (Mandatory PAN in India)"/>
+						</html:li>
+						<html:li>
+					<Text id="amb"	text="Overseas Agent"/>
+					</html:li>
+					<html:li>
+					<Text id="ald" text="Consulate/Embassy"/>
+					</html:li>
+					<html:li>
+					<Text id="ald1" text="UN Body"/>
+					</html:li>
+					</html:ul>
+					</VBox>
+					</content>
+				</Panel>
+					<Panel id="panel_qa2a0" width="auto" expandable="true" expanded="false" expandAnimation="true" headerText="What are the prerequisite to select the category?" class="sapUiResponsiveMargin">
+					<content>
+					<VBox layout="ResponsiveGridLayout">
+					<Text id="a04" text="You should have the following information in hand before registering on the GST.AI"/>
+					<Table items="{tableModel>/tableData}">
+						<columns>
+							<Column>
+									<Text text="Category" />
+							</Column>
+								<Column>
+							<Text text="Prerequisite" />
+								</Column>
+						</columns>
+						<items>
+						<ColumnListItem>
+							<cells>
+								<ObjectIdentifier title="{tableModel>Category}" />
+									<Text text="{tableModel>Prerequisite}" />
+							</cells>
+						</ColumnListItem>
+						</items>
+						</Table>
+					<!-- <Text id="anb" text="	i.	Centralized GST registration under a single PAN."/>
+					<Text id="amb"	text="	ii.	Convenient download and updating of invoices."/>
+					<Text id="ald" text="	iii.Access to TCS data downloads facilitated by OTAs."/> -->
+					</VBox>
+					</content>
+				</Panel>
+				<!-- <Panel id="panel_q2aa0" width="auto" expandable="true" expanded="false" expandAnimation="true" headerText="What do I do if I don’t have or cannot find the prerequisite information required to register under the Overseas Agent or UN Bodies categories?" class="sapUiResponsiveMargin">
+					<content>
+					<VBox layout="ResponsiveGridLayout">
+						<html:ul class="ulclass">
+					<html:li>
+						<Text text="Please connect with" />
+							<Link text="gst.support@airindia.com"  target="_blank" href="mailto:gstsupport@airindia.com" class="linkclass"/>
+								<Text text="to include your head entity and UN body details in Air India records." />
+					</html:li>
+					</html:ul>
+			
+					</VBox>
+					</content>
+				</Panel> -->
+				<Panel  width="auto" expandable="true" expanded="false" expandAnimation="true" headerText="What information should I provide during registration?" class="sapUiResponsiveMargin">
+					<content>
+					<VBox layout="ResponsiveGridLayout">
+					<Text  text="The information varies based on your category. However, you may be asked to provide company identification information for e.g., the legal name, address etc., along with GSTINs, IATA code (mandatory for agents) and other user details."/>
+					</VBox>
+					</content>
+				</Panel>
+				<Panel  width="auto" expandable="true" expanded="false" expandAnimation="true" headerText="Can I change my account category after completing the registration process?" class="sapUiResponsiveMargin">
+					<content>
+					<VBox layout="ResponsiveGridLayout">
+					<Text  text="No, the account category needs to be selected initially and cannot be changed post-registration."/>
+					</VBox>
+					</content>
+				</Panel>
+					<Panel  width="auto" expandable="true" expanded="false" expandAnimation="true" headerText="How is the information validated during submission?" class="sapUiResponsiveMargin">
+					<content>
+					<VBox layout="ResponsiveGridLayout">
+					<Text  text="The system accepts data in all fields with necessary validations to ensure accuracy."/>
+					</VBox>
+					</content>
+				</Panel>
+					<Panel  width="auto" expandable="true" expanded="false" expandAnimation="true" headerText="Can I provide multiple GSTIN details during registration?" class="sapUiResponsiveMargin">
+					<content>
+					<VBox layout="ResponsiveGridLayout">
+					<Text  text="Yes, you can provide multiple valid GSTIN details during registration."/>
+					</VBox>
+					</content>
+				</Panel>
+					<Panel  width="auto" expandable="true" expanded="false" expandAnimation="true" headerText="How do I select the default GSTIN from the list?" class="sapUiResponsiveMargin">
+					<content>
+					<VBox layout="ResponsiveGridLayout">
+					<Text  text="The admin can select the default GSTIN from the list associated with the PAN used for registration. The default GSTIN is required only to create a personal experience for you
+                     when landing on the dashboard. You can modify it as per your choice from the profile
+                     section in your account."/>
+					</VBox>
+					</content>
+				</Panel>
+					<Panel  width="auto" expandable="true" expanded="false" expandAnimation="true" headerText="What mandatory documents do I need to attach during registration?" class="sapUiResponsiveMargin">
+					<content>
+					<VBox layout="ResponsiveGridLayout">
+					<Text  text="PAN is a mandatory document that is required to be uploaded if you fall in the category of Taxpayer in India."/>
+					</VBox>
+					</content>
+				</Panel>
+					<Panel  width="auto" expandable="true" expanded="false" expandAnimation="true" headerText="What optional documents do I need to attach during registration?" class="sapUiResponsiveMargin">
+					<content>
+					<VBox layout="ResponsiveGridLayout">
+					<Text  text="The optional documents include TAN, ARN, company's address, contact details, and LUT for SEZ customers."/>
+					</VBox>
+					</content>
+				</Panel>
+					<Panel  width="auto" expandable="true" expanded="false" expandAnimation="true" headerText="What kind of information does an authorised user of application asked to provide?" class="sapUiResponsiveMargin">
+					<content>
+					<VBox layout="ResponsiveGridLayout">
+					<Text  text="Basic information includes the name of the authorised person, contact details, and login email."/>
+					</VBox>
+					</content>
+				</Panel>
+				<Panel  width="auto" expandable="true" expanded="false" expandAnimation="true" headerText="What default period is required to be selected?" class="sapUiResponsiveMargin">
+					<content>
+					<VBox layout="ResponsiveGridLayout">
+					<Text  text="A: : You can select any period during registration as a default period. The default period is
+required only to create a personal experience for you while landing on the dashboard. The
+same can be modified from the profile section in your account."/>
+					</VBox>
+					</content>
+				</Panel>
+					</VBox>
+					</content>
+				</Panel>
+	
+	<Panel id="panel_qa2" width="auto" headerText="Form submission and account activation/ re-activation:"  expandable="true" expanded="false" expandAnimation="true" class="sapUiResponsiveMargin">
+			<content>
+				<VBox layout="ResponsiveGridLayout">
+					<Panel id="panel_qa3a3" width="auto" expandable="true" expanded="false" expandAnimation="true" headerText="Is there a Captcha verification process before you submit the form?" class="sapUiResponsiveMargin">
+					<content>
+					<VBox layout="ResponsiveGridLayout">
+					<Text id="a33" text="Yes, you need to enter the displayed Captcha for the successful submission of the form."/>
+					</VBox>
+					</content>
+				</Panel>
+				<Panel id="panel_qaa3" width="auto" expandable="true" expanded="false" expandAnimation="true" headerText="What happens after I submit the registration form?" class="sapUiResponsiveMargin">
+					<content>
+					<VBox layout="ResponsiveGridLayout">
+					<Text id="a3" text="After successfully submitting your application, an email will be sent to the Air India  Admin for approval. Once approved, you will receive a welcome email containing a temporary password."/>
+					</VBox>
+					</content>
+				</Panel>
+				<Panel id="panel_qaa4" width="auto" expandable="true" expanded="false" expandAnimation="true" headerText="What happens if my registration application is rejected?" class="sapUiResponsiveMargin">
+					<content>
+					<VBox layout="ResponsiveGridLayout">
+					<Text id="a4" text="Upon rejection of the application, an email will be sent to you with the reason for rejection. You may resubmit the form post providing the correct information." />
+				</VBox>
+				</content>
+				</Panel>
+				<Panel id="panel_qaa41" width="auto" expandable="true" expanded="false" expandAnimation="true" headerText="How do I activate my account after registration?" class="sapUiResponsiveMargin">
+					<content>
+					<VBox layout="ResponsiveGridLayout">
+					<Text id="aa4" text="You can activate your account by entering the OTP received in the email within 2 minutes." />
+				</VBox>
+				</content>
+				</Panel>
+				<Panel id="panel_qaa42" width="auto" expandable="true" expanded="false" expandAnimation="true" headerText="What if I miss the 2-minute time limit for entering the OTP?" class="sapUiResponsiveMargin">
+					<content>
+					<VBox layout="ResponsiveGridLayout">
+					<Text id="aaa4" text="You can use the Re-send OTP option to receive a new OTP and activate your account within the specified time." />
+				</VBox>
+				</content>
+				</Panel>	
+					<Panel  width="auto" expandable="true" expanded="false" expandAnimation="true" headerText="When will my account be blocked? " class="sapUiResponsiveMargin">
+					<content>
+					<VBox layout="ResponsiveGridLayout">
+					<Text  text="Your account will be blocked in the following scenarios:" />
+					<html:ul>
+						<html:li>
+							<Text  text="Incorrect input of password consecutively five times in a row." />
+
+							</html:li>
+							<html:li>
+							<Text  text="Inactive for 90 continuous days" />
+
+							</html:li>
+					</html:ul>
+				</VBox>
+				</content>
+				</Panel>	
+					<Panel  width="auto" expandable="true" expanded="false" expandAnimation="true" headerText="How can I reactivate my account?" class="sapUiResponsiveMargin">
+					<content>
+					<VBox layout="ResponsiveGridLayout">
+						<html:ul class="ulclass">
+					<html:li>
+						<Text text="To reactivate your account, contact" />
+							<Link text="gst.support@airindia.com"  target="_blank" href="mailto:gstsupport@airindia.com" class="linkclass"/>
+								<Text text="Once the Air India admin approves the activation request, an email will be sent." />
+					</html:li>
+					</html:ul>
+					<!-- <Text  text='You can use the "Activate My Account" option to reactivate it. An email will be sent once the AI India admin approves the request.' /> -->
+				</VBox>
+				</content>
+				</Panel>	
+					<Panel  width="auto" expandable="true" expanded="false" expandAnimation="true" headerText="What should I do if the authorised person left my organisation? " class="sapUiResponsiveMargin">
+					<content>
+					<VBox layout="ResponsiveGridLayout">
+					<html:ul>
+					<html:li>
+						<Text text="You can re-initiate the account as a sub-user and connect" />
+							<Link text="gst.support@airindia.com"  target="_blank" href="mailto:gstsupport@airindia.com" class="linkclass"/>
+								<Text text="for activation of your email id and de-activation of earlier one." />
+					</html:li>
+					</html:ul>
+			
+				</VBox>
+				</content>
+				</Panel>	
+				</VBox>
+
+			</content>
+		</Panel>
+	<Panel id="panel_qa3" width="auto" headerText="Usage:"  expandable="true" expanded="false" expandAnimation="true" class="sapUiResponsiveMargin">
+			<content>
+				<VBox layout="ResponsiveGridLayout">
+			<Panel id="panel_qaa5" width="auto" expandable="true" expanded="false" expandAnimation="true" headerText="How do I log in to the GST.AI after activation?" class="sapUiResponsiveMargin">
+					<content>
+					<VBox layout="ResponsiveGridLayout">
+					<Text id="a5" text="Log in using your Email ID and the system-generated password received via email."/>
+					</VBox>
+				</content>
+				</Panel>
+				<Panel id="panel_qaa6" width="auto" expandable="true" expanded="false" expandAnimation="true" headerText="Is the login process secure?" class="sapUiResponsiveMargin">
+					<content>
+					<VBox layout="ResponsiveGridLayout">
+					<Text id="a6" text='Yes, it is an email-OTP-based login to enhance security. You can also use the "forgot password" option if needed.' />
+					</VBox>
+				</content>
+				</Panel>
+				
+				<!-- <Panel id="panel_qaa7" width="auto" expandable="true" expanded="false" expandAnimation="true" headerText="Q3: Is there a Captcha verification process before submission?" class="sapUiResponsiveMargin">
+					<content>
+					<VBox layout="ResponsiveGridLayout">
+					<Text id="aa6" text="A: Yes, you need to enter the displayed Captcha for the successful submission of the account details." />
+					</VBox>
+				</content>
+				</Panel> -->
+				
+				</VBox>
+
+			</content>
+		</Panel>
+		<Panel id="panel_qa1" width="auto" expandable="true" expanded="false" expandAnimation="true" headerText="E-commerce Operator:" class="sapUiResponsiveMargin">
+			<content>
+				<VBox layout="ResponsiveGridLayout">
+				<Panel id="panel_qaa1" width="auto" expandable="true" expanded="false" expandAnimation="true" headerText="I am an Agent; how should I confirm my IATA  code for e-commerce operations?" class="sapUiResponsiveMargin">
+					<content>
+					<VBox layout="ResponsiveGridLayout">
+					<Text id="a1" text="Please select the IATA codes earmarked for e-commerce operations so that auto GST
+information is available to you to facilitate TCS liability."/>
+					</VBox>
+					</content>
+				</Panel>
+				
+				<Panel id="panel_qaa2" width="auto" expandable="true" expanded="false" expandAnimation="true" headerText="What if I'm an e-commerce operator without a TCS GSTIN?" class="sapUiResponsiveMargin">
+					<content>
+					<VBox layout="ResponsiveGridLayout">
+					<Text  id="a2" text="In such cases, you will be considered only as a B2B customer, and the TCS details section will not be enabled." />
+					</VBox>
+					</content>
+				</Panel>
+					</VBox>
+					</content>
+				</Panel>
+	
+
+	
+	
+	</Page>
+</mvc:View>

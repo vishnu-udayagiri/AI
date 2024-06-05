@@ -1,0 +1,138 @@
+<core:FragmentDefinition xmlns:main="sap.ui.webc.main"
+	xmlns="sap.m"
+	xmlns:l="sap.ui.layout"
+	xmlns:core="sap.ui.core"
+	xmlns:f="sap.ui.layout.form"
+	xmlns:u="sap.ui.unified"
+	xmlns:t="sap.ui.table" class="sapUiSizeCompact">
+
+	<Dialog id="GSTDetailsDialog" title="Address Details {gstinDialogModel>/GSTIN}">
+		<content>
+			<l:VerticalLayout id="oVCGSTINAddr">
+				<t:Table id="tbl-GSTINaddress" visibleRowCount="6" rowSelectionChange="onChangeGSTRow" selectionMode="None" rows="{GSTINAddressModel>/}" rowActionCount="1" class="sapUiTinyMargin">
+					<t:extension>
+						<OverflowToolbar style="Clear">
+							<Title id="title" text="Addresses"/>
+							<ToolbarSpacer/>
+							<Button text="Add" icon="sap-icon://add-activity" type="Transparent" press="onAddNewAddress" visible="{= !${/toggleEdit} &amp;&amp; ${rolesModel>/CANEDITGST}}"/>
+						</OverflowToolbar>
+					</t:extension>
+					<t:columns>
+						<!-- <t:Column width="70px">
+							<Label text="Sl No."/>
+							<t:template>
+								<Text text="{GSTINAddressModel>SERIALNO}"/>
+							</t:template>
+						</t:Column> -->
+						<t:Column width="103px">
+							<Label text="Type"/>
+							<t:template>
+								<Text text="{GSTINAddressModel>TYPE}"/>
+							</t:template>
+						</t:Column>
+						<t:Column width="120px" hAlign="Center" tooltip="Invoice Printing">
+							<Label text="Invoice Printing" required="true"/>
+							<t:template>
+								<CheckBox selected="{GSTINAddressModel>USEFORINVOICEPRINTING}" tooltip="Select an address for invoice printing" select="onChangeIncoicePrinting" editable="{= !${/toggleEdit} &amp;&amp; ${rolesModel>/CANEDITGST}}"/>
+							</t:template>
+						</t:Column>
+						<t:Column minWidth="320px">
+							<Label text="Address" required="true"/>
+							<t:template>
+								<Input value="{GSTINAddressModel>ADDRESS}" width="100%" editable="{= !${/toggleEdit} &amp;&amp; ${rolesModel>/CANEDITGST} &amp;&amp; ${GSTINAddressModel>TYPE} === 'Additional'}"/>
+							</t:template>
+						</t:Column>
+						<t:Column minWidth="173px">
+							<Label text="State"/>
+							<t:template>
+								<Text text="{path: 'GSTINAddressModel>STATE', formatter: '.setStateDesc'}"/>
+							</t:template>
+						</t:Column>
+						<t:Column minWidth="148px">
+							<Label text="City" required="false"/>
+							<t:template>
+								<Input value="{GSTINAddressModel>CITY}" liveChange="onLiveValidateForInputCity" editable="{= !${/toggleEdit} &amp;&amp; ${rolesModel>/CANEDITGST} &amp;&amp; ${GSTINAddressModel>TYPE} === 'Additional'}"/>
+							</t:template>
+						</t:Column>
+						<t:Column width="102px">
+							<Label text="Pincode" required="true"/>
+							<t:template>
+								<MaskInput id="inp-pinCode" mask="999999" value="{GSTINAddressModel>PINCODE}" editable="{= !${/toggleEdit} &amp;&amp; ${rolesModel>/CANEDITGST} &amp;&amp; ${GSTINAddressModel>TYPE} === 'Additional'}"/>
+							</t:template>
+						</t:Column>
+						<t:Column minWidth="131px">
+							<Label text="Effective From" required="true"/>
+							<t:template>
+								<DatePicker id="dp-effectiveDate" change="handleDateChange" value="{GSTINAddressModel>EFFECTIVEFROM}" minDate="{viewModel>/minDate}" valueFormat="yyyy-MM-dd" displayFormat="yyyy-MM-dd" editable="{= !${/toggleEdit} &amp;&amp; ${rolesModel>/CANEDITGST} &amp;&amp; ${GSTINAddressModel>TYPE} === 'Additional'}"/>
+							</t:template>
+						</t:Column>
+						<!-- <t:Column minWidth="131px">
+							<Label text="Effective Till"/>
+							<t:template>
+								<DatePicker id="dp-effectiveTill" value="{GSTINAddressModel>EFFECTIVETILL}" minDate="{viewModel>/minDate}" valueFormat="yyyy-MM-dd" displayFormat="yyyy-MM-dd" editable="{= !${/toggleEdit} &amp;&amp; ${rolesModel>/CANEDITGST} &amp;&amp; ${GSTINAddressModel>TYPE} === 'Additional'}"/>
+							</t:template>
+						</t:Column> -->
+					</t:columns>
+					<t:rowActionTemplate>
+						<t:RowAction id="_IDGenRowAction1">
+							<t:items>
+								<t:RowActionItem id="_IDGenRowActionItem1" icon="sap-icon://delete" press="onDeleteGSTINAddress" visible="{= !${/toggleEdit} &amp;&amp; ${rolesModel>/CANEDITGST} &amp;&amp; ${GSTINAddressModel>TYPE} === 'Additional'}" />
+							</t:items>
+						</t:RowAction>
+					</t:rowActionTemplate>
+				</t:Table>
+			</l:VerticalLayout>
+			<t:Table visibleRowCount="6" rowSelectionChange="onChangeGSTRow" selectionMode="None" rows="{GSTINPastAddressModel>/}" class="sapUiTinyMargin">
+				<t:extension>
+					<OverflowToolbar style="Clear">
+						<Title text="Past Addresses"/>
+						<ToolbarSpacer/>
+						<!-- <Button text="Export" icon="sap-icon://excel-attachment" type="Transparent" press="onExportPastAddress"/> -->
+					</OverflowToolbar>
+				</t:extension>
+				<t:columns>
+					<t:Column width="70px">
+						<Label text="Sl No."/>
+						<t:template>
+							<Text text="{GSTINPastAddressModel>SERIALNO}"/>
+						</t:template>
+					</t:Column>
+					<t:Column width="103px">
+						<Label text="Type"/>
+						<t:template>
+							<Text text="{GSTINPastAddressModel>TYPE}"/>
+						</t:template>
+					</t:Column>
+					<t:Column width="120px" hAlign="Center" tooltip="Invoice Printing">
+						<Label text="Invoice Printing"/>
+						<t:template>
+							<CheckBox selected="{GSTINPastAddressModel>USEFORINVOICEPRINTING}" editable="false"/>
+						</t:template>
+					</t:Column>
+					<t:Column minWidth="300px">
+						<Label text="Address"/>
+						<t:template>
+							<Text text="{GSTINPastAddressModel>ADDRESS},
+								{path: 'GSTINPastAddressModel>COUNTRY_CODE', formatter: '.setCountryDesc'},
+								{path: 'GSTINPastAddressModel>STATE', formatter: '.setStateDesc'},
+								{GSTINPastAddressModel>CITY} ,{GSTINPastAddressModel>PINCODE}"/>
+						</t:template>
+					</t:Column>
+					<t:Column width="150px">
+						<Label text="Effective From"/>
+						<t:template>
+							<Text text="{path: 'GSTINPastAddressModel>EFFECTIVEFROM', formatter: '.formatter.formatDate'}"/>
+						</t:template>
+					</t:Column>
+				</t:columns>
+			</t:Table>
+		</content>
+
+		<beginButton>
+			<!-- <Button text="Update" type="Emphasized" press="onCloseGSTNDetails" visible="{= !${/toggleEdit} &amp;&amp; ${rolesModel>/CANEDITGST}}"/> -->
+		</beginButton>
+		<endButton>
+			<Button text="Close" type="Reject" press="onCloseGSTNDetails"/>
+		</endButton>
+	</Dialog>
+</core:FragmentDefinition>

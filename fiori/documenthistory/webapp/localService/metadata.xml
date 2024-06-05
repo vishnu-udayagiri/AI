@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="4.0" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+    <edmx:Reference Uri="https://sap.github.io/odata-vocabularies/vocabularies/Common.xml">
+        <edmx:Include Alias="Common" Namespace="com.sap.vocabularies.Common.v1"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Core.V1.xml">
+        <edmx:Include Alias="Core" Namespace="Org.OData.Core.V1"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="https://sap.github.io/odata-vocabularies/vocabularies/UI.xml">
+        <edmx:Include Alias="UI" Namespace="com.sap.vocabularies.UI.v1"/>
+    </edmx:Reference>
+    <edmx:DataServices>
+        <Schema Namespace="DocumentHistoryService" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+            <EntityContainer Name="EntityContainer">
+                <EntitySet Name="documentHistory" EntityType="DocumentHistoryService.documentHistory"/>
+            </EntityContainer>
+            <EntityType Name="documentHistory">
+                <Key>
+                    <PropertyRef Name="company"/>
+                    <PropertyRef Name="ID"/>
+                </Key>
+                <Property Name="createdAt" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="createdBy" Type="Edm.String" MaxLength="255"/>
+                <Property Name="modifiedAt" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="modifiedBy" Type="Edm.String" MaxLength="255"/>
+                <Property Name="company" Type="Edm.String" MaxLength="4" Nullable="false"/>
+                <Property Name="ID" Type="Edm.Guid" Nullable="false"/>
+                <Property Name="taxInvoiceType" Type="Edm.String" MaxLength="5"/>
+                <Property Name="invoiceNumber" Type="Edm.String" MaxLength="16"/>
+                <Property Name="invoiceDate" Type="Edm.Date"/>
+                <Property Name="documentTypeCode" Type="Edm.String" MaxLength="10"/>
+                <Property Name="acquisitionType" Type="Edm.String" MaxLength="10"/>
+                <Property Name="primaryDocumentNbr" Type="Edm.String" MaxLength="13"/>
+                <Property Name="dateOfIssuance" Type="Edm.Date"/>
+                <Property Name="HSNCode" Type="Edm.String" MaxLength="8"/>
+                <Property Name="iataNumber" Type="Edm.String" MaxLength="10"/>
+                <Property Name="ticketNumber" Type="Edm.String" MaxLength="15"/>
+                <Property Name="RFISC" Type="Edm.String" MaxLength="3"/>
+                <Property Name="sectionType" Type="Edm.String" MaxLength="3"/>
+                <Property Name="passengerGSTIN" Type="Edm.String" MaxLength="15"/>
+                <Property Name="passangerName" Type="Edm.String" MaxLength="255"/>
+                <Property Name="fullRouting" Type="Edm.String" MaxLength="255"/>
+                <Property Name="routingType" Type="Edm.String" MaxLength="1"/>
+                <Property Name="class" Type="Edm.String" MaxLength="1"/>
+                <Property Name="placeoOfEmbarkation" Type="Edm.String" MaxLength="255"/>
+                <Property Name="placeoOfDisembarkation" Type="Edm.String" MaxLength="255"/>
+                <Property Name="xoNo" Type="Edm.String" MaxLength="16"/>
+                <Property Name="uidNniInCaseOfEmbassy" Type="Edm.String" MaxLength="36"/>
+                <Property Name="fop" Type="Edm.String" MaxLength="13"/>
+                <Property Name="pan" Type="Edm.String" MaxLength="10"/>
+                <Property Name="endorsementDtls" Type="Edm.String" MaxLength="255"/>
+                <Property Name="remarksOnACMADM" Type="Edm.String" MaxLength="255"/>
+                <Property Name="remarksOnRF7" Type="Edm.String" MaxLength="255"/>
+                <Property Name="excessBaggageWeightPCS" Type="Edm.Decimal" Scale="3" Precision="16"/>
+                <Property Name="excessBaggageRate" Type="Edm.Decimal" Scale="2" Precision="16"/>
+                <Property Name="baseAmount" Type="Edm.Decimal" Scale="2" Precision="16"/>
+                <Property Name="tax1" Type="Edm.String" MaxLength="6"/>
+                <Property Name="taxAmount1" Type="Edm.Decimal" Scale="2" Precision="16"/>
+                <Property Name="tax2" Type="Edm.String" MaxLength="6"/>
+                <Property Name="taxAmount2" Type="Edm.Decimal" Scale="2" Precision="16"/>
+                <Property Name="tax3" Type="Edm.String" MaxLength="6"/>
+                <Property Name="taxAmount3" Type="Edm.Decimal" Scale="2" Precision="16"/>
+                <Property Name="tax4" Type="Edm.String" MaxLength="6"/>
+                <Property Name="taxAmount4" Type="Edm.Decimal" Scale="2" Precision="16"/>
+                <Property Name="tax5" Type="Edm.String" MaxLength="6"/>
+                <Property Name="taxAmount5" Type="Edm.Decimal" Scale="2" Precision="16"/>
+                <Property Name="tax6" Type="Edm.String" MaxLength="6"/>
+                <Property Name="taxAmount6" Type="Edm.Decimal" Scale="2" Precision="16"/>
+                <Property Name="tax7" Type="Edm.String" MaxLength="6"/>
+                <Property Name="taxAmount7" Type="Edm.Decimal" Scale="2" Precision="16"/>
+                <Property Name="tax8" Type="Edm.String" MaxLength="6"/>
+                <Property Name="taxAmount8" Type="Edm.Decimal" Scale="2" Precision="16"/>
+                <Property Name="tax9" Type="Edm.String" MaxLength="6"/>
+                <Property Name="taxAmount9" Type="Edm.Decimal" Scale="2" Precision="16"/>
+                <Property Name="tax10" Type="Edm.String" MaxLength="6"/>
+                <Property Name="taxAmount10" Type="Edm.Decimal" Scale="2" Precision="16"/>
+                <Property Name="tax11" Type="Edm.String" MaxLength="6"/>
+                <Property Name="taxAmount11" Type="Edm.Decimal" Scale="2" Precision="16"/>
+                <Property Name="tax12" Type="Edm.String" MaxLength="6"/>
+                <Property Name="taxAmount12" Type="Edm.Decimal" Scale="2" Precision="16"/>
+                <Property Name="tax13" Type="Edm.String" MaxLength="6"/>
+                <Property Name="taxAmount13" Type="Edm.Decimal" Scale="2" Precision="16"/>
+                <Property Name="tax14" Type="Edm.String" MaxLength="6"/>
+                <Property Name="taxAmount14" Type="Edm.Decimal" Scale="2" Precision="16"/>
+                <Property Name="tax15" Type="Edm.String" MaxLength="6"/>
+                <Property Name="taxAmount15" Type="Edm.Decimal" Scale="2" Precision="16"/>
+                <Property Name="tax16" Type="Edm.String" MaxLength="6"/>
+                <Property Name="taxAmount16" Type="Edm.Decimal" Scale="2" Precision="16"/>
+                <Property Name="tax17" Type="Edm.String" MaxLength="6"/>
+                <Property Name="taxAmount17" Type="Edm.Decimal" Scale="2" Precision="16"/>
+                <Property Name="tax18" Type="Edm.String" MaxLength="6"/>
+                <Property Name="taxAmount18" Type="Edm.Decimal" Scale="2" Precision="16"/>
+                <Property Name="tax19" Type="Edm.String" MaxLength="6"/>
+                <Property Name="taxAmount19" Type="Edm.Decimal" Scale="2" Precision="16"/>
+                <Property Name="tax20" Type="Edm.String" MaxLength="6"/>
+                <Property Name="taxAmount20" Type="Edm.Decimal" Scale="2" Precision="16"/>
+                <Property Name="totalDocumentAmount" Type="Edm.Decimal" Scale="2" Precision="16"/>
+                <Property Name="totalTaxableValue" Type="Edm.Decimal" Scale="2" Precision="16"/>
+                <Property Name="discount" Type="Edm.Decimal" Scale="2" Precision="16"/>
+                <Property Name="netTaxableValue" Type="Edm.Decimal" Scale="2" Precision="16"/>
+                <Property Name="cgstAmount" Type="Edm.Decimal" Scale="2" Precision="16"/>
+                <Property Name="cgstRate" Type="Edm.Decimal" Scale="2" Precision="16"/>
+                <Property Name="sgstAmount" Type="Edm.Decimal" Scale="2" Precision="16"/>
+                <Property Name="sgstRate" Type="Edm.Decimal" Scale="2" Precision="16"/>
+                <Property Name="utgstAmount" Type="Edm.Decimal" Scale="2" Precision="16"/>
+                <Property Name="utgstRate" Type="Edm.Decimal" Scale="2" Precision="16"/>
+                <Property Name="igstAmount" Type="Edm.Decimal" Scale="2" Precision="16"/>
+                <Property Name="igstRate" Type="Edm.Decimal" Scale="2" Precision="16"/>
+                <Property Name="totalRate" Type="Edm.Decimal" Scale="2" Precision="16"/>
+                <Property Name="gstValue" Type="Edm.Decimal" Scale="2" Precision="16"/>
+                <Property Name="AIGstinNo" Type="Edm.String" MaxLength="15"/>
+                <Property Name="addressOfTheCorporate" Type="Edm.String" MaxLength="255"/>
+                <Property Name="placeOfSupply" Type="Edm.String" MaxLength="255"/>
+                <Property Name="contactNooftheCorporate" Type="Edm.String" MaxLength="20"/>
+                <Property Name="emailIdOfCorporate" Type="Edm.String" MaxLength="255"/>
+                <Property Name="State" Type="Edm.String" MaxLength="50"/>
+                <Property Name="stateCode" Type="Edm.String" MaxLength="3"/>
+                <Property Name="liabilityDischargeState" Type="Edm.String" MaxLength="255"/>
+                <Property Name="refundSector" Type="Edm.String" MaxLength="3"/>
+                <Property Name="refundCPcharge" Type="Edm.Decimal" Scale="2" Precision="16"/>
+                <Property Name="refundNoShowCharges" Type="Edm.Decimal" Scale="2" Precision="16"/>
+                <Property Name="refundTTLCPCHGS" Type="Edm.Decimal" Scale="2" Precision="16"/>
+                <Property Name="refundCGST" Type="Edm.Decimal" Scale="2" Precision="16"/>
+                <Property Name="refundCGSTRate" Type="Edm.Decimal" Scale="2" Precision="16"/>
+                <Property Name="refundsgstutgst" Type="Edm.Decimal" Scale="2" Precision="16"/>
+                <Property Name="refundsgstutgstRate" Type="Edm.Decimal" Scale="2" Precision="16"/>
+                <Property Name="refundIgst" Type="Edm.Decimal" Scale="2" Precision="16"/>
+                <Property Name="refundIgstRate" Type="Edm.Decimal" Scale="2" Precision="16"/>
+                <Property Name="refundGstAmt" Type="Edm.Decimal" Scale="2" Precision="16"/>
+                <Property Name="reissueSector" Type="Edm.String" MaxLength="3"/>
+                <Property Name="reissueXpodCharges" Type="Edm.Decimal" Scale="2" Precision="16"/>
+                <Property Name="reissueChargesForTravel" Type="Edm.Decimal" Scale="2" Precision="16"/>
+                <Property Name="reissueRebooking" Type="Edm.Decimal" Scale="2" Precision="16"/>
+                <Property Name="reissueCGST" Type="Edm.Decimal" Scale="2" Precision="16"/>
+                <Property Name="reissueCgstRate" Type="Edm.Decimal" Scale="2" Precision="16"/>
+                <Property Name="reissueSgstutgst" Type="Edm.Decimal" Scale="2" Precision="16"/>
+                <Property Name="reissueSgstutgstRate" Type="Edm.Decimal" Scale="2" Precision="16"/>
+                <Property Name="reissueIgst" Type="Edm.Decimal" Scale="2" Precision="16"/>
+                <Property Name="reissueIgstRate" Type="Edm.Decimal" Scale="2" Precision="16"/>
+                <Property Name="reissueGstAmt" Type="Edm.Decimal" Scale="2" Precision="16"/>
+                <Property Name="originalFilename" Type="Edm.String" MaxLength="255"/>
+                <Property Name="convertedFilename" Type="Edm.String" MaxLength="255"/>
+            </EntityType>
+            <Annotations Target="DocumentHistoryService.documentHistory/createdAt">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="Core.Immutable" Bool="true"/>
+                <Annotation Term="Core.Computed" Bool="true"/>
+                <Annotation Term="Common.Label" String="{i18n>CreatedAt}"/>
+                </Annotations>
+                <Annotations Target="DocumentHistoryService.documentHistory/createdBy">
+                    <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                    <Annotation Term="Core.Immutable" Bool="true"/>
+                    <Annotation Term="Core.Computed" Bool="true"/>
+                    <Annotation Term="Core.Description" String="{i18n>UserID.Description}"/>
+                        <Annotation Term="Common.Label" String="{i18n>CreatedBy}"/>
+                        </Annotations>
+                        <Annotations Target="DocumentHistoryService.documentHistory/modifiedAt">
+                            <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                            <Annotation Term="Core.Computed" Bool="true"/>
+                            <Annotation Term="Common.Label" String="{i18n>ChangedAt}"/>
+                            </Annotations>
+                            <Annotations Target="DocumentHistoryService.documentHistory/modifiedBy">
+                                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                                <Annotation Term="Core.Computed" Bool="true"/>
+                                <Annotation Term="Core.Description" String="{i18n>UserID.Description}"/>
+                                    <Annotation Term="Common.Label" String="{i18n>ChangedBy}"/>
+                                    </Annotations>
+                                    <Annotations Target="DocumentHistoryService.documentHistory/invoiceNumber">
+                                        <Annotation Term="Common.Label" String="Invoice Number"/>
+                                    </Annotations>
+                                </Schema>
+                            </edmx:DataServices>
+                        </edmx:Edmx>

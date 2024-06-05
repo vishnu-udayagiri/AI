@@ -1,0 +1,58 @@
+<mvc:View controllerName="admindashboard.controller.Base" class="sapUiSizeCompact"
+    xmlns:mvc="sap.ui.core.mvc" displayBlock="true"
+    xmlns="sap.m"
+    xmlns:tnt="sap.tnt">
+    <tnt:ToolPage id="toolPage">
+        <tnt:header>
+            <tnt:ToolHeader>
+                <Button id="sideNavigationToggleButton" icon="sap-icon://menu2" type="Transparent" press=".onSideNavButtonPress">
+                    <layoutData>
+                        <OverflowToolbarLayoutData priority="NeverOverflow" />
+                    </layoutData>
+                </Button>
+                <Image height="5rem" class="sapUiSmallMarginBegin" src="./css/images/logo.png"/>
+                <Title level="H1" text="{i18n>title}">
+                    <layoutData>
+                        <OverflowToolbarLayoutData shrinkable="true" />
+                    </layoutData>
+                </Title>
+                <tnt:ToolHeaderUtilitySeparator />
+                <ToolbarSpacer>
+                    <layoutData>
+                        <OverflowToolbarLayoutData priority="NeverOverflow" minWidth="20px" />
+                    </layoutData>
+                </ToolbarSpacer>
+                <Avatar src="test-resources/sap/tnt/images/John_Miller.png" displaySize="XS" showBorder="true" press=".handleUserNamePress" ariaHasPopup="Menu">
+                    <layoutData>
+                        <OverflowToolbarLayoutData priority="NeverOverflow" />
+                    </layoutData>
+                </Avatar>
+            </tnt:ToolHeader>
+        </tnt:header>
+        <tnt:sideContent>
+            <tnt:SideNavigation id="sideNavigation" itemSelect=".onItemSelect" selectedKey="Dashboard">
+                <tnt:NavigationList id="navigationList">
+                    <tnt:NavigationListItem text="Dashboard" key="Dashboard" icon="sap-icon://bbyd-dashboard" />
+                    <tnt:NavigationListItem text="Master Data" key="" icon="sap-icon://bbyd-dashboard" expanded="false" selectable="false">
+                        <tnt:NavigationListItem text="Transaction Type" key="TransactionTypes"/>
+                        <tnt:NavigationListItem text="Tax Codes" key="TaxCodes"/>
+                        <tnt:NavigationListItem text="Tax Compositions" key="TaxCompositions"/>
+                        <tnt:NavigationListItem text="Tax Rates" key="TaxRates"/>
+                        <tnt:NavigationListItem text="Tax Rules" key="TaxRules"/>
+                        <tnt:NavigationListItem text="State Codes" key="StateCodes"/>
+                        <tnt:NavigationListItem text="Airport Codes" key="AirportCodes"/>
+                        <tnt:NavigationListItem text="RFISC" key="RFISC"/>
+                        <tnt:NavigationListItem text="FOP" key="FOP"/>
+                         <tnt:NavigationListItem text="Company" key="Company"/>
+                    </tnt:NavigationListItem>
+                    <tnt:NavigationListItem text="Test" key="Test" icon="sap-icon://action" />
+                </tnt:NavigationList>
+            </tnt:SideNavigation>
+        </tnt:sideContent>
+        <tnt:mainContents>
+            <NavContainer id="myPage">
+
+            </NavContainer>
+        </tnt:mainContents>
+    </tnt:ToolPage>
+</mvc:View>

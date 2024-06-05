@@ -1,0 +1,295 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="4.0" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+    <edmx:Reference Uri="https://sap.github.io/odata-vocabularies/vocabularies/Common.xml">
+        <edmx:Include Alias="Common" Namespace="com.sap.vocabularies.Common.v1"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Core.V1.xml">
+        <edmx:Include Alias="Core" Namespace="Org.OData.Core.V1"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="https://sap.github.io/odata-vocabularies/vocabularies/UI.xml">
+        <edmx:Include Alias="UI" Namespace="com.sap.vocabularies.UI.v1"/>
+    </edmx:Reference>
+    <edmx:DataServices>
+        <Schema Namespace="GSTMJVService" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+            <EntityContainer Name="EntityContainer">
+                <EntitySet Name="GSTMJVReport" EntityType="GSTMJVService.GSTMJVReport">
+                    <NavigationPropertyBinding Path="Currency" Target="Currencies"/>
+                </EntitySet>
+                <EntitySet Name="Currencies" EntityType="GSTMJVService.Currencies">
+                    <NavigationPropertyBinding Path="texts" Target="Currencies_texts"/>
+                    <NavigationPropertyBinding Path="localized" Target="Currencies_texts"/>
+                </EntitySet>
+                <EntitySet Name="Currencies_texts" EntityType="GSTMJVService.Currencies_texts"/>
+            </EntityContainer>
+            <EntityType Name="GSTMJVReport">
+                <Property Name="DOCNO" Type="Edm.String" MaxLength="16"/>
+                <Property Name="seqNumber" Type="Edm.Int32"/>
+                <Property Name="DocumentDate" Type="Edm.Date"/>
+                <Property Name="Documenttype" Type="Edm.String" MaxLength="20"/>
+                <Property Name="CompanyCode" Type="Edm.String" MaxLength="25"/>
+                <Property Name="PostingDate" Type="Edm.Date"/>
+                <NavigationProperty Name="Currency" Type="GSTMJVService.Currencies">
+                    <ReferentialConstraint Property="Currency_code" ReferencedProperty="code"/>
+                </NavigationProperty>
+                <Property Name="Currency_code" Type="Edm.String" MaxLength="3"/>
+                <Property Name="Exchange_Rate_Direct_Quotation" Type="Edm.Decimal" Scale="2" Precision="14"/>
+                <Property Name="Reference" Type="Edm.String" MaxLength="16"/>
+                <Property Name="Document_HeaderText" Type="Edm.String" MaxLength="25"/>
+                <Property Name="TranslationDate" Type="Edm.Date"/>
+                <Property Name="Calculate_tax_automatically" Type="Edm.Boolean"/>
+                <Property Name="Cross_CC_No" Type="Edm.String" MaxLength="16"/>
+                <Property Name="Trading_Partner_BA" Type="Edm.String" MaxLength="4"/>
+                <Property Name="Posting_Key" Type="Edm.String" MaxLength="2"/>
+                <Property Name="Account" Type="Edm.String" MaxLength="10"/>
+                <Property Name="Special_GL_ind" Type="Edm.String" MaxLength="3"/>
+                <Property Name="Transaction_Type" Type="Edm.String" MaxLength="10"/>
+                <Property Name="Amount_in_Document_currency" Type="Edm.Decimal" Scale="2" Precision="14"/>
+                <Property Name="Amount_in_Local_Currency" Type="Edm.Decimal" Scale="2" Precision="14"/>
+                <Property Name="Business_Place" Type="Edm.String" MaxLength="4"/>
+                <Property Name="Section_Code" Type="Edm.String" MaxLength="3"/>
+                <Property Name="Credit_control_area" Type="Edm.String" MaxLength="4"/>
+                <Property Name="Invoice_Reference" Type="Edm.String" MaxLength="10"/>
+                <Property Name="Fiscal_Year_of_the_Relevant_Invoice" Type="Edm.String" MaxLength="4"/>
+                <Property Name="Line_Item_in_Relevant_Invoice" Type="Edm.String" MaxLength="3"/>
+                <Property Name="Assignment_number" Type="Edm.String" MaxLength="18"/>
+                <Property Name="Text" Type="Edm.String" MaxLength="50"/>
+                <Property Name="Business_Area" Type="Edm.String" MaxLength="4"/>
+                <Property Name="Cost_Centre" Type="Edm.String" MaxLength="10"/>
+                <Property Name="WBS_Element" Type="Edm.String" MaxLength="24"/>
+                <Property Name="Terms_of_payment_key" Type="Edm.String" MaxLength="4"/>
+                <Property Name="Payment_Block_Key" Type="Edm.Boolean"/>
+                <Property Name="Profit_Center" Type="Edm.String" MaxLength="25"/>
+                <Property Name="Baseline_Date" Type="Edm.Date"/>
+                <Property Name="Internal_Order" Type="Edm.String" MaxLength="10"/>
+                <Property Name="Tax_Type" Type="Edm.String" MaxLength="40"/>
+                <Property Name="Tax_Code_TDS" Type="Edm.String" MaxLength="2"/>
+                <Property Name="Withholding_Tax_Base" Type="Edm.String" MaxLength="15"/>
+                <Property Name="Withholding_Tax_Amount" Type="Edm.String" MaxLength="15"/>
+                <Property Name="Quantity" Type="Edm.String" MaxLength="25"/>
+                <Property Name="Base_Unit_of_Measure" Type="Edm.String" MaxLength="25"/>
+                <Property Name="Tax_code" Type="Edm.String" MaxLength="3"/>
+                <Property Name="Reference_Key_1" Type="Edm.String" MaxLength="12"/>
+                <Property Name="Reference_Key_2" Type="Edm.String" MaxLength="12"/>
+                <Property Name="Reference_Key_3" Type="Edm.String" MaxLength="20"/>
+            </EntityType>
+            <EntityType Name="Currencies">
+                <Key>
+                    <PropertyRef Name="code"/>
+                </Key>
+                <Property Name="name" Type="Edm.String" MaxLength="255"/>
+                <Property Name="descr" Type="Edm.String" MaxLength="1000"/>
+                <Property Name="code" Type="Edm.String" MaxLength="3" Nullable="false"/>
+                <Property Name="symbol" Type="Edm.String" MaxLength="5"/>
+                <Property Name="minorUnit" Type="Edm.Int16"/>
+                <NavigationProperty Name="texts" Type="Collection(GSTMJVService.Currencies_texts)">
+                    <OnDelete Action="Cascade"/>
+                </NavigationProperty>
+                <NavigationProperty Name="localized" Type="GSTMJVService.Currencies_texts">
+                    <ReferentialConstraint Property="code" ReferencedProperty="code"/>
+                </NavigationProperty>
+            </EntityType>
+            <EntityType Name="Currencies_texts">
+                <Key>
+                    <PropertyRef Name="locale"/>
+                    <PropertyRef Name="code"/>
+                </Key>
+                <Property Name="locale" Type="Edm.String" MaxLength="14" Nullable="false"/>
+                <Property Name="name" Type="Edm.String" MaxLength="255"/>
+                <Property Name="descr" Type="Edm.String" MaxLength="1000"/>
+                <Property Name="code" Type="Edm.String" MaxLength="3" Nullable="false"/>
+            </EntityType>
+            <Annotations Target="GSTMJVService.GSTMJVReport/DOCNO">
+                <Annotation Term="Common.Label" String="Invoice Number"/>
+            </Annotations>
+            <Annotations Target="GSTMJVService.GSTMJVReport/seqNumber">
+                <Annotation Term="Core.Computed" Bool="true"/>
+            </Annotations>
+            <Annotations Target="GSTMJVService.GSTMJVReport/DocumentDate">
+                <Annotation Term="Common.Label" String="Invoice Date"/>
+            </Annotations>
+            <Annotations Target="GSTMJVService.GSTMJVReport/Documenttype">
+                <Annotation Term="Common.Label" String="Document Type"/>
+            </Annotations>
+            <Annotations Target="GSTMJVService.GSTMJVReport/CompanyCode">
+                <Annotation Term="Core.Computed" Bool="true"/>
+            </Annotations>
+            <Annotations Target="GSTMJVService.GSTMJVReport/Currency">
+                <Annotation Term="Common.Label" String="{i18n>Currency}"/>
+                    <Annotation Term="Core.Description" String="{i18n>CurrencyCode.Description}"/>
+                    </Annotations>
+                    <Annotations Target="GSTMJVService.GSTMJVReport/Currency_code">
+                        <Annotation Term="Common.Label" String="{i18n>Currency}"/>
+                            <Annotation Term="Common.ValueList">
+                                <Record Type="Common.ValueListType">
+                                    <PropertyValue Property="Label" String="{i18n>Currency}"/>
+                                        <PropertyValue Property="CollectionPath" String="Currencies"/>
+                                        <PropertyValue Property="Parameters">
+                                            <Collection>
+                                                <Record Type="Common.ValueListParameterInOut">
+                                                    <PropertyValue Property="LocalDataProperty" PropertyPath="Currency_code"/>
+                                                    <PropertyValue Property="ValueListProperty" String="code"/>
+                                                </Record>
+                                                <Record Type="Common.ValueListParameterDisplayOnly">
+                                                    <PropertyValue Property="ValueListProperty" String="name"/>
+                                                </Record>
+                                            </Collection>
+                                        </PropertyValue>
+                                    </Record>
+                                </Annotation>
+                                <Annotation Term="Core.Description" String="{i18n>CurrencyCode.Description}"/>
+                                </Annotations>
+                                <Annotations Target="GSTMJVService.GSTMJVReport/Exchange_Rate_Direct_Quotation">
+                                    <Annotation Term="Core.Computed" Bool="true"/>
+                                </Annotations>
+                                <Annotations Target="GSTMJVService.GSTMJVReport/Reference">
+                                    <Annotation Term="Core.Computed" Bool="true"/>
+                                </Annotations>
+                                <Annotations Target="GSTMJVService.GSTMJVReport/Document_HeaderText">
+                                    <Annotation Term="Core.Computed" Bool="true"/>
+                                </Annotations>
+                                <Annotations Target="GSTMJVService.GSTMJVReport/TranslationDate">
+                                    <Annotation Term="Core.Computed" Bool="true"/>
+                                </Annotations>
+                                <Annotations Target="GSTMJVService.GSTMJVReport/Calculate_tax_automatically">
+                                    <Annotation Term="Core.Computed" Bool="true"/>
+                                </Annotations>
+                                <Annotations Target="GSTMJVService.GSTMJVReport/Cross_CC_No">
+                                    <Annotation Term="Core.Computed" Bool="true"/>
+                                </Annotations>
+                                <Annotations Target="GSTMJVService.GSTMJVReport/Trading_Partner_BA">
+                                    <Annotation Term="Core.Computed" Bool="true"/>
+                                </Annotations>
+                                <Annotations Target="GSTMJVService.GSTMJVReport/Posting_Key">
+                                    <Annotation Term="Core.Computed" Bool="true"/>
+                                </Annotations>
+                                <Annotations Target="GSTMJVService.GSTMJVReport/Account">
+                                    <Annotation Term="Core.Computed" Bool="true"/>
+                                </Annotations>
+                                <Annotations Target="GSTMJVService.GSTMJVReport/Special_GL_ind">
+                                    <Annotation Term="Core.Computed" Bool="true"/>
+                                </Annotations>
+                                <Annotations Target="GSTMJVService.GSTMJVReport/Transaction_Type">
+                                    <Annotation Term="Common.Label" String="Transaction Type"/>
+                                </Annotations>
+                                <Annotations Target="GSTMJVService.GSTMJVReport/Amount_in_Document_currency">
+                                    <Annotation Term="Core.Computed" Bool="true"/>
+                                </Annotations>
+                                <Annotations Target="GSTMJVService.GSTMJVReport/Amount_in_Local_Currency">
+                                    <Annotation Term="Core.Computed" Bool="true"/>
+                                </Annotations>
+                                <Annotations Target="GSTMJVService.GSTMJVReport/Business_Place">
+                                    <Annotation Term="Core.Computed" Bool="true"/>
+                                </Annotations>
+                                <Annotations Target="GSTMJVService.GSTMJVReport/Section_Code">
+                                    <Annotation Term="Common.Label" String="Section Type"/>
+                                </Annotations>
+                                <Annotations Target="GSTMJVService.GSTMJVReport/Credit_control_area">
+                                    <Annotation Term="Core.Computed" Bool="true"/>
+                                </Annotations>
+                                <Annotations Target="GSTMJVService.GSTMJVReport/Invoice_Reference">
+                                    <Annotation Term="Core.Computed" Bool="true"/>
+                                </Annotations>
+                                <Annotations Target="GSTMJVService.GSTMJVReport/Fiscal_Year_of_the_Relevant_Invoice">
+                                    <Annotation Term="Core.Computed" Bool="true"/>
+                                </Annotations>
+                                <Annotations Target="GSTMJVService.GSTMJVReport/Line_Item_in_Relevant_Invoice">
+                                    <Annotation Term="Core.Computed" Bool="true"/>
+                                </Annotations>
+                                <Annotations Target="GSTMJVService.GSTMJVReport/Assignment_number">
+                                    <Annotation Term="Core.Computed" Bool="true"/>
+                                </Annotations>
+                                <Annotations Target="GSTMJVService.GSTMJVReport/Text">
+                                    <Annotation Term="Core.Computed" Bool="true"/>
+                                </Annotations>
+                                <Annotations Target="GSTMJVService.GSTMJVReport/Business_Area">
+                                    <Annotation Term="Core.Computed" Bool="true"/>
+                                </Annotations>
+                                <Annotations Target="GSTMJVService.GSTMJVReport/Cost_Centre">
+                                    <Annotation Term="Core.Computed" Bool="true"/>
+                                </Annotations>
+                                <Annotations Target="GSTMJVService.GSTMJVReport/WBS_Element">
+                                    <Annotation Term="Core.Computed" Bool="true"/>
+                                </Annotations>
+                                <Annotations Target="GSTMJVService.GSTMJVReport/Terms_of_payment_key">
+                                    <Annotation Term="Core.Computed" Bool="true"/>
+                                </Annotations>
+                                <Annotations Target="GSTMJVService.GSTMJVReport/Payment_Block_Key">
+                                    <Annotation Term="Core.Computed" Bool="true"/>
+                                </Annotations>
+                                <Annotations Target="GSTMJVService.GSTMJVReport/Profit_Center">
+                                    <Annotation Term="Core.Computed" Bool="true"/>
+                                </Annotations>
+                                <Annotations Target="GSTMJVService.GSTMJVReport/Baseline_Date">
+                                    <Annotation Term="Core.Computed" Bool="true"/>
+                                </Annotations>
+                                <Annotations Target="GSTMJVService.GSTMJVReport/Internal_Order">
+                                    <Annotation Term="Core.Computed" Bool="true"/>
+                                </Annotations>
+                                <Annotations Target="GSTMJVService.GSTMJVReport/Tax_Type">
+                                    <Annotation Term="Core.Computed" Bool="true"/>
+                                </Annotations>
+                                <Annotations Target="GSTMJVService.GSTMJVReport/Tax_Code_TDS">
+                                    <Annotation Term="Core.Computed" Bool="true"/>
+                                </Annotations>
+                                <Annotations Target="GSTMJVService.GSTMJVReport/Withholding_Tax_Base">
+                                    <Annotation Term="Core.Computed" Bool="true"/>
+                                </Annotations>
+                                <Annotations Target="GSTMJVService.GSTMJVReport/Withholding_Tax_Amount">
+                                    <Annotation Term="Core.Computed" Bool="true"/>
+                                </Annotations>
+                                <Annotations Target="GSTMJVService.GSTMJVReport/Quantity">
+                                    <Annotation Term="Core.Computed" Bool="true"/>
+                                </Annotations>
+                                <Annotations Target="GSTMJVService.GSTMJVReport/Base_Unit_of_Measure">
+                                    <Annotation Term="Core.Computed" Bool="true"/>
+                                </Annotations>
+                                <Annotations Target="GSTMJVService.GSTMJVReport/Reference_Key_1">
+                                    <Annotation Term="Core.Computed" Bool="true"/>
+                                </Annotations>
+                                <Annotations Target="GSTMJVService.GSTMJVReport/Reference_Key_2">
+                                    <Annotation Term="Core.Computed" Bool="true"/>
+                                </Annotations>
+                                <Annotations Target="GSTMJVService.GSTMJVReport/Reference_Key_3">
+                                    <Annotation Term="Core.Computed" Bool="true"/>
+                                </Annotations>
+                                <Annotations Target="GSTMJVService.Currencies">
+                                    <Annotation Term="UI.Identification">
+                                        <Collection>
+                                            <Record Type="UI.DataField">
+                                                <PropertyValue Property="Value" Path="name"/>
+                                            </Record>
+                                        </Collection>
+                                    </Annotation>
+                                </Annotations>
+                                <Annotations Target="GSTMJVService.Currencies/name">
+                                    <Annotation Term="Common.Label" String="{i18n>Name}"/>
+                                    </Annotations>
+                                    <Annotations Target="GSTMJVService.Currencies/descr">
+                                        <Annotation Term="Common.Label" String="{i18n>Description}"/>
+                                        </Annotations>
+                                        <Annotations Target="GSTMJVService.Currencies/code">
+                                            <Annotation Term="Common.Text" Path="name"/>
+                                            <Annotation Term="Common.Label" String="{i18n>CurrencyCode}"/>
+                                            </Annotations>
+                                            <Annotations Target="GSTMJVService.Currencies/symbol">
+                                                <Annotation Term="Common.Label" String="{i18n>CurrencySymbol}"/>
+                                                </Annotations>
+                                                <Annotations Target="GSTMJVService.Currencies/minorUnit">
+                                                    <Annotation Term="Common.Label" String="{i18n>CurrencyMinorUnit}"/>
+                                                    </Annotations>
+                                                    <Annotations Target="GSTMJVService.Currencies_texts/locale">
+                                                        <Annotation Term="Common.Label" String="{i18n>LanguageCode}"/>
+                                                        </Annotations>
+                                                        <Annotations Target="GSTMJVService.Currencies_texts/name">
+                                                            <Annotation Term="Common.Label" String="{i18n>Name}"/>
+                                                            </Annotations>
+                                                            <Annotations Target="GSTMJVService.Currencies_texts/descr">
+                                                                <Annotation Term="Common.Label" String="{i18n>Description}"/>
+                                                                </Annotations>
+                                                                <Annotations Target="GSTMJVService.Currencies_texts/code">
+                                                                    <Annotation Term="Common.Text" Path="name"/>
+                                                                    <Annotation Term="Common.Label" String="{i18n>CurrencyCode}"/>
+                                                                    </Annotations>
+                                                                </Schema>
+                                                            </edmx:DataServices>
+                                                        </edmx:Edmx>

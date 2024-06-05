@@ -1,0 +1,37 @@
+<core:FragmentDefinition xmlns="sap.m"
+    xmlns:core="sap.ui.core">
+    <SelectDialog title="Select the GSTIN(s)" 
+    items="{path :'gstinListModel>/',sorter: {path:'GSTNumber'}}"
+     search="onSearchGSTINPress" multiSelect="true" 
+      confirm="onSelectGSTINList" cancel="onSelectGSTINList" showClearButton="true">
+        <StandardListItem iconDensityAware="false" iconInset="false" title="{gstinListModel>GSTIN}"/>
+    </SelectDialog>
+    <!-- <TableSelectDialog
+		id="gstvalidation"
+		noDataText="No Data Found"
+		title="Select GSTIN / UIN"
+		search="onSearchGSTINPress"
+		confirm="onSelectGSTINList"
+		cancel="onSelectGSTINList"
+		items="{
+			path : 'gstinListModel>/',
+			sorter : {
+				path : 'GSTIN',
+				descending : true
+			}
+		}">
+		<ColumnListItem vAlign="Middle">
+			<cells>
+				<ObjectIdentifier title="{GSTIN}" text="{GSTIN}" />
+				<Text text="{GSTIN}" />
+			</cells>
+		</ColumnListItem>
+		<columns>
+			<Column width="12em">
+				<header>
+					<Text text="GSTIN / UIN" />
+				</header>
+			</Column>
+		</columns>
+	</TableSelectDialog> -->
+</core:FragmentDefinition>

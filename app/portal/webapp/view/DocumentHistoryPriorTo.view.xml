@@ -1,0 +1,320 @@
+<mvc:View controllerName="airindiagst.controller.DocumentHistoryPriorTo"
+	xmlns:f="sap.ui.layout.form"
+	xmlns:core="sap.ui.core"
+	xmlns:u="sap.ui.unified"
+	xmlns:l="sap.ui.layout"
+	xmlns:mvc="sap.ui.core.mvc"
+	xmlns:fb="sap.ui.comp.filterbar"
+	xmlns:wc="sap.ui.webc.main"
+	xmlns="sap.m"
+	xmlns:columnmenu="sap.m.table.columnmenu"
+    xmlns:sap.ui.fl="sap.ui.fl"
+    xmlns:sap.ui.dt="sap.ui.dt"
+    xmlns:vm="sap.ui.fl.variants"
+	xmlns:t="sap.ui.table" class="sapUiSizeCompact">
+	<Page showHeader="false" class="backGroundImage">
+		<Panel width="auto" class="sapUiResponsiveMargin">
+			<content>
+			<OverflowToolbar>
+				<ToolbarSpacer/>
+			</OverflowToolbar>
+				<fb:FilterBar id="filterbar" persistencyKey="myPersKey" useToolbar="false" reset="restore" search=".onSearch" filterChange=".onFilterChange" afterVariantLoad=".onAfterVariantLoad">
+					<fb:filterGroupItems>
+						<!-- <fb:FilterGroupItem name="Document Type" label="Document Type" groupName="Group1" visibleInFilterBar="true">
+							<fb:control>
+								<MultiComboBox id="fbmc-DocType" selectionChange="handleSelectedDocType" showSelectAll="true" selectedKeys="INVOICE" placeholder="Select Document Type.." width="350px">
+									<items>
+										<core:Item key="INVOICE" text="GST Invoices"/>
+										<core:Item key="DEBIT" text="Debit Note"/>
+										<core:Item key="CREDIT" text="Credit Note"/>
+										<core:Item key="BOS" text="Bill of Supply"/>
+										<core:Item key="BOSCN" text="Bill of Supply Credit"/>
+										<core:Item key="BOSDN" text="Bill of Supply Debit"/>
+									</items>
+								</MultiComboBox>
+							</fb:control>
+						</fb:FilterGroupItem> -->
+						<fb:FilterGroupItem name="Document Number" label="Document Number" groupName="Group1" visibleInFilterBar="true">
+							<fb:control>
+								<MultiInput id="fbinp-invoiceNumber" valueHelpOnly="true" type="Text" textFormatMode="Key" placeholder="Document No..." showSuggestion="true" showValueHelp="true" valueHelpRequest="handleValueHelpinvoiceNum" suggestionItems="{path: 'FilterDatamodel>/invoiceNumber/',templateShareable: false}" suggestionItemSelected="suggestionItemSelected" valueLiveUpdate="true" maxLength="">
+									<suggestionItems>
+										<core:ListItem key="{FilterDatamodel>}"/>
+									</suggestionItems>
+								</MultiInput>
+							</fb:control>
+						</fb:FilterGroupItem>
+						<fb:FilterGroupItem id="buyergst" name="Passenger GSTIN" label="Passenger GSTIN" groupName="Group1" visibleInFilterBar="true">
+							<fb:control>
+								<!-- <MultiComboBox id="fbmc-GSTIN" selectionChange="handleSelectedGSTIN" placeholder="Passenger GSTIN" selectionFinish="handleSelectedGSTIN" selectedKeys="" showSelectAll="true" width="350px" items="{ path: 'FilterDatamodel>/gstin'}">
+									<core:Item key="{FilterDatamodel>}" text="{FilterDatamodel>}"/>
+								</MultiComboBox> -->
+								<MultiInput id="fbinp-GSTIN"  valueHelpOnly="true" enabled="true" type="Text" textFormatMode="Key" placeholder="Passenger GSTIN" showSuggestion="true" tokenUpdate="onTokenUpdate"  showValueHelp="true" valueHelpRequest="handleValueHelppassengerGstin" suggestionItems="{path: 'FilterDatamodel>/gstin/',templateShareable: false}" suggestionItemSelected="suggestionItemSelected" valueLiveUpdate="true" maxLength="10">
+									<suggestionItems>
+										<core:ListItem key="{FilterDatamodel>}"/>
+									</suggestionItems>
+								</MultiInput>
+							</fb:control>
+						</fb:FilterGroupItem>
+						<!-- <fb:FilterGroupItem name="Passenger Name" label="Passenger Name" groupName="Group1" visibleInFilterBar="true">
+							<fb:control>
+								<MultiInput id="fbinp-passengername" valueHelpOnly="true" type="Text" placeholder="Passenger Name..." showSuggestion="true" showValueHelp="true" valueHelpRequest="handleValueHelppassengername" suggestionItems="{path: 'FilterDatamodel>/passengerName/',templateShareable: false}" suggestionItemSelected="suggestionItemSelected" valueLiveUpdate="true">
+									<suggestionItems>
+										<core:ListItem key="{FilterDatamodel>}"/>
+									</suggestionItems>
+								</MultiInput>
+							</fb:control>
+						</fb:FilterGroupItem>
+						<fb:FilterGroupItem name="Buyer Name" label="Buyer Name" groupName="Group1" visibleInFilterBar="true">
+							<fb:control>
+								<MultiInput id="fbinp-buyername" valueHelpOnly="true" type="Text" placeholder="Buyer Name..." showSuggestion="true" showValueHelp="true" valueHelpRequest="handleValueHelpbuyername" suggestionItems="{path: 'FilterDatamodel>/billToName/',templateShareable: false}" suggestionItemSelected="suggestionItemSelected" valueLiveUpdate="true">
+									<suggestionItems>
+										<core:ListItem key="{FilterDatamodel>}"/>
+									</suggestionItems>
+								</MultiInput>
+							</fb:control>
+						</fb:FilterGroupItem> -->
+						<fb:FilterGroupItem name="Date of Issue" label="Date of Issue" groupName="Group1" visibleInFilterBar="true">
+							<fb:control>
+								<DateRangeSelection class="disabledDateInput" id="fbdat-DateofIssue" delimiter=" to " dateValue="{path:'/dateValueDRS1'}" secondDateValue="{path:'/secondDateValueDRS1'}" change="handleChange" valueFormat="{i18n>yyyy/MM/dd}" displayFormat="{i18n>dd/MM/yyyy}"/>
+							</fb:control>
+						</fb:FilterGroupItem>
+						<!-- <fb:FilterGroupItem name="Period" label="Period" visible="false" groupName="Group1" visibleInFilterBar="false">
+							<fb:control>
+								<ComboBox id="fbmc-TIMELINE" selectionChange="handleSelectedPeriod" width="350px" selectedKey="">
+									<items>
+										<core:Item key="CM" text="Current Month"/>
+										<core:Item key="PM" text="Previous Month"/>
+										<core:Item key="CY" text="Current Financial Year"/>
+										<core:Item key="PY" text="Previous Financial Year"/>
+									</items>
+								</ComboBox>
+							</fb:control>
+						</fb:FilterGroupItem>
+						<fb:FilterGroupItem name="Supplier GSTIN" label="Supplier GSTIN" groupName="Group1" visibleInFilterBar="true">
+							<fb:control>
+								<MultiComboBox id="fbmc-GSTINAI" selectionChange="handleSelectedGSTIN_AI" placeholder="Supplier GSTIN" selectionFinish="handleSelectedGSTIN_AI" selectedKeys="" showSelectAll="true" width="350px" items="{ path: 'FilterDatamodel>/supplierGSTIN'}">
+									<core:Item key="{FilterDatamodel>}" text="{FilterDatamodel>}"/>
+								</MultiComboBox>
+							</fb:control>
+						</fb:FilterGroupItem> -->
+
+						<fb:FilterGroupItem name="Ticket Number" label="Ticket Number" groupName="Group1" visibleInFilterBar="true">
+							<fb:control>
+								<MultiInput id="fbinp-ticketNumber" valueHelpOnly="true" type="Text" textFormatMode="Key" placeholder="Ticket No..." showSuggestion="true" showValueHelp="true" valueHelpRequest="handleValueHelpticketNum" suggestionItems="{path: 'FilterDatamodel>/ticketNumber/',templateShareable: false}" suggestionItemSelected="suggestionItemSelected" valueLiveUpdate="true" maxLength="10">
+									<suggestionItems>
+										<core:ListItem key="{FilterDatamodel>}"/>
+									</suggestionItems>
+								</MultiInput>
+							</fb:control>
+						</fb:FilterGroupItem>
+						<!-- <fb:FilterGroupItem name="PNR Number" label="PNR Number" groupName="Group1" visibleInFilterBar="true">
+							<fb:control>
+								<MultiInput id="fbinp-pnrNumber" valueHelpOnly="true" type="Text" textFormatMode="Key" placeholder="PNR No..." showSuggestion="true" showValueHelp="true" valueHelpRequest="handleValueHelpPNRNum" suggestionItems="{path: 'FilterDatamodel>/pnr/',templateShareable: false}" suggestionItemSelected="suggestionItemSelected" valueLiveUpdate="true">
+									<suggestionItems>
+										<core:ListItem key="{FilterDatamodel>}"/>
+									</suggestionItems>
+								</MultiInput>
+							</fb:control> 
+						</fb:FilterGroupItem>
+						<fb:FilterGroupItem name="Company" label="Company" groupName="Group1" visible="false" visibleInFilterBar="true">
+							<fb:control>
+								<MultiInput id="fbinp-company" valueHelpOnly="true" type="Text" textFormatMode="Key" placeholder="Company..." showSuggestion="true" showValueHelp="true" valueHelpRequest="handleValueHelpcompany" suggestionItems="{path: 'FilterDatamodel>/company/',templateShareable: false}" suggestionItemSelected="suggestionItemSelected" valueLiveUpdate="true">
+									<suggestionItems>
+										<core:ListItem key="{FilterDatamodel>}"/>
+									</suggestionItems>
+								</MultiInput>
+							</fb:control> 
+						</fb:FilterGroupItem> -->
+						<fb:FilterGroupItem name="IATA Code" label="IATA Code" groupName="Group1" visibleInFilterBar="true">
+							<fb:control>
+								<MultiInput id="fbinp-iataNumber" valueHelpOnly="true" enabled="true" type="Text" textFormatMode="Key" placeholder="IATA Code..." showSuggestion="true" tokenUpdate="onTokenUpdate"  showValueHelp="true" valueHelpRequest="handleValueHelpiataNum" suggestionItems="{path: 'FilterDatamodel>/iataNumber/',templateShareable: false}" suggestionItemSelected="suggestionItemSelected" valueLiveUpdate="true" maxLength="10">
+									<suggestionItems>
+										<core:ListItem key="{FilterDatamodel>}"/>
+									</suggestionItems>
+								</MultiInput>
+							</fb:control>
+						</fb:FilterGroupItem>
+						<!-- <fb:FilterGroupItem name="Financial Year" label="Financial year" groupName="Group1" visibleInFilterBar="true">
+							<fb:control>
+								<DatePicker class="disabledDateInput" id="fbdat-financialYear" value="{
+						'path': '/valueDP11',
+						'type': 'sap.ui.model.type.Date',
+						'formatOptions': {
+							'pattern': 'yyyy'
+						}
+					}" displayFormat="{i18n>yyyy}" valueFormat="yyyy" change="onFinancialYearChange"/>
+							</fb:control>
+						</fb:FilterGroupItem> -->
+						<fb:FilterGroupItem name="Document Date" label="Document Date" groupName="Group1" visibleInFilterBar="true">
+							<fb:control>
+								<DateRangeSelection class="disabledDateInput" id="fbdat-invoiceDate" delimiter=" to " dateValue="{path:'/dateValueDRS1'}"  secondDateValue="{path:'/secondDateValueDRS1'}" splaceholder="Choose a date range from calendar.." change="handleChange" displayFormast="{i18n>dd/MM/yyyy}" displayFormat="{i18n>dd/MM/yyyy}"/>
+							</fb:control>
+						</fb:FilterGroupItem>
+
+					</fb:filterGroupItems>
+				</fb:FilterBar>
+			</content>
+		</Panel>
+		<Panel id="panel_table" width="auto" class="sapUiResponsiveMargin">
+			<content>
+				<t:Table id="tbl_gstInvoices" visible="false" rows="{GSTDetailsModel>/documentHistory}" rowActionCount="1" selectionMode="MultiToggle" threshold="100" visibleRowCount="07" firstVisibleRowChanged="" ariaLabelledBy="title" columnMove="onColumnMove"
+                 sort="onSort" 
+                 sap.ui.fl:flexibility="sap/m/flexibility/EngineFlex">
+					<t:extension>
+						<OverflowToolbar style="Clear">
+							<Title id="title" text="Documents History Prior To"/>
+							<ToolbarSpacer/>
+							<ObjectStatus state="Information" id="txt-inr" text="* All amounts in the table are denominated in Indian Rupees (INR)."></ObjectStatus>
+							<ToggleButton id="btn-excel" tooltip="Download Excel Report of your selected Invoices" icon="sap-icon://excel-attachment" pressed="false" press="onPressExportExcel"/>
+							<ToggleButton id="btn-pdf" tooltip="Download PDF of Invoices" icon="sap-icon://pdf-attachment" pressed="false" press="onButtonDownloadPress"/>
+							<Button icon="sap-icon://action-settings" press="openPersoDialog"/>
+
+						</OverflowToolbar>
+					</t:extension>
+					<t:noData>
+                        <IllustratedMessage enableVerticalResponsiveness="true"/>
+                    </t:noData>
+					<t:columns>
+						<t:Column id="col_documentTypeCode" minWidth="150px" filterProperty="DOCUMENTTYPECODE" autoResizable="true" tooltip="Document Type" sortProperty="documentTypeCode">
+							<Label text="Document Type"/>
+							<t:template>
+								<Text text="{GSTDetailsModel>DOCUMENTTYPECODE}"/>
+							</t:template>
+						</t:Column>
+						<t:Column id="col_invoiceNumber" minWidth="170px" filterProperty="INVOICENUMBER" tooltip="Invoice Number" autoResizable="true" sortProperty="invoiceNumber">
+							<Label text="Invoice Number"/>
+							<t:template>
+								<Text text="{GSTDetailsModel>INVOICENUMBER}"/>
+							</t:template>
+						</t:Column>
+						<t:Column id="col_invoiceDate" minWidth="150px" filterProperty="INVOICEDATE" autoResizable="true" tooltip="Invoice Date" sortProperty="invoiceDate">
+							<Label text="Invoice Date"/>
+							<t:template>
+								<Text text="{GSTDetailsModel>INVOICEDATE}"/>
+							</t:template>
+						</t:Column>
+						<t:Column id="col_ticketNumber" minWidth="130px" filterProperty="PRIMARYDOCUMENTNBR" tooltip="Ticket Number">
+							<Label text="Ticket Number"/>
+							<t:template>
+								<Text text="{GSTDetailsModel>PRIMARYDOCUMENTNBR}"/>
+							</t:template>
+						</t:Column>
+						<t:Column id="col_ticketdate" minWidth="120px" filterProperty="INVOICEDATE" autoResizable="true" tooltip="Ticket Issue date" sortProperty="TICKETISSUEDATE">
+							<Label text="Ticket Issue Date"/>
+							<t:template>
+								<!-- <Text text="{GSTDetailsModel>TICKETISSUEDATE}"/> -->
+								<Text text="{path: 'GSTDetailsModel>INVOICEDATE', formatter: '.formatNewDateChange'}"/>
+							</t:template>
+						</t:Column>
+						<t:Column id="col_billToName" minWidth="500px" filterProperty="BILLTONAME" autoResizable="true" tooltip="Buyer Name" sortProperty="BILLTONAME">
+							<Label text="Buyer Name"/>
+							<t:template>
+								<Text text="{GSTDetailsModel>PASSANGERNAME}"/>
+							</t:template>
+						</t:Column>
+						<t:Column id="col_iataNumber" minWidth="120px" filterProperty="IATANUMBER" tooltip="IATA Number">
+							<Label text="IATA Number"/>
+							<t:template>
+								<Text text="{GSTDetailsModel>IATANUMBER}"/>
+							</t:template>
+						</t:Column>
+						<t:Column id="col_passangerName" minWidth="150px" filterProperty="PASSANGERNAME" tooltip="Passanger Name">
+							<Label text="Passanger Name"/>
+							<t:template>
+								<Text text="{GSTDetailsModel>PASSANGERNAME}"/>
+							</t:template>
+						</t:Column>
+						<t:Column id="col_passengerGSTIN" minWidth="150px" filterProperty="PASSENGERGSTIN" tooltip="Passenger GSTIN">
+							<Label text="Passenger GSTIN"/>
+							<t:template>
+								<Text text="{GSTDetailsModel>PASSENGERGSTIN}"/>
+							</t:template>
+						</t:Column>
+						<t:Column id="col_netTaxableValue" minWidth="125px" hAlign="Right" tooltip="Net Taxable Value">
+							<Label text="Net Taxable Value"/>
+							<t:template>
+								<Text text="{GSTDetailsModel>NETTAXABLEVALUE}"/>
+							</t:template>
+						</t:Column>
+						<t:Column id="col_cominedtax" minWidth="120px" hAlign="Right" tooltip="Combined Tax Rate">
+							<Label text="Combined Tax Rate"/>
+							<t:template>
+								<Text text="{GSTDetailsModel>TOTALRATE}"/>
+							</t:template>
+						</t:Column>
+						<t:Column id="col_totaltax" minWidth="120px" hAlign="Right" tooltip="Total Tax Amount">
+							<Label text="Total Tax"/>
+							<t:template>
+								<Text text="{GSTDetailsModel>NETTAXABLEVALUE}"/>
+							</t:template>
+						</t:Column>
+						<t:Column id="col_cgstRate" minWidth="125px" hAlign="Right" tooltip="CGST Rate">
+							<Label text="CGST Rate"/>
+							<t:template>
+								<Text text="{GSTDetailsModel>CGSTRATE}"/>
+							</t:template>
+						</t:Column>
+						<t:Column id="col_cgstamount" minWidth="125px" hAlign="Right" tooltip="CGST Amount">
+							<Label text="CGST Amount"/>
+							<t:template>
+								<Text text="{GSTDetailsModel>CGSTAMOUNT}"/>
+							</t:template>
+						</t:Column>
+						<t:Column id="col_sgstRate" minWidth="125px" hAlign="Right" tooltip="SGST Rate">
+							<Label text="SGST Rate"/>
+							<t:template>
+								<Text text="{GSTDetailsModel>SGSTRATE}"/>
+							</t:template>
+						</t:Column>
+						<t:Column id="col_sgstamount" minWidth="125px" hAlign="Right" tooltip="SGST Amount">
+							<Label text="SGST Amount"/>
+							<t:template>
+								<Text text="{GSTDetailsModel>SGSTAMOUNT}"/>
+							</t:template>
+						</t:Column>
+						<t:Column id="col_utgstRate" minWidth="125px" hAlign="Right" tooltip="UTGST Rate">
+							<Label text="UTGST Rate"/>
+							<t:template>
+								<Text text="{GSTDetailsModel>UTGSTRATE}"/>
+							</t:template>
+						</t:Column>
+						<t:Column id="col_utgstamount" minWidth="125px" hAlign="Right" tooltip="UTGST Amount">
+							<Label text="UTGST Amount"/>
+							<t:template>
+								<Text text="{GSTDetailsModel>UTGSTAMOUNT}"/>
+							</t:template>
+						</t:Column>
+						<t:Column id="col_igstRate" minWidth="125px" hAlign="Right" tooltip="IGST Rate">
+							<Label text="IGST Rate"/>
+							<t:template>
+								<Text text="{GSTDetailsModel>IGSTRATE}"/>
+							</t:template>
+						</t:Column>
+						<t:Column id="col_igstamount" minWidth="125px" hAlign="Right" tooltip="IGST Amount">
+							<Label text="IGST Amount"/>
+							<t:template>
+								<Text text="{GSTDetailsModel>IGSTAMOUNT}"/>
+							</t:template>
+						</t:Column>
+					</t:columns>
+					<t:rowActionTemplate>
+						<t:RowAction>
+							<t:items>
+								<!-- <t:RowActionItem icon="sap-icon://vds-file" press="onButtonShowPanPress"/> -->
+								<t:RowActionItem icon="sap-icon://pdf-attachment" press="onButtonDownloadPresssingle"/>
+							</t:items>
+						</t:RowAction>
+					</t:rowActionTemplate>
+					<t:footer>
+						<Toolbar>
+							<ToolbarSpacer/>
+							<Link id="morelink" text="More.." press="onScroll" ></Link>
+							<Title id="table_footer"></Title>
+							<ToolbarSpacer/>
+						</Toolbar>
+					</t:footer>
+				</t:Table>
+			</content>
+		</Panel>
+	</Page>
+</mvc:View>

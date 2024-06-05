@@ -1,0 +1,163 @@
+<mvc:View controllerName="airindiagst.controller.auditLog" class="sapUiSizeCompact"
+    xmlns:mvc="sap.ui.core.mvc" displayBlock="true"
+    xmlns="sap.m"
+	xmlns:u="sap.ui.unified"
+    xmlns:l="sap.ui.layout"
+	xmlns:t="sap.ui.table"
+    xmlns:commons="sap.suite.ui.commons"
+    xmlns:core="sap.ui.core"
+    xmlns:fb="sap.ui.comp.filterbar"
+    xmlns:tnt="sap.tnt">
+            <Page class="backGroundImage">
+                <VBox >
+                    <Panel width="auto" class="sapUiResponsiveMargin" >
+                    <content>
+                        <fb:FilterBar id="filterbar" reset="restore" persistencyKey="myPersKey" useToolbar="false" search="onSearch" filterChange=".onFilterChange" afterVariantLoad=".onAfterVariantLoad">
+                            <fb:filterGroupItems>
+							<fb:FilterGroupItem name="Segment" id="segmentFilter" label="Log Type" groupName="Group1" visibleInFilterBar="true">
+                                    <fb:control>
+                                        <ComboBox showSelectAll="true" id="comboBoxTypeSelect" items="" change="changeSegment">
+                                            <core:Item key="A" text="System" />
+                                            <core:Item key="I" text="Invoices"/>
+                                        </ComboBox>
+                                    </fb:control>
+                                </fb:FilterGroupItem>
+                        <fb:FilterGroupItem name="Module" id="moduleIDFilter" visible="true" label="Module" groupName="Group1" visibleInFilterBar="true">
+							<fb:control>
+								<MultiInput id="Audit-moduleID" type="Text" valueHelpOnly="true" textFormatMode="Key" placeholder="Module..." showSuggestion="true" showValueHelp="true" tokenUpdate="onTokenUpdate" valueHelpRequest="handleValueHelpModuleID" suggestionItems="{path: 'FilterDatamodel>/MODULEID',templateShareable: false}" suggestionItemSelected="suggestionItemSelected" valueLiveUpdate="true" maxLength="10">
+									<suggestionItems>
+										<core:ListItem key="{FilterDatamodel>MODULEID}"/>
+									</suggestionItems>
+								</MultiInput>
+							</fb:control>
+						</fb:FilterGroupItem>
+                        <fb:FilterGroupItem name="Event" id="eventIDFilter" visible="true" label="Event" groupName="Group1" visibleInFilterBar="true">
+							<fb:control>
+								<MultiInput id="Audit-EventID" type="Text" valueHelpOnly="true" textFormatMode="Key" placeholder="Event..." showSuggestion="true" showValueHelp="true" tokenUpdate="onTokenUpdate" valueHelpRequest="handleValueHelpEventID" suggestionItems="{path: 'FilterDatamodel>/EVENTID',templateShareable: false}" suggestionItemSelected="suggestionItemSelected" valueLiveUpdate="true" maxLength="10">
+									<suggestionItems>
+										<core:ListItem key="{FilterDatamodel>MODULEID}"/>
+									</suggestionItems>
+								</MultiInput>
+							</fb:control>
+						</fb:FilterGroupItem>
+                        <fb:FilterGroupItem name="User ID" id="userIdFilter" visible="true" label="User Name" groupName="Group1" visibleInFilterBar="true">
+							<fb:control>
+								<MultiInput id="Audit-UserID" type="Text" valueHelpOnly="true" textFormatMode="Key" placeholder="User Name..." showSuggestion="true" showValueHelp="true" tokenUpdate="onTokenUpdate" valueHelpRequest="handleValueHelpUserID" suggestionItems="{path: 'FilterDatamodel>/USERID',templateShareable: false}" suggestionItemSelected="suggestionItemSelected" valueLiveUpdate="true" maxLength="10">
+									<suggestionItems>
+										<core:ListItem key="{FilterDatamodel>BUSINESSDOCUMENTID}"/>
+									</suggestionItems>
+								</MultiInput>
+							</fb:control>
+						</fb:FilterGroupItem>
+                                <fb:FilterGroupItem name="Period" id="periodFilter" visible="true" label="Period" groupName="Group1" visibleInFilterBar="true">
+                                    <fb:control>
+                                       <DateRangeSelection id="periodDateFilter"  delimiter=" to " dateValue="{path:'/dateValueDRS1'}" secondDateValue="{path:'/secondDateValueDRS1'}" minDate="{path:'/dateMinDRS1'}" maxDate="{path:'/dateMaxDRS1'}" change="handleChange" displayFormat="{i18n>dd/MM/yyyy}"/>
+                                    </fb:control>
+                                </fb:FilterGroupItem>
+                                <fb:FilterGroupItem name="Invoice Number" id="invoiceNumberFilter" visible="false" mandatory="true" label="Invoice Number" groupName="Group1" visibleInFilterBar="true">
+							<fb:control>
+								<Input id="Audit-InvNo" type="Text" valueHelpOnly="true" textFormatMode="Key"  placeholder="Invoice Number..." showSuggestion="true" showValueHelp="true"  valueHelpRequest="handleValueHelpinvoiceNum" suggestionItems="{path: 'FilterDatamodel>/INVOICENUMBER',templateShareable: false}" suggestionItemSelected="suggestionItemSelected" valueLiveUpdate="true" maxLength="10">
+									<suggestionItems>
+										<core:ListItem key="{FilterDatamodel>INVOICENUMBER}"/>
+									</suggestionItems>
+								</Input>
+							</fb:control>
+						</fb:FilterGroupItem>
+                            </fb:filterGroupItems>
+                        </fb:FilterBar>
+                       </content>
+                    </Panel>
+                    <Panel id="panel_table" width="auto" class="sapUiResponsiveMargin">
+                    <content>
+                    <FlexBox renderType="Bare" id="auditLogFlexBox" visible="false">
+                        <commons:ProcessFlow id="processflow" scrollable="true" foldedCorners="true" wheelZoomable="true" nodePress="onNodePress" nodes="{processFlow>/nodes}" lanes="{processFlow>/lanes}">
+                            <commons:nodes>
+                                <commons:ProcessFlowNode laneId="{processFlow>lane}"  nodeId="{processFlow>id}" title="{processFlow>title}" titleAbbreviation="{processFlow>titleAbbreviation}" children="{processFlow>children}" state="{processFlow>state}" stateText="{processFlow>stateText}" texts="{processFlow>texts}" focused="{processFlow>focused}" />
+                            </commons:nodes>
+                            <commons:lanes>
+                                <commons:ProcessFlowLaneHeader laneId="{processFlow>id}" iconSrc="{processFlow>icon}" text="{processFlow>label}" position="{processFlow>position}" />
+                            </commons:lanes>
+                        </commons:ProcessFlow>
+                    </FlexBox>
+                    <t:Table id="tbl_auditLog" rows="{AuditLogModel>/auditlog}" rowActionCount="2" threshold="10" selectionMode="MultiToggle" visibleRowCount="8" ariaLabelledBy="title">
+					<t:extension>
+						<OverflowToolbar style="Clear">
+							<Title id="title" text="System Log"/>
+						</OverflowToolbar>
+					</t:extension>
+					<t:noData>
+                        <IllustratedMessage enableVerticalResponsiveness="true"/>
+                    </t:noData>
+					<t:columns>	
+                    <!-- <t:Column minWidth="200px" filterProperty="COMPANYCODE" sortProperty="COMPANYCODE" hAlign="Left">
+							<Label text="Company" tooltip="Company"/>
+							<t:template>
+								<Text text="{AuditLogModel>DESCRIPTION}"/>
+							</t:template>
+						</t:Column> -->
+						<t:Column minWidth="200px" filterProperty="MODULE" sortProperty="MODULE" hAlign="Left">
+							<Label text="Module" tooltip="MODULE"/>
+							<t:template>
+								<Text text="{AuditLogModel>MODULE}"/>
+							</t:template>
+						</t:Column>	
+						<t:Column minWidth="250px" filterProperty="EVENT" sortProperty="EVENTID" hAlign="Left">
+							<Label text="Event" tooltip="EVENT" wrapping="true"/>
+							<t:template>
+								<Text text="{AuditLogModel>EVENTID}"/>
+							</t:template>
+						</t:Column>			
+						<t:Column minWidth="200px" filterProperty="OLDVALUE" sortProperty="OLDVALUE" hAlign="Left" >
+							<Label text="Old Value" tooltip="Old Value"/>
+							<t:template>
+								<Text text="{AuditLogModel>OLDVALUE}"/>
+							</t:template>
+						</t:Column>	
+						<t:Column minWidth="200px" filterProperty="NEWVALUE" sortProperty="NEWVALUE" hAlign="Left" >
+							<Label text="New Value" tooltip="New Value"/>
+							<t:template>
+								<Text text="{AuditLogModel>NEWVALUE}"/>
+							</t:template>
+						</t:Column>	
+						<t:Column minWidth="200px" filterProperty="USER" sortProperty="USER" hAlign="Left" >
+							<Label text="User" tooltip="User"/>
+							<t:template>
+								<Text text="{AuditLogModel>USERID}"/>
+							</t:template>
+						</t:Column>	
+						<t:Column minWidth="200px" filterProperty="CREATEDAT" sortProperty="CREATEDAT" hAlign="Left" >
+							<Label text="Created At" tooltip="CREATED AT"/>
+							<t:template>
+							<Text text="{AuditLogModel>CREATEDAT}"/>
+							<!-- <Text text="{path: 'GSTDetailsModel>CREATEDAT', formatter: '.formatter.formatNewDateChange'}"/> -->
+							</t:template>
+						</t:Column>
+						<t:Column minWidth="200px" filterProperty="FINALSTATUS" sortProperty="FINALSTATUS" hAlign="Left" >
+							<Label text="Final Status" tooltip="FINALSTATUS"/>
+							<t:template>
+								<Text text="{AuditLogModel>FINALSTATUS}"/>
+							</t:template>
+						</t:Column>	
+						<t:Column minWidth="300px" filterProperty="FINALSTATUSMESSAGETEXT" sortProperty="FINALSTATUSMESSAGETEXT" hAlign="Left" >
+							<Label text="Final Status Message" tooltip="Final Status Message"/>
+							<t:template>
+								<Text text="{AuditLogModel>FINALSTATUSMESSAGETEXT}"/>
+							</t:template>
+						</t:Column>	
+						
+						
+					</t:columns>
+					<t:footer>
+						<Toolbar>
+							<ToolbarSpacer/>
+							<Link id="morelink" text="More.." press="onScroll" ></Link>
+							<Title id="table_footer"></Title>
+							<ToolbarSpacer/>
+						</Toolbar>
+					</t:footer>
+									</t:Table>
+                	</content>
+		</Panel>
+                </VBox>
+            </Page>
+</mvc:View>

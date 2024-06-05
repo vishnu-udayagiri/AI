@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="4.0" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+    <edmx:Reference Uri="https://sap.github.io/odata-vocabularies/vocabularies/Common.xml">
+        <edmx:Include Alias="Common" Namespace="com.sap.vocabularies.Common.v1"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Core.V1.xml">
+        <edmx:Include Alias="Core" Namespace="Org.OData.Core.V1"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="https://sap.github.io/odata-vocabularies/vocabularies/UI.xml">
+        <edmx:Include Alias="UI" Namespace="com.sap.vocabularies.UI.v1"/>
+    </edmx:Reference>
+    <edmx:DataServices>
+        <Schema Namespace="ASPfilterdateService" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+            <EntityContainer Name="EntityContainer">
+                <EntitySet Name="ASPfilterdate" EntityType="ASPfilterdateService.ASPfilterdate">
+                    <NavigationPropertyBinding Path="SiblingEntity" Target="ASPfilterdate"/>
+                </EntitySet>
+            </EntityContainer>
+            <EntityType Name="ASPfilterdate">
+                <Key>
+                    <PropertyRef Name="IsActiveEntity"/>
+                </Key>
+                <Property Name="MONTH" Type="Edm.Int32"/>
+                <Property Name="YEAR" Type="Edm.Int32"/>
+                <Property Name="ARA_PERIOD_CLOSING_DATE" Type="Edm.Date"/>
+                <Property Name="GST_APP_PERIOD_CLOSING_DATE" Type="Edm.Date"/>
+                <Property Name="GST_APP_PROCESSING_PERIOD" Type="Edm.String" MaxLength="30"/>
+                <Property Name="ISCLOSED" Type="Edm.Boolean" DefaultValue="false"/>
+                <Property Name="CLOSED_ON" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="CLOSED_BY" Type="Edm.String" MaxLength="100"/>
+                <Property Name="IsActiveEntity" Type="Edm.Boolean" Nullable="false" DefaultValue="true"/>
+                <Property Name="HasActiveEntity" Type="Edm.Boolean" Nullable="false" DefaultValue="false"/>
+                <Property Name="HasDraftEntity" Type="Edm.Boolean" Nullable="false" DefaultValue="false"/>
+                <NavigationProperty Name="DraftAdministrativeData" Type="ASPfilterdateService.DraftAdministrativeData" ContainsTarget="true"/>
+                <NavigationProperty Name="SiblingEntity" Type="ASPfilterdateService.ASPfilterdate"/>
+            </EntityType>
+            <EntityType Name="DraftAdministrativeData">
+                <Key>
+                    <PropertyRef Name="DraftUUID"/>
+                </Key>
+                <Property Name="DraftUUID" Type="Edm.Guid" Nullable="false"/>
+                <Property Name="CreationDateTime" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="CreatedByUser" Type="Edm.String" MaxLength="256"/>
+                <Property Name="DraftIsCreatedByMe" Type="Edm.Boolean"/>
+                <Property Name="LastChangeDateTime" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="LastChangedByUser" Type="Edm.String" MaxLength="256"/>
+                <Property Name="InProcessByUser" Type="Edm.String" MaxLength="256"/>
+                <Property Name="DraftIsProcessedByMe" Type="Edm.Boolean"/>
+            </EntityType>
+            <Action Name="draftPrepare" IsBound="true" EntitySetPath="in">
+                <Parameter Name="in" Type="ASPfilterdateService.ASPfilterdate"/>
+                <Parameter Name="SideEffectsQualifier" Type="Edm.String"/>
+                <ReturnType Type="ASPfilterdateService.ASPfilterdate"/>
+            </Action>
+            <Action Name="draftActivate" IsBound="true" EntitySetPath="in">
+                <Parameter Name="in" Type="ASPfilterdateService.ASPfilterdate"/>
+                <ReturnType Type="ASPfilterdateService.ASPfilterdate"/>
+            </Action>
+            <Action Name="draftEdit" IsBound="true" EntitySetPath="in">
+                <Parameter Name="in" Type="ASPfilterdateService.ASPfilterdate"/>
+                <Parameter Name="PreserveChanges" Type="Edm.Boolean"/>
+                <ReturnType Type="ASPfilterdateService.ASPfilterdate"/>
+            </Action>
+            <Annotations Target="ASPfilterdateService.EntityContainer/ASPfilterdate">
+                <Annotation Term="Common.DraftRoot">
+                    <Record Type="Common.DraftRootType">
+                        <PropertyValue Property="ActivationAction" String="ASPfilterdateService.draftActivate"/>
+                        <PropertyValue Property="EditAction" String="ASPfilterdateService.draftEdit"/>
+                        <PropertyValue Property="PreparationAction" String="ASPfilterdateService.draftPrepare"/>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="ASPfilterdateService.ASPfilterdate/MONTH">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="Common.Label" String="Month"/>
+            </Annotations>
+            <Annotations Target="ASPfilterdateService.ASPfilterdate/YEAR">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="Common.Label" String="Year"/>
+            </Annotations>
+            <Annotations Target="ASPfilterdateService.ASPfilterdate/ARA_PERIOD_CLOSING_DATE">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="Common.Label" String="ARA period Closing Date"/>
+            </Annotations>
+            <Annotations Target="ASPfilterdateService.ASPfilterdate/GST_APP_PERIOD_CLOSING_DATE">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="Common.Label" String="GST App Period Closing Date"/>
+            </Annotations>
+            <Annotations Target="ASPfilterdateService.ASPfilterdate/GST_APP_PROCESSING_PERIOD">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="Common.Label" String="GST App Processing Period"/>
+            </Annotations>
+            <Annotations Target="ASPfilterdateService.ASPfilterdate/ISCLOSED">
+                <Annotation Term="Common.Label" String="IS Closed"/>
+            </Annotations>
+            <Annotations Target="ASPfilterdateService.ASPfilterdate/CLOSED_ON">
+                <Annotation Term="Core.Computed" Bool="true"/>
+                <Annotation Term="Common.Label" String="Closed ON"/>
+            </Annotations>
+            <Annotations Target="ASPfilterdateService.ASPfilterdate/CLOSED_BY">
+                <Annotation Term="Common.Label" String="Closed By"/>
+            </Annotations>
+            <Annotations Target="ASPfilterdateService.ASPfilterdate/IsActiveEntity">
+                <Annotation Term="UI.Hidden" Bool="true"/>
+            </Annotations>
+            <Annotations Target="ASPfilterdateService.ASPfilterdate/HasActiveEntity">
+                <Annotation Term="UI.Hidden" Bool="true"/>
+            </Annotations>
+            <Annotations Target="ASPfilterdateService.ASPfilterdate/HasDraftEntity">
+                <Annotation Term="UI.Hidden" Bool="true"/>
+            </Annotations>
+            <Annotations Target="ASPfilterdateService.ASPfilterdate/DraftAdministrativeData">
+                <Annotation Term="UI.Hidden" Bool="true"/>
+            </Annotations>
+            <Annotations Target="ASPfilterdateService.DraftAdministrativeData">
+                <Annotation Term="Common.Label" String="{i18n>Draft_DraftAdministrativeData}"/>
+                </Annotations>
+                <Annotations Target="ASPfilterdateService.DraftAdministrativeData/DraftUUID">
+                    <Annotation Term="UI.Hidden" Bool="true"/>
+                    <Annotation Term="Common.Label" String="{i18n>Draft_DraftUUID}"/>
+                    </Annotations>
+                    <Annotations Target="ASPfilterdateService.DraftAdministrativeData/CreationDateTime">
+                        <Annotation Term="Common.Label" String="{i18n>Draft_CreationDateTime}"/>
+                        </Annotations>
+                        <Annotations Target="ASPfilterdateService.DraftAdministrativeData/CreatedByUser">
+                            <Annotation Term="Common.Label" String="{i18n>Draft_CreatedByUser}"/>
+                            </Annotations>
+                            <Annotations Target="ASPfilterdateService.DraftAdministrativeData/DraftIsCreatedByMe">
+                                <Annotation Term="UI.Hidden" Bool="true"/>
+                                <Annotation Term="Common.Label" String="{i18n>Draft_DraftIsCreatedByMe}"/>
+                                </Annotations>
+                                <Annotations Target="ASPfilterdateService.DraftAdministrativeData/LastChangeDateTime">
+                                    <Annotation Term="Common.Label" String="{i18n>Draft_LastChangeDateTime}"/>
+                                    </Annotations>
+                                    <Annotations Target="ASPfilterdateService.DraftAdministrativeData/LastChangedByUser">
+                                        <Annotation Term="Common.Label" String="{i18n>Draft_LastChangedByUser}"/>
+                                        </Annotations>
+                                        <Annotations Target="ASPfilterdateService.DraftAdministrativeData/InProcessByUser">
+                                            <Annotation Term="Common.Label" String="{i18n>Draft_InProcessByUser}"/>
+                                            </Annotations>
+                                            <Annotations Target="ASPfilterdateService.DraftAdministrativeData/DraftIsProcessedByMe">
+                                                <Annotation Term="UI.Hidden" Bool="true"/>
+                                                <Annotation Term="Common.Label" String="{i18n>Draft_DraftIsProcessedByMe}"/>
+                                                </Annotations>
+                                            </Schema>
+                                        </edmx:DataServices>
+                                    </edmx:Edmx>

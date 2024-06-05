@@ -1,0 +1,25 @@
+{
+  "name": "bulkinvoice",
+  "version": "1.0.0",
+  "description": "Bulk Invoice generator for SAP BTP",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node --max-old-space-size=8192 index.js"
+  },
+  "author": "Joseph Thomas",
+  "license": "ISC",
+  "dependencies": {
+    "@sap/hdbext": "^8.0.3",
+    "@sap/xsenv": "^5.1.0",
+    "axios": "^1.6.8",
+    "express": "^4.19.2",
+    "node-cron": "^3.0.3",
+    "nodemailer": "^6.9.13",
+    "fs-extra":"^11.2.0",
+    "@google-cloud/storage":"^7.11.1"
+  },
+  "devDependencies": {
+    "csv-parser": "^3.0.0"
+  }
+}

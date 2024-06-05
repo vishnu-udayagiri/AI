@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="4.0" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+    <edmx:Reference Uri="https://sap.github.io/odata-vocabularies/vocabularies/Common.xml">
+        <edmx:Include Alias="Common" Namespace="com.sap.vocabularies.Common.v1"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Core.V1.xml">
+        <edmx:Include Alias="Core" Namespace="Org.OData.Core.V1"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="https://sap.github.io/odata-vocabularies/vocabularies/UI.xml">
+        <edmx:Include Alias="UI" Namespace="com.sap.vocabularies.UI.v1"/>
+    </edmx:Reference>
+    <edmx:DataServices>
+        <Schema Namespace="tcsSummaryService" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+            <EntityContainer Name="EntityContainer">
+                <EntitySet Name="TCSSUMMARY" EntityType="tcsSummaryService.TCSSUMMARY"/>
+                <EntitySet Name="valueListTicketNumber" EntityType="tcsSummaryService.valueListTicketNumber"/>
+                <EntitySet Name="valueListTransactionType" EntityType="tcsSummaryService.valueListTransactionType"/>
+                <EntitySet Name="valueListPlaceOfSupply" EntityType="tcsSummaryService.valueListPlaceOfSupply"/>
+                <EntitySet Name="valueListSupplierGSTIN" EntityType="tcsSummaryService.valueListSupplierGSTIN"/>
+                <EntitySet Name="valueListIATANumber" EntityType="tcsSummaryService.valueListIATANumber"/>
+                <EntitySet Name="valueListTCSGSTIN" EntityType="tcsSummaryService.valueListTCSGSTIN"/>
+            </EntityContainer>
+            <EntityType Name="TCSSUMMARY">
+                <Property Name="TICKETNUMBER" Type="Edm.String" MaxLength="15"/>
+                <Property Name="TRANSACTIONTYPE" Type="Edm.String" MaxLength="10"/>
+                <Property Name="TICKETISSUEDATE" Type="Edm.Date"/>
+                <Property Name="IATANUMBER" Type="Edm.String" MaxLength="10"/>
+                <Property Name="TCSGSTIN" Type="Edm.String" MaxLength="15"/>
+                <Property Name="PS_STATENAME" Type="Edm.String" MaxLength="50"/>
+                <Property Name="SUPPLIERGSTIN" Type="Edm.String" MaxLength="15"/>
+                <Property Name="STATEOFDEPOSITEOF_STATENAME" Type="Edm.String" MaxLength="50"/>
+                <Property Name="TAXABLE" Type="Edm.Decimal" Scale="2" Precision="16" DefaultValue="0"/>
+                <Property Name="NONTAXABLE" Type="Edm.Decimal" Scale="2" Precision="16" DefaultValue="0"/>
+                <Property Name="K3TAX" Type="Edm.Decimal" Scale="2" Precision="18"/>
+                <Property Name="TCSGSTVALUE" Type="Edm.Decimal" Scale="4" Precision="18"/>
+                <Property Name="TCS_CGST" Type="Edm.Decimal" Scale="6" Precision="20"/>
+                <Property Name="TCS_SGST_UGST" Type="Edm.Decimal" Scale="6" Precision="20"/>
+                <Property Name="TCS_IGST" Type="Edm.Decimal" Scale="4" Precision="18"/>
+                <Property Name="TCS_SGST_SGST" Type="Edm.Decimal" Scale="6" Precision="20"/>
+                <Property Name="TOTALINVOICEAMOUNT" Type="Edm.Decimal" Scale="2" Precision="16"/>
+            </EntityType>
+            <EntityType Name="valueListTicketNumber">
+                <Property Name="TICKETNUMBER" Type="Edm.String" MaxLength="15"/>
+            </EntityType>
+            <EntityType Name="valueListTransactionType">
+                <Property Name="TRANSACTIONTYPE" Type="Edm.String" MaxLength="10"/>
+            </EntityType>
+            <EntityType Name="valueListPlaceOfSupply">
+                <Property Name="PS_STATENAME" Type="Edm.String" MaxLength="255"/>
+            </EntityType>
+            <EntityType Name="valueListSupplierGSTIN">
+                <Property Name="SUPPLIERGSTIN" Type="Edm.String" MaxLength="15"/>
+            </EntityType>
+            <EntityType Name="valueListIATANumber">
+                <Property Name="IATANUMBER" Type="Edm.String" MaxLength="10"/>
+                <Property Name="LEGALNAME" Type="Edm.String" MaxLength="255"/>
+            </EntityType>
+            <EntityType Name="valueListTCSGSTIN">
+                <Property Name="TCSGSTIN" Type="Edm.String" MaxLength="15"/>
+            </EntityType>
+            <Annotations Target="tcsSummaryService.TCSSUMMARY/TICKETNUMBER">
+                <Annotation Term="Common.Label" String="Ticket Number"/>
+            </Annotations>
+            <Annotations Target="tcsSummaryService.TCSSUMMARY/TRANSACTIONTYPE">
+                <Annotation Term="Common.Label" String="Sale/Refund"/>
+            </Annotations>
+            <Annotations Target="tcsSummaryService.TCSSUMMARY/TICKETISSUEDATE">
+                <Annotation Term="Common.Label" String="Date of issue refund"/>
+            </Annotations>
+            <Annotations Target="tcsSummaryService.TCSSUMMARY/IATANUMBER">
+                <Annotation Term="Common.Label" String="IATA Number"/>
+            </Annotations>
+            <Annotations Target="tcsSummaryService.TCSSUMMARY/TCSGSTIN">
+                <Annotation Term="Common.Label" String="GSTN of OTA"/>
+            </Annotations>
+            <Annotations Target="tcsSummaryService.TCSSUMMARY/PS_STATENAME">
+                <Annotation Term="Common.Label" String="Place of Supply"/>
+            </Annotations>
+            <Annotations Target="tcsSummaryService.TCSSUMMARY/SUPPLIERGSTIN">
+                <Annotation Term="Common.Label" String="Airline GSTIN"/>
+            </Annotations>
+            <Annotations Target="tcsSummaryService.TCSSUMMARY/STATEOFDEPOSITEOF_STATENAME">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="Common.Label" String="STATEOFDEPOSITEOF_STATENAME"/>
+            </Annotations>
+            <Annotations Target="tcsSummaryService.TCSSUMMARY/TAXABLE">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="Common.Label" String="TAXABLE"/>
+            </Annotations>
+            <Annotations Target="tcsSummaryService.TCSSUMMARY/NONTAXABLE">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="Common.Label" String="NONTAXABLE"/>
+            </Annotations>
+            <Annotations Target="tcsSummaryService.TCSSUMMARY/K3TAX">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="Common.Label" String="K3TAX"/>
+            </Annotations>
+            <Annotations Target="tcsSummaryService.TCSSUMMARY/TCSGSTVALUE">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="Common.Label" String="TCSGSTVALUE"/>
+            </Annotations>
+            <Annotations Target="tcsSummaryService.TCSSUMMARY/TCS_CGST">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="Common.Label" String="TCS_CGST"/>
+            </Annotations>
+            <Annotations Target="tcsSummaryService.TCSSUMMARY/TCS_SGST_UGST">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="Common.Label" String="TCS_SGST_UGST"/>
+            </Annotations>
+            <Annotations Target="tcsSummaryService.TCSSUMMARY/TCS_IGST">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="Common.Label" String="TCS_IGST"/>
+            </Annotations>
+            <Annotations Target="tcsSummaryService.TCSSUMMARY/TCS_SGST_SGST">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="Common.Label" String="TCS_SGST_SGST"/>
+            </Annotations>
+            <Annotations Target="tcsSummaryService.TCSSUMMARY/TOTALINVOICEAMOUNT">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="Common.Label" String="TOTALINVOICEAMOUNT"/>
+            </Annotations>
+            <Annotations Target="tcsSummaryService.valueListTicketNumber/TICKETNUMBER">
+                <Annotation Term="Common.Label" String="Ticket Number"/>
+            </Annotations>
+            <Annotations Target="tcsSummaryService.valueListTransactionType/TRANSACTIONTYPE">
+                <Annotation Term="Common.Label" String="Sale/Refund"/>
+            </Annotations>
+            <Annotations Target="tcsSummaryService.valueListPlaceOfSupply/PS_STATENAME">
+                <Annotation Term="Common.Label" String="Place Of Supply"/>
+            </Annotations>
+            <Annotations Target="tcsSummaryService.valueListSupplierGSTIN/SUPPLIERGSTIN">
+                <Annotation Term="Common.Label" String="Supplier GSTIN"/>
+            </Annotations>
+            <Annotations Target="tcsSummaryService.valueListIATANumber/IATANUMBER">
+                <Annotation Term="Common.Label" String="IATA Number"/>
+            </Annotations>
+            <Annotations Target="tcsSummaryService.valueListIATANumber/LEGALNAME">
+                <Annotation Term="Common.Label" String="Legal Name"/>
+            </Annotations>
+            <Annotations Target="tcsSummaryService.valueListTCSGSTIN/TCSGSTIN">
+                <Annotation Term="Common.Label" String="GSTN of OTA"/>
+            </Annotations>
+        </Schema>
+    </edmx:DataServices>
+</edmx:Edmx>

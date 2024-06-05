@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="4.0" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+    <edmx:Reference Uri="https://sap.github.io/odata-vocabularies/vocabularies/Common.xml">
+        <edmx:Include Alias="Common" Namespace="com.sap.vocabularies.Common.v1"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Core.V1.xml">
+        <edmx:Include Alias="Core" Namespace="Org.OData.Core.V1"/>
+    </edmx:Reference>
+    <edmx:DataServices>
+        <Schema Namespace="Reports" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+            <EntityContainer Name="EntityContainer">
+                <EntitySet Name="DiscrepancyReport" EntityType="Reports.DiscrepancyReport"/>
+            </EntityContainer>
+            <EntityType Name="DiscrepancyReport">
+                <Property Name="GST_COLLECTED" Type="Edm.Decimal" Scale="3" Precision="14"/>
+                <Property Name="GST_RATE" Type="Edm.Decimal" Scale="3" Precision="14"/>
+                <Property Name="AIRLINE_CODE" Type="Edm.String" MaxLength="4" Nullable="false"/>
+                <Property Name="MAIN_TICKET_NUMBER" Type="Edm.String" MaxLength="15"/>
+                <Property Name="DATE_OF_ISSUE" Type="Edm.Date"/>
+                <Property Name="AGENT_CODE" Type="Edm.String" MaxLength="10"/>
+                <Property Name="B2B_B2C_INDICATOR" Type="Edm.String" MaxLength="3"/>
+                <Property Name="ROUTING" Type="Edm.String" MaxLength="255"/>
+                <Property Name="TAXABLE_AMOUNT" Type="Edm.Decimal" Scale="2" Precision="16"/>
+                <Property Name="SGST_AMOUNT" Type="Edm.Decimal" Scale="2" Precision="16"/>
+                <Property Name="CGST_AMOUNT" Type="Edm.Decimal" Scale="2" Precision="16"/>
+                <Property Name="UTGST_AMOUNT" Type="Edm.Decimal" Scale="2" Precision="16"/>
+                <Property Name="IGST_AMOUNT" Type="Edm.Decimal" Scale="2" Precision="16"/>
+                <Property Name="TRANSACTION_TYPE" Type="Edm.String" MaxLength="10"/>
+                <Property Name="BASIC_FARE" Type="Edm.Decimal" Scale="2" Precision="16"/>
+                <Property Name="GST_DIFFERENCE" Type="Edm.Decimal" Scale="3" Precision="14"/>
+                <Property Name="GST_DERIVED" Type="Edm.Decimal" Scale="3" Precision="14"/>
+            </EntityType>
+            <Annotations Target="Reports.DiscrepancyReport/GST_COLLECTED">
+                <Annotation Term="Core.Computed" Bool="true"/>
+            </Annotations>
+            <Annotations Target="Reports.DiscrepancyReport/GST_RATE">
+                <Annotation Term="Core.Computed" Bool="true"/>
+            </Annotations>
+            <Annotations Target="Reports.DiscrepancyReport/MAIN_TICKET_NUMBER">
+                <Annotation Term="Common.Label" String="Ticket Number"/>
+            </Annotations>
+            <Annotations Target="Reports.DiscrepancyReport/DATE_OF_ISSUE">
+                <Annotation Term="Common.Label" String="Ticket Issue Date"/>
+            </Annotations>
+            <Annotations Target="Reports.DiscrepancyReport/GST_DIFFERENCE">
+                <Annotation Term="Core.Computed" Bool="true"/>
+            </Annotations>
+            <Annotations Target="Reports.DiscrepancyReport/GST_DERIVED">
+                <Annotation Term="Core.Computed" Bool="true"/>
+            </Annotations>
+        </Schema>
+    </edmx:DataServices>
+</edmx:Edmx>

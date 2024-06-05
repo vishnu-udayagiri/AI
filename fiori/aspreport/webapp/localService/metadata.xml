@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="4.0" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+    <edmx:Reference Uri="https://sap.github.io/odata-vocabularies/vocabularies/Common.xml">
+        <edmx:Include Alias="Common" Namespace="com.sap.vocabularies.Common.v1"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Core.V1.xml">
+        <edmx:Include Alias="Core" Namespace="Org.OData.Core.V1"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="https://sap.github.io/odata-vocabularies/vocabularies/UI.xml">
+        <edmx:Include Alias="UI" Namespace="com.sap.vocabularies.UI.v1"/>
+    </edmx:Reference>
+    <edmx:DataServices>
+        <Schema Namespace="aspreportService" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+            <EntityContainer Name="EntityContainer">
+                <EntitySet Name="aspreport" EntityType="aspreportService.aspreport"/>
+            </EntityContainer>
+            <EntityType Name="aspreport">
+                <Property Name="type" Type="Edm.String" MaxLength="20"/>
+                <Property Name="SourceIdentifier" Type="Edm.String" MaxLength="20"/>
+                <Property Name="SourceFileName" Type="Edm.String" MaxLength="20"/>
+                <Property Name="GLAccountCode" Type="Edm.String" MaxLength="20"/>
+                <Property Name="Division" Type="Edm.String" MaxLength="20"/>
+                <Property Name="SubDivision" Type="Edm.String" MaxLength="20"/>
+                <Property Name="ProfitCentre1" Type="Edm.String" MaxLength="20"/>
+                <Property Name="ProfitCentre2" Type="Edm.String" MaxLength="20"/>
+                <Property Name="PlantCode" Type="Edm.String" MaxLength="20"/>
+                <Property Name="ReturnPeriod" Type="Edm.String" MaxLength="20"/>
+                <Property Name="supplierGSTIN" Type="Edm.String" MaxLength="15"/>
+                <Property Name="DocumentType" Type="Edm.String" MaxLength="20"/>
+                <Property Name="SupplyType" Type="Edm.String" MaxLength="20"/>
+                <Property Name="DocumentNumber" Type="Edm.String" MaxLength="16"/>
+                <Property Name="DocumentDate" Type="Edm.Date"/>
+                <Property Name="OriginalDocumentNumber" Type="Edm.String" MaxLength="16"/>
+                <Property Name="OriginalDocumentDate" Type="Edm.Date"/>
+                <Property Name="CRDRPreGST" Type="Edm.String" MaxLength="20"/>
+                <Property Name="LineNumber" Type="Edm.Int32"/>
+                <Property Name="CustomerGSTIN" Type="Edm.String" MaxLength="15"/>
+                <Property Name="UINorComposition" Type="Edm.String" MaxLength="20"/>
+                <Property Name="OriginalCustomerGSTIN" Type="Edm.String" MaxLength="15"/>
+                <Property Name="CustomerName" Type="Edm.String" MaxLength="20"/>
+                <Property Name="CustomerCode" Type="Edm.String" MaxLength="20"/>
+                <Property Name="BillToState" Type="Edm.String" MaxLength="255"/>
+                <Property Name="ShipToState" Type="Edm.String" MaxLength="20"/>
+                <Property Name="POS" Type="Edm.String" MaxLength="255"/>
+                <Property Name="PortCode" Type="Edm.String" MaxLength="20"/>
+                <Property Name="ShippingBillNumber" Type="Edm.String" MaxLength="20"/>
+                <Property Name="ShippingBillDate" Type="Edm.String" MaxLength="20"/>
+                <Property Name="FOB" Type="Edm.String" MaxLength="20"/>
+                <Property Name="ExportDuty" Type="Edm.String" MaxLength="20"/>
+                <Property Name="HSNorSAC" Type="Edm.String" MaxLength="8"/>
+                <Property Name="ProductCode" Type="Edm.String" MaxLength="20"/>
+                <Property Name="ProductDescription" Type="Edm.String" MaxLength="120"/>
+                <Property Name="CategoryOfProduct" Type="Edm.String" MaxLength="20"/>
+                <Property Name="UnitOfMeasurement" Type="Edm.String" MaxLength="20"/>
+                <Property Name="Quantity" Type="Edm.String" MaxLength="20"/>
+                <Property Name="TaxableValue" Type="Edm.Decimal" Scale="2" Precision="16" DefaultValue="0"/>
+                <Property Name="IntegratedTaxRate" Type="Edm.Decimal" Scale="2" Precision="16" DefaultValue="0"/>
+                <Property Name="IntegratedTaxAmount" Type="Edm.Decimal" Scale="2" Precision="16" DefaultValue="0"/>
+                <Property Name="CentralTaxRate" Type="Edm.Decimal" Scale="2" Precision="16" DefaultValue="0"/>
+                <Property Name="CentralTaxAmount" Type="Edm.Decimal" Scale="2" Precision="16" DefaultValue="0"/>
+                <Property Name="StateUTTaxRate" Type="Edm.String" MaxLength="20"/>
+                <Property Name="StateUTTaxAmount" Type="Edm.String" MaxLength="20"/>
+                <Property Name="CessRateAdvalorem" Type="Edm.String" MaxLength="20"/>
+                <Property Name="CessAmountAdvalorem" Type="Edm.String" MaxLength="20"/>
+                <Property Name="CessRateSpecific" Type="Edm.String" MaxLength="20"/>
+                <Property Name="CessAmountSpecific" Type="Edm.String" MaxLength="20"/>
+                <Property Name="InvoiceValue" Type="Edm.String" MaxLength="20"/>
+                <Property Name="ReverseChargeFlag" Type="Edm.String" MaxLength="20"/>
+                <Property Name="TCSFlag" Type="Edm.String" MaxLength="20"/>
+                <Property Name="eComGSTIN" Type="Edm.String" MaxLength="20"/>
+                <Property Name="ITCFlag" Type="Edm.String" MaxLength="20"/>
+                <Property Name="ReasonForCreditDebitNote" Type="Edm.String" MaxLength="20"/>
+                <Property Name="AccountingVoucherNumber" Type="Edm.String" MaxLength="20"/>
+                <Property Name="AccountingVoucherDate" Type="Edm.String" MaxLength="20"/>
+                <Property Name="Userdefinedfield1" Type="Edm.String" MaxLength="20"/>
+                <Property Name="Userdefinedfield2" Type="Edm.String" MaxLength="20"/>
+                <Property Name="Userdefinedfield3" Type="Edm.String" MaxLength="20"/>
+            </EntityType>
+            <Annotations Target="aspreportService.aspreport/type">
+                <Annotation Term="Core.Computed" Bool="true"/>
+            </Annotations>
+            <Annotations Target="aspreportService.aspreport/SourceIdentifier">
+                <Annotation Term="Core.Computed" Bool="true"/>
+            </Annotations>
+            <Annotations Target="aspreportService.aspreport/SourceFileName">
+                <Annotation Term="Core.Computed" Bool="true"/>
+            </Annotations>
+            <Annotations Target="aspreportService.aspreport/GLAccountCode">
+                <Annotation Term="Core.Computed" Bool="true"/>
+            </Annotations>
+            <Annotations Target="aspreportService.aspreport/Division">
+                <Annotation Term="Core.Computed" Bool="true"/>
+            </Annotations>
+            <Annotations Target="aspreportService.aspreport/SubDivision">
+                <Annotation Term="Core.Computed" Bool="true"/>
+            </Annotations>
+            <Annotations Target="aspreportService.aspreport/ProfitCentre1">
+                <Annotation Term="Core.Computed" Bool="true"/>
+            </Annotations>
+            <Annotations Target="aspreportService.aspreport/ProfitCentre2">
+                <Annotation Term="Core.Computed" Bool="true"/>
+            </Annotations>
+            <Annotations Target="aspreportService.aspreport/PlantCode">
+                <Annotation Term="Core.Computed" Bool="true"/>
+            </Annotations>
+            <Annotations Target="aspreportService.aspreport/ReturnPeriod">
+                <Annotation Term="Core.Computed" Bool="true"/>
+            </Annotations>
+            <Annotations Target="aspreportService.aspreport/supplierGSTIN">
+                <Annotation Term="Common.Label" String="Supplier GSTIN"/>
+            </Annotations>
+            <Annotations Target="aspreportService.aspreport/DocumentType">
+                <Annotation Term="Core.Computed" Bool="true"/>
+            </Annotations>
+            <Annotations Target="aspreportService.aspreport/SupplyType">
+                <Annotation Term="Core.Computed" Bool="true"/>
+            </Annotations>
+            <Annotations Target="aspreportService.aspreport/DocumentNumber">
+                <Annotation Term="Common.Label" String="Invoice Number"/>
+            </Annotations>
+            <Annotations Target="aspreportService.aspreport/DocumentDate">
+                <Annotation Term="Common.Label" String="Invoice Date"/>
+            </Annotations>
+            <Annotations Target="aspreportService.aspreport/CRDRPreGST">
+                <Annotation Term="Core.Computed" Bool="true"/>
+            </Annotations>
+            <Annotations Target="aspreportService.aspreport/CustomerGSTIN">
+                <Annotation Term="Common.Label" String="Passenger GSTIN"/>
+            </Annotations>
+            <Annotations Target="aspreportService.aspreport/UINorComposition">
+                <Annotation Term="Core.Computed" Bool="true"/>
+            </Annotations>
+            <Annotations Target="aspreportService.aspreport/CustomerName">
+                <Annotation Term="Core.Computed" Bool="true"/>
+            </Annotations>
+            <Annotations Target="aspreportService.aspreport/CustomerCode">
+                <Annotation Term="Core.Computed" Bool="true"/>
+            </Annotations>
+            <Annotations Target="aspreportService.aspreport/ShipToState">
+                <Annotation Term="Core.Computed" Bool="true"/>
+            </Annotations>
+            <Annotations Target="aspreportService.aspreport/PortCode">
+                <Annotation Term="Core.Computed" Bool="true"/>
+            </Annotations>
+            <Annotations Target="aspreportService.aspreport/ShippingBillNumber">
+                <Annotation Term="Core.Computed" Bool="true"/>
+            </Annotations>
+            <Annotations Target="aspreportService.aspreport/ShippingBillDate">
+                <Annotation Term="Core.Computed" Bool="true"/>
+            </Annotations>
+            <Annotations Target="aspreportService.aspreport/FOB">
+                <Annotation Term="Core.Computed" Bool="true"/>
+            </Annotations>
+            <Annotations Target="aspreportService.aspreport/ExportDuty">
+                <Annotation Term="Core.Computed" Bool="true"/>
+            </Annotations>
+            <Annotations Target="aspreportService.aspreport/ProductCode">
+                <Annotation Term="Core.Computed" Bool="true"/>
+            </Annotations>
+            <Annotations Target="aspreportService.aspreport/ProductDescription">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="Common.Label" String="HSN Text"/>
+            </Annotations>
+            <Annotations Target="aspreportService.aspreport/CategoryOfProduct">
+                <Annotation Term="Core.Computed" Bool="true"/>
+            </Annotations>
+            <Annotations Target="aspreportService.aspreport/UnitOfMeasurement">
+                <Annotation Term="Core.Computed" Bool="true"/>
+            </Annotations>
+            <Annotations Target="aspreportService.aspreport/Quantity">
+                <Annotation Term="Core.Computed" Bool="true"/>
+            </Annotations>
+            <Annotations Target="aspreportService.aspreport/StateUTTaxRate">
+                <Annotation Term="Core.Computed" Bool="true"/>
+            </Annotations>
+            <Annotations Target="aspreportService.aspreport/StateUTTaxAmount">
+                <Annotation Term="Core.Computed" Bool="true"/>
+            </Annotations>
+            <Annotations Target="aspreportService.aspreport/CessRateAdvalorem">
+                <Annotation Term="Core.Computed" Bool="true"/>
+            </Annotations>
+            <Annotations Target="aspreportService.aspreport/CessAmountAdvalorem">
+                <Annotation Term="Core.Computed" Bool="true"/>
+            </Annotations>
+            <Annotations Target="aspreportService.aspreport/CessRateSpecific">
+                <Annotation Term="Core.Computed" Bool="true"/>
+            </Annotations>
+            <Annotations Target="aspreportService.aspreport/CessAmountSpecific">
+                <Annotation Term="Core.Computed" Bool="true"/>
+            </Annotations>
+            <Annotations Target="aspreportService.aspreport/InvoiceValue">
+                <Annotation Term="Core.Computed" Bool="true"/>
+            </Annotations>
+            <Annotations Target="aspreportService.aspreport/ReverseChargeFlag">
+                <Annotation Term="Core.Computed" Bool="true"/>
+            </Annotations>
+            <Annotations Target="aspreportService.aspreport/TCSFlag">
+                <Annotation Term="Core.Computed" Bool="true"/>
+            </Annotations>
+            <Annotations Target="aspreportService.aspreport/eComGSTIN">
+                <Annotation Term="Core.Computed" Bool="true"/>
+            </Annotations>
+            <Annotations Target="aspreportService.aspreport/ITCFlag">
+                <Annotation Term="Core.Computed" Bool="true"/>
+            </Annotations>
+            <Annotations Target="aspreportService.aspreport/ReasonForCreditDebitNote">
+                <Annotation Term="Core.Computed" Bool="true"/>
+            </Annotations>
+            <Annotations Target="aspreportService.aspreport/AccountingVoucherNumber">
+                <Annotation Term="Core.Computed" Bool="true"/>
+            </Annotations>
+            <Annotations Target="aspreportService.aspreport/AccountingVoucherDate">
+                <Annotation Term="Core.Computed" Bool="true"/>
+            </Annotations>
+            <Annotations Target="aspreportService.aspreport/Userdefinedfield1">
+                <Annotation Term="Core.Computed" Bool="true"/>
+            </Annotations>
+            <Annotations Target="aspreportService.aspreport/Userdefinedfield2">
+                <Annotation Term="Core.Computed" Bool="true"/>
+            </Annotations>
+            <Annotations Target="aspreportService.aspreport/Userdefinedfield3">
+                <Annotation Term="Core.Computed" Bool="true"/>
+            </Annotations>
+        </Schema>
+    </edmx:DataServices>
+</edmx:Edmx>

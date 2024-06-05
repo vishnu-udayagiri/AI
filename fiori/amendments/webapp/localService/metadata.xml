@@ -1,0 +1,407 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="4.0" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+    <edmx:Reference Uri="https://sap.github.io/odata-vocabularies/vocabularies/Common.xml">
+        <edmx:Include Alias="Common" Namespace="com.sap.vocabularies.Common.v1"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Core.V1.xml">
+        <edmx:Include Alias="Core" Namespace="Org.OData.Core.V1"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="https://sap.github.io/odata-vocabularies/vocabularies/UI.xml">
+        <edmx:Include Alias="UI" Namespace="com.sap.vocabularies.UI.v1"/>
+    </edmx:Reference>
+    <edmx:DataServices>
+        <Schema Namespace="AmendmentService" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+            <EntityContainer Name="EntityContainer">
+                <EntitySet Name="InvoiceItems" EntityType="AmendmentService.InvoiceItems">
+                    <NavigationPropertyBinding Path="invoice" Target="Invoice"/>
+                </EntitySet>
+                <EntitySet Name="InvoiceDocuments" EntityType="AmendmentService.InvoiceDocuments">
+                    <NavigationPropertyBinding Path="invoice" Target="Invoice"/>
+                </EntitySet>
+                <EntitySet Name="Company" EntityType="AmendmentService.Company"/>
+                <EntitySet Name="AirportCodes" EntityType="AmendmentService.AirportCodes">
+                    <NavigationPropertyBinding Path="Company" Target="Company"/>
+                </EntitySet>
+                <EntitySet Name="Invoice" EntityType="AmendmentService.Invoice">
+                    <NavigationPropertyBinding Path="documentCurrency" Target="Currencies"/>
+                    <NavigationPropertyBinding Path="billToCountry" Target="Countries"/>
+                </EntitySet>
+                <EntitySet Name="Currencies" EntityType="AmendmentService.Currencies">
+                    <NavigationPropertyBinding Path="texts" Target="Currencies_texts"/>
+                    <NavigationPropertyBinding Path="localized" Target="Currencies_texts"/>
+                </EntitySet>
+                <EntitySet Name="Countries" EntityType="AmendmentService.Countries">
+                    <NavigationPropertyBinding Path="texts" Target="Countries_texts"/>
+                    <NavigationPropertyBinding Path="localized" Target="Countries_texts"/>
+                </EntitySet>
+                <EntitySet Name="Currencies_texts" EntityType="AmendmentService.Currencies_texts"/>
+                <EntitySet Name="Countries_texts" EntityType="AmendmentService.Countries_texts"/>
+            </EntityContainer>
+            <EntityType Name="InvoiceItems">
+                <Key>
+                    <PropertyRef Name="invoice_ID"/>
+                    <PropertyRef Name="invoice_company"/>
+                    <PropertyRef Name="invoiceSlNo"/>
+                </Key>
+                <NavigationProperty Name="invoice" Type="AmendmentService.Invoice">
+                    <ReferentialConstraint Property="invoice_ID" ReferencedProperty="ID"/>
+                    <ReferentialConstraint Property="invoice_company" ReferencedProperty="company"/>
+                </NavigationProperty>
+                <Property Name="invoice_ID" Type="Edm.Guid" Nullable="false"/>
+                <Property Name="invoice_company" Type="Edm.String" MaxLength="4" Nullable="false"/>
+                <Property Name="invoiceSlNo" Type="Edm.Int32" Nullable="false"/>
+                <Property Name="descOfService" Type="Edm.String" MaxLength="255"/>
+                <Property Name="HSNCode" Type="Edm.String" MaxLength="8"/>
+                <Property Name="valueOfService" Type="Edm.Decimal" Scale="2" Precision="16"/>
+                <Property Name="taxable" Type="Edm.Decimal" Scale="2" Precision="16"/>
+                <Property Name="nonTaxable" Type="Edm.Decimal" Scale="2" Precision="16"/>
+                <Property Name="totalTaxableValue" Type="Edm.Decimal" Scale="2" Precision="16"/>
+                <Property Name="discount" Type="Edm.Decimal" Scale="2" Precision="16"/>
+                <Property Name="netTaxableValue" Type="Edm.Decimal" Scale="2" Precision="16"/>
+                <Property Name="cgstRate" Type="Edm.Decimal" Scale="2" Precision="16"/>
+                <Property Name="cgstAmount" Type="Edm.Decimal" Scale="2" Precision="16"/>
+                <Property Name="sgstRate" Type="Edm.Decimal" Scale="2" Precision="16"/>
+                <Property Name="sgstAmount" Type="Edm.Decimal" Scale="2" Precision="16"/>
+                <Property Name="utgstRate" Type="Edm.Decimal" Scale="2" Precision="16"/>
+                <Property Name="utgstAmount" Type="Edm.Decimal" Scale="2" Precision="16"/>
+                <Property Name="igstRate" Type="Edm.Decimal" Scale="2" Precision="16"/>
+                <Property Name="igstAmount" Type="Edm.Decimal" Scale="2" Precision="16"/>
+                <Property Name="cess1Rate" Type="Edm.Decimal" Scale="2" Precision="16"/>
+                <Property Name="cess1Amount" Type="Edm.Decimal" Scale="2" Precision="16"/>
+                <Property Name="cess2Rate" Type="Edm.Decimal" Scale="2" Precision="16"/>
+                <Property Name="cess2Amount" Type="Edm.Decimal" Scale="2" Precision="16"/>
+            </EntityType>
+            <EntityType Name="InvoiceDocuments">
+                <Key>
+                    <PropertyRef Name="invoice_ID"/>
+                    <PropertyRef Name="invoice_company"/>
+                    <PropertyRef Name="documentSlNo"/>
+                </Key>
+                <Property Name="createdAt" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="createdBy" Type="Edm.String" MaxLength="255"/>
+                <Property Name="modifiedAt" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="modifiedBy" Type="Edm.String" MaxLength="255"/>
+                <NavigationProperty Name="invoice" Type="AmendmentService.Invoice">
+                    <ReferentialConstraint Property="invoice_ID" ReferencedProperty="ID"/>
+                    <ReferentialConstraint Property="invoice_company" ReferencedProperty="company"/>
+                </NavigationProperty>
+                <Property Name="invoice_ID" Type="Edm.Guid" Nullable="false"/>
+                <Property Name="invoice_company" Type="Edm.String" MaxLength="4" Nullable="false"/>
+                <Property Name="documentSlNo" Type="Edm.Int32" Nullable="false"/>
+                <Property Name="fileName" Type="Edm.String" MaxLength="4"/>
+                <Property Name="fileId" Type="Edm.String" MaxLength="4"/>
+                <Property Name="mimeType" Type="Edm.String" MaxLength="4"/>
+                <Property Name="description" Type="Edm.String" MaxLength="4"/>
+                <Property Name="documentStatus" Type="Edm.String" MaxLength="4"/>
+            </EntityType>
+            <EntityType Name="Company">
+                <Key>
+                    <PropertyRef Name="code"/>
+                </Key>
+                <Property Name="code" Type="Edm.String" MaxLength="4" Nullable="false"/>
+                <Property Name="description" Type="Edm.String" MaxLength="50"/>
+            </EntityType>
+            <EntityType Name="AirportCodes">
+                <Key>
+                    <PropertyRef Name="airportCode"/>
+                    <PropertyRef Name="company"/>
+                </Key>
+                <Property Name="airportCode" Type="Edm.String" MaxLength="4" Nullable="false"/>
+                <Property Name="company" Type="Edm.String" MaxLength="4" Nullable="false"/>
+                <Property Name="isDomestic" Type="Edm.Boolean" DefaultValue="false"/>
+                <Property Name="stateCode" Type="Edm.String" MaxLength="2"/>
+                <Property Name="gstin" Type="Edm.String" MaxLength="15"/>
+                <Property Name="exemptedZone" Type="Edm.String" MaxLength="1"/>
+                <Property Name="address" Type="Edm.String" MaxLength="255"/>
+                <NavigationProperty Name="Company" Type="AmendmentService.Company">
+                    <ReferentialConstraint Property="company" ReferencedProperty="code"/>
+                </NavigationProperty>
+            </EntityType>
+            <EntityType Name="Invoice">
+                <Key>
+                    <PropertyRef Name="ID"/>
+                    <PropertyRef Name="company"/>
+                </Key>
+                <Property Name="ID" Type="Edm.Guid" Nullable="false"/>
+                <Property Name="createdAt" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="createdBy" Type="Edm.String" MaxLength="255"/>
+                <Property Name="modifiedAt" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="modifiedBy" Type="Edm.String" MaxLength="255"/>
+                <Property Name="company" Type="Edm.String" MaxLength="4" Nullable="false"/>
+                <Property Name="PNR" Type="Edm.String" MaxLength="10"/>
+                <Property Name="ticketNumber" Type="Edm.String" MaxLength="15"/>
+                <Property Name="supplierGSTIN" Type="Edm.String" MaxLength="15"/>
+                <Property Name="passengerGSTIN" Type="Edm.String" MaxLength="15"/>
+                <Property Name="ticketIssueDate" Type="Edm.Date"/>
+                <Property Name="invoiceDate" Type="Edm.Date"/>
+                <Property Name="invoiceNumber" Type="Edm.String" MaxLength="16"/>
+                <Property Name="documentType" Type="Edm.String" MaxLength="10"/>
+                <Property Name="ticketType" Type="Edm.String" MaxLength="2"/>
+                <Property Name="sectionType" Type="Edm.String" MaxLength="3"/>
+                <Property Name="iataNumber" Type="Edm.String" MaxLength="10"/>
+                <Property Name="gstR1Period" Type="Edm.String" MaxLength="6"/>
+                <Property Name="gstR1filingStatus" Type="Edm.String" MaxLength="1"/>
+                <Property Name="originalInvoiceNumber" Type="Edm.String" MaxLength="16"/>
+                <Property Name="orginalInvoiceDate" Type="Edm.Date"/>
+                <Property Name="originalGstin" Type="Edm.String" MaxLength="15"/>
+                <Property Name="originalSectionType" Type="Edm.String" MaxLength="3"/>
+                <Property Name="issueIndicator" Type="Edm.String" MaxLength="15"/>
+                <Property Name="routingType" Type="Edm.String" MaxLength="1"/>
+                <Property Name="oneWayIndicator" Type="Edm.String" MaxLength="1"/>
+                <Property Name="directionIndicator" Type="Edm.String" MaxLength="1"/>
+                <Property Name="placeOfSupply" Type="Edm.String" MaxLength="255"/>
+                <Property Name="netTaxableValue" Type="Edm.Decimal" Scale="2" Precision="16"/>
+                <Property Name="totalTax" Type="Edm.Decimal" Scale="2" Precision="16"/>
+                <Property Name="totalInvoiceAmount" Type="Edm.Decimal" Scale="2" Precision="16"/>
+                <NavigationProperty Name="documentCurrency" Type="AmendmentService.Currencies">
+                    <ReferentialConstraint Property="documentCurrency_code" ReferencedProperty="code"/>
+                </NavigationProperty>
+                <Property Name="documentCurrency_code" Type="Edm.String" MaxLength="3"/>
+                <Property Name="xoNo" Type="Edm.String" MaxLength="16"/>
+                <Property Name="totalJourney" Type="Edm.String" MaxLength="255"/>
+                <Property Name="journeyCovered" Type="Edm.String" MaxLength="255"/>
+                <Property Name="fop" Type="Edm.String" MaxLength="6"/>
+                <Property Name="billToName" Type="Edm.String" MaxLength="255"/>
+                <Property Name="billToFullAddress" Type="Edm.String" MaxLength="255"/>
+                <NavigationProperty Name="billToCountry" Type="AmendmentService.Countries">
+                    <ReferentialConstraint Property="billToCountry_code" ReferencedProperty="code"/>
+                </NavigationProperty>
+                <Property Name="billToCountry_code" Type="Edm.String" MaxLength="3"/>
+                <Property Name="billToStateCode" Type="Edm.String" MaxLength="2"/>
+                <Property Name="billToPostalCode" Type="Edm.String" MaxLength="6"/>
+                <Property Name="invoiceStatus" Type="Edm.String" MaxLength="1"/>
+                <Property Name="isReverseChargeApplicable" Type="Edm.Boolean" DefaultValue="false"/>
+                <Property Name="SBRRecivedOn" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="SBRProcessedOn" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="amendmentRequestNo" Type="Edm.String" MaxLength="16"/>
+                <Property Name="isAmended" Type="Edm.Boolean" DefaultValue="false"/>
+                <Property Name="amendmentRequestedBy" Type="Edm.String" MaxLength="255"/>
+                <Property Name="amendmentRequestedOn" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="amendementStatus" Type="Edm.String" MaxLength="1"/>
+                <Property Name="amendmentApprovedOn" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="amendmentApprovedBy" Type="Edm.String" MaxLength="255"/>
+                <Property Name="amendentedAddress" Type="Edm.String" MaxLength="255"/>
+                <Property Name="amendementOldValue" Type="Edm.String" MaxLength="255"/>
+                <Property Name="amendementNewValue" Type="Edm.String" MaxLength="255"/>
+            </EntityType>
+            <EntityType Name="Currencies">
+                <Key>
+                    <PropertyRef Name="code"/>
+                </Key>
+                <Property Name="name" Type="Edm.String" MaxLength="255"/>
+                <Property Name="descr" Type="Edm.String" MaxLength="1000"/>
+                <Property Name="code" Type="Edm.String" MaxLength="3" Nullable="false"/>
+                <Property Name="symbol" Type="Edm.String" MaxLength="5"/>
+                <Property Name="minorUnit" Type="Edm.Int16"/>
+                <NavigationProperty Name="texts" Type="Collection(AmendmentService.Currencies_texts)">
+                    <OnDelete Action="Cascade"/>
+                </NavigationProperty>
+                <NavigationProperty Name="localized" Type="AmendmentService.Currencies_texts">
+                    <ReferentialConstraint Property="code" ReferencedProperty="code"/>
+                </NavigationProperty>
+            </EntityType>
+            <EntityType Name="Countries">
+                <Key>
+                    <PropertyRef Name="code"/>
+                </Key>
+                <Property Name="name" Type="Edm.String" MaxLength="255"/>
+                <Property Name="descr" Type="Edm.String" MaxLength="1000"/>
+                <Property Name="code" Type="Edm.String" MaxLength="3" Nullable="false"/>
+                <NavigationProperty Name="texts" Type="Collection(AmendmentService.Countries_texts)">
+                    <OnDelete Action="Cascade"/>
+                </NavigationProperty>
+                <NavigationProperty Name="localized" Type="AmendmentService.Countries_texts">
+                    <ReferentialConstraint Property="code" ReferencedProperty="code"/>
+                </NavigationProperty>
+            </EntityType>
+            <EntityType Name="Currencies_texts">
+                <Key>
+                    <PropertyRef Name="locale"/>
+                    <PropertyRef Name="code"/>
+                </Key>
+                <Property Name="locale" Type="Edm.String" MaxLength="14" Nullable="false"/>
+                <Property Name="name" Type="Edm.String" MaxLength="255"/>
+                <Property Name="descr" Type="Edm.String" MaxLength="1000"/>
+                <Property Name="code" Type="Edm.String" MaxLength="3" Nullable="false"/>
+            </EntityType>
+            <EntityType Name="Countries_texts">
+                <Key>
+                    <PropertyRef Name="locale"/>
+                    <PropertyRef Name="code"/>
+                </Key>
+                <Property Name="locale" Type="Edm.String" MaxLength="14" Nullable="false"/>
+                <Property Name="name" Type="Edm.String" MaxLength="255"/>
+                <Property Name="descr" Type="Edm.String" MaxLength="1000"/>
+                <Property Name="code" Type="Edm.String" MaxLength="3" Nullable="false"/>
+            </EntityType>
+            <Annotations Target="AmendmentService.InvoiceDocuments/createdAt">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="Core.Immutable" Bool="true"/>
+                <Annotation Term="Core.Computed" Bool="true"/>
+                <Annotation Term="Common.Label" String="{i18n>CreatedAt}"/>
+                </Annotations>
+                <Annotations Target="AmendmentService.InvoiceDocuments/createdBy">
+                    <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                    <Annotation Term="Core.Immutable" Bool="true"/>
+                    <Annotation Term="Core.Computed" Bool="true"/>
+                    <Annotation Term="Core.Description" String="{i18n>UserID.Description}"/>
+                        <Annotation Term="Common.Label" String="{i18n>CreatedBy}"/>
+                        </Annotations>
+                        <Annotations Target="AmendmentService.InvoiceDocuments/modifiedAt">
+                            <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                            <Annotation Term="Core.Computed" Bool="true"/>
+                            <Annotation Term="Common.Label" String="{i18n>ChangedAt}"/>
+                            </Annotations>
+                            <Annotations Target="AmendmentService.InvoiceDocuments/modifiedBy">
+                                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                                <Annotation Term="Core.Computed" Bool="true"/>
+                                <Annotation Term="Core.Description" String="{i18n>UserID.Description}"/>
+                                    <Annotation Term="Common.Label" String="{i18n>ChangedBy}"/>
+                                    </Annotations>
+                                    <Annotations Target="AmendmentService.Invoice/createdAt">
+                                        <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                                        <Annotation Term="Core.Immutable" Bool="true"/>
+                                        <Annotation Term="Core.Computed" Bool="true"/>
+                                        <Annotation Term="Common.Label" String="{i18n>CreatedAt}"/>
+                                        </Annotations>
+                                        <Annotations Target="AmendmentService.Invoice/createdBy">
+                                            <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                                            <Annotation Term="Core.Immutable" Bool="true"/>
+                                            <Annotation Term="Core.Computed" Bool="true"/>
+                                            <Annotation Term="Core.Description" String="{i18n>UserID.Description}"/>
+                                                <Annotation Term="Common.Label" String="{i18n>CreatedBy}"/>
+                                                </Annotations>
+                                                <Annotations Target="AmendmentService.Invoice/modifiedAt">
+                                                    <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                                                    <Annotation Term="Core.Computed" Bool="true"/>
+                                                    <Annotation Term="Common.Label" String="{i18n>ChangedAt}"/>
+                                                    </Annotations>
+                                                    <Annotations Target="AmendmentService.Invoice/modifiedBy">
+                                                        <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                                                        <Annotation Term="Core.Computed" Bool="true"/>
+                                                        <Annotation Term="Core.Description" String="{i18n>UserID.Description}"/>
+                                                            <Annotation Term="Common.Label" String="{i18n>ChangedBy}"/>
+                                                            </Annotations>
+                                                            <Annotations Target="AmendmentService.Invoice/documentCurrency">
+                                                                <Annotation Term="Common.Label" String="{i18n>Currency}"/>
+                                                                    <Annotation Term="Core.Description" String="{i18n>CurrencyCode.Description}"/>
+                                                                    </Annotations>
+                                                                    <Annotations Target="AmendmentService.Invoice/documentCurrency_code">
+                                                                        <Annotation Term="Common.Label" String="{i18n>Currency}"/>
+                                                                            <Annotation Term="Common.ValueList">
+                                                                                <Record Type="Common.ValueListType">
+                                                                                    <PropertyValue Property="Label" String="{i18n>Currency}"/>
+                                                                                        <PropertyValue Property="CollectionPath" String="Currencies"/>
+                                                                                        <PropertyValue Property="Parameters">
+                                                                                            <Collection>
+                                                                                                <Record Type="Common.ValueListParameterInOut">
+                                                                                                    <PropertyValue Property="LocalDataProperty" PropertyPath="documentCurrency_code"/>
+                                                                                                    <PropertyValue Property="ValueListProperty" String="code"/>
+                                                                                                </Record>
+                                                                                                <Record Type="Common.ValueListParameterDisplayOnly">
+                                                                                                    <PropertyValue Property="ValueListProperty" String="name"/>
+                                                                                                </Record>
+                                                                                            </Collection>
+                                                                                        </PropertyValue>
+                                                                                    </Record>
+                                                                                </Annotation>
+                                                                                <Annotation Term="Core.Description" String="{i18n>CurrencyCode.Description}"/>
+                                                                                </Annotations>
+                                                                                <Annotations Target="AmendmentService.Invoice/billToCountry">
+                                                                                    <Annotation Term="Common.Label" String="{i18n>Country}"/>
+                                                                                        <Annotation Term="Core.Description" String="{i18n>CountryCode.Description}"/>
+                                                                                        </Annotations>
+                                                                                        <Annotations Target="AmendmentService.Invoice/billToCountry_code">
+                                                                                            <Annotation Term="Common.Label" String="{i18n>Country}"/>
+                                                                                                <Annotation Term="Common.ValueList">
+                                                                                                    <Record Type="Common.ValueListType">
+                                                                                                        <PropertyValue Property="Label" String="{i18n>Country}"/>
+                                                                                                            <PropertyValue Property="CollectionPath" String="Countries"/>
+                                                                                                            <PropertyValue Property="Parameters">
+                                                                                                                <Collection>
+                                                                                                                    <Record Type="Common.ValueListParameterInOut">
+                                                                                                                        <PropertyValue Property="LocalDataProperty" PropertyPath="billToCountry_code"/>
+                                                                                                                        <PropertyValue Property="ValueListProperty" String="code"/>
+                                                                                                                    </Record>
+                                                                                                                    <Record Type="Common.ValueListParameterDisplayOnly">
+                                                                                                                        <PropertyValue Property="ValueListProperty" String="name"/>
+                                                                                                                    </Record>
+                                                                                                                </Collection>
+                                                                                                            </PropertyValue>
+                                                                                                        </Record>
+                                                                                                    </Annotation>
+                                                                                                    <Annotation Term="Core.Description" String="{i18n>CountryCode.Description}"/>
+                                                                                                    </Annotations>
+                                                                                                    <Annotations Target="AmendmentService.Currencies">
+                                                                                                        <Annotation Term="UI.Identification">
+                                                                                                            <Collection>
+                                                                                                                <Record Type="UI.DataField">
+                                                                                                                    <PropertyValue Property="Value" Path="name"/>
+                                                                                                                </Record>
+                                                                                                            </Collection>
+                                                                                                        </Annotation>
+                                                                                                    </Annotations>
+                                                                                                    <Annotations Target="AmendmentService.Currencies/name">
+                                                                                                        <Annotation Term="Common.Label" String="{i18n>Name}"/>
+                                                                                                        </Annotations>
+                                                                                                        <Annotations Target="AmendmentService.Currencies/descr">
+                                                                                                            <Annotation Term="Common.Label" String="{i18n>Description}"/>
+                                                                                                            </Annotations>
+                                                                                                            <Annotations Target="AmendmentService.Currencies/code">
+                                                                                                                <Annotation Term="Common.Text" Path="name"/>
+                                                                                                                <Annotation Term="Common.Label" String="{i18n>CurrencyCode}"/>
+                                                                                                                </Annotations>
+                                                                                                                <Annotations Target="AmendmentService.Currencies/symbol">
+                                                                                                                    <Annotation Term="Common.Label" String="{i18n>CurrencySymbol}"/>
+                                                                                                                    </Annotations>
+                                                                                                                    <Annotations Target="AmendmentService.Currencies/minorUnit">
+                                                                                                                        <Annotation Term="Common.Label" String="{i18n>CurrencyMinorUnit}"/>
+                                                                                                                        </Annotations>
+                                                                                                                        <Annotations Target="AmendmentService.Countries">
+                                                                                                                            <Annotation Term="UI.Identification">
+                                                                                                                                <Collection>
+                                                                                                                                    <Record Type="UI.DataField">
+                                                                                                                                        <PropertyValue Property="Value" Path="name"/>
+                                                                                                                                    </Record>
+                                                                                                                                </Collection>
+                                                                                                                            </Annotation>
+                                                                                                                        </Annotations>
+                                                                                                                        <Annotations Target="AmendmentService.Countries/name">
+                                                                                                                            <Annotation Term="Common.Label" String="{i18n>Name}"/>
+                                                                                                                            </Annotations>
+                                                                                                                            <Annotations Target="AmendmentService.Countries/descr">
+                                                                                                                                <Annotation Term="Common.Label" String="{i18n>Description}"/>
+                                                                                                                                </Annotations>
+                                                                                                                                <Annotations Target="AmendmentService.Countries/code">
+                                                                                                                                    <Annotation Term="Common.Text" Path="name"/>
+                                                                                                                                    <Annotation Term="Common.Label" String="{i18n>CountryCode}"/>
+                                                                                                                                    </Annotations>
+                                                                                                                                    <Annotations Target="AmendmentService.Currencies_texts/locale">
+                                                                                                                                        <Annotation Term="Common.Label" String="{i18n>LanguageCode}"/>
+                                                                                                                                        </Annotations>
+                                                                                                                                        <Annotations Target="AmendmentService.Currencies_texts/name">
+                                                                                                                                            <Annotation Term="Common.Label" String="{i18n>Name}"/>
+                                                                                                                                            </Annotations>
+                                                                                                                                            <Annotations Target="AmendmentService.Currencies_texts/descr">
+                                                                                                                                                <Annotation Term="Common.Label" String="{i18n>Description}"/>
+                                                                                                                                                </Annotations>
+                                                                                                                                                <Annotations Target="AmendmentService.Currencies_texts/code">
+                                                                                                                                                    <Annotation Term="Common.Text" Path="name"/>
+                                                                                                                                                    <Annotation Term="Common.Label" String="{i18n>CurrencyCode}"/>
+                                                                                                                                                    </Annotations>
+                                                                                                                                                    <Annotations Target="AmendmentService.Countries_texts/locale">
+                                                                                                                                                        <Annotation Term="Common.Label" String="{i18n>LanguageCode}"/>
+                                                                                                                                                        </Annotations>
+                                                                                                                                                        <Annotations Target="AmendmentService.Countries_texts/name">
+                                                                                                                                                            <Annotation Term="Common.Label" String="{i18n>Name}"/>
+                                                                                                                                                            </Annotations>
+                                                                                                                                                            <Annotations Target="AmendmentService.Countries_texts/descr">
+                                                                                                                                                                <Annotation Term="Common.Label" String="{i18n>Description}"/>
+                                                                                                                                                                </Annotations>
+                                                                                                                                                                <Annotations Target="AmendmentService.Countries_texts/code">
+                                                                                                                                                                    <Annotation Term="Common.Text" Path="name"/>
+                                                                                                                                                                    <Annotation Term="Common.Label" String="{i18n>CountryCode}"/>
+                                                                                                                                                                    </Annotations>
+                                                                                                                                                                </Schema>
+                                                                                                                                                            </edmx:DataServices>
+                                                                                                                                                        </edmx:Edmx>

@@ -1,0 +1,202 @@
+{
+  "_version": "1.49.0",
+  "sap.app": {
+    "id": "ns.aspreport",
+    "type": "application",
+    "i18n": "i18n/i18n.properties",
+    "applicationVersion": {
+      "version": "0.0.1"
+    },
+    "crossNavigation": {
+      "inbounds": {
+        "aspreport-display": {
+          "signature": {
+            "parameters": {},
+            "additionalParameters": "allowed"
+          },
+          "semanticObject": "aspreport",
+          "action": "display",
+          "title": "ASP Report",
+          "info": "",
+          "subTitle": "",
+          "icon": "sap-icon://travel-itinerary"
+        }
+      }
+    },
+    "title": "{{appTitle}}",
+    "description": "{{appDescription}}",
+    "resources": "resources.json",
+    "sourceTemplate": {
+      "id": "@sap/generator-fiori:lrop",
+      "version": "1.11.1",
+      "toolsId": "a1471140-63cd-401b-981e-8ff7435560fd"
+    },
+    "dataSources": {
+      "mainService": {
+        "uri": "/ASPReport/",
+        "type": "OData",
+        "settings": {
+          "annotations": [],
+          "localUri": "localService/metadata.xml",
+          "odataVersion": "4.0"
+        }
+      }
+    }
+  },
+  "sap.platform.cf": {
+    "ui5VersionNumber":"1.118.1"
+  },
+  "sap.ui": {
+    "technology": "UI5",
+    "icons": {
+      "icon": "",
+      "favIcon": "",
+      "phone": "",
+      "phone@2": "",
+      "tablet": "",
+      "tablet@2": ""
+    },
+    "deviceTypes": {
+      "desktop": true,
+      "tablet": true,
+      "phone": true
+    }
+  },
+  "sap.ui5": {
+    "flexEnabled": true,
+    "dependencies": {
+      "minUI5Version": "1.120.7",
+      "libs": {
+        "sap.m": {},
+        "sap.ui.core": {},
+        "sap.ushell": {},
+        "sap.fe.templates": {}
+      }
+    },
+    "contentDensities": {
+      "compact": true,
+      "cozy": true
+    },
+    "models": {
+      "i18n": {
+        "type": "sap.ui.model.resource.ResourceModel",
+        "settings": {
+          "bundleName": "ns.aspreport.i18n.i18n"
+        }
+      },
+      "": {
+        "dataSource": "mainService",
+        "preload": true,
+        "settings": {
+          "synchronizationMode": "None",
+          "operationMode": "Server",
+          "autoExpandSelect": true,
+          "earlyRequests": true
+        }
+      },
+      "@i18n": {
+        "type": "sap.ui.model.resource.ResourceModel",
+        "uri": "i18n/i18n.properties"
+      }
+    },
+    "resources": {
+      "css": []
+    },
+    "routing": {
+      "config": {},
+      "routes": [
+        {
+          "pattern": ":?query:",
+          "name": "aspreportList",
+          "target": "aspreportList"
+        },
+        {
+          "pattern": "aspreport({key}):?query:",
+          "name": "aspreportObjectPage",
+          "target": "aspreportObjectPage"
+        }
+      ],
+      "targets": {
+        "aspreportList": {
+          "type": "Component",
+          "id": "aspreportList",
+          "name": "sap.fe.templates.ListReport",
+          "options": {
+            "settings": {
+              "entitySet": "aspReport",
+              "variantManagement": "Page",
+              "initialLoad": "Enabled",
+              "navigation": {
+                "aspreport": {
+                  "detail": {
+                    "route": "aspreportObjectPage"
+                  }
+                }
+              },
+              "views": {
+                "paths": [
+                  {
+                    "key": "tab0",
+                    "annotationPath": "com.sap.vocabularies.UI.v1.SelectionPresentationVariant#SVB2BInvoice"
+                  },
+                  {
+                    "key": "tab1",
+                    "annotationPath": "com.sap.vocabularies.UI.v1.SelectionPresentationVariant#SVB2BCredit"
+                  },
+                  {
+                    "key": "tab3",
+                    "annotationPath": "com.sap.vocabularies.UI.v1.SelectionPresentationVariant#SVB2CInvoice"
+                  },
+                  {
+                    "key": "tab4",
+                    "annotationPath": "com.sap.vocabularies.UI.v1.SelectionPresentationVariant#SVB2CCredit"
+                  }
+                ],
+                "showCounts": true
+              },
+              "controlConfiguration": {
+                "@com.sap.vocabularies.UI.v1.LineItem": {
+                  "tableSettings": {
+                    "type": "GridTable"
+                  },
+                  "actions": {
+                    "exportAll": {
+                      "press": "ns.aspreport.custom.customActions.exportAll",
+                      "text": "Export All",
+                      "enabled": true,
+                      "visible": true,
+                      "inline": false,
+                      "requiresSelection": false,
+                      "entitySet": "aspReport"
+                    }
+                  }
+                }
+              }
+
+            }
+          }
+        },
+        "aspreportObjectPage": {
+          "type": "Component",
+          "id": "aspreportObjectPage",
+          "name": "sap.fe.templates.ObjectPage",
+          "options": {
+            "settings": {
+              "editableHeaderContent": false,
+              "entitySet": "aspreport"
+            }
+          }
+        }
+      }
+    }
+  },
+
+  "sap.fiori": {
+    "registrationIds": [],
+    "archeType": "transactional"
+  },
+  "sap.cloud": {
+    "public": true,
+    "service": "cpapp.service"
+  }
+}

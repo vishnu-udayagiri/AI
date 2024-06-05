@@ -1,0 +1,158 @@
+{
+  "_version": "1.49.0",
+  "sap.app": {
+    "id": "ns.otagstinmaster",
+    "type": "application",
+    "i18n": "i18n/i18n.properties",
+    "applicationVersion": {
+      "version": "0.0.1"
+    },
+    "crossNavigation": {
+      "inbounds": {
+        "airportMaster-display": {
+          "signature": {
+            "parameters": {},
+            "additionalParameters": "allowed"
+          },
+          "semanticObject": "otagstinmaster",
+          "action": "display",
+          "title": "OTA GSTIN Master",
+          "info": "",
+          "subTitle": "",
+          "icon": "sap-icon://approvals"
+        }
+      }
+    },
+    "title": "{{appTitle}}",
+    "description": "{{appDescription}}",
+    "resources": "resources.json",
+    "sourceTemplate": {
+      "id": "@sap/generator-fiori:lrop",
+      "version": "1.11.1",
+      "toolsId": "63188ebf-4a6a-467b-a701-dc8cf2e10497"
+    },
+    "dataSources": {
+      "mainService": {
+        "uri": "/otagstinmaster/",
+        "type": "OData",
+        "settings": {
+          "annotations": [],
+          "localUri": "localService/metadata.xml",
+          "odataVersion": "4.0"
+        }
+      }
+    }
+  },
+  "sap.ui": {
+    "technology": "UI5",
+    "icons": {
+      "icon": "",
+      "favIcon": "",
+      "phone": "",
+      "phone@2": "",
+      "tablet": "",
+      "tablet@2": ""
+    },
+    "deviceTypes": {
+      "desktop": true,
+      "tablet": true,
+      "phone": true
+    }
+  },
+  "sap.ui5": {
+    "flexEnabled": true,
+    "dependencies": {
+      "minUI5Version": "1.118.1",
+      "libs": {
+        "sap.m": {},
+        "sap.ui.core": {},
+        "sap.ushell": {},
+        "sap.fe.templates": {}
+      }
+    },
+    "contentDensities": {
+      "compact": true,
+      "cozy": true
+    },
+    "models": {
+      "i18n": {
+        "type": "sap.ui.model.resource.ResourceModel",
+        "settings": {
+          "bundleName": "ns.otagstinmaster.i18n.i18n"
+        }
+      },
+      "": {
+        "dataSource": "mainService",
+        "preload": true,
+        "settings": {
+          "synchronizationMode": "None",
+          "operationMode": "Server",
+          "autoExpandSelect": true,
+          "earlyRequests": true
+        }
+      },
+      "@i18n": {
+        "type": "sap.ui.model.resource.ResourceModel",
+        "uri": "i18n/i18n.properties"
+      }
+    },
+    "resources": {
+      "css": []
+    },
+    "routing": {
+      "config": {},
+      "routes": [
+        {
+          "pattern": ":?query:",
+          "name": "otagstinmasterList",
+          "target": "otagstinmasterList"
+        },
+        {
+          "pattern": "otagstinmaster({key}):?query:",
+          "name": "otagstinmasterObjectPage",
+          "target": "otagstinmasterObjectPage"
+        }
+      ],
+      "targets": {
+        "otagstinmasterList": {
+          "type": "Component",
+          "id": "otagstinmasterList",
+          "name": "sap.fe.templates.ListReport",
+          "options": {
+            "settings": {
+              "entitySet": "otagstinmaster",
+              "variantManagement": "Page",
+              "initialLoad": "Enabled",
+              "navigation": {
+                "otagstinmaster": {
+                  "detail": {
+                    "route": "otagstinmasterObjectPage"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "otagstinmasterObjectPage": {
+          "type": "Component",
+          "id": "otagstinmasterObjectPage",
+          "name": "sap.fe.templates.ObjectPage",
+          "options": {
+            "settings": {
+              "editableHeaderContent": false,
+              "entitySet": "otagstinmaster"
+            }
+          }
+        }
+      }
+    }
+  },
+  "sap.fiori": {
+    "registrationIds": [],
+    "archeType": "transactional"
+  },
+  "sap.cloud": {
+    "public": true,
+    "service": "cpapp.service"
+  }
+}

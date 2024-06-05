@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="4.0" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+    <edmx:Reference Uri="https://sap.github.io/odata-vocabularies/vocabularies/Common.xml">
+        <edmx:Include Alias="Common" Namespace="com.sap.vocabularies.Common.v1"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Core.V1.xml">
+        <edmx:Include Alias="Core" Namespace="Org.OData.Core.V1"/>
+    </edmx:Reference>
+    <edmx:DataServices>
+        <Schema Namespace="AuditTrailService" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+            <EntityContainer Name="EntityContainer">
+                <EntitySet Name="AuditTrail" EntityType="AuditTrailService.AuditTrail"/>
+                <EntitySet Name="AuditTrailItems" EntityType="AuditTrailService.AuditTrailItems">
+                    <NavigationPropertyBinding Path="AuditTrail" Target="AuditTrail"/>
+                </EntitySet>
+            </EntityContainer>
+            <EntityType Name="AuditTrail">
+                <Key>
+                    <PropertyRef Name="ID"/>
+                </Key>
+                <Property Name="ID" Type="Edm.Guid" Nullable="false"/>
+                <Property Name="companyCode" Type="Edm.String" MaxLength="4" Nullable="false"/>
+                <Property Name="companyId" Type="Edm.Guid" Nullable="false"/>
+                <Property Name="module" Type="Edm.String" MaxLength="20" Nullable="false"/>
+                <Property Name="eventId" Type="Edm.String" MaxLength="50" Nullable="false"/>
+                <Property Name="eventName" Type="Edm.String" MaxLength="50"/>
+                <Property Name="businessDocumentId" Type="Edm.String" MaxLength="50"/>
+                <Property Name="finalStatus" Type="Edm.String" MaxLength="5"/>
+                <Property Name="finalStatusMessageText" Type="Edm.String" MaxLength="255"/>
+                <Property Name="userId" Type="Edm.Guid" Nullable="false"/>
+                <Property Name="createdAt" Type="Edm.DateTimeOffset" Precision="7" Nullable="false"/>
+                <Property Name="createdBy" Type="Edm.String" MaxLength="255"/>
+                <Property Name="modifiedAt" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="modifiedBy" Type="Edm.String" MaxLength="255"/>
+            </EntityType>
+            <EntityType Name="AuditTrailItems">
+                <Key>
+                    <PropertyRef Name="auditID"/>
+                    <PropertyRef Name="item"/>
+                </Key>
+                <Property Name="auditID" Type="Edm.Guid" Nullable="false"/>
+                <Property Name="item" Type="Edm.Guid" Nullable="false"/>
+                <Property Name="businessDocumentId" Type="Edm.String" MaxLength="50"/>
+                <Property Name="attributeName" Type="Edm.String" MaxLength="255"/>
+                <Property Name="oldValue" Type="Edm.String" MaxLength="500"/>
+                <Property Name="newValue" Type="Edm.String" MaxLength="500"/>
+                <NavigationProperty Name="AuditTrail" Type="AuditTrailService.AuditTrail">
+                    <ReferentialConstraint Property="auditID" ReferencedProperty="ID"/>
+                </NavigationProperty>
+            </EntityType>
+        </Schema>
+    </edmx:DataServices>
+</edmx:Edmx>

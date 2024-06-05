@@ -1,0 +1,370 @@
+<mvc:View controllerName="airindiagst.controller.tcsSummary"
+	xmlns:f="sap.ui.layout.form"
+	xmlns:core="sap.ui.core"
+	xmlns:u="sap.ui.unified"
+	xmlns:l="sap.ui.layout"
+	xmlns:mvc="sap.ui.core.mvc"
+	xmlns:fb="sap.ui.comp.filterbar"
+	xmlns:wc="sap.ui.webc.main"
+	xmlns="sap.m"
+	xmlns:t="sap.ui.table" class="sapUiSizeCompact">
+	<Page showHeader="false" class="backGroundImage">
+		<Panel width="auto" class="sapUiResponsiveMargin">
+			<content>
+				<OverflowToolbar>
+				<ToolbarSpacer/>
+				<SegmentedButton id="b2aSegments" selectedKey="tcssum" selectionChange="onchangeview">
+					<items>
+						<SegmentedButtonItem text="TCS Summary" key="tcssum" />
+						<!-- <SegmentedButtonItem text="Both" key="BOTH" /> -->
+						<SegmentedButtonItem text="TCS Summary Details" key="tcssumd" />
+					</items>
+				</SegmentedButton>
+				<!-- <Switch id="b2aSegments" state="false" customTextOn="My Bookings" customTextOff="Booked Through" change="onchangeB2Aview">
+					</Switch> -->
+			</OverflowToolbar>
+				
+				<fb:FilterBar id="filterbar" reset="restore" persistencyKey="myPersKey" useToolbar="false" search=".onSearch" filterChange=".onFilterChange" afterVariantLoad=".onAfterVariantLoad">
+					<fb:filterGroupItems>
+						<!-- <fb:FilterGroupItem name="Document Type" label="Document Type" groupName="Group1" visibleInFilterBar="true">
+							<fb:control>
+								<MultiComboBox id="fbmc-DocType" selectionChange="handleSelectedDocType" showSelectAll="true" selectedKeys="" placeholder="Document Type" width="350px">
+									<items>
+										<core:Item key="INVOICE" text="GST Invoices"/>
+										<core:Item key="DEBIT" text="Debit Note"/>
+										<core:Item key="CREDIT" text="Credit Note"/>
+										<core:Item key="BOS" text="Bill of Supply"/>
+										<core:Item key="BOSCN" text="Bill of Supply Credit"/>
+										<core:Item key="BOSDN" text="Bill of Supply Debit"/>
+									</items>
+								</MultiComboBox>
+							</fb:control>
+						</fb:FilterGroupItem> -->
+							<fb:FilterGroupItem mandatory="true" name="Month" label="Month" groupName="Group1" visibleInFilterBar="true">
+							<fb:control>
+								<DatePicker  enabled="true" id="fbdat-month" placeholder="Month Year" valueFormat="MM/yyyy" displayFormat="MM/yyyy" value="{path: 'DocHeaderModel>/poedate', type: 'sap.ui.model.type.DateTime', formatOptions: {pattern: 'MM/yyyy', strictParsing: true , UTC: true}}" visible="{path: 'visible_Model>/poedate_visible',formatter: 'General.Formatter.setVisible'}" editable="{path: 'xBRIxI_EDSGENHD_A1Type_Model>/poedate_editable',formatter: 'General.Formatter.setEditable'}" required="{path: 'xBRIxI_EDSGENHD_A1Type_Model>/poedate_required',formatter: 'General.Formatter.setRequired'}"></DatePicker>
+							</fb:control>
+						</fb:FilterGroupItem>
+							<fb:FilterGroupItem visible="{= ${/toggleVisible}}"  name="Document Type" label="Document Type" groupName="Group1" visibleInFilterBar="true">
+							<fb:control>
+								<MultiComboBox id="fbmc-DocType" selectionChange="handleSelectedDocType" showSelectAll="true"  placeholder="Document Type" width="350px">
+									<items>
+										<core:Item key="INVOICE" text="GST Invoices"/>
+										<core:Item key="DEBIT" text="Debit Note"/>
+										<core:Item key="CREDIT" text="Credit Note"/>
+										<core:Item key="BOS" text="Bill of Supply"/>
+										<core:Item key="BOSCN" text="Bill of Supply Credit"/>
+										<core:Item key="BOSDN" text="Bill of Supply Debit"/>
+									</items>
+								</MultiComboBox>
+							</fb:control>
+						</fb:FilterGroupItem>
+						<!-- <fb:FilterGroupItem name="Invoice Number" label="Invoice Number" groupName="Group1" visibleInFilterBar="true">
+							<fb:control>
+								<MultiInput id="fbinp-invoiceNumber" valueHelpOnly="true" type="Text"  textFormatMode="Key" placeholder="Invoice Number" showSuggestion="true" showValueHelp="true" valueHelpRequest="handleValueHelpinvoiceNum"  valueLiveUpdate="true"    tokenUpdate="onTokenUpdate"  suggestionItemSelected="suggestionItemSelected" maxLength="">
+									
+								</MultiInput>
+							</fb:control>
+						</fb:FilterGroupItem> -->
+						<!-- <fb:FilterGroupItem name="PNR" label="PNR" groupName="Group1" visible="true" visibleInFilterBar="true">
+							<fb:control>
+								<MultiInput id="fbinp-pnr"   valueHelpOnly="true" type="Text" textFormatMode="Key" visible="true" placeholder="PNR Number" showSuggestion="true" showValueHelp="true" tokenUpdate="onTokenUpdate"  valueHelpRequest="handleValueHelpPNRNum" suggestionItems="{path: 'FilterDatamodel>/results',templateShareable: false}" suggestionItemSelected="suggestionItemSelected" valueLiveUpdate="true" maxLength="10">
+									<suggestionItems>
+										<core:ListItem key="{FilterDatamodel>PNR}"/>
+									</suggestionItems>
+								</MultiInput>
+							</fb:control>
+						</fb:FilterGroupItem> -->
+						<!-- <fb:FilterGroupItem name="Supplier GSTIN" label="Supplier GSTIN" groupName="Group1" visibleInFilterBar="true">
+							<fb:control>
+								<MultiComboBox id="fbmc-GSTINAI" selectionChange="handleSelectedGSTIN_AI" placeholder="Supplier GSTIN" selectionFinish="handleSelectedGSTIN_AI" selectedKeys="" showSelectAll="true" width="350px" items="{ path: 'FilterDatamodel>/supplierGSTIN'}">
+									<core:Item key="{FilterDatamodel>}" text="{FilterDatamodel>}"/>
+								</MultiComboBox>
+							</fb:control>
+						</fb:FilterGroupItem> -->
+
+						<!-- <fb:FilterGroupItem name="GSTIN Number" label="GSTIN Number" groupName="Group1" visibleInFilterBar="true">
+							<fb:control>
+								<MultiComboBox id="fbmc-GSTIN" selectionChange="handleSelectedGSTIN" placeholder="Select GSTIN Number.." selectionFinish="handleSelectedGSTIN" showSelectAll="true" width="350px" items="{ path: 'uniqueGSTDetailsModel>/results', sorter: { path: 'orginalGstin' } }">
+									<core:Item key="{uniqueGSTDetailsModel>orginalGstin}" text="{uniqueGSTDetailsModel>orginalGstin}"/>
+								</MultiComboBox>
+							</fb:control>
+						</fb:FilterGroupItem> -->
+						
+						<fb:FilterGroupItem id="otagst" name="OTA GSTIN " label="OTA GSTIN" groupName="Group1" visibleInFilterBar="true">
+
+							<fb:control>
+
+								<!-- <MultiComboBox id="fbmc-GSTIN" selectionChange="handleSelectedGSTIN" placeholder="Passenger GSTIN" selectedKeys="" selectionFinish="handleSelectedGSTIN" showSelectAll="true" items="{ path: 'FilterDatamodel>/passengerGSTIN'}">
+
+									<core:Item key="{FilterDatamodel>}" text="{FilterDatamodel>}"/>
+
+								</MultiComboBox> -->
+									<MultiInput id="fbinp-otaGSTIN"  valueHelpOnly="true" enabled="true" type="Text" textFormatMode="Key" placeholder="OTA GSTIN" showSuggestion="true" tokenUpdate="onTokenUpdate"  showValueHelp="true" valueHelpRequest="handleValueHelpotaGstin" suggestionItems="{path: 'FilterDatamodel>/passengerGSTIN/',templateShareable: false}" suggestionItemSelected="suggestionItemSelected" valueLiveUpdate="true" maxLength="10">
+									<suggestionItems>
+										<core:ListItem key="{FilterDatamodel>}"/>
+									</suggestionItems>
+								</MultiInput>
+
+							</fb:control>
+
+						</fb:FilterGroupItem>
+					
+						<!-- <fb:FilterGroupItem name="Year" label="Month" groupName="Group1" visibleInFilterBar="true">
+							<fb:control>
+								<DatePicker enabled="true" id="fbdat-year" placeholder="month Year ..." valueFormat="yyyy" displayFormat="yyyy" value="{path: 'DocHeaderModel>/poedate', type: 'sap.ui.model.type.DateTime', formatOptions: {pattern: 'yyyy', strictParsing: true , UTC: true}}" visible="{path: 'visible_Model>/poedate_visible',formatter: 'General.Formatter.setVisible'}" editable="{path: 'xBRIxI_EDSGENHD_A1Type_Model>/poedate_editable',formatter: 'General.Formatter.setEditable'}" required="{path: 'xBRIxI_EDSGENHD_A1Type_Model>/poedate_required',formatter: 'General.Formatter.setRequired'}"></DatePicker>
+							</fb:control>
+						</fb:FilterGroupItem> -->
+							<!-- <fb:FilterGroupItem id="buyername" name="Buyer Name " label="Passenger Name" groupName="Group1" visibleInFilterBar="true">
+
+							<fb:control>
+
+									<MultiInput id="fbinp-buyername"  valueHelpOnly="true" enabled="true" type="Text" textFormatMode="Key" placeholder="Passenger Name" showSuggestion="true" tokenUpdate="onTokenUpdate"  showValueHelp="true" valueHelpRequest="handleValueHelpbuyername" suggestionItems="{path: 'FilterDatamodel>/billToName/',templateShareable: false}" suggestionItemSelected="suggestionItemSelected" valueLiveUpdate="true" maxLength="10">
+									<suggestionItems>
+										<core:ListItem key="{FilterDatamodel>}"/>
+									</suggestionItems>
+								</MultiInput>
+
+							</fb:control>
+
+						</fb:FilterGroupItem> -->
+						<fb:FilterGroupItem id="filter_iata" visible="true" name="IATA Number" label="IATA Code" groupName="Group1" visibleInFilterBar="true">
+							<fb:control>
+								<MultiInput id="fbinp-iataNumber"  valueHelpOnly="true" enabled="true" type="Text" textFormatMode="Key" placeholder="IATA Code" showSuggestion="true" tokenUpdate="onTokenUpdate"  showValueHelp="true" valueHelpRequest="handleValueHelpiataNum" suggestionItems="{path: 'FilterDatamodel>/iataNumber/',templateShareable: false}" suggestionItemSelected="suggestionItemSelected" valueLiveUpdate="true" maxLength="10">
+									<suggestionItems>
+										<core:ListItem key="{FilterDatamodel>}"/>
+									</suggestionItems>
+								</MultiInput>
+							</fb:control>
+						</fb:FilterGroupItem>
+						<!-- <fb:FilterGroupItem id="filter_ticket" visible="true" name="Ticket Number" label="Ticket Number" groupName="Group1" visibleInFilterBar="true">
+							<fb:control>
+							
+									<MultiInput id="fbinp-ticketNumber"  valueHelpOnly="true" type="Text" textFormatMode="Key"  placeholder="Ticket Number" showSuggestion="true" showValueHelp="true" tokenUpdate="onTokenUpdate"  valueHelpRequest="handleValueHelpticketNum" suggestionItems="{path: 'FilterDatamodel>/results',templateShareable: false}" suggestionItemSelected="suggestionItemSelected" valueLiveUpdate="true" maxLength="10">
+									<suggestionItems>
+										<core:ListItem key="{FilterDatamodel>}"/>
+									</suggestionItems>
+								</MultiInput>
+							</fb:control>
+						</fb:FilterGroupItem> -->
+						<!-- <fb:FilterGroupItem name="Period" label="Period" groupName="Group1" visibleInFilterBar="true">
+							<fb:control>
+								<Select id="fbmc-TIMELINE" change="handleSelectedPeriod" width="350px" selectedKey="">
+									<items>
+										<core:Item key="CM" text="Current Month"/>
+										<core:Item key="PM" text="Previous Month"/>
+										<core:Item key="CY" text="Current Financial Year"/>
+										<core:Item key="PY" text="Previous Financial Year"/>
+									</items>
+								</Select>
+							</fb:control>
+						</fb:FilterGroupItem> -->
+						<fb:FilterGroupItem id="invdat_filtr" name="Invoice Date" visible="false" label="Invoice Date" groupName="Group1" visibleInFilterBar="true">
+							<fb:control>
+								<DateRangeSelection   id="fbdat-invoiceDate" delimiter=" to " dateValue="{path:'/dateValueDRS1'}" secondDateValue="{path:'/secondDateValueDRS1'}" minDate="{path:'/dateMinDRS1'}" maxDate="{path:'/dateMaxDRS1'}"  change="handleDateChange" displayFormat="{i18n>dd/MM/yyyy}"/>
+							</fb:control>
+						</fb:FilterGroupItem>
+
+
+						<!-- <fb:FilterGroupItem name="Ticket Issue Date" label="Ticket Issue Date" groupName="Group1" visibleInFilterBar="true">
+							<fb:control>
+								<DateRangeSelection class="disabledDateInput"  id="fbdat-ticketIssueDate" delimiter=" to " dateValue="{path:'/dateValueDRS1'}" secondDateValue="{path:'/secondDateValueDRS1'}" minDate="{path:'/dateMinDRS1'}" maxDate="{path:'/dateMaxDRS1'}" change="handleDateChange" displayFormat="{i18n>dd/MM/yyyy}"/>
+							</fb:control>
+						</fb:FilterGroupItem> -->
+
+						
+					</fb:filterGroupItems>
+				</fb:FilterBar>
+			</content>
+		</Panel>
+		<Panel id="panel_table" width="auto" class="sapUiResponsiveMargin">
+			<content> 
+				<t:Table id="tbl_gstInvoices" visible="true" rows="{GSTDetailsModel>/invoices}" rowActionCount="1" selectionMode="MultiToggle" threshold="100" firstVisibleRowChanged="" visibleRowCount="10" ariaLabelledBy="title">
+					<!-- <t:extension>
+						<OverflowToolbar style="Clear">
+							<Title id="title" text="Invoices"/>
+							<ToolbarSpacer/>
+							<ObjectStatus state="Information" id="txt-inr" text="* All amounts in the table are denominated in Indian Rupees (INR)."></ObjectStatus>
+							<ToggleButton id="btn-excel" tooltip="Download Excel Report of your selected Invoices" icon="sap-icon://excel-attachment" pressed="false" press="onPressExportExcel"/>
+							<ToggleButton id="btn-pdf" tooltip="Download PDF of Invoices" icon="sap-icon://download" pressed="false" press="onButtonDownloadPress"/>
+							
+						</OverflowToolbar>
+					</t:extension> -->
+						<t:extension>
+						<OverflowToolbar>
+							<Title text="" id="title"/>
+							<ToolbarSpacer />
+							<!-- <Text id="count" text="Total"></Text> -->
+							<ObjectStatus state="Information" id="txt-inr" text="* All amounts in the table are denominated in Indian Rupees (INR)."></ObjectStatus>
+								<ToggleButton id="btn-exptall" tooltip="Download PDF of Invoices" text="Export All"  pressed="false"   press="Exportall"/>
+							<!-- <ToggleButton id="tog_newreq" icon="sap-icon://documents" text="New Request" pressed="false" press="handleValueHelpAmendment"/> -->
+							<!-- <ToggleButton id="tog_excel" icon="sap-icon://excel-attachment" pressed="false" press="onPressExportExcel" visible="false"/> -->
+							<ToggleButton id="btn-excel" tooltip="Download Excel Report of Invoices" icon="sap-icon://excel-attachment" pressed="false" visible="false" press="onPressExportExcel"/>
+							<ToggleButton id="btn-pdf" tooltip="Download PDF of Invoices" icon="sap-icon://pdf-attachment" pressed="false"  visible="{= ${/toggleVisible}}" press="onButtonDownloadPress"/>
+						
+                 
+                    <!-- <Button icon="sap-icon://action-settings" press="openPersoDialog"/> -->
+
+						</OverflowToolbar>
+
+
+					</t:extension>
+						<t:noData>
+                        <IllustratedMessage enableVerticalResponsiveness="true"/>
+                    </t:noData>
+					<t:columns>
+						<t:Column id = "col_doctyp" minWidth="200px"  visible="{= ${/toggleVisible}}" filterProperty="DOCUMENTTYPE" tooltip="Document Type" >
+							<Label  text="Document Type"/>
+							<t:template>
+								<Text text="{GSTDetailsModel>DOCUMENTTYPE}"/>
+							</t:template>
+						</t:Column>
+						<t:Column id = "col_ticnum" minWidth="200px" visible="{= ${/toggleVisible}}" filterProperty="TICKETNUMBER" tooltip="Ticket Number" >
+							<Label  text="Ticket Number"/>
+							<t:template>
+								<Text text="{GSTDetailsModel>TICKETNUMBER}"/>
+							</t:template>
+						</t:Column>
+					<t:Column id="col_otagstin" minWidth="200px" autoResizable="true" tooltip="OTA GSTIN" filterProperty="OTA_GSTIN" >
+							<Label text="OTA GSTIN"/>
+							<t:template>
+								<Text text="{GSTDetailsModel>GSTIN_OTA}"/>
+							</t:template>
+						</t:Column>
+							<t:Column minWidth="200px"  visible="{= ${/toggleVisible}}"  id="col_ref_iss"  autoResizable="true" tooltip="Refund Issue Date" >
+							<Label text=" Issue Date"  />
+							<t:template>
+								<!-- <Text text="{GSTDetailsModel>TICKETISSUEDATE}"/> -->
+								<Text text="{path: 'GSTDetailsModel>INVOICEDATE', formatter: '.formatter.formatNewDateChange'}"/>
+							</t:template>
+						</t:Column>
+							<t:Column  id="col_transtyp" minWidth="190px"   visible="{= ${/toggleVisible}}">
+							<Label id="_IDGenLabel1" text="Sale/Refund" tooltip="Sale/Refund" />
+							<t:template>
+								<Text id="_IDGenText1" text="{GSTDetailsModel>TRANSACTIONTYPE}"/>
+							</t:template>
+						</t:Column>
+
+							<t:Column id="col_airlinegstin" minWidth="200px" autoResizable="true" tooltip="Airline GSTIN" filterProperty="AIRLINE_GSTN" >
+							<Label text="Airline GSTIN"/>
+							<t:template>
+								<Text text="{GSTDetailsModel>AIRLINE_GSTN}"/>
+							</t:template>
+						</t:Column>
+							<t:Column  id="col_iata" minWidth="200px"  autoResizable="true" filterProperty="IATANUMBER" sortProperty="IATANUMBER" tooltip="IATA Number" >
+							<Label  text="IATA Code"/>
+							<t:template>
+								<Text text="{GSTDetailsModel>IATANUMBER}"/>
+							</t:template>
+						</t:Column>
+							<t:Column minWidth="200px" id="col_state"   hAlign="Right" tooltip="State">
+							<Label text="State of Deposit"/>
+							<t:template>
+								<Text text="{GSTDetailsModel>STATE_OF_DEPOSIT}"/>
+							</t:template>
+						</t:Column>
+						<t:Column minWidth="200px" id="col_gstrmonth"  tooltip="GSTR Month" >
+							<Label text="GSTR1 Month"/>
+							<t:template>
+								<Text text="{GSTDetailsModel>GSTR_MONTH}"/>
+							</t:template>
+						</t:Column>
+						<t:Column minWidth="200px" visible="{= ${/toggleVisible}}" id="col_gstrstatus"  tooltip="GSTR1 Filling Status " >
+							<Label text="GSTR1 filling status"/>
+							<t:template>
+								<Text text="{GSTDetailsModel>GSTR1FILINGSTATUS}"/>
+							</t:template>
+						</t:Column>
+							<t:Column minWidth="200px" tooltip="Total Ticket Value" id="col_totinvamt" >
+							<Label  text="Total Ticket Value"/>
+							<t:template>
+								<Text text="{GSTDetailsModel>TOTAL_TICKET_VALUE}"/>
+							</t:template>
+						</t:Column>
+							<t:Column minWidth="200px" id="col_nettax"  hAlign="Right" tooltip="Taxable Value">
+							<Label  text="Taxable Value"/>
+							<t:template>
+								<Text text="{GSTDetailsModel>TAXABLE}"/>
+							</t:template>
+						</t:Column>
+						<t:Column minWidth="200px" id="col_tcsgstval" hAlign="Right" tooltip="GST">
+							<Label  text="TCS GST Value"/>
+							<t:template>
+								<Text text="{GSTDetailsModel>TCS_PERC_GST_VALUE}"/>
+							</t:template>
+						</t:Column>
+				
+						<t:Column id="col_orginvdat" minWidth="200px"   visible="{= ${/toggleVisible}}" tooltip="Original Invoice Date"  autoResizable="true" >
+							<Label text="Original Invoice Date"/>
+							<t:template>
+								<Text text="{GSTDetailsModel>ORGINALINVOICEDATE}"/>
+							</t:template>
+						</t:Column>
+						<t:Column minWidth="200px" id="col_pos"    visible="{= ${/toggleVisible}}" filterProperty="PLACEOFSUPPLY" tooltip="Place of Supply">
+							<Label text="Place of Supply"/>
+							<t:template>
+								<Text text="{GSTDetailsModel>PLACEOFSUPPLY}"/>
+							</t:template>
+						</t:Column>
+			
+						<t:Column minWidth="200px"  visible="{= ${/toggleVisible}}"  id="col_nontax"  hAlign="Right" tooltip="Non Taxable Value">
+							<Label  text="Non Taxable Value"/>
+							<t:template>
+								<Text text="{GSTDetailsModel>NONTAXABLE}"/>
+							</t:template>
+						</t:Column>
+						<t:Column minWidth="200px" id="col_k3"  visible="{= ${/toggleVisible}}"  hAlign="Right" tooltip="TCS K3">
+							<Label  text="TCS K3"/>
+							<t:template>
+								<Text text="{GSTDetailsModel>TOTAL_TAX}"/>
+							</t:template>
+						</t:Column>
+						
+						<t:Column minWidth="200px" hAlign="Right"  id="col_cgst"  tooltip="CGST Amount">
+							<Label text="TCS CGST"/>
+							<t:template>
+								<Text text="{GSTDetailsModel>TCS_CGST}"/>
+							</t:template>
+						</t:Column>
+					
+                        	<t:Column minWidth="200px" tooltip="UTGST" id="col_tcs_utgst"  >
+							<Label  text="TCS SGST/UTGST"/>
+							<t:template>
+								<Text text="{GSTDetailsModel>TCS_SGST_UTGST}"/>
+							</t:template>
+						</t:Column>
+						<t:Column minWidth="200px" id="col_igst"  hAlign="Right" tooltip="IGST Amount">
+							<Label text="TCS IGST"/>
+							<t:template>
+								<Text text="{GSTDetailsModel>TCS_IGST}"/>
+							</t:template>
+						</t:Column>
+					
+						    	<t:Column minWidth="200px"  visible="{= ${/toggleVisible}}" tooltip="Remarks" id="col_reamrks"  >
+							<Label  text="Remarks"/>
+							<t:template>
+								<Text text="{GSTDetailsModel>REMARKS}"/>
+							</t:template>
+						</t:Column>
+					</t:columns>
+					<t:rowActionTemplate>
+						<t:RowAction>
+							<t:items>
+								<!-- <t:RowActionItem icon="sap-icon://vds-file" press="onButtonShowPanPress"/> -->
+								<t:RowActionItem icon="sap-icon://pdf-attachment"  visible="{= ${/toggleVisible}}" press="onButtonDownloadPresssingle"/>
+							</t:items>
+						</t:RowAction>
+					</t:rowActionTemplate>
+					<t:footer>
+					<Toolbar>
+					<ToolbarSpacer/>
+						<Link id="morelink" text="More.." press="onScroll" ></Link>
+						<ToolbarSpacer/>
+						<Title id="table_footer"></Title>
+					</Toolbar>
+				</t:footer>
+				</t:Table>
+			</content>
+		</Panel>
+	</Page>
+</mvc:View>

@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="4.0" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+    <edmx:Reference Uri="https://sap.github.io/odata-vocabularies/vocabularies/Common.xml">
+        <edmx:Include Alias="Common" Namespace="com.sap.vocabularies.Common.v1"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Core.V1.xml">
+        <edmx:Include Alias="Core" Namespace="Org.OData.Core.V1"/>
+    </edmx:Reference>
+    <edmx:DataServices>
+        <Schema Namespace="tcsSummaryDtlsReportService" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+            <EntityContainer Name="EntityContainer">
+                <EntitySet Name="tcsSummaryDetailsReport" EntityType="tcsSummaryDtlsReportService.tcsSummaryDetailsReport"/>
+                <FunctionImport Name="getCSRFToken" Function="tcsSummaryDtlsReportService.getCSRFToken"/>
+                <ActionImport Name="exportAll" Action="tcsSummaryDtlsReportService.exportAll"/>
+            </EntityContainer>
+            <EntityType Name="tcsSummaryDetailsReport">
+                <Property Name="TICKETNUMBER" Type="Edm.String" MaxLength="15"/>
+                <Property Name="DOCUMENTTYPE" Type="Edm.String" MaxLength="20"/>
+                <Property Name="STATUS" Type="Edm.String" MaxLength="25"/>
+                <Property Name="SUPPLIERGSTIN" Type="Edm.String" MaxLength="15"/>
+                <Property Name="INVOICEDATE" Type="Edm.Date"/>
+                <Property Name="ORGINALINVOICEDATE" Type="Edm.Date"/>
+                <Property Name="IATANUMBER" Type="Edm.String" MaxLength="10"/>
+                <Property Name="COMPANY" Type="Edm.String" MaxLength="4"/>
+                <Property Name="TRANSACTIONTYPE" Type="Edm.String" MaxLength="10"/>
+                <Property Name="REMARKS" Type="Edm.String" MaxLength="1"/>
+                <Property Name="USERID" Type="Edm.String" MaxLength="1"/>
+                <Property Name="PLACEOFSUPPLY" Type="Edm.String" MaxLength="255"/>
+                <Property Name="PLACE_SUPPLY" Type="Edm.String" MaxLength="2"/>
+                <Property Name="STATECODE" Type="Edm.String" MaxLength="2"/>
+                <Property Name="STATENAME" Type="Edm.String" MaxLength="50"/>
+                <Property Name="IATANUMBER_1" Type="Edm.String" MaxLength="10"/>
+                <Property Name="ISECOMMERCEOPERATOR" Type="Edm.Boolean"/>
+                <Property Name="SUPPLIERGSTIN2" Type="Edm.String" MaxLength="2"/>
+                <Property Name="COMPANYID" Type="Edm.String" MaxLength="36"/>
+                <Property Name="GSTIN_OTA" Type="Edm.String" MaxLength="15"/>
+                <Property Name="TICKETISSUEDATE_RFND" Type="Edm.Date"/>
+                <Property Name="I_YEAR" Type="Edm.Int32"/>
+                <Property Name="I_MONTH" Type="Edm.Int32"/>
+                <Property Name="G_YEAR" Type="Edm.String" MaxLength="4"/>
+                <Property Name="G_MONTH" Type="Edm.String" MaxLength="2"/>
+                <Property Name="YEAR_MONTH" Type="Edm.String" MaxLength="7"/>
+                <Property Name="TAXABLE_1" Type="Edm.Decimal" Scale="2" Precision="16"/>
+                <Property Name="CGSTRATE" Type="Edm.Decimal" Scale="2" Precision="16"/>
+                <Property Name="SGSTRATE" Type="Edm.Decimal" Scale="2" Precision="16"/>
+                <Property Name="IGSTRATE" Type="Edm.Decimal" Scale="2" Precision="16"/>
+                <Property Name="UTGSTRATE" Type="Edm.Decimal" Scale="2" Precision="16"/>
+                <Property Name="COLLECTEDINVOICEVALUE" Type="Edm.Decimal" Scale="2" Precision="16"/>
+                <Property Name="NONTAXABLE" Type="Edm.Decimal" Scale="2" Precision="16"/>
+                <Property Name="TCS_PERC_GST_VALUE" Type="Edm.Decimal" Scale="4" Precision="19"/>
+                <Property Name="TOTAL_TICKET_VALUE" Type="Edm.Decimal" Scale="2" Precision="17"/>
+                <Property Name="TAXABLE" Type="Edm.Decimal" Scale="2" Precision="16"/>
+                <Property Name="TCS_SGST_UTGST" Type="Edm.Decimal" Scale="2" Precision="16"/>
+                <Property Name="TCS_IGST" Type="Edm.Decimal" Scale="2" Precision="16"/>
+                <Property Name="TCS_CGST" Type="Edm.Decimal" Scale="2" Precision="16"/>
+                <Property Name="TCS_SGST" Type="Edm.Decimal" Scale="2" Precision="16"/>
+                <Property Name="TCS_UTGST" Type="Edm.Decimal" Scale="2" Precision="16"/>
+            </EntityType>
+            <Function Name="getCSRFToken" IsBound="false" IsComposable="false">
+                <ReturnType Type="Edm.String"/>
+            </Function>
+            <Action Name="exportAll" IsBound="false">
+                <Parameter Name="fields" Type="Edm.String"/>
+                <ReturnType Type="Edm.String"/>
+            </Action>
+            <Annotations Target="tcsSummaryDtlsReportService.tcsSummaryDetailsReport/TICKETNUMBER">
+                <Annotation Term="Common.Label" String="Ticket Number"/>
+            </Annotations>
+            <Annotations Target="tcsSummaryDtlsReportService.tcsSummaryDetailsReport/DOCUMENTTYPE">
+                <Annotation Term="Common.Label" String="Document Type"/>
+            </Annotations>
+            <Annotations Target="tcsSummaryDtlsReportService.tcsSummaryDetailsReport/STATUS">
+                <Annotation Term="Common.Label" String="Status"/>
+            </Annotations>
+            <Annotations Target="tcsSummaryDtlsReportService.tcsSummaryDetailsReport/SUPPLIERGSTIN">
+                <Annotation Term="Common.Label" String="Supplier GSTIN"/>
+            </Annotations>
+            <Annotations Target="tcsSummaryDtlsReportService.tcsSummaryDetailsReport/INVOICEDATE">
+                <Annotation Term="Common.Label" String="Invoice Date"/>
+            </Annotations>
+            <Annotations Target="tcsSummaryDtlsReportService.tcsSummaryDetailsReport/ORGINALINVOICEDATE">
+                <Annotation Term="Common.Label" String="Original Invoice Date"/>
+            </Annotations>
+            <Annotations Target="tcsSummaryDtlsReportService.tcsSummaryDetailsReport/IATANUMBER">
+                <Annotation Term="Common.Label" String="IATA Number"/>
+            </Annotations>
+            <Annotations Target="tcsSummaryDtlsReportService.tcsSummaryDetailsReport/COMPANY">
+                <Annotation Term="Common.Label" String="Company"/>
+            </Annotations>
+            <Annotations Target="tcsSummaryDtlsReportService.tcsSummaryDetailsReport/TRANSACTIONTYPE">
+                <Annotation Term="Common.Label" String="Transaction Type "/>
+            </Annotations>
+            <Annotations Target="tcsSummaryDtlsReportService.tcsSummaryDetailsReport/REMARKS">
+                <Annotation Term="Common.Label" String="Remarks"/>
+            </Annotations>
+            <Annotations Target="tcsSummaryDtlsReportService.tcsSummaryDetailsReport/USERID">
+                <Annotation Term="Common.Label" String="User ID"/>
+            </Annotations>
+            <Annotations Target="tcsSummaryDtlsReportService.tcsSummaryDetailsReport/PLACEOFSUPPLY">
+                <Annotation Term="Common.Label" String="Ticket Number"/>
+            </Annotations>
+            <Annotations Target="tcsSummaryDtlsReportService.tcsSummaryDetailsReport/PLACE_SUPPLY">
+                <Annotation Term="Common.Label" String="Place of Supply"/>
+            </Annotations>
+            <Annotations Target="tcsSummaryDtlsReportService.tcsSummaryDetailsReport/STATECODE">
+                <Annotation Term="Common.Label" String="State Code"/>
+            </Annotations>
+            <Annotations Target="tcsSummaryDtlsReportService.tcsSummaryDetailsReport/STATENAME">
+                <Annotation Term="Common.Label" String="State Name"/>
+            </Annotations>
+            <Annotations Target="tcsSummaryDtlsReportService.tcsSummaryDetailsReport/IATANUMBER_1">
+                <Annotation Term="Common.Label" String="IATA Number "/>
+            </Annotations>
+            <Annotations Target="tcsSummaryDtlsReportService.tcsSummaryDetailsReport/ISECOMMERCEOPERATOR">
+                <Annotation Term="Common.Label" String="IS E-Commerceoperator"/>
+            </Annotations>
+            <Annotations Target="tcsSummaryDtlsReportService.tcsSummaryDetailsReport/SUPPLIERGSTIN2">
+                <Annotation Term="Common.Label" String="Supplier GSTIN"/>
+            </Annotations>
+            <Annotations Target="tcsSummaryDtlsReportService.tcsSummaryDetailsReport/COMPANYID">
+                <Annotation Term="Common.Label" String="Company ID"/>
+            </Annotations>
+            <Annotations Target="tcsSummaryDtlsReportService.tcsSummaryDetailsReport/GSTIN_OTA">
+                <Annotation Term="Common.Label" String="GSTIN OTA"/>
+            </Annotations>
+            <Annotations Target="tcsSummaryDtlsReportService.tcsSummaryDetailsReport/TICKETISSUEDATE_RFND">
+                <Annotation Term="Common.Label" String="Ticket Issue Date Refund"/>
+            </Annotations>
+            <Annotations Target="tcsSummaryDtlsReportService.tcsSummaryDetailsReport/I_YEAR">
+                <Annotation Term="Common.Label" String="Invoice Year"/>
+            </Annotations>
+            <Annotations Target="tcsSummaryDtlsReportService.tcsSummaryDetailsReport/I_MONTH">
+                <Annotation Term="Common.Label" String="Invoice Month"/>
+            </Annotations>
+            <Annotations Target="tcsSummaryDtlsReportService.tcsSummaryDetailsReport/G_YEAR">
+                <Annotation Term="Common.Label" String="Year"/>
+            </Annotations>
+            <Annotations Target="tcsSummaryDtlsReportService.tcsSummaryDetailsReport/G_MONTH">
+                <Annotation Term="Common.Label" String="Month"/>
+            </Annotations>
+            <Annotations Target="tcsSummaryDtlsReportService.tcsSummaryDetailsReport/YEAR_MONTH">
+                <Annotation Term="Common.Label" String="Year Month"/>
+            </Annotations>
+            <Annotations Target="tcsSummaryDtlsReportService.tcsSummaryDetailsReport/TAXABLE_1">
+                <Annotation Term="Common.Label" String="Taxable"/>
+            </Annotations>
+            <Annotations Target="tcsSummaryDtlsReportService.tcsSummaryDetailsReport/CGSTRATE">
+                <Annotation Term="Common.Label" String="CGST Rate"/>
+            </Annotations>
+            <Annotations Target="tcsSummaryDtlsReportService.tcsSummaryDetailsReport/SGSTRATE">
+                <Annotation Term="Common.Label" String="SGST Rate"/>
+            </Annotations>
+            <Annotations Target="tcsSummaryDtlsReportService.tcsSummaryDetailsReport/IGSTRATE">
+                <Annotation Term="Common.Label" String="IGST Rate"/>
+            </Annotations>
+            <Annotations Target="tcsSummaryDtlsReportService.tcsSummaryDetailsReport/UTGSTRATE">
+                <Annotation Term="Common.Label" String="UGST Rate"/>
+            </Annotations>
+            <Annotations Target="tcsSummaryDtlsReportService.tcsSummaryDetailsReport/COLLECTEDINVOICEVALUE">
+                <Annotation Term="Common.Label" String="Collected Invoice Value"/>
+            </Annotations>
+            <Annotations Target="tcsSummaryDtlsReportService.tcsSummaryDetailsReport/NONTAXABLE">
+                <Annotation Term="Common.Label" String="NON Taxable"/>
+            </Annotations>
+            <Annotations Target="tcsSummaryDtlsReportService.tcsSummaryDetailsReport/TCS_PERC_GST_VALUE">
+                <Annotation Term="Common.Label" String="TCS PERC GST VALUE"/>
+            </Annotations>
+            <Annotations Target="tcsSummaryDtlsReportService.tcsSummaryDetailsReport/TOTAL_TICKET_VALUE">
+                <Annotation Term="Common.Label" String="Total Ticket Value"/>
+            </Annotations>
+            <Annotations Target="tcsSummaryDtlsReportService.tcsSummaryDetailsReport/TAXABLE">
+                <Annotation Term="Common.Label" String="Taxable"/>
+            </Annotations>
+            <Annotations Target="tcsSummaryDtlsReportService.tcsSummaryDetailsReport/TCS_SGST_UTGST">
+                <Annotation Term="Common.Label" String="TCS SGST UTGST"/>
+            </Annotations>
+            <Annotations Target="tcsSummaryDtlsReportService.tcsSummaryDetailsReport/TCS_IGST">
+                <Annotation Term="Common.Label" String="TCS IGST"/>
+            </Annotations>
+            <Annotations Target="tcsSummaryDtlsReportService.tcsSummaryDetailsReport/TCS_CGST">
+                <Annotation Term="Common.Label" String="TCS CGST"/>
+            </Annotations>
+            <Annotations Target="tcsSummaryDtlsReportService.tcsSummaryDetailsReport/TCS_SGST">
+                <Annotation Term="Common.Label" String="TCS SGST"/>
+            </Annotations>
+            <Annotations Target="tcsSummaryDtlsReportService.tcsSummaryDetailsReport/TCS_UTGST">
+                <Annotation Term="Common.Label" String="TCS UTGST"/>
+            </Annotations>
+        </Schema>
+    </edmx:DataServices>
+</edmx:Edmx>

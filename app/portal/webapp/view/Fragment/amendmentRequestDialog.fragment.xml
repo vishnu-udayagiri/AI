@@ -1,0 +1,48 @@
+<core:FragmentDefinition xmlns="sap.m"
+    xmlns:l="sap.ui.layout"
+    xmlns:f="sap.ui.layout.form"
+    xmlns:core="sap.ui.core">
+    <Dialog title="New Request" titleAlignment="Center">
+        <f:SimpleForm editable="true" id="simplefrag">
+            <Label text="Invoice Number" id="lbl-invNum"/>
+            <Text id="inp-invnum" />
+            <Label text="GSTIN" id="lbl-gstin"/>
+            <Text value="" id="inp-gstin" />
+              <Label text="Current Address" id="lbl-current_address"/>
+            <Input  id="inp-current_address" editable="false"/>
+            <Label text="Action"/>
+            <Select id="combo-act" change="actionchange"  >
+                <core:Item key="CG" text="Change/Add GSTIN" />
+                <core:Item key="RG" id="act_remove" text="Remove GSTIN"/>
+                <core:Item key="CA" text="Change Address" />
+            </Select>
+            	<!-- <Select id="combo-act" change="actionchange"  items="{ path: 'ActionModel>/'}">
+
+				<core:Item key="{ActionModel>key}" text="{ActionModel>text}"/>
+
+				</Select> -->
+
+            <Label text="Address" id="lbl-address"/>
+            <TextArea value="" id="inp-address"  visible="false"/>
+
+              
+              <Label text="New Address" id="lbl-new_address"/>
+            <TextArea value="" id="inp-new_address"  visible="false" required="true" />
+            
+            
+            <Label text="New GSTIN" id="lbl-newGstin"/>
+            <Select id="inp-newgstin" items="{FilterDatamodel>/passengerGSTIN}" forceSelection="false">
+                <core:Item key="{FilterDatamodel>}" text="{FilterDatamodel>}"/>
+            </Select>
+            <Label text="New GSTIN" id="lbl-newGstinb2a"/>
+            <Input maxLength="15" visible="false" id="inp-newgstinb2a" required="true" class="transformToUpperCase" liveChange="onGstinInputChange"/>
+              <Label text="Reason" id="lbl-reason"/>
+            <TextArea value="" id="inp-reason" required="true" />
+        </f:SimpleForm>
+        <OverflowToolbar>
+            <ToolbarSpacer/>
+            <Button text="Request" type="Emphasized" press="onAmendmentRequest"/>
+            <Button text="Close" type="Reject" press="onCloseAmendmet"/>
+        </OverflowToolbar>
+    </Dialog>
+</core:FragmentDefinition>

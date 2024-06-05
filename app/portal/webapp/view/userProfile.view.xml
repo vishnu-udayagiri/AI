@@ -1,0 +1,758 @@
+<mvc:View xmlns:mvc="sap.ui.core.mvc" controllerName="airindiagst.controller.userProfile"
+	xmlns:uxap="sap.uxap"
+	xmlns="sap.m" height="100%"
+	xmlns:f="sap.ui.layout.form"
+	xmlns:core="sap.ui.core"
+	xmlns:u="sap.ui.unified"
+	xmlns:wc="sap.ui.webc.main"
+	xmlns:l="sap.ui.layout"
+	xmlns:t="sap.ui.table" class="sapUiSizeCompact">
+
+	<uxap:ObjectPageLayout id="ObjectPageLayout" enableLazyLoading="true" useIconTabBar="false" subSectionLayout="TitleOnTop" upperCaseAnchorBar="false" visible="false" showFooter="true" alwaysShowContentHeader="true">
+		<uxap:sections>
+			<!-- Company & User Details -->
+			<uxap:ObjectPageSection id="objs-companyDet" titleUppercase="false" title="Details">
+				<uxap:subSections>
+					<uxap:ObjectPageSubSection id="obj-page1" title="Company Details">
+					
+						<uxap:actions>
+							<Button id="hintcompany" ariaHasPopup="Dialog" icon="sap-icon://hint" tooltip="Help" type="Transparent" press="onpresshintcompany"/>
+						</uxap:actions>
+						<l:VerticalLayout id="_IDGenVerticalLayout1" width="100%">
+							<f:SimpleForm id="_IDGenSimpleForm1" editable="true" layout="ColumnLayout" columnsM="2" columnsL="3" columnsXL="4">
+								<f:content>
+									<Label id="_IDGenLabel1" text="Category"/>
+									<Select id="sel-category" tooltip="Category" required="true" selectedKey="{companyDetailModel>/CATEGORY}" items="{masterDataModel>/category}" forceSelection="false" change="onChangeCategory" editable="false">
+										<core:Item key="{masterDataModel>key}" text="{masterDataModel>text}" />
+									</Select>
+									<Label text="IATA Code"/>
+									 <Input id="inp-iataCode" tooltip="Enter your Head Entity or General Entity" type="Number" placeholder="Enter your HE / GE."  value="{companyDetailModel>/AGENTCODE}" maxLength="10" visible="{= ${companyDetailModel>/CATEGORY} === '01' || ${companyDetailModel>/CATEGORY} === '02'  || ${companyDetailModel>/CATEGORY} === '07'}" editable="{= !${/toggleEdit} &amp;&amp; ${rolesModel>/ISADMIN}}"/>
+
+									<!-- <MultiInput id="inp-iataCode" enableTableAutoPopinMode="false" valueHelpIconSrc="sap-icon://add-document" valueHelpOnly="true" valueHelpRequest="onAddIataCodes" required="true" value="{companyDetailModel>/IATACODE}" visible="{= ${companyDetailModel>/CATEGORY} === '01' || ${companyDetailModel>/CATEGORY} === '02'  || ${companyDetailModel>/CATEGORY} === '07'}" maxLength="6" editable="{= !${/toggleEdit} &amp;&amp; ${rolesModel>/ISADMIN}}" tokens="{
+                                        path: 'agentCodeDialogModel>/'
+                                    }">
+										<tokens>
+											<Token key="{agentCodeDialogModel>IATACODE}" text="{agentCodeDialogModel>IATACODE}" editable="false"/>
+										</tokens>
+									</MultiInput> -->
+									<Label id="lbl-companyName" text="Company Name"/>
+									<Input id="inp-companyName" tooltip="Company Name"  liveChange="onLiveValidateForInputCC" value="{companyDetailModel>/COMPANYNAME}"  maxLength="40" editable="{= !${/toggleEdit} &amp;&amp; ${rolesModel>/ISADMIN}}"/>
+									<Label id="lbl-consltCountry" visible="false" text="Consulate Country"/>
+                               		  <ComboBox items="{masterDataModel>/country}" tooltip="Choose your Consulate's country" selectedKey="{companyDetailModel>/CONSULATEEMBASSYCOUNTRY_CODE}" showSecondaryValues="true" editable="false" id="sel-consltCountry"
+										required="true" visible="false">
+										<core:ListItem key="{masterDataModel>code}" text="{masterDataModel>description}"/>
+							   		 </ComboBox>
+									<Label id="lbl-CompRegNo" text="Company Registration Number" />
+									<Input id="inp-CompRegNo" liveChange="onLiveValidateForInputCRN" value="{companyDetailModel>/COMPANYREGISTRATIONNUMBER}" tooltip="Enter your company registration number" maxLength="21" editable="{= !${/toggleEdit} &amp;&amp; ${rolesModel>/ISADMIN}}"/>
+									<Label id="lbl-companyPAN" text="Company PAN"/>
+									<Input id="inp-companyPAN"  value="{companyDetailModel>/COMPANYPAN}" tooltip="Enter your Company PAN" placeholder="AAAAA1234A" class="transformToUpperCase" liveChange="onChangePan" maxLength="10" editable="false"/>
+									<Label id="lbl-companyTAN" text="Company TAN" />
+									<Input id="inp-companyTAN" liveChange="onLiveValidateForInputTAN" value="{companyDetailModel>/COMPANYTAN}" tooltip="Enter your Company TAN" maxLength="10" editable="{= !${/toggleEdit} &amp;&amp; ${rolesModel>/ISADMIN}}"/>
+
+									<Label id="_IDGenLabel7"/>
+									<!-- <CheckBox id="cb-ecomOperator" tooltip="Please tick if you are an Ecommerce operator" text="Ecommerce operator?" select="onSelectEcomOperator" enabled="{= !${/toggleEdit}}" visible="{= ${companyDetailModel>/CATEGORY} === '01' || ${companyDetailModel>/CATEGORY} === '02'}" editable="{= !${/toggleEdit} &amp;&amp; ${rolesModel>/ISADMIN}}" selected="{companyDetailModel>/ISECOMMERCEOPERATOR}"/> -->
+									<CheckBox id="cb-ecomOperator" tooltip="Please tick if you are an Ecommerce operator" text="Ecommerce operator?" select="onSelectEcomOperator" enabled="{= !${/toggleEdit}}" visible="false" editable="{= !${/toggleEdit} &amp;&amp; ${rolesModel>/ISADMIN}}" selected="{companyDetailModel>/ISECOMMERCEOPERATOR}"/>
+									
+									<Label id="lbl-companyPhone" text="Contact Number" required="true"/>
+									<MaskInput id="inp-companyPhone"  mask="999 999 9999" tooltip="Enter your company Phone Number" value="{companyDetailModel>/CONTACTNUMBER}" editable="{= !${/toggleEdit} &amp;&amp; ${rolesModel>/ISADMIN}}"/>
+									<Label id="_IDGenLabel9" text="Website" />
+									<Input id="inp-website"  value="{companyDetailModel>/WEBSITE}" liveChange="onLiveValidateForInput" tooltip="Enter your Company Website" maxLength="255" editable="{= !${/toggleEdit} &amp;&amp; ${rolesModel>/ISADMIN}}"/>
+									<Label id="_IDGenLabel10" text="Address" required="true"/>
+									<TextArea id="inp-address" rows="4" tooltip="Enter your company Address" liveChange="onLiveValidateForInput" value="{companyDetailModel>/ADDRESS}" maxLength="251" editable="{= !${/toggleEdit} &amp;&amp; ${rolesModel>/ISADMIN}}"/>
+									<Label id="_IDGenLabel11" text="Country" required="true"/>
+									<Select id="sel-country" selectedKey="{companyDetailModel>/COUNTRY_CODE}" items="{masterDataModel>/country}" editable="false">
+										<core:Item id="_IDGenItem10" key="{masterDataModel>code}" text="{masterDataModel>description}"/>
+									</Select>
+									<Label id="_IDGenLabel12" text="State" />
+									<Select id="sel-state" selectedKey="{companyDetailModel>/STATE}" items="{masterDataModel>/states}" forceSelection="false" editable="{= !${/toggleEdit} &amp;&amp; ${rolesModel>/ISADMIN}}">
+										<core:Item id="_IDGenItem11" key="{masterDataModel>code}" text="{masterDataModel>description}"/>
+									</Select>
+									<Label id="lbl-region" text="Region" />
+                               		 <Input id="inp-region" required="false" value="{companyDetailModel>/REGION}" maxLength="40" liveChange="onLiveValidateForInputRegion" editable="{= !${/toggleEdit} &amp;&amp; ${rolesModel>/ISADMIN}}"/>
+                              
+									<Label id="_IDGenLabel13" text="City" required="true"/>
+									<Input id="inp-city" liveChange="onLiveValidateForInputCity" value="{companyDetailModel>/CITY}" maxLength="40" editable="{= !${/toggleEdit} &amp;&amp; ${rolesModel>/ISADMIN}}"/>
+									<Label id="_IDGenLabel14" text="Postal Code" required="true"/>
+									<Input id="inp-pinCode" maxLength="10" liveChange="onLiveValidateForInput" value="{companyDetailModel>/PINCODE}" editable="{= !${/toggleEdit} &amp;&amp; ${rolesModel>/ISADMIN}}"/>
+								</f:content>
+							</f:SimpleForm>
+						</l:VerticalLayout>
+					</uxap:ObjectPageSubSection>
+
+					<uxap:ObjectPageSubSection id="_IDGenObjectPageSubSection2" title="User info">
+						<uxap:actions>
+							<Button id="hintuserinfo" icon="sap-icon://hint" type="Transparent" tooltip="Help" press="onpresshintuserinfo"/>
+						</uxap:actions>
+						<f:SimpleForm id="_IDGenSimpleForm3" editable="true" layout="ColumnLayout" columnsM="2" columnsL="3" columnsXL="4">
+							<f:content>
+								<Label id="_IDGenLabel15" text="Title" required="true"/>
+								<Select id="sel-title" forceSelection="false" selectedKey="{userDetailModel>/TITLE}" change="validateUserDetails" editable="{= !${/toggleEdit}}">
+									<core:Item id="_IDGenItem12" key="Mr" text="Mr"/>
+									<core:Item id="_IDGenItem13" key="Mrs" text="Mrs"/>
+									<core:Item id="_IDGenItem14" key="Ms" text="Ms"/>
+									<core:Item id="_IDGenItem15" key="Dr" text="Dr"/>
+									<core:Item id="_IDGenItem16" key="Prof" text="Prof"/>
+								</Select>
+								<Label id="_IDGenLabel16" text="First Name" required="true"/>
+								<Input id="inp-firstName" value="{userDetailModel>/FIRSTNAME}" liveChange="onLiveValidateForInputfirstName" maxLength="40" editable="{= !${/toggleEdit}}"/>
+								<Label id="_IDGenLabel17" text="Last Name" required="true"/>
+								<Input id="inp-lastName" value="{userDetailModel>/LASTNAME}" liveChange="onLiveValidateForInputLastName" maxLength="40" editable="{= !${/toggleEdit}}"/>
+								<Label id="_IDGenLabel18" text="Login Email Address" required="true" />
+								<Input id="inp-loginEmail" value="{userDetailModel>/LOGINEMAIL}" tooltip="Login User Email" editable="false" />
+								<Label id="_IDGenLabel19" text="Contact Number"/>
+								<MaskInput id="inp-userMobile" mask="999 999 9999" value="{userDetailModel>/MOBILE}" liveChange="validateUserDetails" editable="{= !${/toggleEdit}}"/>
+								<Label id="_IDGenLabel20" text="Default Period"/>
+								<Select id="_IDGenSelect1" forceSelection="false" selectedKey="{userDetailModel>/DEFAULTPERIOD}" editable="{= !${/toggleEdit}}">
+									<core:Item id="_IDGenItem17" key="CM" text="Current Month"/>
+									<!-- <core:Item id="_IDGenItem18" key="PM" text="Previous Month"/> -->
+									<core:Item id="_IDGenItem19" key="CY" text="Current Financial Year"/>
+									<core:Item id="_IDGenItem20" key="PY" text="Previous Financial Year"/>
+								</Select>
+
+								<Label id="_IDGenLabel21" text="Last Logged On"/>
+								<Input value="{path: 'userDetailModel>/LASTLOGGEDON', formatter: '.formatter.formatDateTime'}" liveChange="validateUserDetails" maxLength="40" editable="false"/>
+
+								<Label id="_IDGenLabel22" text="Last Failed Login Date"/>
+								<Input value="{path: 'userDetailModel>/LASTFAILEDLOGINDATE', formatter: '.formatter.formatDateTime'}" liveChange="validateUserDetails" maxLength="40" editable="false"/>
+
+							</f:content>
+						</f:SimpleForm>
+					</uxap:ObjectPageSubSection>
+				</uxap:subSections>
+			</uxap:ObjectPageSection>
+
+			<!-- GST Details -->
+			<uxap:ObjectPageSection id="objs-gstDet" titleUppercase="false" visible="{= ${/toggleAdmin}}">
+				<uxap:subSections>
+					<uxap:ObjectPageSubSection id="ttl-GSTINDetails" title="GST Details">
+						<uxap:actions>
+							<Button id="hintgstdetails" icon="sap-icon://hint" tooltip="Help" type="Transparent" press="onpresshintgstdetails"/>
+						</uxap:actions>
+						<l:VerticalLayout width="100%" id="oVerticalContentGSTIN">
+							<t:Table id="idGSTDetailsTable" visibleRowCount="6" rowSelectionChange="onChangeGSTRow" selectionMode="MultiToggle" rows="{GSTDetailModel>/}" rowActionCount="2">
+								<t:extension>
+									<OverflowToolbar id="_IDGenOverflowToolbar1" style="Clear">
+										<ToolbarSpacer id="_IDGenToolbarSpacer1"/>
+										<Button id="_IDGenButton1" icon="sap-icon://add-document" enabled="{= !${/toggleEdit}}" visible="{rolesModel>/CANADDGSTIN}" type="Transparent" text="Add" tooltip="Select GSTIN / UIN" press="onPressAddGstin"/>
+										<Button id="_IDGenButton2" icon="sap-icon://excel-attachment" type="Transparent" text="Export" tooltip="Export GSTIN's" press="onExportGstin"/>
+									</OverflowToolbar>
+								</t:extension>
+								<t:columns>
+									<t:Column id="_IDGenColumn1" width="190px">
+										<Label id="_IDGenLabel23" text="GSTIN"/>
+										<t:template>
+											<Text id="_IDGenText1" text="{GSTDetailModel>GSTIN}"/>
+										</t:template>
+									</t:Column>
+									<t:Column id="_IDGenColumn2" filterProperty="GSTTYPE" width="80px">
+										<Label id="_IDGenLabel24" text="Type"/>
+										<t:template>
+											<!-- <Text id="_IDGenText2" text="{path: 'GSTDetailModel>GSTTYPE', formatter: '.formatter.setStatusText'}"/> -->
+											<Text id="_IDGenText2" text="{GSTDetailModel>GSTTYPE}"/>
+										</t:template>
+									</t:Column>
+									<t:Column id="_IDGenColumn3" width="90px" hAlign="Center">
+										<Label id="_IDGenLabel25" text="Default"/>
+										<t:template>
+											<CheckBox id="_IDGenCheckBox1" select="onDefaultGSTINSelect" editable="{= !${/toggleEdit}}" selected="{GSTDetailModel>DEFAULT}"/>
+										</t:template>
+									</t:Column>
+									<t:Column id="_IDGenColumn4" width="142px" tooltip="Date Of Issue">
+										<Label id="_IDGenLabel26" text="Date Of Issue"/>
+										<t:template>
+											<!-- <Text id="_IDGenText3" text="{GSTDetailModel>DATEOFISSUEGST}"/> -->
+											<Text id="_IDGenText3" text="{path: 'GSTDetailModel>DATEOFISSUEGST', formatter: '.formatter.formatNewDateChange'}"/>
+										</t:template>
+									</t:Column>
+									<t:Column id="_IDGenColumn7" filterProperty="STATUS" width="90px">
+										<Label id="_IDGenLabel29" text="Status"/>
+										<t:template>
+											<ObjectStatus id="_IDGenText6" text="{path: 'GSTDetailModel>STATUS', 
+												formatter: '.formatter.setStatusText'}" state="{path: 'GSTDetailModel>STATUS', 
+												formatter: '.formatter.setStatusState'}" icon="{path: 'GSTDetailModel>STATUS', formatter: '.formatter.setStatusIcon'}" />
+										</t:template>
+									</t:Column>
+									<t:Column id="_IDGenColumn5" width="400px">
+										<Label id="_IDGenLabel27" text="Legal Name"/>
+										<t:template>
+											<Text id="_IDGenText4" text="{GSTDetailModel>LEGALNAME}"/>
+										</t:template>
+									</t:Column>
+									<t:Column id="_IDGenColumn6" width="400px" tooltip="Trade Name">
+										<Label id="_IDGenLabel28" text="Trade Name"/>
+										<t:template>
+											<Text id="_IDGenText5" text="{GSTDetailModel>TRADENAME}"/>
+										</t:template>
+									</t:Column>
+									
+									<t:Column id="_IDGenColumn8" width="162px">
+										<Label id="_IDGenLabel30" text="Last Validated On"/>
+										<t:template>
+											<!-- <Text id="_IDGenText7" text="{GSTDetailModel>LASTVALIDATEDON}"/> -->
+										<Text id="_IDGenText7" text="{path: 'GSTDetailModel>LASTVALIDATEDON', formatter: '.formatter.formatNewDateChange'}"/>
+										</t:template>
+									</t:Column>
+									<t:Column id="_IDGenColumn9" width="110px">
+										<Label id="_IDGenLabel31" text="Certificate" />
+										<t:template>
+											<HBox id="_IDGenHBox1">
+												<u:FileUploader id="_IDGenFileUploader1" fileAllowed="handleUploadGSTINFile" tooltip="Browse GSTIN Certificate" width="100%" buttonOnly="true" iconOnly="true" visible="{= !${/toggleEdit} &amp;&amp; !${GSTDetailModel>GSTCERTIFICATE} ? true : false}" icon="sap-icon://attachment" maximumFileSize="0.4" sameFilenameAllowed="true" fileSizeExceed="onFileSizeExceeded" fileType="jpg,jpeg,png,docx,doc,pdf"/>
+												<Button id="_IDGenButton3" icon="sap-icon://vds-file" tooltip="View / Download File" type="Success" press="onDownloadGSTINAttachment" visible="{= ${GSTDetailModel>GSTCERTIFICATE} ? true : false}" class="sapUiTinyMarginEnd"/>
+												<Button id="_IDGenButton4" icon="sap-icon://delete" tooltip="Delete Attachment" type="Reject" enabled="{= !${/toggleEdit}}" press="onDeleteGSTINAttachment" visible="{= ${GSTDetailModel>GSTCERTIFICATE} ? true : false}"/>
+											</HBox>
+										</t:template>
+									</t:Column>
+									<t:Column id="_IDGenColumn10" width="1050px">
+										<Label id="_IDGenLabel32" text="Address"/>
+										<t:template>
+											<!-- <Text id="_IDGenText8" text="{= ${GSTDetailModel>ADDRESS} + ',' + ${GSTDetailModel>CITY} + ',' + ${GSTDetailModel>STATE} + ',' + ${GSTDetailModel>COUNTRY_CODE} + ',' + ${GSTDetailModel>PINCODE}}"/> -->
+												<Text id="_IDGenText8" text="{= ${GSTDetailModel>ADDRESS}}"/>
+										</t:template>
+									</t:Column>
+								</t:columns>
+								<t:rowActionTemplate>
+									<t:RowAction id="_IDGenRowAction1">
+										<t:items>
+											<t:RowActionItem id="_IDGenRowActionItem1" icon="sap-icon://add-activity" press="onEditGSTPress" visible="{= !${/toggleEdit} &amp;&amp; ${rolesModel>/CANEDITGST}}" />
+											<t:RowActionItem id="_IDGenRowActionItem001" icon="sap-icon://show" press="onEditGSTPress" visible="{= ${/toggleEdit}}" />
+											<t:RowActionItem id="_IDGenRowActionItem2" icon="sap-icon://delete" tooltip="Delete" press="onDeleteGSTPress" visible="{= !${/toggleEdit} &amp;&amp; ${rolesModel>/CANEDITGST}}" />
+										</t:items>
+									</t:RowAction>
+								</t:rowActionTemplate>
+							</t:Table>
+						</l:VerticalLayout>
+					</uxap:ObjectPageSubSection>
+				</uxap:subSections>
+			</uxap:ObjectPageSection>
+
+			 <!-- IATA Details -->
+            <uxap:ObjectPageSection titleUppercase="false" visible="{= ${/toggleAdmin}}">
+                <uxap:subSections>
+                    <uxap:ObjectPageSubSection id="ttl-IATADetails" visible="{= ${companyDetailModel>/CATEGORY} === '01' || ${companyDetailModel>/CATEGORY} === '02'  || ${companyDetailModel>/CATEGORY} === '07'}" title="IATA Details">
+                       	<uxap:actions>
+							<Button id="hintiatadetails" icon="sap-icon://hint" tooltip="Help" type="Transparent" press="onpresshintiatadetails"/>
+						</uxap:actions>
+					    <l:VerticalLayout width="100%" id="oVerticalContentIATA">
+                            <t:Table id="idIATADetailsTable" visibleRowCount="6" rowActionCount="1" rowSelectionChange="onChangeGSTRow" selectionMode="None" rows="{IATADetailModel>/}">
+                                <t:extension>
+									<OverflowToolbar id="_IDGenOverflowToolbar2" style="Clear">
+										<ToolbarSpacer id="_IDGenToolbarSpacer3"/>
+										<Button id="_IDGenButtonAdd" icon="sap-icon://add-document" enabled="{= !${/toggleEdit}}" visible="{rolesModel>/CANADDGSTIN}" type="Transparent" text="Add" tooltip="Select IATA" press="onPressAddIATA"/>
+										<Button id="_IDGenButtonExport" icon="sap-icon://excel-attachment" type="Transparent" text="Export" tooltip="Export IATA's" press="onExportIATA"/>
+									</OverflowToolbar>
+								</t:extension>
+							    <t:columns>
+                                    <t:Column width="155px">
+                                        <Label text="IATA Number"/>
+                                        <t:template>
+                                            <Text text="{IATADetailModel>IATANUMBER}"/>
+                                        </t:template>
+                                    </t:Column>
+									 <t:Column id="col_cb-ecomOperator" hAlign="Center" visible="{= ${companyDetailModel>/CATEGORY} === '01' || ${companyDetailModel>/CATEGORY} === '02'}" minWidth="130px" tooltip="Please tick if this is an Ecommerce operator">
+										<Label id="_IDGENEom" text="Ecommerce operator"/>
+										<t:template>
+											<CheckBox id="_IDGenCheckBoxecom" selected="{IATADetailModel>ISECOMMERCEOPERATOR}" enabled="{= !${/toggleEdit}}" tooltip="Please tick if this is an Ecommerce operator" visible="{= ${companyDetailModel>/CATEGORY} === '01' || ${companyDetailModel>/CATEGORY} === '02'}" editable="{= !${/toggleEdit} &amp;&amp; ${rolesModel>/ISADMIN}}"/>
+										</t:template>
+									</t:Column>
+									<t:Column width="155px">
+                                        <Label text="Type"/>
+                                        <t:template>
+                                            <Text text="{path: 'IATADetailModel>SITETYPE', formatter: '.formatter.setTypeText'}"/>
+                                        </t:template>
+                                    </t:Column>
+                                    <t:Column width="320px">
+                                        <Label text="Legal Name"/>
+                                        <t:template>
+                                            <Text text="{IATADetailModel>LEGALNAME}"/>
+                                        </t:template>
+                                    </t:Column>
+                                    <!-- <t:Column width="175px">
+                                        <Label text="Cross Ref. Agent Number"/>
+                                        <t:template>
+                                            <Text text="{IATADetailModel>CROSSREFERENCEAGENTNUM}"/>
+                                        </t:template>
+                                    </t:Column> -->
+                                    <t:Column width="320px">
+                                        <Label text="Trade Name"/>
+                                        <t:template>
+                                            <Text text="{IATADetailModel>TRADENAME}"/>
+                                        </t:template>
+                                    </t:Column>
+                                     <!-- <t:Column width="175px">
+                                        <Label text="Site Type"/>
+                                        <t:template>
+                                            <Text text="{IATADetailModel>SITETYPE}"/>
+                                        </t:template>
+                                    </t:Column> -->
+                                     <t:Column minWidth="286px">
+                                        <Label text="Address"/>
+                                        <t:template>
+                                            <Text wrappingType="Hyphenated" text="{= ${IATADetailModel>CITY} + ',' + ${IATADetailModel>REGION} + ', ' + ${IATADetailModel>COUNTRYNAME} + ',' + ${IATADetailModel>POSTALCODE}}"/>
+                                        </t:template>
+                                    </t:Column>
+                                </t:columns>
+								<t:rowActionTemplate>
+									<t:RowAction id="_IDGenRowActionIata">
+										<t:items>
+											<t:RowActionItem id="_IDGenRowActionItemIata" icon="sap-icon://delete" tooltip="Delete IATA" press="onDeleteIATAPress" visible="{= !${/toggleEdit} &amp;&amp; ${rolesModel>/CANADDGSTIN}}" />
+										</t:items>
+									</t:RowAction>
+								</t:rowActionTemplate>
+                            </t:Table>
+                        </l:VerticalLayout>
+                    </uxap:ObjectPageSubSection>
+                </uxap:subSections>
+            </uxap:ObjectPageSection>
+
+			<!-- TCS Details -->
+			<!-- <uxap:ObjectPageSection id="objs-tcsDet" titleUppercase="false" visible="{= ${companyDetailModel>/ISECOMMERCEOPERATOR}}"> -->
+				<uxap:ObjectPageSection id="objs-tcsDet" titleUppercase="false" visible="false">
+				<uxap:subSections>
+					<uxap:ObjectPageSubSection id="_IDGenObjectPageSubSection4" title="TCS Details">
+						<uxap:actions>
+							<Button id="hinttcsdetails" icon="sap-icon://hint" tooltip="Help" type="Transparent" press="onpresshinttcsdetails"/>
+						</uxap:actions>
+						<l:VerticalLayout id="_IDGenVerticalLayout2">
+							<MessageStrip id="_IDGenMessageStrip1" visible="{= ${TCSDetailModel>/TCSGSTNO} ? false : true}" class="sapUiSmallMarginTop" text="TCS details need to submitted " showIcon="true"/>
+							<t:Table id="idUserTcsTable" visibleRowCount="6" selectionMode="None" rows="{TCSDetailModel>/}">
+								<t:columns>
+
+									<t:Column id="_IDGenColumn11">
+										<Label id="_IDGenLabel33" text="TCSGST No"/>
+										<t:template>
+											<Text id="_IDGenText9" text="{TCSDetailModel>TCSGSTNO}"/>
+										</t:template>
+									</t:Column>
+
+									<t:Column id="_IDGenColumn12">
+										<Label id="_IDGenLabel34" text="IATA Code"/>
+										<t:template>
+											<Text id="_IDGenText10" text="{TCSDetailModel>IATACODE}"/>
+										</t:template>
+									</t:Column>
+
+									<t:Column id="_IDGenColumn13">
+										<Label id="_IDGenLabel35" text="Type"/>
+										<t:template>
+											<Text id="_IDGenText11" text="{TCSDetailModel>TYPE}"/>
+										</t:template>
+									</t:Column>
+
+									<t:Column id="_IDGenColumn14">
+										<Label id="_IDGenLabel36" text="Date of Issue"/>
+										<t:template>
+											<Text id="_IDGenText12" text="{TCSDetailModel>DATEOFISSUE}"/>
+										</t:template>
+									</t:Column>
+
+									<t:Column id="_IDGenColumn15">
+										<Label id="_IDGenLabel37" text="Date of Issue ARN"/>
+										<t:template>
+											<Text id="_IDGenText13" text="{TCSDetailModel>DATEOFISSUEARN}"/>
+										</t:template>
+									</t:Column>
+
+									<t:Column id="_IDGenColumn16">
+										<Label id="_IDGenLabel38" text="Address"/>
+										<t:template>
+											<Text id="_IDGenText14" text="{TCSDetailModel>ADDRESS}"/>
+										</t:template>
+									</t:Column>
+
+									<t:Column id="_IDGenColumn17">
+										<Label id="_IDGenLabel39" text="State"/>
+										<t:template>
+											<Text id="_IDGenText15" text="{TCSDetailModel>STATE}"/>
+										</t:template>
+									</t:Column>
+
+									<t:Column id="_IDGenColumn18">
+										<Label id="_IDGenLabel40" text="City"/>
+										<t:template>
+											<Text id="_IDGenText16" text="{TCSDetailModel>CITY}"/>
+										</t:template>
+									</t:Column>
+
+									<t:Column id="_IDGenColumn19">
+										<Label id="_IDGenLabel41" text="Pincode"/>
+										<t:template>
+											<Text id="_IDGenText17" text="{TCSDetailModel>PINCODE}"/>
+										</t:template>
+									</t:Column>
+
+									<t:Column id="_IDGenColumn20">
+										<Label id="_IDGenLabel42" text="Company Email"/>
+										<t:template>
+											<Text id="_IDGenText18" text="{TCSDetailModel>COMPANYEMAIL}"/>
+										</t:template>
+									</t:Column>
+
+									<t:Column id="_IDGenColumn21">
+										<Label id="_IDGenLabel43" text="Mobile"/>
+										<t:template>
+											<Text id="_IDGenText19" text="{TCSDetailModel>MOBILE}"/>
+										</t:template>
+									</t:Column>
+
+								</t:columns>
+							</t:Table>
+						</l:VerticalLayout>
+					</uxap:ObjectPageSubSection>
+				</uxap:subSections>
+			</uxap:ObjectPageSection>
+
+			<!-- Users -->
+			<uxap:ObjectPageSection id="objs-userDet" titleUppercase="false" visible="{rolesModel>/ISADMIN}">
+				<uxap:subSections>
+					<uxap:ObjectPageSubSection id="_IDGenObjectPageSubSection5" title="Sub-Users">
+						<uxap:actions>
+							<Button id="hintsubusers" icon="sap-icon://hint" tooltip="Help" type="Transparent" press="onpresshintsubusers"/>
+						</uxap:actions>
+						<l:VerticalLayout width="100%" id="oVerticalContentUser">
+							<t:Table id="idUseretailsTable" visibleRowCount="6" rowSelectionChange="onChangeGSTRow" selectionMode="None" rows="{userModel>/}" rowActionCount="2">
+								<!-- <t:extension>
+									<OverflowToolbar style="Clear">
+										<ToolbarSpacer/>
+										<Button icon="sap-icon://add-document" tooltip="Select GSTIN's" press="onPressAddGstin"/>
+									</OverflowToolbar>
+								</t:extension> -->
+								<t:columns>
+									<t:Column id="_IDGenColumn22" minWidth="140px">
+										<Label id="_IDGenLabel44" text="Name"/>
+										<t:template>
+											<Text id="_IDGenText20" text="{userModel>FIRSTNAME} {userModel>LASTNAME}"/>
+										</t:template>
+									</t:Column>
+									<t:Column id="_IDGenColumn23" minWidth="180px">
+										<Label id="_IDGenLabel45" text="E-mail"/>
+										<t:template>
+											<Text id="_IDGenText21" text="{userModel>LOGINEMAIL}"/>
+										</t:template>
+									</t:Column>
+									<t:Column id="_IDGenColumn24" minWidth="224px">
+										<Label id="_IDGenLabel46" text="Last Logon"/>
+										<t:template>
+											<Text id="_IDGenText22" text="{path: 'userModel>LASTLOGGEDON', formatter: '.formatter.formatDateTime'}"/>
+										</t:template>
+									</t:Column>
+									<t:Column id="_IDGenColumn25" minWidth="132px">
+										<Label id="_IDGenLabel47" text="Last Failed Logon"/>
+										<t:template>
+											<Text id="_IDGenText23" text="{path: 'userModel>LASTFAILEDLOGINDATE', formatter: '.formatter.formatDateTime'}"/>
+										</t:template>
+									</t:Column>
+									<t:Column id="_IDGenColumn26" hAlign="Center" minWidth="60px" tooltip="Amendment Request">
+										<Label id="_IDGenLabel48" text="Request for Amendment"/>
+										<t:template>
+											<CheckBox id="_IDGenCheckBox2" selected="{userModel>CANAMENDMENTREQUEST}" enabled="{= !${/toggleEdit}}" tooltip="Amendment Request"/>
+										</t:template>
+									</t:Column>
+									<t:Column id="_IDGenColumn27" hAlign="Center" minWidth="60px" tooltip="Amendment Approve">
+										<Label id="_IDGenLabel49" text="Approve Amendments"/>
+										<t:template>
+											<CheckBox id="_IDGenCheckBox3" selected="{userModel>CANAMENDMENTAPPROVE}" enabled="{= !${/toggleEdit}}" tooltip="Amendment Approve"/>
+										</t:template>
+									</t:Column>
+									<t:Column id="_IDGenColumn28" hAlign="Center" minWidth="60px" tooltip="Edit GSTIN Address">
+										<Label id="_IDGenLabel50" text="Edit GSTIN"/>
+										<t:template>
+											<CheckBox id="_IDGenCheckBox4" selected="{userModel>CANEDITGST}" enabled="{= !${/toggleEdit}}" tooltip="Edit GSTIN Address"/>
+										</t:template>
+									</t:Column>
+									<t:Column id="_IDGenColumn29" hAlign="Center" minWidth="60px" tooltip="Add GSTIN / UIN /IATA">
+										<Label id="_IDGenLabel51" text="Add GSTIN / UIN /IATA"/>
+										<t:template>
+											<CheckBox id="_IDGenCheckBox5"  selected="{userModel>CANADDGSTIN}" enabled="{= !${/toggleEdit}}" tooltip="Add GSTIN"/>
+										</t:template>
+									</t:Column>
+									<t:Column id="_IDGenColumn30" minWidth="80px">
+										<Label id="_IDGenLabel52" text="Status"/>
+										<t:template>
+											<ObjectStatus id="_IDGenObjectStatus1" text="{path: 'userModel>STATUS', formatter: '.formatter.setStatusText'}" state="{path: 'userModel>STATUS', formatter: '.formatter.setStatusState'}" icon="{path: 'userModel>STATUS', formatter: '.formatter.setStatusIcon'}" />
+										</t:template>
+									</t:Column>
+									<t:Column id="_IDGenColumn31">
+										<Label id="_IDGenLabel53" text="Reason" />
+										<t:template>
+											<Text id="_IDGenText24" text="{userModel>REASONFORDEACTIVATION}"/>
+										</t:template>
+									</t:Column>
+									<t:Column id="_IDGenColumn32" width="70px">
+										<Label id="_IDGenLabel54" text=""/>
+										<t:template>
+											<HBox id="_IDGenHBox2">
+												<Button id="_IDGenButton5" icon="sap-icon://private" tooltip="Block User" type="Reject" press="onBlockUser" visible="{= ${userModel>STATUS} === 'A' }"/>
+												<Button id="_IDGenButton6" icon="sap-icon://role" tooltip="Unblock User" type="Success" press="onUnBlockUser" visible="{= ${userModel>STATUS} === 'B' }"/>
+												<Button id="_IDGenButton7" icon="sap-icon://activate" tooltip="Activate User" type="Emphasized" press="onActivateUser" visible="{= ${userModel>STATUS} === 'D' }"/>
+											</HBox>
+										</t:template>
+									</t:Column>
+								</t:columns>
+								<!-- <t:rowActionTemplate>
+									<t:RowAction>
+										<t:items>
+											<t:RowActionItem text="Block User" press="onApproveUserPress"/>
+											<t:RowActionItem text="UnBlock user" press="onDeleteUserPress"/>
+										</t:items>
+									</t:RowAction>
+								</t:rowActionTemplate> -->
+							</t:Table>
+						</l:VerticalLayout>
+					</uxap:ObjectPageSubSection>
+				</uxap:subSections>
+			</uxap:ObjectPageSection>
+
+			<!-- Request Details -->
+			<!-- <uxap:ObjectPageSection id="objs-requestDet" titleUppercase="false" visible="{rolesModel>/CANAMENDMENTAPPROVE}">
+				<uxap:subSections>
+					<uxap:ObjectPageSubSection id="_IDGenObjectPageSubSection6" title="Amendment Requests">
+						<l:VerticalLayout width="100%" id="oVerticalContentUserReq">
+							<t:Table id="idUserReqTable" visibleRowCount="6" rowSelectionChange="onChangeGSTRow" selectionMode="None" rows="{userRequestModel>/}" rowActionCount="0">
+								<t:columns>
+									<t:Column id="_IDGenColumn33" minWidth="168px">
+										<Label id="_IDGenLabel55" text="Invoice no."/>
+										<t:template>
+											<Text id="_IDGenText25" text="{userRequestModel>INVOICENUMBER}" wrapping="false"/>
+										</t:template>
+									</t:Column>
+									<t:Column id="_IDGenColumn34" minWidth="168px">
+										<Label id="_IDGenLabel56" text="Request no."/>
+										<t:template>
+											<Text id="_IDGenText26" text="{userRequestModel>AMENDMENTREQUESTNO}" wrapping="false"/>
+										</t:template>
+									</t:Column>
+									<t:Column id="_IDGenColumn35" minWidth="168px">
+										<Label id="_IDGenLabel57" text="Requested By"/>
+										<t:template>
+											<Text id="_IDGenText27" text="{userRequestModel>AMENDMENTREQUESTEDBY}" wrapping="false"/>
+										</t:template>
+									</t:Column>
+									<t:Column id="_IDGenColumn36" minWidth="233px">
+										<Label id="_IDGenLabel58" text="Requested On"/>
+										<t:template>
+											<Text id="_IDGenText28" text="{userRequestModel>AMENDMENTREQUESTEDON}" wrapping="false"/>
+										</t:template>
+									</t:Column>
+									<t:Column id="_IDGenColumn37" minWidth="74px">
+										<Label id="_IDGenLabel59" text="Status"/>
+										<t:template>
+											<ObjectStatus id="_IDGenText29" text="{path: 'userRequestModel>AMENDEMENTSTATUS', 
+												formatter: '.formatter.setStatusText'}" state="{path: 'userRequestModel>AMENDEMENTSTATUS', 
+												formatter: '.formatter.setStatusState'}" icon="{path: 'userRequestModel>AMENDEMENTSTATUS', formatter: '.formatter.setStatusIcon'}" />
+										</t:template>
+									</t:Column>
+									<t:Column id="_IDGenColumn38" minWidth="160px">
+										<Label id="_IDGenLabel60" text="Amended Address"/>
+										<t:template>
+											<Text id="_IDGenText30" text="{userRequestModel>AMENDENTEDADDRESS}" wrapping="false"/>
+										</t:template>
+									</t:Column>
+									<t:Column id="_IDGenColumn39" minWidth="160px">
+										<Label id="_IDGenLabel61" text="Old Value"/>
+										<t:template>
+											<Text id="_IDGenText31" text="{userRequestModel>AMENDEMENTOLDVALUE}" wrapping="false"/>
+										</t:template>
+									</t:Column>
+									<t:Column id="_IDGenColumn40" minWidth="160px">
+										<Label id="_IDGenLabel62" text="New Value"/>
+										<t:template>
+											<Text id="_IDGenText32" text="{userRequestModel>AMENDEMENTNEWVALUE}" wrapping="false"/>
+										</t:template>
+									</t:Column>
+									<t:Column id="_IDGenColumn41" width="54px">
+										<Label id="_IDGenLabel63" text=""/>
+										<t:template>
+											<Button id="_IDGenButton8" icon="sap-icon://sys-enter-2" tooltip="Approve Ammendment" type="Accept" press="onApproveAmndReq"/>
+										</t:template>
+									</t:Column>
+									<t:Column id="_IDGenColumn42" width="54px">
+										<Label id="_IDGenLabel64" text=""/>
+										<t:template>
+											<Button id="_IDGenButton9" icon="sap-icon://sys-cancel-2" tooltip="Reject Ammendment" type="Reject" press="onRejectAmndReq"/>
+										</t:template>
+									</t:Column>
+								</t:columns>
+							</t:Table>
+						</l:VerticalLayout>
+					</uxap:ObjectPageSubSection>
+				</uxap:subSections>
+			</uxap:ObjectPageSection> -->
+
+			<!-- Approval Details -->
+			<uxap:ObjectPageSection id="objs-approvalDet" titleUppercase="false" visible="{rolesModel>/ISADMIN}">
+				<uxap:subSections>
+					<uxap:ObjectPageSubSection id="_IDGenObjectPageSubSection7" title="Approvals">
+						<uxap:actions>
+							<Button id="hintapprovals" icon="sap-icon://hint" tooltip="Help" type="Transparent" press="onpresshintapprovals"/>
+						</uxap:actions>
+						<l:VerticalLayout width="100%" id="oVerticalContentUserApp">
+							<t:Table id="idUserAprTable" visibleRowCount="6" rowSelectionChange="onChangeGSTRow" selectionMode="None" rows="{userApprovalModel>/}" rowActionCount="0">
+								<!-- <t:extension>
+									<OverflowToolbar style="Clear">
+										<ToolbarSpacer/>
+										<Button icon="sap-icon://add-document" tooltip="Select GSTIN's" press="onPressAddGstin"/>
+									</OverflowToolbar>
+								</t:extension> -->
+								<t:columns>
+									<t:Column id="_IDGenColumn43">
+										<Label id="_IDGenLabel65" text="Name"/>
+										<t:template>
+											<Text id="_IDGenText33" text="{userApprovalModel>FIRSTNAME} {userApprovalModel>LASTNAME}"/>
+										</t:template>
+									</t:Column>
+									<t:Column id="_IDGenColumn44">
+										<Label id="_IDGenLabel66" text="E-Mail"/>
+										<t:template>
+											<Text id="_IDGenText34" text="{userApprovalModel>LOGINEMAIL}"/>
+										</t:template>
+									</t:Column>
+									<t:Column id="_IDGenColumn45">
+										<Label id="_IDGenLabel67" text="Contact Number"/>
+										<t:template>
+											<Text id="_IDGenText35" text="{userApprovalModel>MOBILE}"/>
+										</t:template>
+									</t:Column>
+									<t:Column id="_IDGenColumn46">
+										<Label id="_IDGenLabel68" text="Status"/>
+										<t:template>
+											<ObjectStatus id="_IDGenText36" text="{path: 'userApprovalModel>STATUS', 
+												formatter: '.formatter.setStatusText'}" state="{path: 'userApprovalModel>STATUS', 
+												formatter: '.formatter.setStatusState'}" icon="{path: 'userApprovalModel>STATUS', formatter: '.formatter.setStatusIcon'}" />
+										</t:template>
+									</t:Column>
+									<t:Column width="280px">
+										<Label text="Requested On"/>
+										<t:template>
+											<Text text="{path: 'userApprovalModel>CREATEDAT', formatter: '.formatter.formatDateTime'}"/>
+										</t:template>
+									</t:Column>
+									<t:Column id="_IDGenColumn47" width="54px">
+										<Label id="_IDGenLabel69" text=""/>
+										<t:template>
+											<Button id="_IDGenButton10" icon="sap-icon://sys-enter-2" tooltip="Approve User" type="Accept" press="onApproveUser" />
+										</t:template>
+									</t:Column>
+									<t:Column id="_IDGenColumn48" width="54px">
+										<Label id="_IDGenLabel70" text=""/>
+										<t:template>
+											<Button id="_IDGenButton11" icon="sap-icon://sys-cancel-2" tooltip="Reject User" type="Reject" press="onRejectUser" />
+										</t:template>
+									</t:Column>
+								</t:columns>
+								<!-- <t:rowActionTemplate>
+									<t:RowAction>
+										<t:items>
+											<t:RowActionItem icon="sap-icon://edit" press="onEditGSTPress"/>
+											<t:RowActionItem icon="sap-icon://delete" tooltip="Delete Attachment" press="onDeleteGSTPress"/>
+										</t:items>
+									</t:RowAction>
+								</t:rowActionTemplate> -->
+							</t:Table>
+						</l:VerticalLayout>
+					</uxap:ObjectPageSubSection>
+				</uxap:subSections>
+			</uxap:ObjectPageSection>
+
+			<!-- Attachments -->
+			<uxap:ObjectPageSection id="objs-attachmentDet" titleUppercase="false">
+				<uxap:subSections>
+					<uxap:ObjectPageSubSection id="ttl-Attachments" title="Attachments">
+						<uxap:actions>
+							<Button id="hintattachments" icon="sap-icon://hint" tooltip="Help" type="Transparent" press="onpresshintattachments"/>
+						</uxap:actions>
+						<l:VerticalLayout width="100%" id="oVerticalContent">
+							<t:Table id="tbl-attachment" rows="{attachmentModel>/}" firstVisibleRow="1" selectionMode="None" visibleRowCount="6" rowActionCount="2" fixedColumnCount="1">
+								<!-- <t:extension>
+									<OverflowToolbar style="Clear">
+										<Title id="title" text="Documents" />
+										<ToolbarSpacer />
+									</OverflowToolbar>
+								</t:extension> -->
+								<t:columns>
+									<t:Column id="_IDGenColumn49" width="305px">
+										<Label id="_IDGenLabel71" text="Document Type" />
+										<t:template>
+											<Text id="_IDGenText37" text="{attachmentModel>DOCUMENTNAME}" wrapping="false" />
+										</t:template>
+									</t:Column>
+
+									<t:Column id="_IDGenColumn50" width="91px" hAlign="Center">
+										<Label id="_IDGenLabel72" text="Mandatory" />
+										<t:template>
+											<core:Icon id="_IDGenIcon1" src="sap-icon://accept" visible="{attachmentModel>ISMANDATORY}" />
+										</t:template>
+									</t:Column>
+
+									<t:Column id="_IDGenColumn51" width="170px">
+										<Label id="_IDGenLabel73" text="Issue Date"/>
+										<t:template>
+											<DatePicker id="dp-issueDate" maxDate="{viewModel>/maxDate}" value="{attachmentModel>ISSUEDON}" change="handleDateChange" displayFormat="yyyy-MM-dd" valueFormat="yyyy-MM-dd" editable="{= !${/toggleEdit} &amp;&amp; ${rolesModel>/ISADMIN}}"/>
+										</t:template>
+									</t:Column>
+
+									<t:Column width="170px">
+										<Label text="Valid From"/>
+										<t:template>
+											<DatePicker id="dp-valiTo" value="{attachmentModel>VALIDFROM}" displayFormat="yyyy-MM-dd" change="handleDateChange" valueFormat="yyyy-MM-dd" editable="{= !${/toggleEdit} &amp;&amp; ${rolesModel>/ISADMIN}}"/>
+										</t:template>
+									</t:Column>
+
+									<t:Column width="170px">
+										<Label text="Valid To"/>
+										<t:template>
+											<DatePicker id="dp-validFrom" value="{attachmentModel>VALIDTO}" displayFormat="yyyy-MM-dd" change="handleDateChange" valueFormat="yyyy-MM-dd" editable="{= !${/toggleEdit} &amp;&amp; ${rolesModel>/ISADMIN}}"/>
+										</t:template>
+									</t:Column>
+
+									<t:Column id="_IDGenColumn52" minWidth="165px">
+										<Label id="_IDGenLabel74" text="File Type" />
+										<t:template>
+											<Text id="_IDGenText38" text="{attachmentModel>MIMETYPE}" wrapping="false"/>
+										</t:template>
+									</t:Column>
+
+									<t:Column id="_IDGenColumn53" minWidth="180px">
+										<Label id="_IDGenLabel75" text="File Name" />
+										<t:template>
+											<Text id="_IDGenText39" text="{attachmentModel>FILENAME}" wrapping="false"/>
+										</t:template>
+									</t:Column>
+
+									<t:Column id="_IDGenColumn54" width="54px">
+										<Label id="_IDGenLabel76" text="" />
+										<t:template>
+											<HBox id="_IDGenHBox3">
+												<u:FileUploader id="_IDGenFileUploader2" fileAllowed="handleUploadFile" buttonOnly="true" width="100%" iconOnly="true" icon="sap-icon://attachment" visible="{= !${/toggleEdit} &amp;&amp; !${attachmentModel>FILE} &amp;&amp; ${rolesModel>/ISADMIN} ? true : false}" maximumFileSize="0.4" sameFilenameAllowed="true" fileSizeExceed="onFileSizeExceeded" fileType="jpg,jpeg,png,docx,doc,pdf" />
+												<Button id="_IDGenButton12" icon="sap-icon://vds-file" tooltip="View / Download File" type="Transparent" press="onDownloadAttachment" visible="{= ${attachmentModel>FILE} ? true : false}"/>
+											</HBox>
+										</t:template>
+									</t:Column>
+
+								</t:columns>
+								<t:rowActionTemplate>
+									<t:RowAction id="_IDGenRowAction2">
+										<t:items>
+											<t:RowActionItem id="_IDGenRowActionItem3" icon="sap-icon://delete" tooltip="Delete Attachment" press="onDeleteAttachment" visible="{= !${/toggleEdit} &amp;&amp; ${attachmentModel>FILE} &amp;&amp; ${rolesModel>/ISADMIN} ? true : false }"/>
+											<!-- <t:RowActionItem icon="sap-icon://download" press="onDownloadAttachment" /> -->
+										</t:items>
+									</t:RowAction>
+								</t:rowActionTemplate>
+							</t:Table>
+							<MessageStrip id="_IDGenMessageStrip2" class="sapUiSmallMarginTop" text="Upload a JPG,JPEG,PNG,DOC or PDF file of up to 400KB" showIcon="true"/>
+						</l:VerticalLayout>
+					</uxap:ObjectPageSubSection>
+				</uxap:subSections>
+			</uxap:ObjectPageSection>
+		</uxap:sections>
+		<uxap:footer >
+			<OverflowToolbar id="overFlowToolbar" visible="true">
+				<ToolbarSpacer id="_IDGenToolbarSpacer2" />
+				<!-- <Button type="Emphasized" text="Submit" press="onPressSubmit" /> -->
+				<Button id="_IDGenButton13" type="Attention" text="Edit" press="onPressEdit" visible="{= ${/toggleEdit}}"/>
+				<Button id="_IDGenButton15" type="Reject" text="Cancel" press="onPressCancel" visible="{= !${/toggleEdit}}"/>
+				<Button id="_IDGenButton14" type="Accept" text="Save" press="onPressSave" visible="{= !${/toggleEdit}}"/>
+				
+			</OverflowToolbar>
+		</uxap:footer>
+	</uxap:ObjectPageLayout>
+</mvc:View>

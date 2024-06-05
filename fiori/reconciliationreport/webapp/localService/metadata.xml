@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="4.0" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+    <edmx:Reference Uri="https://sap.github.io/odata-vocabularies/vocabularies/Common.xml">
+        <edmx:Include Alias="Common" Namespace="com.sap.vocabularies.Common.v1"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Core.V1.xml">
+        <edmx:Include Alias="Core" Namespace="Org.OData.Core.V1"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="https://sap.github.io/odata-vocabularies/vocabularies/UI.xml">
+        <edmx:Include Alias="UI" Namespace="com.sap.vocabularies.UI.v1"/>
+    </edmx:Reference>
+    <edmx:DataServices>
+        <Schema Namespace="Reconciliation" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+            <EntityContainer Name="EntityContainer">
+                <EntitySet Name="RECONCILIATIONVIEW1" EntityType="Reconciliation.RECONCILIATIONVIEW1"/>
+                <EntitySet Name="valueListDocumentNumber" EntityType="Reconciliation.valueListDocumentNumber"/>
+                <EntitySet Name="valueListTransactionType" EntityType="Reconciliation.valueListTransactionType"/>
+                <EntitySet Name="valueListTransactionCode" EntityType="Reconciliation.valueListTransactionCode"/>
+                <EntitySet Name="valueListIssueIndicator" EntityType="Reconciliation.valueListIssueIndicator"/>
+                <EntitySet Name="valueListIATANumber" EntityType="Reconciliation.valueListIATANumber"/>
+                <EntitySet Name="valueListRoutingType" EntityType="Reconciliation.valueListRoutingType"/>
+                <EntitySet Name="valueListEventType" EntityType="Reconciliation.valueListEventType"/>
+                <EntitySet Name="valueListEntityStatus" EntityType="Reconciliation.valueListEntityStatus"/>
+                <EntitySet Name="valueListGSTIN" EntityType="Reconciliation.valueListGSTIN"/>
+            </EntityContainer>
+            <EntityType Name="RECONCILIATIONVIEW1">
+                <Property Name="DOCUMENTNUMBER" Type="Edm.String" MaxLength="30"/>
+                <Property Name="INVOICED" Type="Edm.String" MaxLength="3" Nullable="false"/>
+                <Property Name="DWH_AVAILABLE" Type="Edm.String" MaxLength="3" Nullable="false"/>
+                <Property Name="SBR_AVAILABLE" Type="Edm.String" MaxLength="3" Nullable="false"/>
+                <Property Name="DATEOFISSUANCE" Type="Edm.Date"/>
+                <Property Name="TRANSACTIONTYPE" Type="Edm.String" MaxLength="10"/>
+                <Property Name="TRANSACTIONCODE" Type="Edm.String" MaxLength="10"/>
+                <Property Name="ISSUEINDICATOR" Type="Edm.String" MaxLength="15"/>
+                <Property Name="TYPE" Type="Edm.String" MaxLength="10"/>
+                <Property Name="IATANUMBER" Type="Edm.String" MaxLength="10"/>
+                <Property Name="FULLROUTING" Type="Edm.String" MaxLength="255"/>
+                <Property Name="ROUTINGTYPE" Type="Edm.String" MaxLength="1"/>
+                <Property Name="ONEWAYINDICATOR" Type="Edm.String" MaxLength="1"/>
+                <Property Name="PUBLISHEDFARE" Type="Edm.Decimal" Scale="2" Precision="16"/>
+                <Property Name="RESIDUALVALUE" Type="Edm.String" MaxLength="20"/>
+                <Property Name="EVENTTYPE" Type="Edm.String" MaxLength="100"/>
+                <Property Name="EVENTTYPESHORTCODE" Type="Edm.String" MaxLength="15"/>
+                <Property Name="ENTITYSTATUS" Type="Edm.String" MaxLength="20"/>
+                <Property Name="GSTIN" Type="Edm.String" MaxLength="15"/>
+                <Property Name="DWH_STATUS" Type="Edm.String" MaxLength="3"/>
+                <Property Name="SBR_STATUS" Type="Edm.String" MaxLength="5"/>
+            </EntityType>
+            <EntityType Name="valueListDocumentNumber">
+                <Property Name="DOCUMENTNUMBER" Type="Edm.String" MaxLength="30"/>
+            </EntityType>
+            <EntityType Name="valueListTransactionType">
+                <Property Name="TRANSACTIONTYPE" Type="Edm.String" MaxLength="10"/>
+            </EntityType>
+            <EntityType Name="valueListTransactionCode">
+                <Property Name="TRANSACTIONCODE" Type="Edm.String" MaxLength="10"/>
+            </EntityType>
+            <EntityType Name="valueListIssueIndicator">
+                <Property Name="ISSUEINDICATOR" Type="Edm.String" MaxLength="15"/>
+            </EntityType>
+            <EntityType Name="valueListIATANumber">
+                <Property Name="IATANUMBER" Type="Edm.String" MaxLength="10"/>
+            </EntityType>
+            <EntityType Name="valueListRoutingType">
+                <Property Name="ROUTINGTYPE" Type="Edm.String" MaxLength="1"/>
+            </EntityType>
+            <EntityType Name="valueListEventType">
+                <Property Name="EVENTTYPE" Type="Edm.String" MaxLength="100"/>
+            </EntityType>
+            <EntityType Name="valueListEntityStatus">
+                <Property Name="ENTITYSTATUS" Type="Edm.String" MaxLength="20"/>
+            </EntityType>
+            <EntityType Name="valueListGSTIN">
+                <Property Name="GSTIN" Type="Edm.String" MaxLength="15"/>
+            </EntityType>
+            <Annotations Target="Reconciliation.RECONCILIATIONVIEW1/DOCUMENTNUMBER">
+                <Annotation Term="Common.Label" String="Document Number"/>
+            </Annotations>
+            <Annotations Target="Reconciliation.RECONCILIATIONVIEW1/INVOICED">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="Common.Label" String="Invoice ID"/>
+            </Annotations>
+            <Annotations Target="Reconciliation.RECONCILIATIONVIEW1/DWH_AVAILABLE">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="Common.Label" String="DWH Available"/>
+            </Annotations>
+            <Annotations Target="Reconciliation.RECONCILIATIONVIEW1/SBR_AVAILABLE">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="Common.Label" String="SBR Available"/>
+            </Annotations>
+            <Annotations Target="Reconciliation.RECONCILIATIONVIEW1/DATEOFISSUANCE">
+                <Annotation Term="Common.Label" String="Date of Issuance"/>
+            </Annotations>
+            <Annotations Target="Reconciliation.RECONCILIATIONVIEW1/TRANSACTIONTYPE">
+                <Annotation Term="Common.Label" String="Transaction Type"/>
+            </Annotations>
+            <Annotations Target="Reconciliation.RECONCILIATIONVIEW1/TRANSACTIONCODE">
+                <Annotation Term="Common.Label" String="Transaction Code"/>
+            </Annotations>
+            <Annotations Target="Reconciliation.RECONCILIATIONVIEW1/ISSUEINDICATOR">
+                <Annotation Term="Common.Label" String="Issue Indicator"/>
+            </Annotations>
+            <Annotations Target="Reconciliation.RECONCILIATIONVIEW1/TYPE">
+                <Annotation Term="Common.Label" String="Type"/>
+            </Annotations>
+            <Annotations Target="Reconciliation.RECONCILIATIONVIEW1/IATANUMBER">
+                <Annotation Term="Common.Label" String="IATA Number"/>
+            </Annotations>
+            <Annotations Target="Reconciliation.RECONCILIATIONVIEW1/FULLROUTING">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="Common.Label" String="Full Routing"/>
+            </Annotations>
+            <Annotations Target="Reconciliation.RECONCILIATIONVIEW1/ROUTINGTYPE">
+                <Annotation Term="Common.Label" String="Rounting Type"/>
+            </Annotations>
+            <Annotations Target="Reconciliation.RECONCILIATIONVIEW1/ONEWAYINDICATOR">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="Common.Label" String="One Way Indicator"/>
+            </Annotations>
+            <Annotations Target="Reconciliation.RECONCILIATIONVIEW1/PUBLISHEDFARE">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="Common.Label" String="Published Fare"/>
+            </Annotations>
+            <Annotations Target="Reconciliation.RECONCILIATIONVIEW1/RESIDUALVALUE">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="Common.Label" String="Residual Value"/>
+            </Annotations>
+            <Annotations Target="Reconciliation.RECONCILIATIONVIEW1/EVENTTYPE">
+                <Annotation Term="Common.Label" String="Event Type"/>
+            </Annotations>
+            <Annotations Target="Reconciliation.RECONCILIATIONVIEW1/EVENTTYPESHORTCODE">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="Common.Label" String="Event Type Short Name"/>
+            </Annotations>
+            <Annotations Target="Reconciliation.RECONCILIATIONVIEW1/ENTITYSTATUS">
+                <Annotation Term="Common.Label" String="Entity Status"/>
+            </Annotations>
+            <Annotations Target="Reconciliation.RECONCILIATIONVIEW1/GSTIN">
+                <Annotation Term="Common.Label" String="GSTIN"/>
+            </Annotations>
+            <Annotations Target="Reconciliation.RECONCILIATIONVIEW1/DWH_STATUS">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="Common.Label" String="DWH Status"/>
+            </Annotations>
+            <Annotations Target="Reconciliation.RECONCILIATIONVIEW1/SBR_STATUS">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="Common.Label" String="SBR Status"/>
+            </Annotations>
+            <Annotations Target="Reconciliation.valueListDocumentNumber/DOCUMENTNUMBER">
+                <Annotation Term="Common.Label" String="Document Number"/>
+            </Annotations>
+            <Annotations Target="Reconciliation.valueListTransactionType/TRANSACTIONTYPE">
+                <Annotation Term="Common.Label" String="Transaction Type"/>
+            </Annotations>
+            <Annotations Target="Reconciliation.valueListTransactionCode/TRANSACTIONCODE">
+                <Annotation Term="Common.Label" String="Transaction Code"/>
+            </Annotations>
+            <Annotations Target="Reconciliation.valueListIssueIndicator/ISSUEINDICATOR">
+                <Annotation Term="Common.Label" String="Issue Indicator"/>
+            </Annotations>
+            <Annotations Target="Reconciliation.valueListIATANumber/IATANUMBER">
+                <Annotation Term="Common.Label" String="IATA Number"/>
+            </Annotations>
+            <Annotations Target="Reconciliation.valueListRoutingType/ROUTINGTYPE">
+                <Annotation Term="Common.Label" String="Rounting Type"/>
+            </Annotations>
+            <Annotations Target="Reconciliation.valueListEventType/EVENTTYPE">
+                <Annotation Term="Common.Label" String="Event Type"/>
+            </Annotations>
+            <Annotations Target="Reconciliation.valueListEntityStatus/ENTITYSTATUS">
+                <Annotation Term="Common.Label" String="Entity Status"/>
+            </Annotations>
+            <Annotations Target="Reconciliation.valueListGSTIN/GSTIN">
+                <Annotation Term="Common.Label" String="GSTIN"/>
+            </Annotations>
+        </Schema>
+    </edmx:DataServices>
+</edmx:Edmx>

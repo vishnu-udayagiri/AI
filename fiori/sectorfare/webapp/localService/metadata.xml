@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="4.0" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+    <edmx:Reference Uri="https://sap.github.io/odata-vocabularies/vocabularies/Common.xml">
+        <edmx:Include Alias="Common" Namespace="com.sap.vocabularies.Common.v1"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Core.V1.xml">
+        <edmx:Include Alias="Core" Namespace="Org.OData.Core.V1"/>
+    </edmx:Reference>
+    <edmx:DataServices>
+        <Schema Namespace="SectorFareService" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+            <EntityContainer Name="EntityContainer">
+                <EntitySet Name="SectorFare" EntityType="SectorFareService.SectorFare"/>
+                <FunctionImport Name="getCSRFToken" Function="SectorFareService.getCSRFToken"/>
+                <ActionImport Name="Coupon" Action="SectorFareService.Coupon"/>
+            </EntityContainer>
+            <EntityType Name="SectorFare">
+                <Property Name="Id" Type="Edm.String" MaxLength="40"/>
+                <Property Name="Company" Type="Edm.String" MaxLength="4"/>
+                <Property Name="PrimaryDocumentNbr" Type="Edm.String" MaxLength="15"/>
+                <Property Name="DateOfIssuance" Type="Edm.Date"/>
+                <Property Name="TransactionCode" Type="Edm.String" MaxLength="10"/>
+                <Property Name="IssueIndicator" Type="Edm.String" MaxLength="15"/>
+                <Property Name="RoutingType" Type="Edm.String" MaxLength="1"/>
+                <Property Name="OneWayIndicator" Type="Edm.String" MaxLength="1"/>
+                <Property Name="FullRouting" Type="Edm.String" MaxLength="225"/>
+                <Property Name="TotalDocumentAmount" Type="Edm.Decimal" Scale="2" Precision="16"/>
+            </EntityType>
+            <Function Name="getCSRFToken" IsBound="false" IsComposable="false">
+                <ReturnType Type="Edm.String"/>
+            </Function>
+            <Action Name="Coupon" IsBound="false">
+                <Parameter Name="fields" Type="Edm.String"/>
+                <ReturnType Type="Edm.String"/>
+            </Action>
+            <Annotations Target="SectorFareService.SectorFare/Id">
+                <Annotation Term="Common.Label" String="ID"/>
+            </Annotations>
+            <Annotations Target="SectorFareService.SectorFare/Company">
+                <Annotation Term="Common.Label" String="Company"/>
+            </Annotations>
+            <Annotations Target="SectorFareService.SectorFare/PrimaryDocumentNbr">
+                <Annotation Term="Common.Label" String="Primary Document Number"/>
+            </Annotations>
+            <Annotations Target="SectorFareService.SectorFare/DateOfIssuance">
+                <Annotation Term="Common.Label" String="Date of Issueance"/>
+            </Annotations>
+            <Annotations Target="SectorFareService.SectorFare/TransactionCode">
+                <Annotation Term="Common.Label" String="Trancation Code"/>
+            </Annotations>
+            <Annotations Target="SectorFareService.SectorFare/IssueIndicator">
+                <Annotation Term="Common.Label" String="Issue Indicator"/>
+            </Annotations>
+            <Annotations Target="SectorFareService.SectorFare/RoutingType">
+                <Annotation Term="Common.Label" String="Routing Type"/>
+            </Annotations>
+            <Annotations Target="SectorFareService.SectorFare/OneWayIndicator">
+                <Annotation Term="Common.Label" String="One Way Indicator"/>
+            </Annotations>
+            <Annotations Target="SectorFareService.SectorFare/FullRouting">
+                <Annotation Term="Common.Label" String="Full Routing"/>
+            </Annotations>
+            <Annotations Target="SectorFareService.SectorFare/TotalDocumentAmount">
+                <Annotation Term="Common.Label" String="Total Document Amount"/>
+            </Annotations>
+        </Schema>
+    </edmx:DataServices>
+</edmx:Edmx>

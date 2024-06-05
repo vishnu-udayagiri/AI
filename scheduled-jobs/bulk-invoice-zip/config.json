@@ -1,0 +1,83 @@
+{
+    "VCAP_SERVICES": {
+        "hana": [{
+            "binding_guid": "3a442f44-453f-46af-aa40-57dd01e421ad",
+            "binding_name": null,
+            "credentials": {
+                "certificate": "-----BEGIN CERTIFICATE-----\nMIIDrzCCApegAwIBAgIQCDvgVpBCRrGhdWrJWZHHSjANBgkqhkiG9w0BAQUFADBh\nMQswCQYDVQQGEwJVUzEVMBMGA1UEChMMRGlnaUNlcnQgSW5jMRkwFwYDVQQLExB3\nd3cuZGlnaWNlcnQuY29tMSAwHgYDVQQDExdEaWdpQ2VydCBHbG9iYWwgUm9vdCBD\nQTAeFw0wNjExMTAwMDAwMDBaFw0zMTExMTAwMDAwMDBaMGExCzAJBgNVBAYTAlVT\nMRUwEwYDVQQKEwxEaWdpQ2VydCBJbmMxGTAXBgNVBAsTEHd3dy5kaWdpY2VydC5j\nb20xIDAeBgNVBAMTF0RpZ2lDZXJ0IEdsb2JhbCBSb290IENBMIIBIjANBgkqhkiG\n9w0BAQEFAAOCAQ8AMIIBCgKCAQEA4jvhEXLeqKTTo1eqUKKPC3eQyaKl7hLOllsB\nCSDMAZOnTjC3U/dDxGkAV53ijSLdhwZAAIEJzs4bg7/fzTtxRuLWZscFs3YnFo97\nnh6Vfe63SKMI2tavegw5BmV/Sl0fvBf4q77uKNd0f3p4mVmFaG5cIzJLv07A6Fpt\n43C/dxC//AH2hdmoRBBYMql1GNXRor5H4idq9Joz+EkIYIvUX7Q6hL+hqkpMfT7P\nT19sdl6gSzeRntwi5m3OFBqOasv+zbMUZBfHWymeMr/y7vrTC0LUq7dBMtoM1O/4\ngdW7jVg/tRvoSSiicNoxBN33shbyTApOB6jtSj1etX+jkMOvJwIDAQABo2MwYTAO\nBgNVHQ8BAf8EBAMCAYYwDwYDVR0TAQH/BAUwAwEB/zAdBgNVHQ4EFgQUA95QNVbR\nTLtm8KPiGxvDl7I90VUwHwYDVR0jBBgwFoAUA95QNVbRTLtm8KPiGxvDl7I90VUw\nDQYJKoZIhvcNAQEFBQADggEBAMucN6pIExIK+t1EnE9SsPTfrgT1eXkIoyQY/Esr\nhMAtudXH/vTBH1jLuG2cenTnmCmrEbXjcKChzUyImZOMkXDiqw8cvpOp/2PV5Adg\n06O/nVsJ8dWO41P0jmP6P6fbtGbfYmbW0W5BjfIttep3Sp+dWOIrWcBAI+0tKIJF\nPnlUkiaY4IBIqDfv8NZ5YBberOgOzW6sRBc4L0na4UU+Krk2U886UAb3LujEV0ls\nYSEY1QSteDwsOoBrp+uvFRTp2InBuThs4pFsiv9kuXclVzDAGySj4dzp30d8tbQk\nCAUw7C29C79Fv1C5qfPrmAESrciIxpg0X40KPMbp1ZWVbd4=\n-----END CERTIFICATE-----",
+                "database_id": "2557e125-839d-4494-9409-dff746f16462",
+                "driver": "com.sap.db.jdbc.Driver",
+                "hdi_password": "Fe5hcVhATdNzn6yrZZbQ7HhGoKvkISqnt6.h0FRtfg7dpP4aLkLfc7bsKwa8-arjkwGA2PL..Q-84xNXeG6syKybg5HZm5vRPY6gVYH0c3-DaCgPiLjbWuOoDH.nr1oJ",
+                "hdi_user": "AIRINDIA_DEV_18RSQMNRMLWA156FEHDRKSPBY_DT",
+                "host": "2557e125-839d-4494-9409-dff746f16462.hana.prod-in30.hanacloud.ondemand.com",
+                "password": "Kf9iDFMdQsSjKnJxcOV3IG9YtZQdQy.xxMsLBYij32KtLL9HWn4_5Sbk.HCG3YE1Aj.olzFbaL_BfaqG2QzPaPMNhXrIlyxqNXVwbbETZpiUJmHxn_lImxhbf2T-wBHG",
+                "port": "443",
+                "schema": "AIRINDIA_DEV",
+                "url": "jdbc:sap://2557e125-839d-4494-9409-dff746f16462.hana.prod-in30.hanacloud.ondemand.com:443?encrypt=true\u0026validateCertificate=true\u0026currentschema=AIRINDIA_DEV",
+                "user": "AIRINDIA_DEV_18RSQMNRMLWA156FEHDRKSPBY_RT"
+            },
+            "instance_guid": "86406aab-e1bb-40dd-aacb-66e346600d1b",
+            "instance_name": "airindia-dev-db",
+            "label": "hana",
+            "name": "airindia-dev-db",
+            "plan": "hdi-shared",
+            "provider": null,
+            "syslog_drain_url": null,
+            "tags": ["hana", "database", "relational"],
+            "volume_mounts": []
+        }],
+        "xsuaa": [{
+            "binding_guid": "b961a5bf-7e26-4f04-a2ce-1af7d9bcee49",
+            "binding_name": null,
+            "credentials": {
+                "apiurl": "https://api.authentication.in30.hana.ondemand.com",
+                "clientid": "sb-airindia-dev-Airdevqa-AIRDEV!t1624",
+                "clientsecret": "FHzRje2uV24QZJ9+0sePt0E5ks8=",
+                "credential-type": "instance-secret",
+                "identityzone": "gstsuite-non-prod-hana-airindia",
+                "identityzoneid": "679c5fe1-89f2-450d-93cd-b5435b94aa47",
+                "sburl": "https://internal-xsuaa.authentication.in30.hana.ondemand.com",
+                "serviceInstanceId": "fc76db27-17b0-4e49-b222-408ecd0c8adb",
+                "subaccountid": "679c5fe1-89f2-450d-93cd-b5435b94aa47",
+                "tenantid": "679c5fe1-89f2-450d-93cd-b5435b94aa47",
+                "tenantmode": "dedicated",
+                "uaadomain": "authentication.in30.hana.ondemand.com",
+                "url": "https://gstsuite-non-prod-hana-airindia.authentication.in30.hana.ondemand.com",
+                "verificationkey": "-----BEGIN PUBLIC KEY-----\nMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAxjngIMkuJuFVZUQh7AwE\nMGmhrk0UiMgHpIgkn7bZj9pUcUWkHEMLTxypk4AP/MUgeDxXTG4HT786QQNx1+T/\nP51me2NuNtfmoy9gz8Z4CgOTgvc5xtGSbLqlQOW/axNJ9AFfRfI/r0qh9ote19Jb\nZDoPn4JUxeMcZDW/hAher3BJ2JYSoAnDcFFtPuV27CGFnMwhFCL9oNJCBjVrcNJe\ndMsR7oJh6ToUfxZSVovgGt4JzeqWB0P93Ee2GInwTWdO5ciocYMMxXnTDeJVLmBy\nRj96IsRamGScxBokgTeoNOLmK4Xj9ApA4LukxqXVZcGOSjM/X+2QpeTuW56tFp5o\nMQIDAQAB\n-----END PUBLIC KEY-----",
+                "xsappname": "airindia-dev-Airdevqa-AIRDEV!t1624",
+                "zoneid": "679c5fe1-89f2-450d-93cd-b5435b94aa47"
+            },
+            "instance_guid": "fc76db27-17b0-4e49-b222-408ecd0c8adb",
+            "instance_name": "airindia-dev-auth",
+            "label": "xsuaa",
+            "name": "airindia-dev-auth",
+            "plan": "application",
+            "provider": null,
+            "syslog_drain_url": null,
+            "tags": ["xsuaa"],
+            "volume_mounts": []
+        }]
+    },
+    "VCAP_APPLICATION": {
+        "application_id": "58c16fc6-fb71-4ac9-91c4-68ee6ed57f02",
+        "application_name": "scheduled-jobs-dev",
+        "application_uris": ["airdevqa-airdev-scheduled-jobs-dev.cfapps.in30.hana.ondemand.com"],
+        "cf_api": "https://api.cf.in30.hana.ondemand.com",
+        "limits": {
+            "fds": 32768
+        },
+        "name": "scheduled-jobs-dev",
+        "organization_id": "5d1576ba-5214-4200-88f8-2b7e42f88f42",
+        "organization_name": "Airdevqa",
+        "space_id": "f4c64666-86d4-456b-be09-88b7d75b6cae",
+        "space_name": "AIRDEV",
+        "uris": ["airdevqa-airdev-scheduled-jobs-dev.cfapps.in30.hana.ondemand.com"],
+        "users": null
+    },
+    "DEPLOY_ATTRIBUTES": "{\n  \"app-content-digest\" : \"9314A40ADE88600B6BEAE5E7A4053870\"\n}",
+    "EXCEL_DOWNLOAD_DB_HOST": "2557e125-839d-4494-9409-dff746f16462.hana.prod-in30.hanacloud.ondemand.com",
+    "EXCEL_DOWNLOAD_DB_PASSWORD": "Po9dSJSXQ.Q7bc48vCGRo5yh9xyzOkes1k8eB09hGlmNE.hVpbped7Xedmcz_PfTjm.j-Oxigti1fuSGFIMYwR8BC8cVmW1nBkjTPxyUD6aUKEgOrYvgzatxN4gC4JrP",
+    "EXCEL_DOWNLOAD_DB_PORT": "443",
+    "EXCEL_DOWNLOAD_DB_SCHEMA": "AIRINDIA_QAS",
+    "EXCEL_DOWNLOAD_DB_USER": "AIRINDIA_QAS_2IN5JILEAC0K8PIC2QLKWEXR0_RT"
+}

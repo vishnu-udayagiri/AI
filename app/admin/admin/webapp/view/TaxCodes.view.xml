@@ -1,0 +1,92 @@
+<mvc:View xmlns:core="sap.ui.core" controllerName="admindashboard.controller.TaxCodes" class="sapUiSizeCompact"
+    xmlns:l="sap.ui.layout"
+    xmlns="sap.m"
+    xmlns:form="sap.ui.layout.form"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns:t="sap.ui.table">
+    <Page showHeader="false">
+        <l:VerticalLayout id="containerLayout" width="100%">
+            <Panel width="auto" class="sapUiSmallMargin" accessibleRole="Region">
+                <headerToolbar>
+                    <OverflowToolbar>
+                        <Title id="idTitle" text="Tax Code - Create"/>
+                        <ToolbarSpacer />
+                        <Button id="idCreateService" press="onCreateTaxCode" text="Create" icon="sap-icon://create" visible="{= !${/toggleEdit}}"/>
+                        <!-- Edit Press -->
+                        <Button press="onUpdateTaxCode" text="Save" icon="sap-icon://save" visible="{= ${/toggleEdit}}"/>
+                        <Button press="onCancelEditTaxCode" text="Cancel" icon="sap-icon://cancel" type="Reject" visible="{= ${/toggleEdit}}"/>
+                    </OverflowToolbar>
+                </headerToolbar>
+                <content>
+                    <form:SimpleForm layout="ColumnLayout" columnsM="2" columnsL="3" columnsXL="4">
+                        <form:content>
+                            <Label text="Tax Code" required="true"/>
+                            <Input id="idTaxCode" value="{newTaxCodeListModel>/taxCode}" maxLength="2" editable="{= !${/toggleEdit}}"/>
+
+                            <Label text=" Tax Description"/>
+                            <Input id="idDescription" value="{newTaxCodeListModel>/taxDescription}" maxLength="50" />
+                               <Label text="Tax Mode" />
+
+                              <Select id="inp-taxMode" selectedKey="{newTaxCodeListModel>/taxMode}" >
+                                <core:ListItem key="" text="Non-Taxable"/>
+                                <core:ListItem key="1" text="Is-Taxable"/>
+                                 <core:ListItem key="2" text="Inclusive of Tax"/>
+                                  <core:ListItem key="3" text="Tax"/>
+                            </Select>
+                          <Label />
+                            <CheckBox id="inp-isTaxable" text="is Tax Applicable" selected="{newTaxCodeListModel>/isTaxable}" class="sapUiSmallMarginTop"/>
+
+                        </form:content>
+                    </form:SimpleForm>
+                </content>
+            </Panel>
+            <Panel width="auto" class="sapUiSmallMargin">
+                <headerToolbar>
+                    <OverflowToolbar>
+                        <Title text="Tax Codes"/>
+                        <ToolbarSpacer />
+                        <!-- <Button press="onUploadExcel" icon="sap-icon://excel-attachment"/> -->
+                    </OverflowToolbar>
+                </headerToolbar>
+                <content>
+                    <t:Table rowActionCount="2" visibleRowCount="8" rows="{taxCodeListModel>/}" enableColumnReordering="false" selectionMode="Single" id="idTaxCodeList">
+                        <t:columns>
+                            <t:Column filterProperty="taxCode">
+                                <Label text="Tax Code"/>
+                                <t:template>
+                                    <Text text="{taxCodeListModel>taxCode}"/>
+                                </t:template>
+                            </t:Column>
+                            <t:Column filterProperty="taxDescription">
+                                <Label text=" Tax Description"/>
+                                <t:template>
+                                    <Text text="{taxCodeListModel>taxDescription}"/>
+                                </t:template>
+                            </t:Column>
+                               <t:Column filterProperty="taxMode">
+                                <Label text=" Tax Mode"/>
+                                <t:template>
+                                    <Text text="{taxCodeListModel>taxMode}"/>
+                                </t:template>
+                            </t:Column>
+                              <t:Column hAlign="Center" width="8rem">
+                                <Label text="Tax Applicable"/>
+                                <t:template>
+                                    <core:Icon src="sap-icon://accept" visible="{taxCodeListModel>isTaxable}" />
+                                </t:template>
+                            </t:Column>
+                        </t:columns>
+                        <t:rowActionTemplate>
+                            <t:RowAction>
+                                <t:items>
+                                    <t:RowActionItem icon="sap-icon://edit" press="onTaxCodeEditPress"/>
+                                    <t:RowActionItem type="Delete" icon="sap-icon://delete" press="onTaxCodeDeletePress"/>
+                                </t:items>
+                            </t:RowAction>
+                        </t:rowActionTemplate>
+                    </t:Table>
+                </content>
+            </Panel>
+        </l:VerticalLayout>
+    </Page>
+</mvc:View>

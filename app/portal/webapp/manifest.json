@@ -1,0 +1,379 @@
+{
+  "_version": "1.49.0",
+  "sap.app": {
+    "id": "airindiagst",
+    "type": "application",
+    "i18n": "i18n/i18n.properties",
+    "applicationVersion": {
+      "version": "0.0.1"
+    },
+    "title": "{{appTitle}}",
+    "description": "{{appDescription}}",
+    "resources": "resources.json",
+    "sourceTemplate": {
+      "id": "@sap/generator-fiori:basic",
+      "version": "1.10.4",
+      "toolsId": "4b105151-b986-4fca-a5d1-fda4137a921e"
+    }
+  },
+  "sap.ui": {
+    "technology": "UI5",
+    "icons": {
+      "icon": "",
+      "favIcon": "",
+      "phone": "",
+      "phone@2": "",
+      "tablet": "",
+      "tablet@2": ""
+    },
+    "deviceTypes": {
+      "desktop": true,
+      "tablet": true,
+      "phone": true
+    }
+  },
+  "sap.ui5": {
+    "flexEnabled": true,
+    "dependencies": {
+      "minUI5Version": "1.116.0",
+      "libs": {
+        "sap.m": {},
+        "sap.ui.core": {},
+        "sap.f": {},
+        "sap.suite.ui.generic.template": {},
+        "sap.ui.comp": {},
+        "sap.ui.generic.app": {},
+        "sap.ui.table": {},
+        "sap.ushell": {}
+      }
+    },
+    "contentDensities": {
+      "compact": true,
+      "cozy": true
+    },
+    "models": {
+      "i18n": {
+        "type": "sap.ui.model.resource.ResourceModel",
+        "settings": {
+          "bundleName": "airindiagst.i18n.i18n"
+        }
+      }
+    },
+    "resources": {
+      "css": [
+        {
+          "uri": "css/style.css"
+        }
+      ],
+      "js": [
+        {
+            "uri": "model/xlsx.full.min.js"
+        },
+        {
+          "uri": "model/formatter.js"
+      }
+    ]
+    },
+    "routing": {
+      "config": {
+        "routerClass": "sap.m.routing.Router",
+        "viewType": "XML",
+        "async": true,
+        "viewPath": "airindiagst.view",
+        "controlAggregation": "pages",
+        "controlId": "idNavContainer",
+        "clearControlAggregation": false
+      },
+      "routes": [
+        {
+          "name": "RouteLogin",
+          "pattern": "",
+          "target": ["TargetLogin"]
+        },
+        {
+          "name": "Registration",
+          "pattern": "Registration",
+          "target": ["Registration"]
+        },
+        {
+          "name": "LandingPage",
+          "pattern": "LandingPage",
+          "target": ["LandingPage"]
+        },
+        {
+          "name": "GSTInvoices",
+          "pattern": "GSTInvoices",
+          "target": ["GSTInvoices"]
+        },
+        {
+          "name": "GSTInvoicesHistory",
+          "pattern": "GSTInvoicesHistory",
+          "target": ["GSTInvoicesHistory"]
+        },
+        {
+          "name": "DocumentHistoryPriorTo",
+          "pattern": "DocumentHistoryPriorTo",
+          "target": ["DocumentHistoryPriorTo"]
+        },
+        {
+          "name": "userProfile",
+          "pattern": "userProfile/{eventfiredfrom}",
+          "target": ["userProfile"]
+        },
+        {
+          "name": "amendmentRequest",
+          "pattern": "amendmentRequest",
+          "target": ["amendmentRequest"]
+        },
+        {
+          "name": "amendment",
+          "pattern": "amendment",
+          "target": ["amendment"]
+        },
+        {
+          "name": "auditLog",
+          "pattern": "auditLog",
+          "target": ["auditLog"]
+        },
+        {
+          "name": "ForgotPassword",
+          "pattern": "ForgotPassword/{token}",
+          "target": ["ForgotPassword"]
+        },
+        {
+          "name": "Reports",
+          "pattern": "Reports",
+          "target": ["Reports"]
+        },
+        {
+          "name": "discrepancy",
+          "pattern": "discrepancy",
+          "target": ["discrepancy"]
+        },
+        {
+          "name": "GSTReports",
+          "pattern": "GSTReports",
+          "target": ["GSTReports"]
+        },
+        {
+          "name": "Areasummary",
+          "pattern": "Areasummary",
+          "target": ["Areasummary"]
+        },
+        {
+          "name": "TicketStatus",
+          "pattern": "TicketStatus",
+          "target": ["TicketStatus"]
+        },
+        {
+          "name": "InvoiceReport",
+          "pattern": "InvoiceReport",
+          "target": ["InvoiceReport"]
+        },
+        {
+          "name": "Exhaustive",
+          "pattern": "Exhaustive",
+          "target": ["Exhaustive"]
+        },
+        {
+          "name": "tcsSummary",
+          "pattern": "tcsSummary",
+          "target": ["tcsSummary"]
+        },
+        {
+          "name": "gstinMasterReport",
+          "pattern": "gstinMasterReport",
+          "target": ["gstinMasterReport"]
+        },
+        {
+          "name": "faq",
+          "pattern": "faq",
+          "target": ["faq"]
+        },
+        {
+          "name": "registerfaq",
+          "pattern": "registerfaq",
+          "target": ["registerfaq"]
+        },
+        {
+          "name": "userManual",
+          "pattern": "userManual",
+          "target": ["userManual"]
+        }
+
+
+
+      ],
+      "targets": {
+        "TargetLogin": {
+          "viewType": "XML",
+          "transition": "slide",
+          "clearControlAggregation": false,
+          "viewId": "Login",
+          "viewName": "Login"
+        },
+        "Registration": {
+          "viewType": "XML",
+          "transition": "slide",
+          "clearControlAggregation": false,
+          "viewId": "Registration",
+          "viewName": "Registration"
+        },
+        "LandingPage": {
+          "viewType": "XML",
+          "transition": "slide",
+          "clearControlAggregation": false,
+          "viewId": "LandingPage",
+          "viewName": "LandingPage"
+        },
+        "GSTInvoices": {
+          "viewType": "XML",
+          "transition": "slide",
+          "clearControlAggregation": false,
+          "viewId": "GSTInvoices",
+          "viewName": "GSTInvoices"
+        },
+        "faq": {
+          "viewType": "XML",
+          "transition": "slide",
+          "clearControlAggregation": false,
+          "viewId": "faq",
+          "viewName": "faq"
+        },
+        "registerfaq": {
+          "viewType": "XML",
+          "transition": "slide",
+          "clearControlAggregation": false,
+          "viewId": "registerfaq",
+          "viewName": "registerfaq"
+        },
+        "userManual": {
+          "viewType": "XML",
+          "transition": "slide",
+          "clearControlAggregation": false,
+          "viewId": "userManual",
+          "viewName": "userManual"
+        },
+        "GSTInvoicesHistory": {
+          "viewType": "XML",
+          "transition": "slide",
+          "clearControlAggregation": false,
+          "viewId": "GSTInvoicesHistory",
+          "viewName": "GSTInvoicesHistory"
+        },
+        "DocumentHistoryPriorTo": {
+          "viewType": "XML",
+          "transition": "slide",
+          "clearControlAggregation": false,
+          "viewId": "DocumentHistoryPriorTo",
+          "viewName": "DocumentHistoryPriorTo"
+        },
+        "userProfile": {
+          "viewType": "XML",
+          "transition": "slide",
+          "clearControlAggregation": false,
+          "viewId": "userProfile",
+          "viewName": "userProfile"
+        },
+        "amendmentRequest": {
+          "viewType": "XML",
+          "transition": "slide",
+          "clearControlAggregation": false,
+          "viewId": "amendmentRequest",
+          "viewName": "amendmentRequest"
+        },
+        "amendment": {
+          "viewType": "XML",
+          "transition": "slide",
+          "clearControlAggregation": false,
+          "viewId": "amendment",
+          "viewName": "amendment"
+        },
+        "auditLog": {
+          "viewType": "XML",
+          "transition": "slide",
+          "clearControlAggregation": false,
+          "viewId": "auditLog",
+          "viewName": "auditLog"
+        },
+        "ForgotPassword": {
+          "viewType": "XML",
+          "transition": "slide",
+          "clearControlAggregation": false,
+          "viewId": "ForgotPassword",
+          "viewName": "ForgotPassword"
+        },
+        "Reports": {
+          "viewType": "XML",
+          "transition": "slide",
+          "clearControlAggregation": false,
+          "viewId": "Reports",
+          "viewName": "Reports"
+        },
+        "discrepancy": {
+          "viewType": "XML",
+          "transition": "slide",
+          "clearControlAggregation": false,
+          "viewId": "discrepancy",
+          "viewName": "discrepancy"
+        },
+        "GSTReports": {
+          "viewType": "XML",
+          "transition": "slide",
+          "clearControlAggregation": false,
+          "viewId": "GSTReports",
+          "viewName": "GSTReports"
+        },
+        "Areasummary": {
+          "viewType": "XML",
+          "transition": "slide",
+          "clearControlAggregation": false,
+          "viewId": "Areasummary",
+          "viewName": "Areasummary"
+        },
+        "TicketStatus": {
+          "viewType": "XML",
+          "transition": "slide",
+          "clearControlAggregation": false,
+          "viewId": "TicketStatus",
+          "viewName": "TicketStatus"
+        },
+        "InvoiceReport": {
+          "viewType": "XML",
+          "transition": "slide",
+          "clearControlAggregation": false,
+          "viewId": "InvoiceReport",
+          "viewName": "InvoiceReport"
+        },
+        "Exhaustive": {
+          "viewType": "XML",
+          "transition": "slide",
+          "clearControlAggregation": false,
+          "viewId": "Exhaustive",
+          "viewName": "Exhaustive"
+        },
+        "tcsSummary": {
+          "viewType": "XML",
+          "transition": "slide",
+          "clearControlAggregation": false,
+          "viewId": "tcsSummary",
+          "viewName": "tcsSummary"
+        },
+        "gstinMasterReport": {
+          "viewType": "XML",
+          "transition": "slide",
+          "clearControlAggregation": false,
+          "viewId": "gstinMasterReport",
+          "viewName": "gstinMasterReport"
+        }
+
+      }
+    },
+    "rootView": {
+      "viewName": "airindiagst.view.App",
+      "type": "XML",
+      "async": true,
+      "id": "App"
+    }
+  }
+}

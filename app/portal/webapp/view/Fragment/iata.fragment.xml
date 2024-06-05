@@ -1,0 +1,9 @@
+<core:FragmentDefinition xmlns="sap.m"
+    xmlns:core="sap.ui.core">
+    <SelectDialog title="Select the IATA(s)" 
+    items="{path :'FilterDatamodel>/iata/',sorter: {path:'iata',descending: true}}"
+     search="handleValueHelpSearchiataNum" multiSelect="true" rememberSelections="true"
+      confirm="handleValueHelpCloseiataNum" cancel="handleValueHelpCloseiataNum">
+        <StandardListItem iconDensityAware="false" iconInset="false" title="{FilterDatamodel>}"/>
+    </SelectDialog>
+</core:FragmentDefinition>

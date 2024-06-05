@@ -1,0 +1,84 @@
+<mvc:View controllerName="admindashboard.controller.App"
+    xmlns:mvc="sap.ui.core.mvc" displayBlock="true"
+    xmlns:tnt="sap.tnt"
+    xmlns:f="sap.f"
+    xmlns="sap.m" class="sapUiSizeCompact">
+    <App id="idApp">
+        <!-- <Page id="idPage" showHeader="{shellModel>/show}" class="myBackgroundStyle">
+            <customHeader >
+                <f:ShellBar title="{shellModel>/title}" homeIcon="./css/images/logo.png">
+                    <f:profile>
+                        <Avatar initials="UI"/>
+                    </f:profile>
+                </f:ShellBar>
+            </customHeader>
+            <NavContainer id="idNavContainer" autoFocus="false">
+            </NavContainer>
+        </Page> -->
+        <!-- <tnt:ToolPage id="idPage" class="myBackgroundStyle">
+            <tnt:header>
+                <tnt:ToolHeader id="idToolHeader" height="40px" visible="{shellModel>/show}">
+                    <Image id="idImage" height="5rem" class="sapUiSmallMarginBegin" src="./css/images/logo.png">
+                        <layoutData>
+                            <OverflowToolbarLayoutData priority="NeverOverflow"/>
+                        </layoutData>
+                    </Image>
+                    <ToolbarSpacer />
+                    <Title text="{shellModel>/title}" wrapping="false">
+                        <layoutData>
+                            <OverflowToolbarLayoutData priority="Disappear"/>
+                        </layoutData>
+                    </Title>
+                    <ToolbarSpacer />
+                    <Text text="{shellModel>/welcomeMessage}" class="sapUiSmallMarginEnd" wrapping="false">
+                        <layoutData>
+                            <OverflowToolbarLayoutData priority="Disappear"/>
+                        </layoutData>
+                    </Text>
+                    <Avatar displaySize="XS" press="onPressAvatar" src="sap-icon://customer" visible="{shellModel>/showAvatar}">
+                        <layoutData>
+                            <OverflowToolbarLayoutData priority="NeverOverflow" />
+                        </layoutData>
+                    </Avatar>
+                    <ToolbarSpacer width="30px"/>
+                </tnt:ToolHeader>
+            </tnt:header>
+            <tnt:mainContents>
+                <NavContainer id="idNavContainer" autoFocus="false">
+
+                </NavContainer>
+            </tnt:mainContents>
+        </tnt:ToolPage> -->
+        <!-- <f:ShellBar title="Application Title" secondTitle="Short description" homeIcon="./resources/sap/ui/documentation/sdk/images/logo_ui5.png" showCopilot="true" showSearch="true" showNotifications="true" showProductSwitcher="true" notificationsNumber="2">
+            <f:menu>
+                <Menu>
+                    <MenuItem text="Flight booking" icon="sap-icon://flight" />
+                    <MenuItem text="Car rental" icon="sap-icon://car-rental" />
+                </Menu>
+            </f:menu>
+            <f:profile>
+                <Avatar initials="UI"/>
+            </f:profile>
+        </f:ShellBar>
+        <pages>
+            <Page id="idNavContainer"></Page>
+        </pages> -->
+        <Page id="idPage" showHeader="{shellModel>/show}" class="myBackgroundStyle">
+            <customHeader >
+                <f:ShellBar title="Application Title" secondTitle="Short description" homeIcon="./css/images/logo.png" showCopilot="false" showSearch="false" showNotifications="false" showProductSwitcher="false" notificationsNumber="2">
+                    <f:menu>
+                        <Menu>
+                            <MenuItem text="Flight booking" icon="sap-icon://flight" />
+                            <MenuItem text="Car rental" icon="sap-icon://car-rental" />
+                        </Menu>
+                    </f:menu>
+                    <f:profile>
+                        <Avatar initials="UI"/>
+                    </f:profile>
+                </f:ShellBar>
+            </customHeader>
+            <NavContainer id="idNavContainer" autoFocus="false">
+            </NavContainer>
+        </Page>
+    </App>
+</mvc:View>

@@ -1,0 +1,22 @@
+<core:FragmentDefinition xmlns="sap.m"
+    xmlns:l="sap.ui.layout"
+    xmlns:f="sap.ui.layout.form"
+    xmlns:core="sap.ui.core">
+    <Dialog title="Download GST Invoice" titleAlignment="Center">
+        <f:SimpleForm editable="true" id="simplefrag">
+            <Label text="Ticket Number" id="lbl-tktNum"/>
+            <Input id="inp-tktnum" maxLength="13" liveChange="onValidateTicketNum" required="true" />
+            <Label text="PNR" id="lbl-pnrnumb"/>
+            <Input value="" id="inp-pnrnumb" maxLength="6" liveChange="onValidateMandatoryPAN" />
+            <Label text="Date of Issuance" required="true" id="lbl-issueDate"/>
+            <DatePicker id="dp-issueDatenongst" change="handleDateChange" displayFormat="dd-MM-yyyy" valueFormat="yyyy-MM-dd" required="true"/>
+										
+            
+        </f:SimpleForm>
+        <OverflowToolbar>
+            <ToolbarSpacer/>
+            <Button text="Download" type="Emphasized" press="onDownloadnonGST"/>
+            <Button text="cancel" type="Reject" press="onpresscanceldownload"/>
+          </OverflowToolbar>
+    </Dialog>
+</core:FragmentDefinition>

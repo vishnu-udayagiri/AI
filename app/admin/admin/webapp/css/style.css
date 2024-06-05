@@ -1,0 +1,108 @@
+/* Enter your custom styles here */
+.sapFShellBar .sapFShellBarHomeIcon {
+    height: 7rem !important;
+    vertical-align: middle;
+    max-height: 7rem;
+}
+
+
+@font-face {
+    font-family: 'AirIndia-Bold';
+    src: url('../css/fonts/AirIndia-Bold.woff') format('woff')
+}
+
+@font-face {
+    font-family: 'AirIndia-Light';
+    src: url('../css/fonts/AirIndia-Light.woff') format('woff')
+}
+
+@font-face {
+    font-family: 'AirIndia-Regular';
+    src: url('../css/fonts/AirIndia-Regular.woff') format('woff')
+}
+
+.sapMValueStateHeaderText {
+    font-family: AirIndia-Regular !important;
+}
+.sapMSFI {
+    font-family: AirIndia-Light !important;
+}
+.sapMSltPicker-CTX .sapMSelectList .sapMSelectListItem {
+    font-family: AirIndia-Light !important;
+}
+.sapUiSizeCompact .sapMSegBBtn .sapMSegBBtnInner {
+    font-family: AirIndia-Regular !important;
+}
+.sapMFT {
+    font-family: AirIndia-Light !important;
+}
+
+.sapMListNoDataText {
+    font-family: AirIndia-Light !important;
+}
+.sapUiCalItemText {
+    font-family: AirIndia-Light !important;
+}
+.sapMTileCntContent>.sapMTcInnerMarker {
+    font-family: AirIndia-Light !important;
+}
+
+.sapUiCalHead>button {
+    font-family: AirIndia-Regular !important;
+}
+
+.sapUiCalWH {
+    font-family: AirIndia-Light !important;
+}
+
+.sapUiTableCtrlEmptyMsg {
+    font-family: AirIndia-Light !important;
+}
+.sapUiTableCell .sapMText {
+    font-family: AirIndia-Light !important;
+}
+
+.sapMObjStatusText {
+    font-family: AirIndia-Light !important;
+}
+
+.sapMSLIDiv {
+    font-family: AirIndia-Light !important;
+}
+
+.sapUxAPObjectPageSubSectionHeaderTitle {
+    font-family: AirIndia-Regular !important;
+    font-size: 1rem;
+    color: #1d2d3e;
+    padding-bottom: 0.5rem;
+    line-height: normal;
+}
+
+.sapMSlt>.sapMSltLabel {
+    font-family: AirIndia-Light !important;
+}
+
+.sapMInputBaseInner {
+    font-family: AirIndia-Light !important;
+}
+
+.sapMLabel {
+    font-family: AirIndia-Regular !important;
+}
+
+.sapMTitle {
+    font-family: AirIndia-Bold !important;
+}
+
+
+.sapMText {
+    font-family: AirIndia-Regular !important;
+}
+
+.sapMLnk {
+    font-family: AirIndia-Regular !important;
+}
+
+.sapMBtnContent {
+    font-family: AirIndia-Regular !important;
+}

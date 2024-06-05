@@ -1,0 +1,128 @@
+<mvc:View xmlns:core="sap.ui.core" controllerName="admindashboard.controller.AirportCodes" class="sapUiSizeCompact"
+    xmlns:l="sap.ui.layout"
+    xmlns="sap.m"
+    xmlns:form="sap.ui.layout.form"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns:t="sap.ui.table">
+    <Page showHeader="false">
+        <l:VerticalLayout id="containerLayout" width="100%">
+            <Panel width="auto" class="sapUiSmallMargin" accessibleRole="Region">
+                <headerToolbar>
+                    <OverflowToolbar>
+                        <Title id="idTitle" text="Airport Code - Create"/>
+                        <ToolbarSpacer />
+                        <Button id="idCreateService" press="onCreateAirportCode" text="Create" icon="sap-icon://create" visible="{= !${/toggleEdit}}"/>
+                        <!-- Edit Press -->
+                        <Button press="onUpdateAirportCode" text="Save" icon="sap-icon://save" visible="{= ${/toggleEdit}}"/>
+                        <Button press="onCancelEditAirportCode" text="Cancel" icon="sap-icon://cancel" type="Reject" visible="{= ${/toggleEdit}}"/>
+                    </OverflowToolbar>
+                </headerToolbar>
+                <content>
+                    <form:SimpleForm layout="ColumnLayout" columnsM="2" columnsL="3" columnsXL="4">
+                        <form:content>
+                            <Label text="Airport Code" required="true"/>
+                            <Input id="idAirportCode" value="{newAirportCodeListModel>/airportCode}" maxLength="4" editable="{= !${/toggleEdit}}"/>
+                    
+                            <Label text="State Code"/>
+                            <Select id="idStateCode" selectedKey="{newAirportCodeListModel>/stateCode}" forceSelection="false" items="{stateCodeModel>/}">
+                                <core:ListItem key="{stateCodeModel>stateCode}" text="{stateCodeModel>stateName}"/>
+                            </Select>
+
+                            <Label text="GSTIN"/>
+                            <Input id="idGstin" value="{newAirportCodeListModel>/gstin}" maxLength="15" editable="{= !${/toggleEdit}}"/>
+
+                            <Label text="GST Exempted Zone" />
+                            <Select id="inp-exemptedZone" selectedKey="{newAirportCodeListModel>/exemptedZone}" forceSelection="false">
+                                <core:ListItem key="1" text="Yes"/>
+                                <core:ListItem key="0" text="No"/>
+                            </Select>
+                             <Label />
+                            <CheckBox id="inp-isDomestic" text="Domestic Applicable" selected="{newAirportCodeListModel>/isDomestic}" class="sapUiSmallMarginTop"/>
+
+                            <!-- <Label text="SAP Business Place"/>
+                            <Input id="idSAPbusinessPlace" value="{newAirportCodeListModel>/SAPbusinessPlace}" maxLength="4" />
+
+                            <Label text="Profit Center"/>
+                            <Input id="idProfitCenter" value="{newAirportCodeListModel>/profitCenter}" maxLength="10" /> -->
+
+                            <Label text="Address"/>
+                            <Input id="idAddress" value="{newAirportCodeListModel>/address}" growing="true" rows="3" maxLength="254" />
+                              
+                        </form:content>
+                    </form:SimpleForm>
+                </content>
+            </Panel>
+            <Panel width="auto" class="sapUiSmallMargin">
+                <headerToolbar>
+                    <OverflowToolbar>
+                        <Title text="Airport Codes"/>
+                        <ToolbarSpacer />
+                        <!-- <Button press="onUploadExcel" icon="sap-icon://excel-attachment"/> -->
+                    </OverflowToolbar>
+                </headerToolbar>
+                <content>
+                    <t:Table rowActionCount="2" visibleRowCount="8" rows="{airportCodeListModel>/}" enableColumnReordering="false" selectionMode="Single" id="idAirportCodeList">
+                        <t:columns>
+                            <t:Column filterProperty="airportCode" width="7rem">
+                                <Label text="Airport Code"/>
+                                <t:template>
+                                    <Text text="{airportCodeListModel>airportCode}"/>
+                                </t:template>
+                            </t:Column>
+                            <t:Column filterProperty="stateCode">
+                                <Label text="State Code"/>
+                                <t:template>
+                                    <Text text="{path: 'airportCodeListModel>stateCode', formatter: '.formatStateCode'}"/>
+                                </t:template>
+                            </t:Column>
+                            <t:Column filterProperty="gstin" width="9rem">
+                                <Label text="GSTIN"/>
+                                <t:template>
+                                    <Text text="{airportCodeListModel>gstin}"/>
+                                </t:template>
+                            </t:Column>
+                            <t:Column filterProperty="NEState" width="5rem">
+                                <Label text="GST Exempted Zone"/>
+                                <t:template>
+                                    <Text text="{= ${airportCodeListModel>exemptedZone} === '0' ? 'No' : (${airportCodeListModel>exemptedZone} === '1' ? 'Yes' : '') }"/>
+                                </t:template>
+                            </t:Column>
+                               <t:Column hAlign="Center" width="8rem">
+                                <Label text="Is Domestic"/>
+                                <t:template>
+                                    <core:Icon src="sap-icon://accept" visible="{airportCodeListModel>isDomestic}" />
+                                </t:template>
+                            </t:Column>
+                            <!-- <t:Column filterProperty="SAPbusinessPlace" width="9rem">
+                                <Label text="SAP Business Place"/>
+                                <t:template>
+                                    <Text text="{airportCodeListModel>SAPbusinessPlace}"/>
+                                </t:template>
+                            </t:Column>
+                            <t:Column filterProperty="profitCenter" width="9rem">
+                                <Label text="Profit Center"/>
+                                <t:template>
+                                    <Text text="{airportCodeListModel>profitCenter}"/>
+                                </t:template>
+                            </t:Column> -->
+                            <t:Column >
+                                <Label text="Address"/>
+                                <t:template>
+                                    <Text text="{airportCodeListModel>address}"/>
+                                </t:template>
+                            </t:Column>
+                        </t:columns>
+                        <t:rowActionTemplate>
+                            <t:RowAction>
+                                <t:items>
+                                    <t:RowActionItem icon="sap-icon://edit" press="onAirportCodeEditPress"/>
+                                    <t:RowActionItem type="Delete" icon="sap-icon://delete" press="onAirportCodeDeletePress"/>
+                                </t:items>
+                            </t:RowAction>
+                        </t:rowActionTemplate>
+                    </t:Table>
+                </content>
+            </Panel>
+        </l:VerticalLayout>
+    </Page>
+</mvc:View>

@@ -1,0 +1,72 @@
+<mvc:View controllerName="airindiagst.controller.App"
+    xmlns:mvc="sap.ui.core.mvc" displayBlock="true"
+    xmlns:tnt="sap.tnt"
+    xmlns:f="sap.f"
+    xmlns="sap.m" class="sapUiSizeCompact">
+    <App id="idApp">
+        <!-- <Page id="idPage" showHeader="{shellModel>/show}" class="myBackgroundStyle">
+            <customHeader >
+                <f:ShellBar title="{shellModel>/title}" homeIcon="./css/images/logo.png">
+                    <f:profile>
+                        <Avatar initials="UI"/>
+                    </f:profile>
+                </f:ShellBar>
+            </customHeader>
+            <NavContainer id="idNavContainer" autoFocus="false">
+            </NavContainer>
+        </Page> -->
+        <tnt:ToolPage id="idPage" class="myBackgroundStyle">
+            <tnt:header>
+                <tnt:ToolHeader id="idToolHeader" height="40px" visible="{shellModel>/show}">
+                    <Image id="idImage" press="onclickLogo"  class="sapUiSmallMarginBegin" src="./css/images/Air-India-Logo.png">
+                        <layoutData>
+                            <OverflowToolbarLayoutData priority="NeverOverflow"/>
+                        </layoutData>
+                    </Image>
+                    <ToolbarSpacer />
+                    <Title text="{shellModel>/title}" wrapping="false">
+                        <layoutData>
+                            <OverflowToolbarLayoutData priority="Disappear"/>
+                        </layoutData>
+                    </Title>
+                    <ToolbarSpacer />
+                    <Button id="BadgedButton" press="onPendingAmendNotif" visible="{shellModel>/pending_amend}" class="sapUiTinyMarginBeginEnd" icon="sap-icon://accounting-document-verification" type="Accept" tooltip="Pending Amendments">
+                        <customData>
+                            <BadgeCustomData key="badge" value="{shellModel>/totalAmendmentPending}"/>
+                        </customData>
+                    </Button>
+                    <Button id="BadgedButton2" press="onUserApprovalNotif" visible="{shellModel>/pending_user}" class="sapUiTinyMarginBeginEnd" icon="sap-icon://kpi-managing-my-area" type="Attention" tooltip="User Approval Pending">
+                        <customData>
+                            <BadgeCustomData key="badge" value="{shellModel>/userPending}"/>
+                        </customData>
+                    </Button>
+                    <!-- <ObjectNumber visible="{shellModel>/adminvisible}" binding="{shellModel>/totalAmendmentPending}" number="{shellModel>/totalAmendmentPending}" inverted="true" unit="Pending Amendments" state="Success" />
+                    <ObjectNumber visible="{shellModel>/adminvisible}" binding="{shellModel>/userPending}" number="{shellModel>/userPending}" unit="User Approval Pending" inverted="true" state="Error" /> -->
+                    <Text text="{shellModel>/welcomeMessage}" class="sapUiSmallMarginEnd" wrapping="false">
+                        <layoutData>
+                            <OverflowToolbarLayoutData priority="Disappear"/>
+                        </layoutData>
+                    </Text>
+                    <Avatar displaySize="XS" press="onPressAvatar" src="sap-icon://customer" visible="{shellModel>/showAvatar}">
+                        <layoutData>
+                            <OverflowToolbarLayoutData priority="NeverOverflow" />
+                        </layoutData>
+                    </Avatar>
+                    	<Button id="messagePopoverBtn"
+					icon="sap-icon://hint"
+					text= ""
+                    tooltip="Help"
+					press="handlePopoverPress"
+					ariaHasPopup="Dialog" visible="{shellModel>/hinticon}"/>
+				
+                    <ToolbarSpacer width="30px"/>
+                </tnt:ToolHeader>
+            </tnt:header>
+            <tnt:mainContents>
+                <NavContainer id="idNavContainer" autoFocus="false">
+
+                </NavContainer>
+            </tnt:mainContents>
+        </tnt:ToolPage>
+    </App>
+</mvc:View>

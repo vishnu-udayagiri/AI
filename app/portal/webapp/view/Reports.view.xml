@@ -1,0 +1,79 @@
+<mvc:View xmlns:core="sap.ui.core" xmlns="sap.m"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns:mc="sap.suite.ui.microchart"
+    xmlns:t="sap.ui.table"
+    xmlns:form="sap.ui.layout.form" controllerName="airindiagst.controller.Reports">
+    <Page showHeader="false" class="backGroundImage">
+        <Panel class="sapUiSmallMargin" backgroundDesign="Transparent">
+              <GenericTile class="sapUiTinyMargin tileLayout" visible="false"  header="Discrepancy Report" subheader="" press="onPressDiscrepancyReports">
+                <TileContent>
+                    <!-- <NumericContent icon="sap-icon://manager-insight" scale="K" value="15" valueColor="Error" indicator="None" withMargin="false" /> -->
+                 <ImageContent src="sap-icon://collections-management"/>
+                
+                </TileContent>
+            </GenericTile>
+             <GenericTile class="sapUiTinyMargin tileLayout" header="Exhaustive Report" visible="false" subheader="" press="onPressExhaustiveReports">
+                <TileContent>
+                    <!-- <NumericContent icon="sap-icon://manager-insight" scale="K" value="15" valueColor="Error" indicator="None" withMargin="false" /> -->
+                 <ImageContent src="sap-icon://collections-management"/>
+                
+                </TileContent>
+            </GenericTile>
+             <GenericTile class="sapUiTinyMargin tileLayout" id="tile_ticket"  header="Ticket Status Report" subheader="" press="onPressTicketStatusReports">
+                <TileContent>
+                    <!-- <NumericContent icon="sap-icon://manager-insight" scale="K" value="15" valueColor="Error" indicator="None" withMargin="false" /> -->
+                 <ImageContent src="sap-icon://collections-management"/>
+                
+                </TileContent>
+            </GenericTile>
+            <GenericTile class="sapUiTinyMargin tileLayout"  header="Invoice Report" subheader="" press="onPressInvoiceReports">
+                <TileContent>
+                    <!-- <NumericContent icon="sap-icon://manager-insight" scale="K" value="15" valueColor="Error" indicator="None" withMargin="false" /> -->
+                 <ImageContent src="sap-icon://collections-management"/>
+                
+                </TileContent>
+            </GenericTile>
+               <GenericTile class="sapUiTinyMargin tileLayout" id="tile_gstinmaster"  header="GSTIN Master Report" subheader="" press="onPressGSTINMasterReports">
+                <TileContent>
+                    <!-- <NumericContent icon="sap-icon://manager-insight" scale="K" value="15" valueColor="Error" indicator="None" withMargin="false" /> -->
+                 <ImageContent src="sap-icon://collections-management"/>
+                
+                </TileContent>
+            </GenericTile>
+            <GenericTile class="sapUiTinyMargin tileLayout" visible="false" id ="tile_tcs" header="TCS Summary" subheader="" press="onPressTCSSummaryReports">
+                <TileContent>
+                    <!-- <NumericContent icon="sap-icon://manager-insight" scale="K" value="15" valueColor="Error" indicator="None" withMargin="false" /> -->
+                 <ImageContent src="sap-icon://collections-management"/>
+                
+                </TileContent>
+            </GenericTile>
+             <GenericTile class="sapUiTinyMargin tileLayout" id="tile_area" header="Area Summary" subheader="" press="onPressAreaSummaryReports">
+                <TileContent>
+                    <!-- <NumericContent icon="sap-icon://manager-insight" scale="K" value="15" valueColor="Error" indicator="None" withMargin="false" /> -->
+                 <ImageContent src="sap-icon://collections-management"/>
+                
+                </TileContent>
+            </GenericTile>
+            <GenericTile class="sapUiTinyMargin tileLayout" id="tile_gst" header="GST Report" subheader="" press="onPressGSTReports">
+                <TileContent>
+                    <!-- <NumericContent icon="sap-icon://manager-insight" scale="K" value="15" valueColor="Error" indicator="None" withMargin="false" /> -->
+                 <ImageContent src="sap-icon://collections-management"/>
+                
+                </TileContent>
+            </GenericTile>    	
+        </Panel>
+        <!-- <footer>
+        	<OverflowToolbar>
+				
+        <MessageStrip
+		class="sapUiTinyMargin"
+		text="Invoices and the coresponding consoldated informations are based on the default period and default GSTIN {USERModel>/defaultGSTIN} choosed"
+		type="Information"
+		showIcon="true">
+	    </MessageStrip>
+        <ToolbarSpacer/>
+       	</OverflowToolbar>
+		</footer> -->
+        
+    </Page>
+</mvc:View>

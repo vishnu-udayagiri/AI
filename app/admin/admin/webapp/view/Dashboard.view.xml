@@ -1,0 +1,214 @@
+<mvc:View xmlns:core="sap.ui.core"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns:mc="sap.suite.ui.microchart"
+    xmlns:t="sap.ui.table"
+    xmlns:form="sap.ui.layout.form" class="sapUiSizeCompact" displayBlock="true" height="100%"
+    xmlns:w="sap.ui.integration.widgets"
+    xmlns:cssgrid="sap.ui.layout.cssgrid"
+    xmlns:l="sap.ui.layout"
+    xmlns:fb="sap.ui.comp.filterbar" controllerName="admindashboard.controller.Dashboard"
+    xmlns="sap.m"
+    xmlns:f="sap.f"
+    xmlns:svm="sap.ui.comp.smartvariants">
+    <Page showHeader="false">
+        <!-- <fb:FilterBar id="filterbar" persistencyKey="myPersKey" useToolbar="false" search=".onSearch" filterChange=".onFilterChange" afterVariantLoad=".onAfterVariantLoad">
+            <fb:filterGroupItems>
+                <fb:FilterGroupItem name="Document Type" label="Document Type" groupName="Group1" visibleInFilterBar="true">
+                    <fb:control>
+                        <ComboBox id="fbmc-DocType" selectionChange="handleSelectedDocType" selectedKey="INVOICE" placeholder="Select Document Type.." width="350px">
+                            <items>
+                                <core:Item key="INVOICE" text="GST Invoices"/>
+                                <core:Item key="DEBIT" text="Debit Note"/>
+                                <core:Item key="CREDIT" text="Credit Note"/>
+                            </items>
+                        </ComboBox>
+                    </fb:control>
+                </fb:FilterGroupItem>
+                <fb:FilterGroupItem name="Invoice Number" label="Invoice Number" groupName="Group1" visibleInFilterBar="true">
+                    <fb:control>
+                        <Input id="fbinp-invoiceNumber" type="Text" textFormatMode="Key" placeholder="Invoice No..." showSuggestion="true" showValueHelp="true" valueHelpRequest="handleValueHelpinvoiceNum" suggestionItems="{path: 'FilterDatamodel>/invoiceNumbers/',templateShareable: false}" suggestionItemSelected="suggestionItemSelected" valueLiveUpdate="true">
+                            <suggestionItems>
+                                <core:ListItem key="{FilterDatamodel>}"/>
+                            </suggestionItems>
+                        </Input>
+                    </fb:control>
+                </fb:FilterGroupItem>
+                <fb:FilterGroupItem name="Buyer GSTIN" label="Buyer GSTIN" groupName="Group1" visibleInFilterBar="true">
+                    <fb:control>
+                        <MultiComboBox id="fbmc-GSTIN" selectionChange="handleSelectedGSTIN" selectionFinish="handleSelectedGSTIN" selectedKeys="" showSelectAll="true" width="350px" items="{ path: 'FilterDatamodel>/passengerGSTIN'}">
+                            <core:Item key="{FilterDatamodel>}" text="{FilterDatamodel>}"/>
+                        </MultiComboBox>
+                    </fb:control>
+                </fb:FilterGroupItem>
+                <fb:FilterGroupItem name="Date of Issue" label="Date of Issue" visible="false" groupName="Group1" visibleInFilterBar="false">
+                    <fb:control>
+                        <DateRangeSelection id="fbdat-DateofIssue" delimiter=" to " dateValue="{path:'/dateValueDRS1'}" secondDateValue="{path:'/secondDateValueDRS1'}" change="handleChange" valueFormat="{i18n>yyyy/MM/dd}" displayFormat="{i18n>yyyy/MM/dd}"/>
+                    </fb:control>
+                </fb:FilterGroupItem>
+                <fb:FilterGroupItem name="Period" label="Period" groupName="Group1" visibleInFilterBar="true">
+                    <fb:control>
+                        <ComboBox id="fbmc-TIMELINE" selectionChange="handleSelectedPeriod" width="350px" selectedKey="">
+                            <items>
+                                <core:Item key="CM" text="Current Month"/>
+                                <core:Item key="PM" text="Previous Month"/>
+                                <core:Item key="CF" text="Current Financial Year"/>
+                                <core:Item key="PF" text="Previous Financial Year"/>
+                            </items>
+                        </ComboBox>
+                    </fb:control>
+                </fb:FilterGroupItem>
+                <fb:FilterGroupItem name="Supplier GSTIN" label="Supplier GSTIN" groupName="Group1" visibleInFilterBar="true">
+                    <fb:control>
+                        <MultiComboBox id="fbmc-GSTINAI" selectionChange="handleSelectedGSTIN_AI" selectionFinish="handleSelectedGSTIN_AI" selectedKeys="" showSelectAll="true" width="350px" items="{ path: 'FilterDatamodel>/supplierGSTIN'}">
+                            <core:Item key="{FilterDatamodel>}" text="{FilterDatamodel>}"/>
+                        </MultiComboBox>
+                    </fb:control>
+                </fb:FilterGroupItem>
+
+                <fb:FilterGroupItem name="Ticket Number" label="Ticket Number" groupName="Group1" visibleInFilterBar="true">
+                    <fb:control>
+                        <Input id="fbinp-ticketNumber" type="Text" textFormatMode="Key" placeholder="Ticket No..." showSuggestion="true" showValueHelp="true" valueHelpRequest="handleValueHelpticketNum" suggestionItems="{path: 'FilterDatamodel>/ticketNumber/',templateShareable: false}" suggestionItemSelected="suggestionItemSelected" valueLiveUpdate="true">
+                            <suggestionItems>
+                                <core:ListItem key="{FilterDatamodel>}"/>
+                            </suggestionItems>
+                        </Input>
+                    </fb:control>
+                </fb:FilterGroupItem>
+                <fb:FilterGroupItem name="PNR Number" label="PNR Number" groupName="Group1" visibleInFilterBar="true">
+                    <fb:control>
+                        <Input id="fbinp-pnrNumber" type="Text" textFormatMode="Key" placeholder="PNR No..." showSuggestion="true" showValueHelp="true" valueHelpRequest="handleValueHelppnrNum" suggestionItems="{path: 'FilterDatamodel>/pnrNumbers/',templateShareable: false}" suggestionItemSelected="suggestionItemSelected" valueLiveUpdate="true">
+                            <suggestionItems>
+                                <core:ListItem key="{FilterDatamodel>}"/>
+                            </suggestionItems>
+                        </Input>
+                    </fb:control>
+                </fb:FilterGroupItem>
+                <fb:FilterGroupItem name="Company" label="Company" groupName="Group1" visible="false" visibleInFilterBar="true">
+                    <fb:control>
+                        <Input id="fbinp-company" type="Text" textFormatMode="Key" placeholder="Company..." showSuggestion="true" showValueHelp="true" valueHelpRequest="handleValueHelpcompany" suggestionItems="{path: 'FilterDatamodel>/company/',templateShareable: false}" suggestionItemSelected="suggestionItemSelected" valueLiveUpdate="true">
+                            <suggestionItems>
+                                <core:ListItem key="{FilterDatamodel>}"/>
+                            </suggestionItems>
+                        </Input>
+                    </fb:control>
+                </fb:FilterGroupItem>
+                <fb:FilterGroupItem name="Invoice Date" label="Invoice Date" groupName="Group1" visibleInFilterBar="true">
+                    <fb:control>
+                        <DateRangeSelection id="fbdat-invoiceDate" delimiter=" to " dateValue="{path:'/dateValueDRS1'}" secondDateValue="{path:'/secondDateValueDRS1'}" minDate="{path:'/dateMinDRS1'}" maxDate="{path:'/dateMaxDRS1'}" change="handleChange" displayFormat="{i18n>yyyy/MM/dd}"/>
+                    </fb:control>
+                </fb:FilterGroupItem>
+                <fb:FilterGroupItem name="IATA Code" label="IATA Code" groupName="Group1" visibleInFilterBar="true">
+                    <fb:control>
+                        <Input id="fbinp-iataNumber" enabled="false" type="Text" textFormatMode="Key" placeholder="IATA Code..." showSuggestion="true" showValueHelp="true" valueHelpRequest="handleValueHelpiataNum" suggestionItems="{path: 'FilterDatamodel>/agentName/',templateShareable: false}" suggestionItemSelected="suggestionItemSelected" valueLiveUpdate="true" maxLength="10">
+                            <suggestionItems>
+                                <core:ListItem key="{FilterDatamodel>}"/>
+                            </suggestionItems>
+                        </Input>
+                    </fb:control>
+                </fb:FilterGroupItem>
+
+            </fb:filterGroupItems>
+        </fb:FilterBar> -->
+        <Panel >
+            <fb:FilterBar id="filterbar" persistencyKey="myPersKey" showFilterConfiguration="false" showGoOnFB="false" useToolbar="false" search="" filterChange=".onFilterChange" afterVariantLoad=".onAfterVariantLoad">
+                <fb:filterGroupItems>
+                    <fb:FilterGroupItem name="Period" label="Period" groupName="Group1" visibleInFilterBar="true">
+                        <fb:control>
+                            <ComboBox id="fbmc-TIMELINE" selectionChange="handleSelectedPeriod" width="350px" selectedKey="">
+                                <items>
+                                    <core:Item key="CM" text="Current Month"/>
+                                    <core:Item key="PM" text="Previous Month"/>
+                                    <core:Item key="CF" text="Current Financial Year"/>
+                                    <core:Item key="PF" text="Previous Financial Year"/>
+                                </items>
+                            </ComboBox>
+                        </fb:control>
+                    </fb:FilterGroupItem>
+                    <fb:FilterGroupItem name="Supplier GSTIN" label="Supplier GSTIN" groupName="Group1" visibleInFilterBar="true">
+                        <fb:control>
+                            <MultiComboBox id="fbmc-GSTIN" valueState="Information" valueStateText="Default Buyer GSTIN" selectionChange="handleSelectedGSTIN" selectedKeys="" showSelectAll="true" width="350px" items="{ path: 'USERModel>/gstlist/'}">
+                                <core:Item key="{USERModel>GSTIN}" text="{USERModel>GSTIN}"/>
+                            </MultiComboBox>
+                        </fb:control>
+                    </fb:FilterGroupItem>
+                </fb:filterGroupItems>
+            </fb:FilterBar>
+        </Panel>
+        <Panel class="sapUiTinyMargin" backgroundDesign="Transparent">
+            <GenericTile sizeBehavior="Small" class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout" header="User Profile" press="onPressProfile">
+                <TileContent unit="Unit">
+                    <!-- <NumericContent scale="%" value="12" valueColor="Critical" indicator="Up" withMargin="false" /> -->
+                </TileContent>
+            </GenericTile>
+
+            <GenericTile sizeBehavior="Small" class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout" header="Documents" subheader="Invoices" press="onPress" systemInfo = "system" appShortcut = "shortcut">
+                <TileContent unit="EUR" footer="Current Quarter">
+                    <ImageContent src="sap-icon://tools-opportunity" />
+                </TileContent>
+            </GenericTile>
+
+            <GenericTile sizeBehavior="Small" class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout" header="Document History" subheader="Invoices" press="onPress">
+                <TileContent unit="Unit" footer="Footer Text">
+                    <NumericContent value="1762" icon="sap-icon://line-charts" withMargin="false" />
+                </TileContent>
+            </GenericTile>
+
+            <GenericTile sizeBehavior="Small" class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout" header="Amendments" subheader="Expenses" press="onPressAmendments">
+                <TileContent unit="Unit" footer="Footer Text">
+                    <NumericContent value="1762" icon="sap-icon://line-charts" withMargin="false" />
+                </TileContent>
+            </GenericTile>
+
+            <GenericTile sizeBehavior="Small" class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout" header="Amendment Requests" subheader="Expenses" press="onPress">
+                <TileContent unit="Unit" footer="Footer Text">
+                    <NumericContent value="1762" icon="sap-icon://line-charts" withMargin="false" />
+                </TileContent>
+            </GenericTile>
+
+            <GenericTile sizeBehavior="Small" class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout" header="Reports" subheader="Expenses" press="onPress">
+                <TileContent unit="Unit" footer="Footer Text">
+                    <NumericContent value="1762" icon="sap-icon://line-charts" withMargin="false" />
+                </TileContent>
+            </GenericTile>
+
+            <GenericTile sizeBehavior="Small" class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout" header="Master Data" subheader="" press="onPress">
+                <TileContent unit="Unit" footer="Footer Text">
+                    <NumericContent value="1762" icon="sap-icon://line-charts" withMargin="false" />
+                </TileContent>
+            </GenericTile>
+        </Panel>
+        <!-- <f:GridContainer class="sapUiSmallMargin">
+            <w:Card manifest="{manifests>/taxLiability}" class="sapUiTinyMargin">
+                <w:layoutData>
+                    <f:GridContainerItemLayoutData rows="4" columns="4" />
+                </w:layoutData>
+            </w:Card>
+            <w:Card manifest="{manifests>/taxLiability}" class="sapUiTinyMargin">
+                <w:layoutData>
+                    <f:GridContainerItemLayoutData rows="4" columns="4" />
+                </w:layoutData>
+            </w:Card>
+            <w:Card manifest="{manifests>/taxLiability}" class="sapUiTinyMargin">
+                <w:layoutData>
+                    <f:GridContainerItemLayoutData rows="4" columns="4" />
+                </w:layoutData>
+            </w:Card>
+            <w:Card manifest="{manifests>/taxLiability}" class="sapUiTinyMargin">
+                <w:layoutData>
+                    <f:GridContainerItemLayoutData rows="4" columns="4" />
+                </w:layoutData>
+            </w:Card>
+            <w:Card manifest="{manifests>/taxLiability}" class="sapUiTinyMargin">
+                <w:layoutData>
+                    <f:GridContainerItemLayoutData rows="4" columns="4" />
+                </w:layoutData>
+            </w:Card>
+            <w:Card manifest="{manifests>/taxLiability}" class="sapUiTinyMargin">
+                <w:layoutData>
+                    <f:GridContainerItemLayoutData rows="4" columns="4" />
+                </w:layoutData>
+            </w:Card>
+        </f:GridContainer> -->
+
+    </Page>
+</mvc:View>

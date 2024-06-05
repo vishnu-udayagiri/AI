@@ -1,0 +1,8 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
+    <SelectDialog title="Select GST Type" items="{path :'FilterDatamodel>/Type/'}" search="handleValueHelpSearchbuyername"
+         multiSelect="true" rememberSelections="true" 
+		showClearButton="true"   confirm="handleValueHelpClosebuyerName" cancel="handlecancelbuyer">
+        <StandardListItem iconDensityAware="false" iconInset="false"
+            title="{FilterDatamodel>}"/>
+    </SelectDialog>
+</core:FragmentDefinition>

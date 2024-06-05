@@ -1,0 +1,5 @@
+/* Enter your custom styles here */
+
+.sapUiSizeCompact .sapMInputBaseHasEndIcons .sapMInputBaseInner {
+    pointer-events: none;
+}

@@ -1,0 +1,113 @@
+<mvc:View controllerName="ns.appconfig.controller.configuration"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core"
+    xmlns:fa="sap.f"
+    xmlns:form="sap.ui.layout.form"
+    xmlns:t="sap.ui.table"
+    xmlns:u="sap.ui.unified"
+    xmlns:fb="sap.ui.comp.filterbar" height="100%" class="sapUiSizeCompact">
+    <App>
+        <Page id="page" floatingFooter="true" showHeader="false">
+            <IconTabBar id="iconTabBar" class="sapUiResponsiveContentPadding" headerMode="Inline">
+                <items>
+                    <!-- General Settings -->
+                    <IconTabFilter text="Configurations" icon="sap-icon://user-settings">
+                        <form:SimpleForm layout="ColumnLayout" columnsM="2" columnsL="3" columnsXL="3">
+                            <form:title>
+                                <core:Title text="General Settings" icon="sap-icon://settings"/>
+                            </form:title>
+                            <form:content>
+                                <Label/>
+                                <CheckBox id="cb_isAdminApproval" text="Admin approval" selected="{configModel>/isAdminApproval}" editable="{= !${/toggleEdit}}"/>
+
+                                <Label/>
+                                <CheckBox id="cb_isGstinApiValidation" text="GSTIN API Validation" selected="{configModel>/isGstinApiValidation}" editable="{= !${/toggleEdit}}"/>
+
+                                <Label/>
+                                <CheckBox id="cb_sendPdfToRegisteredEmail" text="Send PDF to registered email" selected="{configModel>/sendPdfToRegisteredEmail}" editable="{= !${/toggleEdit}}"/>
+
+                                <Label/>
+                                <CheckBox id="cb_sendPdfToPassengerEmail" text="Send PDF to passenger email" selected="{configModel>/sendPdfToPassengerEmail}" editable="{= !${/toggleEdit}}"/>
+
+                                <Label/>
+                                <CheckBox id="cb_sendPdfToUserGstinEmail" text="Send PDF to user GSTIN email" selected="{configModel>/sendPdfToUserGstinEmail}" editable="{= !${/toggleEdit}}"/>
+
+                                <Label text="Max Amendments for bulk"/>
+                                <Input id="inp_maxInvoicesPerBulk" value="{configModel>/maxInvoicesPerBulk}" type="Number" editable="{= !${/toggleEdit}}"/>
+
+                            </form:content>
+                        </form:SimpleForm>
+
+                        <form:SimpleForm layout="ColumnLayout" columnsM="2" columnsL="3" columnsXL="4" editable="true" class="sapUiSmallMarginTop">
+                            <form:title>
+                                <core:Title text="Invoice Signatory" icon="sap-icon://signature"/>
+                            </form:title>
+                        </form:SimpleForm>
+                        <t:Table id="tbl_invoiceSignatory" rows="{signatoryModel>/}" selectionMode="Single" visibleRowCount="5" enableColumnReordering="false" rowActionCount="1">
+                            <t:extension>
+                                <OverflowToolbar style="Clear">
+                                    <ToolbarSpacer/>
+                                    <Button icon="sap-icon://add-activity" type="Default" press="onPressAddInvocie" tooltip="Add new invoice Signatory" enabled="{= !${/toggleEdit}}"/>
+                                </OverflowToolbar>
+                            </t:extension>
+                            <t:columns>
+                                <t:Column>
+                                    <Label text="Company"/>
+                                    <t:template>
+                                        <Select id="sel-company" required="true" selectedKey="{signatoryModel>company}" items="{companyMasterModel>/}" editable="false">
+                                            <core:Item key="{companyMasterModel>code}" text="{companyMasterModel>description}" />
+                                        </Select>
+                                    </t:template>
+                                </t:Column>
+                                <t:Column>
+                                    <Label text="Valid From"/>
+                                    <t:template>
+                                        <DatePicker value="{signatoryModel>ValidFrom}" editable="false" displayFormat="yyyy-MM-dd" valueFormat="yyyy-MM-dd"/>
+                                    </t:template>
+                                </t:Column>
+                                <t:Column>
+                                    <Label text="Valid Till"/>
+                                    <t:template>
+                                        <DatePicker value="{signatoryModel>ValidTill}" editable="false" displayFormat="yyyy-MM-dd" valueFormat="yyyy-MM-dd"/>
+                                    </t:template>
+                                </t:Column>
+                                <t:Column>
+                                    <Label text="Signatory Name"/>
+                                    <t:template>
+                                        <Input value="{signatoryModel>SignatoryName}" editable="false"/>
+                                    </t:template>
+                                </t:Column>
+                                <t:Column>
+                                    <Label text="Signature File"/>
+                                    <t:template>
+                                        <Image src="{
+                                            parts: [{path: 'signatoryModel>mimeType'},{path: 'signatoryModel>SignatureFile'} ],
+                                            formatter: '.formatSignature'}" width="40px" height="20px"/>
+                                    </t:template>
+                                </t:Column>
+                            </t:columns>
+                            <t:rowActionTemplate>
+                                <t:RowAction>
+                                    <t:items>
+                                        <t:RowActionItem icon="sap-icon://delete" tooltip="Delete selected item" press="onPressDeleteSignatory" visible="{= !${/toggleEdit}}" type="Delete" class="sapUiTinyMarginEnd"/>
+                                    </t:items>
+                                </t:RowAction>
+                            </t:rowActionTemplate>
+                        </t:Table>
+                    </IconTabFilter>
+                </items>
+            </IconTabBar>
+            <footer>
+                <OverflowToolbar>
+                    <content>
+                        <ToolbarSpacer/>
+                        <Button id="btnEdit" type="Emphasized" text="Edit" visible="{/toggleEdit}" press="onPressEdit"/>
+                        <Button id="btnSave" type="Accept" text="Save" visible="{= !${/toggleEdit}}" press="onPressSave"/>
+                        <Button id="btnCancel" type="Reject" text="Cancel" visible="{= !${/toggleEdit}}" press="onPressCancel"/>
+                    </content>
+                </OverflowToolbar>
+            </footer>
+        </Page>
+    </App>
+</mvc:View>

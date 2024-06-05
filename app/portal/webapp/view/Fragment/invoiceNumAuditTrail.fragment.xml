@@ -1,0 +1,7 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
+	<SelectDialog title="Invoice Number" class="sapUiPopupWithPadding"
+		items="{FilterDatamodel>/invoiceList}" search="searchInvoiceNumber" confirm="selectInvoiceNumber"
+		cancel="selectInvoiceNumber">
+		<StandardListItem iconDensityAware="false" iconInset="false" title="{FilterDatamodel>INVOICENUMBER}"/>
+	</SelectDialog>
+</core:FragmentDefinition>

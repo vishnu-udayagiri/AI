@@ -1,0 +1,8 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
+    <SelectDialog title="Select Module" items="{path :'auditFilterDatamodel>/module'}" search="handleValueHelpSearchModuleID"
+      liveChange="handleValueHelpSearchModuleID"   multiSelect="true" rememberSelections="true" 
+		showClearButton="true"   confirm="handleValueHelpCloseModuleID" cancel="">
+        <StandardListItem iconDensityAware="false" iconInset="false"
+            title="{auditFilterDatamodel>MODULE}"/>
+    </SelectDialog>
+</core:FragmentDefinition>

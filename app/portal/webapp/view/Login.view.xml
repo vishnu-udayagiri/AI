@@ -1,0 +1,395 @@
+<mvc:View xmlns:odata="sap.ui.comp.odata" controllerName="airindiagst.controller.Login" class="sapUiSizeCompact" displayBlock="true"
+    xmlns="sap.m"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns:l="sap.ui.layout"
+    xmlns:core="sap.ui.core"
+    xmlns:f="sap.ui.layout.form"
+    xmlns:html="http://www.w3.org/1999/xhtml">
+    <Page id="idPage" showHeader="false" >
+        <!-- <l:Grid position="Center" class="gridWrapperBody"> -->
+        <html:div  class="loginwrapper"> 
+          
+       <FlexBox id="idFlexBox1" justifyContent="Center" class="flex1 backGroundImage"
+							backgroundDesign="Translucent" >
+   
+                   
+                                <html:div  class="loginleft"> 
+                                <Image src="./css/images/Air-India-Logo.png" id="logoID" class="logo" />
+                                <Text text="GST." class="text1"/>
+                                  <Text text="AI" class="text5"/>
+
+                                
+                                    <Text text="WELCOME TO AIR INDIA'S GOODS AND SERVICES TAX (GST) PORTAL" class="text2" />
+                                    <html:ul class="imgclas">
+                                    <html:li>
+                                    <!-- <core:Icon  src="sap-icon://business-card" class="iconcls" /> -->
+
+   <Image src="./css/images/Layer_1.png"/>
+                                    <Text  text="Register as a business or an agent" />
+                                    </html:li>
+                                     <html:li>
+                                        <!-- <core:Icon src="sap-icon://inspection" class="iconcls" /> -->
+
+   <Image src="./css/images/Layer_2.png"  />
+                                       <Text text="View / update" />
+                                        </html:li>
+                                        <html:li>
+   <!-- <core:Icon  src="sap-icon://write-new-document" class="iconcls"/> -->
+   <Image src="./css/images/Layer_3.png"  />
+                                          <Text text="Download GST tax invoices" />
+                                           </html:li>
+                                           <html:li>
+                                              <!-- <core:Icon class="iconcls"  src="sap-icon://expense-report"/> -->
+                                           
+
+   <Image src="./css/images/Layer_4.png"  />
+                                             <Text text="Download TCS data by OTAs" />
+                                              </html:li>
+                                              </html:ul>
+
+                                               <html:ul class="imgclas1">
+                                    <html:li>
+
+   
+                                    <Text text="GST tax invoices will be processed as per GSTIN details provided at the time of booking and will be 
+mailed within four days to the email address provided at the time of booking." />
+                                    </html:li>
+                                     <html:li>
+
+  
+                                       <Text text="The Air India GST Portal can be accessed for invoices that have not been received and/or for revised 
+invoices with updated/revised GSTIN details." />
+                                        </html:li>
+                                        <html:li>
+
+   
+                                          <Text text="As per Section 34 of GST Act, refund of GST (K3) will not be allowed after 01 October of the current financial year, for tickets/invoices issued in the previous financial year." />
+                                           </html:li>
+                                             <html:li class="forcls">
+                                             
+                                  <!-- <Image src="./css/images/chevron.png"/> -->
+   
+                                    <Text text="For errors faced while registering on the GST portal or while downloading invoices, please send your queries to" />
+                                    <Link class="linkclass" text="gstsupport@airindia.com" target="_blank"  href="mailto:gstsupport@airindia.com"/>
+                                    </html:li>
+                                      <html:li>
+
+   
+                                    <Text text="Air India GSTIN Details: "   class="newcls"/>
+                                    <Link text="Click Here" press="onclickpdfdownload" class="clickhere"/>
+                                      <!-- <core:Icon  src="sap-icon://pdf-attachment" tooltip="Download Air India GSTIN Details" /> -->
+                                       <Image src="./css/images/Group.png" class="pdf"/>
+                                    </html:li>
+                                      <!-- <html:li>
+    
+   
+                                    <Text text="Note: The download limit is capped at 20,000 GST invoices/BOS per day." />
+                                    </html:li> -->
+                                    <html:li>
+          
+   
+                                    <!-- <Link text="Download Invoices" press="onpressunregisteredcus"/>
+                                     <Text text=" for GST unregistered customers"/> -->
+                                    </html:li>
+                                     <html:li>
+    
+   
+                                    <Link text="Go to Old-Portal" target="_blank" href="https://gst-ai.accelya.io/gstportal"/>
+                                     <Text text="(Valid Till 30 April 2024)"/>
+                                    </html:li>
+
+                        
+                                              </html:ul>
+</html:div >
+</FlexBox>
+      <FlexBox id="idFlexBox" justifyContent="Center" class="flex"
+							backgroundDesign="Translucent">
+                            <html:div class="topimg">
+                              
+                             
+                            
+            <html:div class="loginBox">
+                <html:div class="logoBox">
+                  <html:div >
+                                <Text text="Sign In"  id="signin" class="sign" />
+                            
+                            </html:div>
+
+                    <!-- <Image src="./css/images/logo.png" id="logoID" class="logo" /> -->
+                </html:div>
+             
+                <html:div >
+
+                    <!-- Login Form -->
+                    <f:SimpleForm class="logininput" id="sf-login" editable="false" layout="ResponsiveGridLayout" labelSpanXL="4" labelSpanM="4" adjustLabelSpan="false" emptySpanXL="1" emptySpanL="1" emptySpanM="1" columnsXL="1" columnsL="1" singleContainerFullSize="false">
+                        <f:content>
+                            <!-- <Label text="{i18n>email}"/> -->
+                            <Input id="inp-loginEmail" placeholder="Email ID" class="logininput" type="Email" maxLength="241" liveChange="onLiveValidateForInput"/>
+                            <!-- <Label text="{i18n>password}"/> -->
+                            <Input id="inp-loginPass" type="Password" placeholder="Password" class="logininput" showValueHelp="true" valueHelpRequest="onShowHidePassword" valueHelpIconSrc="sap-icon://show" maxLength="16" liveChange="onValidateMandatory" />
+                              <html:div class="footer-left">
+                            <Link id="idForgotPasswordLink" text="{i18n>forgetPass}" press="onForgotPassword"/>
+                        </html:div>
+                        </f:content>
+                        <Button id="idLoginButton" text="{i18n>login}"  class="loginbutton" type="Emphasized" press="onLoginButtonPress" />
+                      <html:ul class="ftclass">
+                        <html:li class="footer">
+                           <Text id="idNewUserRegisterNowLink1" text="New User?" class="newcls"/>
+                            <Link id="idNewUserRegisterNowLink" text="{i18n>newUserReg}" press="onNewUserRegisterNowLinkPress"/>
+                          
+                            <!-- <Link id="idAlreadyRegisteredClickToActivateLink" text="Help"  class="infolnk" press="onNewUserRegisterNowLinkPresshelp" /> -->
+                        </html:li>
+                         <html:li class="footer">
+                         <!-- <PDFViewer class="footer" source="{/Source}" displayType="Link" title="FAQs" height="auto" width="10rem">
+			        	 <layoutData>
+			        			<FlexItemData growFactor="1"/>
+				            </layoutData> 
+			            	</PDFViewer> -->
+                                <Text id="idfaq21" text="Need Help With Registration?"  class="newcls"/>
+                            <Link id="idf2aq" text="Click here" press="onNewUserRegisterNowLinkPresshelp"/>
+                        </html:li>
+                        
+                         <html:li class="footer">
+                         <!-- <PDFViewer class="footer" source="{/Source}" displayType="Link" title="FAQs" height="auto" width="10rem">
+			        	 <layoutData>
+			        			<FlexItemData growFactor="1"/>
+				            </layoutData> 
+			            	</PDFViewer> -->
+                                <Text id="idfaq1" text="Need Further Information?"  class="newcls"/>
+                            <Link id="idfaq" text="FAQ" press="onfaqpress"/>
+                        </html:li>
+                           <html:li class="footer">
+                         <!-- <PDFViewer class="footer" source="{/Source}" displayType="Link" title="FAQs" height="auto" width="10rem">
+			        	 <layoutData>
+			        			<FlexItemData growFactor="1"/>
+				            </layoutData> 
+			            	</PDFViewer> -->
+                                   
+                            <!-- <Link id="id3aq" text= "Activate My Account" press="" class="acvate"/> -->
+                         
+                        </html:li>
+                        </html:ul>
+                        <!-- <html:div class="footer-between">
+                                <Link id="idUserGuideLink" text="{i18n>userGuide}"/>
+                                <Link id="idFAQLink" text="{i18n>faq}"/>
+                            </html:div> -->
+                    </f:SimpleForm>
+
+                    <!-- OTP Verification LOGIN -->
+                    <f:SimpleForm id="sf-otpLogin"  visible="false" editable="false" layout="ResponsiveGridLayout" labelSpanXL="4" labelSpanM="4" adjustLabelSpan="false" emptySpanXL="1" emptySpanL="1" emptySpanM="1" columnsXL="1" columnsL="1" singleContainerFullSize="false">
+                        <f:content>
+                            <html:div class="footer">
+                                <Text text="{i18n>commentOtp}"/>
+                                <Text id="txt-loginEmail" text="" class="sapUiSmallMarginTop"/>
+                            </html:div>
+                            <Label />
+                            <Input id="inp-verifyOtp" placeholder="Enter OTP" type="Text" maxLength="6"/>
+                            <Text id="txt-expireOtp" text="{i18n>expiresOtp}"/>
+                        </f:content>
+                        <Button id="btn-verifyOtp" text="Verify" type="Emphasized" press="onVerifyOTP" />
+                        <!-- <html:div class="footer">
+                            <Link text="{i18n>resendOtp}" press="onPressResendOtp"/>
+                        </html:div> -->
+                          <html:ul class="ftclass">
+                        <html:li class="footer">
+                           <Text id="li-sitext" text="Not recieved your code? "  class="newcls"/>
+                            <Link id="lin" text="Resend" press="onPressResendOtp"/>
+                        </html:li>
+                           </html:ul>
+                    </f:SimpleForm>
+
+                    <!-- Validate User-->
+                    <f:SimpleForm id="sf-NewUserRegister" visible="false" editable="false" layout="ResponsiveGridLayout" labelSpanXL="4" labelSpanM="4" adjustLabelSpan="false" emptySpanXL="1" emptySpanL="1" emptySpanM="1" columnsXL="1" columnsL="1" singleContainerFullSize="false">
+                        <f:toolbar>
+                            <Toolbar id="TB1">
+                                <Title titleStyle="H5" text="Enter details"/>
+                                <ToolbarSpacer />
+                            </Toolbar>
+                        </f:toolbar>
+                        <f:content>
+                            <Label text="{i18n>pan}"/>
+                            <Input id="inp-pan" class="transformToUpperCase" placeholder="Permanent Account Number" type="Text" maxLength="10" liveChange="onValidateMandatoryPAN"/>
+                            <Label text="{i18n>email}"/>
+                            <Input id="inp-newEmail" type="Email" placeholder="Email ID" maxLength="241" liveChange="onLiveValidateForInput" />
+                        </f:content>
+                        <Button id="idStep" text="Continue" type="Emphasized" press="onContinuePress" />
+                          <html:ul class="ftclass">
+                        <html:li class="footer">
+                           <Text id="li-signintext" text="Already Registered?"  class="newcls"/>
+                            <Link id="li-signin" text="Sign In" press="onRegisteredButtonPress"/>
+                        </html:li>
+                           </html:ul>
+                    </f:SimpleForm>
+
+                    <!-- OTP Verification LOGIN -->
+                    <f:SimpleForm id="sf-newRegOTP" visible="false" editable="false" layout="ResponsiveGridLayout" labelSpanXL="4" labelSpanM="4" adjustLabelSpan="false" emptySpanXL="1" emptySpanL="1" emptySpanM="1" columnsXL="1" columnsL="1" singleContainerFullSize="false">
+                        <f:content>
+                            <html:div class="footer">
+                                <Text text="{i18n>commentOtp}"/>
+                                <Text id="txt-regLoginEmail" text="" class="sapUiSmallMarginTop"/>
+                            </html:div>
+                            <Label />
+                            <Input id="inp-regVerifyOtp" placeholder="Enter OTP" type="Text" maxLength="6"/>
+                            <Text id="txt-regExpireOtp" text="{i18n>expiresOtp}"/>
+                        </f:content>
+                        <Button id="btn-regVerifyOtp" text="Verify" type="Emphasized" press="onVerifyRegOTP" />
+                       <html:ul class="ftclass">
+                        <html:li class="footer">
+                            <Link text="{i18n>resendOtp}" press="onPressRegResendOtp"/>
+                            <!-- <Link text="Register / Login" press="onRegisteredButtonPress"/> -->
+                        </html:li>
+                         </html:ul>
+                    </f:SimpleForm>
+
+                    <!-- First time Force set password -->
+
+                    <f:SimpleForm id="sf-setPassword" visible="false" layout="ResponsiveGridLayout" labelSpanXL="4" labelSpanM="4" adjustLabelSpan="false" emptySpanXL="1" emptySpanL="1" emptySpanM="1" columnsXL="1" columnsL="1" singleContainerFullSize="false">
+                        <f:content>
+                            <Label text="{i18n>newPassword}"/>
+                            <Input id="inp-newPass" type="Password" placeholder="Password" showValueHelp="true" valueHelpRequest="onShowHidePassword" valueHelpIconSrc="sap-icon://show" maxLength="16" liveChange="onValidateNewPassword"/>
+                            <Label text="{i18n>confirmNewpassword}"/>
+                            <Input id="inp-confirmPass" type="Password" placeholder="Confirm password" showValueHelp="true" valueHelpRequest="onShowHidePassword" valueHelpIconSrc="sap-icon://show" maxLength="16" liveChange="onValidateConfirmPassword" />
+                        </f:content>
+                        <Button id="idConfirm" text="{i18n>Confirm}" type="Emphasized" press="onConfirmButtonPress" />
+                    </f:SimpleForm>
+
+                    <!--User Type-->
+                    <f:SimpleForm id="sf-NewUserType" class="logininput"  visible="false" editable="false" layout="ResponsiveGridLayout" labelSpanXL="4" labelSpanM="4" adjustLabelSpan="false" emptySpanXL="1" emptySpanL="1" emptySpanM="1" columnsXL="1" columnsL="1" singleContainerFullSize="false">
+                        <!--<f:toolbar>
+                            <Toolbar style="Clear" id="TBuserType">
+                                <ToolbarSpacer />
+                                <Label textAlign="Center" text="Who are you ?"/>
+                                <ToolbarSpacer />
+                            </Toolbar>
+                        </f:toolbar>-->
+                        <f:content>
+                         <Button id="others" text="Taxpayer in India" type="Accept" press="onclickOthers" />
+                           <Button id="overseasagent" text="Overseas Agent" type="Accept" press="onclickOverseasAgents" />
+                            <Button id="consulates" text="Consulate/Embassy" type="Accept" press="onclickConsulates" />
+                            <Button id="unbodies" text="UN Body" type="Accept" press="onclickUnbodies" />
+                          
+                           
+
+                        </f:content>
+                        <html:ul class="ftclass">
+                        <html:li class="footer">
+                          <Text id="li-tolo1gin" text="Already Registered?"  class="newcls"/>
+                            <Link id="li-tologin" text="Sign In" press="onRegisteredButtonPress"/>
+                        </html:li>
+                        </html:ul>
+                    </f:SimpleForm>
+
+                    <!-- Consulate User-->
+                    <f:SimpleForm id="sf-ConsulateUser" visible="false" editable="false" layout="ResponsiveGridLayout" labelSpanXL="4" labelSpanM="4" adjustLabelSpan="false" emptySpanXL="1" emptySpanL="1" emptySpanM="1" columnsXL="1" columnsL="1" singleContainerFullSize="false">
+                        <f:toolbar>
+                            <Toolbar id="TB_consulateUser">
+                                <Title titleStyle="H5" text="Enter details"/>
+                                <ToolbarSpacer />
+                            </Toolbar>
+                        </f:toolbar>
+                        <f:content>
+                            <Label text="{i18n>country}"/>
+                            <ComboBox items="{masterDataModel>/data}" placeholder="Choose Country" showSecondaryValues="true" id="sel-logcountry" required="true" change="onValidateMandatory">
+                                <core:ListItem key="{masterDataModel>COUNTRY_CODE}" text="{masterDataModel>DESCR}"/>
+                            </ComboBox>
+                            <!-- <ComboBox id="sel-country" required="true" items="{masterDataModel>/country}" change="onValidateMandatory">
+                                    <core:Item key="{masterDataModel>code}" text="{masterDataModel>description}"/>
+                                </ComboBox> -->
+                            <Label text="{i18n>email}"/>
+                            <Input id="inp-consulateEmail" placeholder="Email ID" required="true" type="Email" maxLength="241" liveChange="onLiveValidateForInput" />
+                        </f:content>
+                        <Button id="idConsolateContinue" text="Continue" type="Emphasized" press="onConsulateContinuePress" />
+                        <html:ul class="ftclass">
+                        <html:li class="footer">
+                            <Text id="li-logi1n1" text="Already Registered?"  class="newcls"/>
+                              <Link id="li-login1" text="Sign In" press="onRegisteredButtonPress"/>
+                        </html:li>
+                         </html:ul>
+                    </f:SimpleForm>
+
+                    <!-- UN Bodies User-->
+                    <f:SimpleForm id="sf-unBodies" visible="false" editable="false" layout="ResponsiveGridLayout" labelSpanXL="4" labelSpanM="4" adjustLabelSpan="false" emptySpanXL="1" emptySpanL="1" emptySpanM="1" columnsXL="1" columnsL="1" singleContainerFullSize="false">
+                        <f:toolbar>
+                            <Toolbar id="TB_unBodies">
+                                <Title titleStyle="H5" text="Enter details"/>
+                                <ToolbarSpacer />
+                            </Toolbar>
+                        </f:toolbar>
+                        <f:content>
+                            <Label text="{i18n>unbodies}"/>
+                            <ComboBox id="sel-unBodies" placeholder="Choose UN-Body" showSecondaryValues= "true" required="true" items="{masterDataModel>/data}" change="onValidateMandatory">
+                                <core:ListItem key="{masterDataModel>SHORTNAME}" text="{masterDataModel>LEGALNAMEOFBUSINESS}"/>
+                            </ComboBox>
+                            <Label text="{i18n>email}"/>
+                            <Input id="inp-unBodiesEmail" placeholder="Email ID" required="true" type="Email" maxLength="241" liveChange="onLiveValidateForInput" />
+                        </f:content>
+                        <Button id="idunBodiesContinue" text="Continue" type="Emphasized" press="onunBodiesContinuePress" />
+                        <html:ul class="ftclass">
+                        <html:li class="footer">
+                            <Text id="li-login12" text="Already Registered?"  class="newcls"/>
+                             <Link id="li-login2" text="Sign In" press="onRegisteredButtonPress"/>
+                        </html:li>
+                         </html:ul>
+                    </f:SimpleForm>
+
+                    <!-- OverSeas Agent User-->
+                    <f:SimpleForm id="sf-overseasAgentUser" visible="false" editable="false" layout="ResponsiveGridLayout" labelSpanXL="4" labelSpanM="4" adjustLabelSpan="false" emptySpanXL="1" emptySpanL="1" emptySpanM="1" columnsXL="1" columnsL="1" singleContainerFullSize="false">
+                        <f:toolbar>
+                            <Toolbar id="TB_overseasAgentUser">
+                                <Title titleStyle="H5" text="Enter details"/>
+                                <ToolbarSpacer />
+                            </Toolbar>
+                        </f:toolbar>
+                        <f:content>
+                            <Label text="{i18n>country}"/>
+                            <ComboBox items="{masterDataModel>/data}" placeholder="Choose Country" showSecondaryValues="true" id="sel-Agentcountry" required="true" change="onSelectedAgentCountry">
+                                <core:ListItem key="{masterDataModel>COUNTRY_CODE}" text="{masterDataModel>COUNTRYNAME}"/>
+                            </ComboBox>
+                            <Label text="{i18n>iata}"/>
+                            <Input id="sel-AgentIata" placeholder="Head Entity IATA Number" type="Number" required="true" editable="false" maxLength="10" liveChange="onValidateMandatory" />
+                            <!-- <ComboBox id="sel-AgentIata" editable="false" required="true" items="{iataDataModel>/}" change="onValidateMandatory">
+                                    <core:Item key="{iataDataModel>IATANUMBER}" text="{iataDataModel>IATANUMBER}"/>
+                                </ComboBox> -->
+                            <Label text="{i18n>email}"/>
+                            <Input id="inp-overSeasAgentEmail" placeholder="Email ID" required="true" type="Email" maxLength="241" liveChange="onLiveValidateForInput" />
+                        </f:content>
+                        <Button id="idOverseasAgentContinue" text="Continue" type="Emphasized" press="onoverSeasAgentContinuePress" />
+                      <html:ul class="ftclass">
+                        <html:li class="footer">
+                           <Text id="li-login3text" text="Already Registered?"  class="newcls"/>
+                            <Link id="li-login3" text="Sign In" press="onRegisteredButtonPress"/>
+                        </html:li>
+                         </html:ul>
+                    </f:SimpleForm>
+                   
+
+
+                </html:div>
+
+            </html:div>
+             
+
+            <html:div  class="bottomcls">
+                <html:div class="power">
+                    <Text   text="Powered by"/>
+                </html:div>
+                <html:div class="power2">
+                    <Text class="labelBox3" text="Air India Digital and Tech"/>
+                </html:div>
+
+                <html:div class="power3">
+                    <Text class="labelBox2" text="©Air India 2024. All rights reserved"/>
+                </html:div>
+            </html:div>
+            
+ </html:div>
+            </FlexBox>
+
+
+
+
+</html:div >
+
+        <!-- </l:Grid> -->
+    </Page>
+</mvc:View>

@@ -1,0 +1,26 @@
+{
+    "name": "bulk-download-zip",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "scripts": {
+      "test": "echo \"Error: no test specified\" && exit 1",
+      "dev": "nodemon index.js",
+      "start": "node --max-old-space-size=8192 index.js"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "dependencies": {
+      "@sap/hdbext": "^8.0.3",
+      "@sap/xsenv": "^4.2.0",
+      "archiver": "^6.0.1",
+      "dotenv": "^16.4.1",
+      "express": "^4.18.2",
+      "fast-csv": "^5.0.0",
+      "fs-extra": "^11.2.0",
+      "moment": "^2.30.1",
+      "node-cron": "^3.0.3",
+      "uuid": "^9.0.1"
+    }
+  }

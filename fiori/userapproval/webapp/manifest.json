@@ -1,0 +1,234 @@
+{
+  "_version": "1.49.0",
+  "sap.app": {
+    "id": "ns.userapproval",
+    "type": "application",
+    "i18n": "i18n/i18n.properties",
+    "applicationVersion": {
+      "version": "0.0.2"
+    },
+    "crossNavigation": {
+      "inbounds": {
+        "userApproval-display": {
+          "signature": {
+            "parameters": {},
+            "additionalParameters": "allowed"
+          },
+          "semanticObject": "userApproval",
+          "action": "display",
+          "title": "User Approval",
+          "info": "Pending Approvals",
+          "subTitle": "",
+          "icon": "sap-icon://kpi-managing-my-area",
+          "indicatorDataSource": {
+            "dataSource": "mainService",
+            "path": "pendingForApproval/$count",
+            "refresh": 5
+          }
+        }
+      }
+    },
+    "title": "{{appTitle}}",
+    "description": "{{appDescription}}",
+    "resources": "resources.json",
+    "sourceTemplate": {
+      "id": "@sap/generator-fiori:lrop",
+      "version": "1.11.1",
+      "toolsId": "01c6c0c3-b065-4aad-a789-2c0ad25123a5"
+    },
+    "dataSources": {
+      "mainService": {
+        "uri": "/userApproval/",
+        "type": "OData",
+        "settings": {
+          "annotations": [],
+          "localUri": "localService/metadata.xml",
+          "odataVersion": "4.0"
+        }
+      }
+    }
+  },
+  "sap.ui": {
+    "technology": "UI5",
+    "icons": {
+      "icon": "",
+      "favIcon": "",
+      "phone": "",
+      "phone@2": "",
+      "tablet": "",
+      "tablet@2": ""
+    },
+    "deviceTypes": {
+      "desktop": true,
+      "tablet": true,
+      "phone": true
+    }
+  },
+  "sap.ui5": {
+    "flexEnabled": true,
+    "dependencies": {
+      "minUI5Version": "1.120.0",
+      "libs": {
+        "sap.m": {},
+        "sap.ui.core": {},
+        "sap.ushell": {},
+        "sap.fe.templates": {}
+      }
+    },
+    "contentDensities": {
+      "compact": true,
+      "cozy": true
+    },
+    "models": {
+      "i18n": {
+        "type": "sap.ui.model.resource.ResourceModel",
+        "settings": {
+          "bundleName": "ns.userapproval.i18n.i18n"
+        }
+      },
+      "": {
+        "dataSource": "mainService",
+        "preload": true,
+        "settings": {
+          "synchronizationMode": "None",
+          "operationMode": "Server",
+          "autoExpandSelect": true,
+          "earlyRequests": true
+        }
+      },
+      "@i18n": {
+        "type": "sap.ui.model.resource.ResourceModel",
+        "uri": "i18n/i18n.properties"
+      }
+    },
+    "resources": {
+      "css": []
+    },
+    "routing": {
+      "routes": [
+        {
+          "pattern": ":?query:",
+          "name": "initiatedUsersList",
+          "target": "initiatedUsersList"
+        },
+        {
+          "pattern": "initiatedUsers({key}):?query:",
+          "name": "initiatedUsersObjectPage",
+          "target": "initiatedUsersObjectPage"
+        },
+        {
+          "pattern": "initiatedUsers({key})/CompanyGSTIN({key2}):?query:",
+          "name": "CompanyGSTINObjectPage",
+          "target": "CompanyGSTINObjectPage"
+        }
+      ],
+      "targets": {
+        "initiatedUsersList": {
+          "type": "Component",
+          "id": "initiatedUsersList",
+          "name": "sap.fe.templates.ListReport",
+          "options": {
+            "settings": {
+              "entitySet": "initiatedUsers",
+              "variantManagement": "Page",
+              "initialLoad": "Enabled",
+              "navigation": {
+                "initiatedUsers": {
+                  "detail": {
+                    "route": "initiatedUsersObjectPage"
+                  }
+                }
+              },
+              "controlConfiguration": {
+                "@com.sap.vocabularies.UI.v1.LineItem": {
+                  "tableSettings": {
+                    "type": "GridTable"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "initiatedUsersObjectPage": {
+          "type": "Component",
+          "id": "initiatedUsersObjectPage",
+          "name": "sap.fe.templates.ObjectPage",
+          "options": {
+            "settings": {
+              "editableHeaderContent": false,
+              "entitySet": "initiatedUsers",
+              "navigation": {
+                "CompanyGSTIN": {
+                  "detail": {
+                    "route": "CompanyGSTINObjectPage"
+                  }
+                }
+              },
+              "controlConfiguration": {
+                "CompanyGSTIN/@com.sap.vocabularies.UI.v1.LineItem": {
+                  "tableSettings": {
+                    "type": "GridTable"
+                  }
+                },
+                "CompanyIATA/@com.sap.vocabularies.UI.v1.LineItem": {
+                  "tableSettings": {
+                    "type": "GridTable"
+                  }
+                },
+                "CompanyUsers/@com.sap.vocabularies.UI.v1.LineItem": {
+                  "tableSettings": {
+                    "type": "GridTable"
+                  }
+                },
+                "CompanyDocuments/@com.sap.vocabularies.UI.v1.LineItem": {
+                  "tableSettings": {
+                    "type": "GridTable"
+                  },
+                  "actions": {
+                    "viewDocument": {
+                      "press": "ns.userapproval.custom.customActions.viewDocument",
+                      "text": "Download",
+                      "inline": false,
+                      "requiresSelection": true
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "CompanyGSTINObjectPage": {
+          "type": "Component",
+          "id": "CompanyGSTINObjectPage",
+          "name": "sap.fe.templates.ObjectPage",
+          "options": {
+            "settings": {
+              "editableHeaderContent": false,
+              "entitySet": "CompanyGSTIN",
+              "controlConfiguration": {
+                "CompanyGSTINAdresses/@com.sap.vocabularies.UI.v1.LineItem": {
+                  "tableSettings": {
+                    "type": "GridTable"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "extends": {
+      "extensions": {
+        "sap.ui.controllerExtensions": {}
+      }
+    }
+  },
+  "sap.fiori": {
+    "registrationIds": [],
+    "archeType": "transactional"
+  },
+  "sap.cloud": {
+    "public": true,
+    "service": "cpapp.service"
+  }
+}

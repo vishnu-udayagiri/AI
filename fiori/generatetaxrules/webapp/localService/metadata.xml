@@ -1,0 +1,258 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="4.0" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+    <edmx:Reference Uri="https://sap.github.io/odata-vocabularies/vocabularies/Common.xml">
+        <edmx:Include Alias="Common" Namespace="com.sap.vocabularies.Common.v1"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Core.V1.xml">
+        <edmx:Include Alias="Core" Namespace="Org.OData.Core.V1"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="https://sap.github.io/odata-vocabularies/vocabularies/UI.xml">
+        <edmx:Include Alias="UI" Namespace="com.sap.vocabularies.UI.v1"/>
+    </edmx:Reference>
+    <edmx:DataServices>
+        <Schema Namespace="taxRuleService" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+            <EntityContainer Name="EntityContainer">
+                <EntitySet Name="AirportCodes" EntityType="taxRuleService.AirportCodes">
+                    <NavigationPropertyBinding Path="StateCodes" Target="StateCodes"/>
+                    <NavigationPropertyBinding Path="Company" Target="Company"/>
+                </EntitySet>
+                <EntitySet Name="TransactionTypes" EntityType="taxRuleService.TransactionTypes"/>
+                <EntitySet Name="BookingClass" EntityType="taxRuleService.BookingClass"/>
+                <EntitySet Name="Company" EntityType="taxRuleService.Company"/>
+                <EntitySet Name="StateCodes" EntityType="taxRuleService.StateCodes">
+                    <NavigationPropertyBinding Path="country" Target="Countries"/>
+                </EntitySet>
+                <EntitySet Name="Countries" EntityType="taxRuleService.Countries">
+                    <NavigationPropertyBinding Path="texts" Target="Countries_texts"/>
+                    <NavigationPropertyBinding Path="localized" Target="Countries_texts"/>
+                </EntitySet>
+                <EntitySet Name="Countries_texts" EntityType="taxRuleService.Countries_texts"/>
+                <FunctionImport Name="getFilterDetails" Function="taxRuleService.getFilterDetails"/>
+                <ActionImport Name="getTaxRule" Action="taxRuleService.getTaxRule"/>
+            </EntityContainer>
+            <EntityType Name="AirportCodes">
+                <Key>
+                    <PropertyRef Name="airportCode"/>
+                    <PropertyRef Name="company"/>
+                </Key>
+                <Property Name="airportCode" Type="Edm.String" MaxLength="4" Nullable="false"/>
+                <Property Name="company" Type="Edm.String" MaxLength="4" Nullable="false"/>
+                <Property Name="isDomestic" Type="Edm.Boolean" DefaultValue="false"/>
+                <Property Name="isUT" Type="Edm.Boolean" DefaultValue="false"/>
+                <Property Name="region" Type="Edm.String" MaxLength="10"/>
+                <Property Name="stateCode" Type="Edm.String" MaxLength="2"/>
+                <Property Name="businessPlace" Type="Edm.String" MaxLength="4"/>
+                <NavigationProperty Name="StateCodes" Type="taxRuleService.StateCodes">
+                    <ReferentialConstraint Property="stateCode" ReferencedProperty="stateCode"/>
+                </NavigationProperty>
+                <Property Name="gstin" Type="Edm.String" MaxLength="15"/>
+                <Property Name="exemptedZone" Type="Edm.String" MaxLength="1"/>
+                <Property Name="address" Type="Edm.String" MaxLength="255"/>
+                <NavigationProperty Name="Company" Type="taxRuleService.Company">
+                    <ReferentialConstraint Property="company" ReferencedProperty="code"/>
+                </NavigationProperty>
+            </EntityType>
+            <EntityType Name="TransactionTypes">
+                <Key>
+                    <PropertyRef Name="transactionType"/>
+                </Key>
+                <Property Name="transactionType" Type="Edm.String" MaxLength="10" Nullable="false"/>
+                <Property Name="transactionText" Type="Edm.String" MaxLength="50"/>
+                <Property Name="hsn" Type="Edm.String" MaxLength="8"/>
+                <Property Name="hsnText" Type="Edm.String" MaxLength="120"/>
+                <Property Name="taxCode" Type="Edm.String" MaxLength="3"/>
+            </EntityType>
+            <EntityType Name="BookingClass">
+                <Key>
+                    <PropertyRef Name="company"/>
+                    <PropertyRef Name="BookingClass"/>
+                </Key>
+                <Property Name="company" Type="Edm.String" MaxLength="4" Nullable="false"/>
+                <Property Name="BookingClass" Type="Edm.String" MaxLength="1" Nullable="false"/>
+                <Property Name="Cabin" Type="Edm.String" MaxLength="1" Nullable="false"/>
+                <Property Name="Rank" Type="Edm.String" MaxLength="2" Nullable="false"/>
+                <Property Name="CabinForRules" Type="Edm.String" MaxLength="1" Nullable="false"/>
+                <Property Name="Description" Type="Edm.String" MaxLength="25"/>
+            </EntityType>
+            <EntityType Name="Company">
+                <Key>
+                    <PropertyRef Name="code"/>
+                </Key>
+                <Property Name="code" Type="Edm.String" MaxLength="4" Nullable="false"/>
+                <Property Name="description" Type="Edm.String" MaxLength="50"/>
+            </EntityType>
+            <EntityType Name="StateCodes">
+                <Key>
+                    <PropertyRef Name="stateCode"/>
+                </Key>
+                <Property Name="stateCode" Type="Edm.String" MaxLength="2" Nullable="false"/>
+                <Property Name="stateName" Type="Edm.String" MaxLength="50"/>
+                <NavigationProperty Name="country" Type="taxRuleService.Countries">
+                    <ReferentialConstraint Property="country_code" ReferencedProperty="code"/>
+                </NavigationProperty>
+                <Property Name="country_code" Type="Edm.String" MaxLength="3"/>
+                <Property Name="region" Type="Edm.String" MaxLength="10"/>
+            </EntityType>
+            <EntityType Name="Countries">
+                <Key>
+                    <PropertyRef Name="code"/>
+                </Key>
+                <Property Name="name" Type="Edm.String" MaxLength="255"/>
+                <Property Name="descr" Type="Edm.String" MaxLength="1000"/>
+                <Property Name="code" Type="Edm.String" MaxLength="3" Nullable="false"/>
+                <NavigationProperty Name="texts" Type="Collection(taxRuleService.Countries_texts)">
+                    <OnDelete Action="Cascade"/>
+                </NavigationProperty>
+                <NavigationProperty Name="localized" Type="taxRuleService.Countries_texts">
+                    <ReferentialConstraint Property="code" ReferencedProperty="code"/>
+                </NavigationProperty>
+            </EntityType>
+            <EntityType Name="Countries_texts">
+                <Key>
+                    <PropertyRef Name="locale"/>
+                    <PropertyRef Name="code"/>
+                </Key>
+                <Property Name="locale" Type="Edm.String" MaxLength="14" Nullable="false"/>
+                <Property Name="name" Type="Edm.String" MaxLength="255"/>
+                <Property Name="descr" Type="Edm.String" MaxLength="1000"/>
+                <Property Name="code" Type="Edm.String" MaxLength="3" Nullable="false"/>
+            </EntityType>
+            <Function Name="getFilterDetails" IsBound="false" IsComposable="false">
+                <ReturnType Type="Edm.String"/>
+            </Function>
+            <Action Name="getTaxRule" IsBound="false">
+                <Parameter Name="Data" Type="Edm.String"/>
+                <ReturnType Type="Edm.String"/>
+            </Action>
+            <Annotations Target="taxRuleService.AirportCodes/airportCode">
+                <Annotation Term="Common.Label" String="Airport Code"/>
+            </Annotations>
+            <Annotations Target="taxRuleService.AirportCodes/company">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="Common.Label" String="Company"/>
+            </Annotations>
+            <Annotations Target="taxRuleService.AirportCodes/isDomestic">
+                <Annotation Term="UI.Hidden" Bool="true"/>
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="Common.Label" String="Is Domestic"/>
+            </Annotations>
+            <Annotations Target="taxRuleService.AirportCodes/isUT">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="Common.Label" String="Is UT"/>
+            </Annotations>
+            <Annotations Target="taxRuleService.AirportCodes/region">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="Common.Label" String="Region"/>
+            </Annotations>
+            <Annotations Target="taxRuleService.AirportCodes/stateCode">
+                <Annotation Term="Common.Label" String="State Code"/>
+                <Annotation Term="Core.Computed" Bool="true"/>
+            </Annotations>
+            <Annotations Target="taxRuleService.AirportCodes/businessPlace">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="Common.Label" String="Business Place"/>
+            </Annotations>
+            <Annotations Target="taxRuleService.AirportCodes/gstin">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="Common.Label" String="GSTIN"/>
+            </Annotations>
+            <Annotations Target="taxRuleService.AirportCodes/exemptedZone">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="Common.Label" String="Exempted Zone"/>
+            </Annotations>
+            <Annotations Target="taxRuleService.AirportCodes/address">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="Common.Label" String="Address"/>
+            </Annotations>
+            <Annotations Target="taxRuleService.TransactionTypes/transactionType">
+                <Annotation Term="Common.Label" String="Transaction Code"/>
+            </Annotations>
+            <Annotations Target="taxRuleService.TransactionTypes/transactionText">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="Common.Label" String="Transaction text"/>
+            </Annotations>
+            <Annotations Target="taxRuleService.TransactionTypes/hsn">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="Common.Label" String="HSN"/>
+            </Annotations>
+            <Annotations Target="taxRuleService.TransactionTypes/hsnText">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="Common.Label" String="HSN Text"/>
+            </Annotations>
+            <Annotations Target="taxRuleService.TransactionTypes/taxCode">
+                <Annotation Term="UI.Hidden" Bool="true"/>
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="Common.Label" String="Tax Code"/>
+            </Annotations>
+            <Annotations Target="taxRuleService.StateCodes/stateCode">
+                <Annotation Term="Common.Label" String="Code"/>
+                <Annotation Term="Core.Computed" Bool="true"/>
+            </Annotations>
+            <Annotations Target="taxRuleService.StateCodes/stateName">
+                <Annotation Term="Common.Label" String="State"/>
+                <Annotation Term="Core.Computed" Bool="true"/>
+            </Annotations>
+            <Annotations Target="taxRuleService.StateCodes/country">
+                <Annotation Term="Common.Label" String="Country"/>
+                <Annotation Term="Core.Description" String="{i18n>CountryCode.Description}"/>
+                </Annotations>
+                <Annotations Target="taxRuleService.StateCodes/country_code">
+                    <Annotation Term="Common.Label" String="Country"/>
+                    <Annotation Term="Common.ValueList">
+                        <Record Type="Common.ValueListType">
+                            <PropertyValue Property="Label" String="Country"/>
+                            <PropertyValue Property="CollectionPath" String="Countries"/>
+                            <PropertyValue Property="Parameters">
+                                <Collection>
+                                    <Record Type="Common.ValueListParameterInOut">
+                                        <PropertyValue Property="LocalDataProperty" PropertyPath="country_code"/>
+                                        <PropertyValue Property="ValueListProperty" String="code"/>
+                                    </Record>
+                                    <Record Type="Common.ValueListParameterDisplayOnly">
+                                        <PropertyValue Property="ValueListProperty" String="name"/>
+                                    </Record>
+                                </Collection>
+                            </PropertyValue>
+                        </Record>
+                    </Annotation>
+                    <Annotation Term="Core.Description" String="{i18n>CountryCode.Description}"/>
+                        <Annotation Term="Core.Computed" Bool="true"/>
+                    </Annotations>
+                    <Annotations Target="taxRuleService.StateCodes/region">
+                        <Annotation Term="Common.Label" String="Region"/>
+                    </Annotations>
+                    <Annotations Target="taxRuleService.Countries">
+                        <Annotation Term="UI.Identification">
+                            <Collection>
+                                <Record Type="UI.DataField">
+                                    <PropertyValue Property="Value" Path="name"/>
+                                </Record>
+                            </Collection>
+                        </Annotation>
+                    </Annotations>
+                    <Annotations Target="taxRuleService.Countries/name">
+                        <Annotation Term="Common.Label" String="{i18n>Name}"/>
+                        </Annotations>
+                        <Annotations Target="taxRuleService.Countries/descr">
+                            <Annotation Term="Common.Label" String="{i18n>Description}"/>
+                            </Annotations>
+                            <Annotations Target="taxRuleService.Countries/code">
+                                <Annotation Term="Common.Text" Path="name"/>
+                                <Annotation Term="Common.Label" String="{i18n>CountryCode}"/>
+                                </Annotations>
+                                <Annotations Target="taxRuleService.Countries_texts/locale">
+                                    <Annotation Term="Common.Label" String="{i18n>LanguageCode}"/>
+                                    </Annotations>
+                                    <Annotations Target="taxRuleService.Countries_texts/name">
+                                        <Annotation Term="Common.Label" String="{i18n>Name}"/>
+                                        </Annotations>
+                                        <Annotations Target="taxRuleService.Countries_texts/descr">
+                                            <Annotation Term="Common.Label" String="{i18n>Description}"/>
+                                            </Annotations>
+                                            <Annotations Target="taxRuleService.Countries_texts/code">
+                                                <Annotation Term="Common.Text" Path="name"/>
+                                                <Annotation Term="Common.Label" String="{i18n>CountryCode}"/>
+                                                </Annotations>
+                                            </Schema>
+                                        </edmx:DataServices>
+                                    </edmx:Edmx>

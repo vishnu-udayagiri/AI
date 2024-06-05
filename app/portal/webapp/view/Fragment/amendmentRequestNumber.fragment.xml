@@ -1,0 +1,7 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
+	<SelectDialog title="Select Request Number" items="{path :'GSTDetailsModel>/filters/amendmentRequestNos/'}" search="handleValueHelpSearchAmReqNum"
+		id="idfb_amendmentNumber" multiSelect="true" confirm="handleValueHelpCloseAmReqNum" cancel="handleValueHelpCloseAmReqNum">
+		<StandardListItem iconDensityAware="false" id="amendmentNumberList" iconInset="false" 
+			title="{GSTDetailsModel>}"/>
+	</SelectDialog>
+</core:FragmentDefinition>
