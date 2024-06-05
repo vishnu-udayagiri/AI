@@ -1,0 +1,78 @@
+{
+  "xsappname": "airindia-dev",
+  "scopes": [
+    {
+      "name": "uaa.user",
+      "description": "UAA"
+    },
+    {
+      "name": "$XSAPPNAME.User",
+      "description": "User"
+    },
+    {
+      "name": "$XSAPPNAME.Admin",
+      "description": "Administrator"
+    },
+    {
+      "name": "$XSAPPNAME.SuperAdmin",
+      "description": "Super Administrator"
+    }
+  ],
+  "attributes": [],
+  "role-templates": [
+    {
+      "name": "Token_Exchange",
+      "description": "UAA Token Exchange",
+      "scope-references": [
+        "uaa.user"
+      ]
+    },
+    {
+      "name": "User",
+      "description": "User",
+      "scope-references": [
+        "$XSAPPNAME.User"
+      ]
+    },
+    {
+      "name": "Admin",
+      "description": "Administrator",
+      "scope-references": [
+        "$XSAPPNAME.Admin"
+      ]
+    },
+    {
+      "name": "SuperAdmin",
+      "description": "Administrator",
+      "scope-references": [
+        "$XSAPPNAME.SuperAdmin"
+      ]
+    }
+  ],
+  "role-collections": [
+    {
+      "name": "airindia_dev_SuperAdmin",
+      "description": "Super Admin Access",
+      "role-template-references": [
+        "$XSAPPNAME.SuperAdmin",
+        "$XSAPPNAME.Admin",
+        "$XSAPPNAME.User"
+      ]
+    },
+    {
+      "name": "airindia_dev_Admin",
+      "description": "Administrative access",
+      "role-template-references": [
+        "$XSAPPNAME.Admin",
+        "$XSAPPNAME.User"
+      ]
+    },
+    {
+      "name": "airindia_dev_User",
+      "description": "Viewing access",
+      "role-template-references": [
+        "$XSAPPNAME.User"
+      ]
+    }
+  ]
+}

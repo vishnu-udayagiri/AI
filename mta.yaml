@@ -1,0 +1,1040 @@
+_schema-version: "3.1"
+ID: airindia-gst-dev
+description: AirIndia dev.
+version: 1.0.0
+modules:
+  - name: airindia-dev-srv
+    type: nodejs
+    path: gen/srv
+    requires:
+      - name: airindia-dev-auth
+      - name: airindia-dev-db
+      - name: task-runner-api
+    provides:
+      - name: admin-api
+        properties:
+          admin-url: ${default-url}
+    parameters:
+      buildpack: nodejs_buildpack
+    properties:
+      TaskRunnerAPI: ~{task-runner-api/task-runner-url}
+    build-parameters:
+      builder: npm
+      ignore:
+        - default-*.json
+        - .env
+        - "*node_modules*"
+
+        - srv-portal
+  - name: airindia-dev
+    type: approuter.nodejs
+    path: app/
+    requires:
+      - name: portal-api
+        group: destinations
+        properties:
+          name: portal-api
+          url: ~{portal-url}
+      - name: admin-api
+        group: destinations
+        properties:
+          name: admin-api
+          url: ~{admin-url}
+      - name: airindia-dev-auth
+      - name: cpapp-destination
+        group: destinations
+        properties:
+          forwardAuthToken: false
+          name: ui5
+          url: https://ui5.sap.com
+    parameters:
+      disk-quota: 4096M
+      keep-existing-routes: true
+      memory: 2048M
+      routes:
+        - route: airindia-dev.cfapps.in30.hana.ondemand.com
+    build-parameters:
+      ignore:
+        - default-*.json
+        - .env
+        - "*node_modules*"
+
+  - name: air-dev-db-deployer
+    type: hdb
+    path: gen/db
+    requires:
+      - name: airindia-dev-db
+    parameters:
+      buildpack: nodejs_buildpack
+    build-parameters:
+      ignore:
+        - default-*.json
+        - .env
+        - "*node_modules*"
+
+  - name: airindia-dev-portal-srv
+    type: nodejs
+    path: srv-portal
+    requires:
+      - name: airindia-dev-db
+      - name: airindia-dev-auth
+      - name: task-runner-api
+    properties:
+      TaskRunnerAPI: ~{task-runner-api/task-runner-url}
+    provides:
+      - name: portal-api
+        properties:
+          portal-url: ${default-url}
+      - name: srv-api
+        properties:
+          srv-url: ${default-url}
+    parameters:
+      buildpack: nodejs_buildpack
+      disk-quota: 4G
+      memory: 4G
+      stack: cflinuxfs4
+    build-parameters:
+      ignore:
+        - default-*.json
+        - .env
+        - "*node_modules*"
+
+  - name: automated-task-dev
+    type: nodejs
+    path: automated-task
+    requires:
+      - name: airindia-dev-db
+      - name: airindia-dev-auth
+    provides:
+      - name: task-runner-api
+        properties:
+          task-runner-url: ${default-url}
+    parameters:
+      buildpack: nodejs_buildpack
+      disk-quota: 1024M
+      memory: 1024M
+      stack: cflinuxfs4
+    build-parameters:
+      ignore:
+        - default-*.json
+        - .env
+        - "*node_modules*"
+
+  - name: scheduled-jobs-dev
+    type: nodejs
+    path: scheduled-jobs/bulk-excel-download
+    requires:
+      - name: airindia-dev-db
+      - name: airindia-dev-auth
+    parameters:
+      buildpack: nodejs_buildpack
+      disk-quota: 8192M
+      memory: 8192M
+      stack: cflinuxfs4
+    build-parameters:
+      ignore:
+        - default-*.json
+        - .env
+        - "*node_modules*"
+
+  - name: scheduled-jobs-pdf-dev
+    type: nodejs
+    path: scheduled-jobs/bulk-invoice-zip
+    requires:
+      - name: airindia-dev-db
+      - name: airindia-dev-auth
+    parameters:
+      buildpack: nodejs_buildpack
+      disk-quota: 8192M
+      memory: 8192M
+      stack: cflinuxfs4
+    build-parameters:
+      ignore:
+        - default-*.json
+        - .env
+        - "*node_modules*"
+
+  - name: scheduled-jobs-bulkInvoice-generator
+    type: nodejs
+    path: scheduled-jobs/BulkInvoice
+    requires:
+      - name: airindia-dev-db
+      - name: airindia-dev-auth
+    parameters:
+      buildpack: nodejs_buildpack
+      disk-quota: 8192M
+      memory: 8192M
+      stack: cflinuxfs4
+    build-parameters:
+      ignore:
+        - default-*.json
+        - .env
+        - "*node_modules*"
+
+  - name: scheduled-jobs-bulkMail-generator
+    type: nodejs
+    path: scheduled-jobs/BulkMail
+    requires:
+      - name: airindia-dev-db
+      - name: airindia-dev-auth
+    parameters:
+      buildpack: nodejs_buildpack
+      disk-quota: 8192M
+      memory: 8192M
+      stack: cflinuxfs4
+    build-parameters:
+      ignore:
+        - default-*.json
+        - .env
+        - "*node_modules*"
+
+  - name: cpapp-destinations
+    type: com.sap.application.content
+    requires:
+      - name: airindia-dev-auth
+        parameters:
+          name: airindia-dev-auth-key
+          service-key: null
+      - name: cpapp-html5-repo-host
+        parameters:
+          service-key:
+            name: cpapp-html5-repo-host-key
+      - name: admin-api
+      - name: cpapp-destination
+        parameters:
+          content-target: true
+    parameters:
+      content:
+        instance:
+          destinations:
+            - Authentication: OAuth2UserTokenExchange
+              Name: cpapp-app-srv
+              TokenServiceInstanceName: airindia-dev-auth
+              TokenServiceKeyName: airindia-dev-auth-key
+              URL: ~{admin-api/admin-url}
+              sap.cloud.service: cpapp.service
+            - Name: cpapp-html5-repo-host
+              ServiceInstanceName: cpapp-html5-repo-host
+              ServiceKeyName: cpapp-html5-repo-host-key
+              sap.cloud.service: cpapp.service
+            - Authentication: OAuth2UserTokenExchange
+              Name: airindia-dev-auth
+              ServiceInstanceName: airindia-dev-auth
+              ServiceKeyName: airindia-dev-auth-key
+              sap.cloud.service: cpapp.service
+          existing_destinations_policy: update
+    build-parameters:
+      no-source: true
+  - name: cpapp-app-content
+    type: com.sap.application.content
+    path: .
+    requires:
+      - name: cpapp-html5-repo-host
+        parameters:
+          content-target: true
+    build-parameters:
+      build-result: resources
+      requires:
+        - artifacts:
+            - nsaudittrail.zip
+          name: nsaudittrail
+          target-path: resources/
+        - artifacts:
+            - nsamendments.zip
+          name: nsamendments
+          target-path: resources/
+        - artifacts:
+            - nsdocuments.zip
+          name: nsdocuments
+          target-path: resources/
+        - artifacts:
+            - nsamendmentrequests.zip
+          name: nsamendmentrequests
+          target-path: resources/
+        - artifacts:
+            - nstaxcodes.zip
+          name: nstaxcodes
+          target-path: resources/
+        - artifacts:
+            - nsattachments.zip
+          name: nsattachments
+          target-path: resources/
+        - artifacts:
+            - nstransactiontypes.zip
+          name: nstransactiontypes
+          target-path: resources/
+        - artifacts:
+            - nsairportcode.zip
+          name: nsairportcode
+          target-path: resources/
+        - artifacts:
+            - nstaxcompositions.zip
+          name: nstaxcompositions
+          target-path: resources/
+        - artifacts:
+            - nstaxrules.zip
+          name: nstaxrules
+          target-path: resources/
+        - artifacts:
+            - nstaxrates.zip
+          name: nstaxrates
+          target-path: resources/
+        - artifacts:
+            - nsdashboard.zip
+          name: nsdashboard
+          target-path: resources/
+        # - artifacts:
+        #     - nsgstexemptedzones.zip
+        #   name: nsgstexemptedzones
+        #   target-path: resources/
+        - artifacts:
+            - nsdiscrepancyreport.zip
+          name: nsdiscrepancyreport
+          target-path: resources/
+        - artifacts:
+            - nsusers.zip
+          name: nsusers
+          target-path: resources/
+        - artifacts:
+            - nsexhaustivereport.zip
+          name: nsexhaustivereport
+          target-path: resources/
+        - artifacts:
+            - nsuserapproval.zip
+          name: nsuserapproval
+          target-path: resources/
+        - artifacts:
+            - nsconsulateembassymaster.zip
+          name: nsconsulateembassymaster
+          target-path: resources/
+        - artifacts:
+            - nsagentmaster.zip
+          name: nsagentmaster
+          target-path: resources/
+        - artifacts:
+            - nsunbodymaster.zip
+          name: nsunbodymaster
+          target-path: resources/
+        - artifacts:
+            - nsfeecodes.zip
+          name: nsfeecodes
+          target-path: resources/
+        - artifacts:
+            - nsfop.zip
+          name: nsfop
+          target-path: resources/
+        - artifacts:
+            - nsrfisc.zip
+          name: nsrfisc
+          target-path: resources/
+        - artifacts:
+            - nsemdrfisc.zip
+          name: nsemdrfisc
+          target-path: resources/
+        - artifacts:
+            - nsemdrules.zip
+          name: nsemdrules
+          target-path: resources/
+        - artifacts:
+            - nsappconfig.zip
+          name: nsappconfig
+          target-path: resources/
+        - artifacts:
+            - nscompanyadmin.zip
+          name: nscompanyadmin
+          target-path: resources/
+        - artifacts:
+            - nsunregisteredcustomer.zip
+          name: nsunregisteredcustomer
+          target-path: resources/
+        - artifacts:
+            - nsareasummaryreport.zip
+          name: nsareasummaryreport
+          target-path: resources/
+        # - artifacts:
+        #     - nstcssummaryreport.zip
+        #   name: nstcssummaryreport
+        #   target-path: resources/
+        - artifacts:
+            - nsgeneratetaxrules.zip
+          name: nsgeneratetaxrules
+          target-path: resources/
+        - artifacts:
+            - nsstatecode.zip
+          name: nsstatecode
+          target-path: resources/
+        - artifacts:
+            - nsdocumenthistory.zip
+          name: nsdocumenthistory
+          target-path: resources/
+        - artifacts:
+            - nsiatagstin.zip
+          name: nsiatagstin
+          target-path: resources/
+        - artifacts:
+            - nsreportviewer.zip
+          name: nsreportviewer
+          target-path: resources/
+        - artifacts:
+            - nsreconciliationreport.zip
+          name: nsreconciliationreport
+          target-path: resources/
+        - artifacts:
+            - nsairportmaster.zip
+          name: nsairportmaster
+          target-path: resources/
+        - artifacts:
+            - nsaspreport.zip
+          name: nsaspreport
+          target-path: resources/
+        # - artifacts:
+        #     - nsgstmjvreport.zip
+        #   name: nsgstmjvreport
+        #   target-path: resources/
+        # - artifacts:
+        #     - nstcssummarydetailsreport.zip
+        #   name: nstcssummarydetailsreport
+        #   target-path: resources/
+        - artifacts:
+            - nstcssummarymainreport.zip
+          name: nstcssummarymainreport
+          target-path: resources/
+        - artifacts:
+            - nsaspfilterdates.zip
+          name: nsaspfilterdates
+          target-path: resources/
+        - artifacts:
+            - nstsssummarydtlsreport.zip
+          name: nstsssummarydtlsreport
+          target-path: resources/
+        - artifacts:
+            - nsotagstinmaster.zip
+          name: nsotagstinmaster
+          target-path: resources/
+        - artifacts:
+            - nsmjvreport.zip
+          name: nsmjvreport
+          target-path: resources/
+        - artifacts:
+            - nsmjvconveniencereport.zip
+          name: nsmjvconveniencereport
+          target-path: resources/
+        - artifacts:
+            - nsmjvcpreport.zip
+          name: nsmjvcpreport
+          target-path: resources/
+        - artifacts:
+            - nsmjvvoidchargesreport.zip
+          name: nsmjvvoidchargesreport
+          target-path: resources/
+        - artifacts:
+            - nsdainvoicereport.zip
+          name: nsdainvoicereport
+          target-path: resources/
+        - artifacts:
+            - nssectorfare.zip
+          name: nssectorfare
+          target-path: resources/ 
+  - name: nsaudittrail
+    type: html5
+    path: fiori/audittrail
+    build-parameters:
+      build-result: dist
+      builder: custom
+      commands:
+        - npm install
+        - npm run build:cf
+        - npm run clean
+      supported-platforms: []
+  - name: nsamendments
+    type: html5
+    path: fiori/amendments
+    build-parameters:
+      build-result: dist
+      builder: custom
+      commands:
+        - npm install
+        - npm run build:cf
+        - npm run clean
+      supported-platforms: []
+  - name: nsamendmentrequests
+    type: html5
+    path: fiori/amendmentrequests
+    build-parameters:
+      build-result: dist
+      builder: custom
+      commands:
+        - npm install
+        - npm run build:cf
+        - npm run clean
+      supported-platforms: []
+  - name: nsdocuments
+    type: html5
+    path: fiori/documents
+    build-parameters:
+      build-result: dist
+      builder: custom
+      commands:
+        - npm install
+        - npm run build:cf
+        - npm run clean
+      supported-platforms: []
+  - name: nstaxcodes
+    type: html5
+    path: fiori/taxcodes
+    build-parameters:
+      build-result: dist
+      builder: custom
+      commands:
+        - npm install
+        - npm run build:cf
+        - npm run clean
+      supported-platforms: []
+  - name: nsattachments
+    type: html5
+    path: fiori/attachments
+    build-parameters:
+      build-result: dist
+      builder: custom
+      commands:
+        - npm install
+        - npm run build:cf
+        - npm run clean
+      supported-platforms: []
+  - name: nstransactiontypes
+    type: html5
+    path: fiori/transactiontypes
+    build-parameters:
+      build-result: dist
+      builder: custom
+      commands:
+        - npm install
+        - npm run build:cf
+        - npm run clean
+      supported-platforms: []
+  - name: nsairportcode
+    type: html5
+    path: fiori/airportcode
+    build-parameters:
+      build-result: dist
+      builder: custom
+      commands:
+        - npm install
+        - npm run build:cf
+        - npm run clean
+      supported-platforms: []
+  - name: nstaxcompositions
+    type: html5
+    path: fiori/taxcompositions
+    build-parameters:
+      build-result: dist
+      builder: custom
+      commands:
+        - npm install
+        - npm run build:cf
+        - npm run clean
+      supported-platforms: []
+  - name: nstaxrules
+    type: html5
+    path: fiori/taxrules
+    build-parameters:
+      build-result: dist
+      builder: custom
+      commands:
+        - npm install
+        - npm run build:cf
+        - npm run clean
+      supported-platforms: []
+  - name: nstaxrates
+    type: html5
+    path: fiori/taxrates
+    build-parameters:
+      build-result: dist
+      builder: custom
+      commands:
+        - npm install
+        - npm run build:cf
+        - npm run clean
+      supported-platforms: []
+  - name: nsdashboard
+    type: html5
+    path: fiori/dashboard
+    build-parameters:
+      build-result: dist
+      builder: custom
+      commands:
+        - npm install
+        - npm run build:cf
+        - npm run clean
+      supported-platforms: []
+  # - name: nsgstexemptedzones
+  #   type: html5
+  #   path: fiori/gstexemptedzones
+  #   build-parameters:
+  #     build-result: dist
+  #     builder: custom
+  #     commands:
+  #       - npm install
+  #       - npm run build:cf
+  #       - npm run clean
+  #     supported-platforms: []
+  - name: nsdiscrepancyreport
+    type: html5
+    path: fiori/discrepancyreport
+    build-parameters:
+      build-result: dist
+      builder: custom
+      commands:
+        - npm install
+        - npm run build:cf
+        - npm run clean
+      supported-platforms: []
+  - name: nsusers
+    type: html5
+    path: fiori/users
+    build-parameters:
+      build-result: dist
+      builder: custom
+      commands:
+        - npm install
+        - npm run build:cf
+        - npm run clean
+      supported-platforms: []
+  - name: nsexhaustivereport
+    type: html5
+    path: fiori/exhaustivereport
+    build-parameters:
+      build-result: dist
+      builder: custom
+      commands:
+        - npm install
+        - npm run build:cf
+        - npm run clean
+      supported-platforms: []
+  - name: nsuserapproval
+    type: html5
+    path: fiori/userapproval
+    build-parameters:
+      build-result: dist
+      builder: custom
+      commands:
+        - npm install
+        - npm run build:cf
+        - npm run clean
+      supported-platforms: []
+  - name: nsconsulateembassymaster
+    type: html5
+    path: fiori/consulateembassymaster
+    build-parameters:
+      build-result: dist
+      builder: custom
+      commands:
+        - npm install
+        - npm run build:cf
+        - npm run clean
+      supported-platforms: []
+  - name: nsagentmaster
+    type: html5
+    path: fiori/agentmaster
+    build-parameters:
+      build-result: dist
+      builder: custom
+      commands:
+        - npm install
+        - npm run build:cf
+        - npm run clean
+      supported-platforms: []
+  - name: nsunbodymaster
+    type: html5
+    path: fiori/unbodymaster
+    build-parameters:
+      build-result: dist
+      builder: custom
+      commands:
+        - npm install
+        - npm run build:cf
+        - npm run clean
+      supported-platforms: []
+  - name: nsfeecodes
+    type: html5
+    path: fiori/feecodes
+    build-parameters:
+      build-result: dist
+      builder: custom
+      commands:
+        - npm install
+        - npm run build:cf
+        - npm run clean
+      supported-platforms: []
+  - name: nsfop
+    type: html5
+    path: fiori/fop
+    build-parameters:
+      build-result: dist
+      builder: custom
+      commands:
+        - npm install
+        - npm run build:cf
+        - npm run clean
+      supported-platforms: []
+  - name: nsrfisc
+    type: html5
+    path: fiori/rfisc
+    build-parameters:
+      build-result: dist
+      builder: custom
+      commands:
+        - npm install
+        - npm run build:cf
+        - npm run clean
+      supported-platforms: []
+  - name: nsemdrfisc
+    type: html5
+    path: fiori/emdrfisc
+    build-parameters:
+      build-result: dist
+      builder: custom
+      commands:
+        - npm install
+        - npm run build:cf
+        - npm run clean
+      supported-platforms: []
+  - name: nsemdrules
+    type: html5
+    path: fiori/emdrules
+    build-parameters:
+      build-result: dist
+      builder: custom
+      commands:
+        - npm install
+        - npm run build:cf
+        - npm run clean
+      supported-platforms: []
+  - name: nsappconfig
+    type: html5
+    path: fiori/appconfig
+    build-parameters:
+      build-result: dist
+      builder: custom
+      commands:
+        - npm install
+        - npm run build:cf
+        - npm run clean
+      supported-platforms: []
+  - name: nscompanyadmin
+    type: html5
+    path: fiori/companyadmin
+    build-parameters:
+      build-result: dist
+      builder: custom
+      commands:
+        - npm install
+        - npm run build:cf
+        - npm run clean
+      supported-platforms: []
+  - name: nsunregisteredcustomer
+    type: html5
+    path: fiori/unregisteredcustomer
+    build-parameters:
+      build-result: dist
+      builder: custom
+      commands:
+        - npm install
+        - npm run build:cf
+        - npm run clean
+      supported-platforms: []
+  - name: nsareasummaryreport
+    type: html5
+    path: fiori/areasummaryreport
+    build-parameters:
+      build-result: dist
+      builder: custom
+      commands:
+        - npm install
+        - npm run build:cf
+        - npm run clean
+      supported-platforms: []
+  # - name: nstcssummaryreport
+  #   type: html5
+  #   path: fiori/tcssummaryreport
+  #   build-parameters:
+  #     build-result: dist
+  #     builder: custom
+  #     commands:
+  #       - npm install
+  #       - npm run build:cf
+  #       - npm run clean
+  #     supported-platforms: []
+  - name: nsstatecode
+    type: html5
+    path: fiori/statecode
+    build-parameters:
+      build-result: dist
+      builder: custom
+      commands:
+        - npm install
+        - npm run build:cf
+        - npm run clean
+      supported-platforms: []
+  - name: nsgeneratetaxrules
+    type: html5
+    path: fiori/generatetaxrules
+    build-parameters:
+      build-result: dist
+      builder: custom
+      commands:
+        - npm install
+        - npm run build:cf
+        - npm run clean
+      supported-platforms: []
+  - name: nsdocumenthistory
+    type: html5
+    path: fiori/documenthistory
+    build-parameters:
+      build-result: dist
+      builder: custom
+      commands:
+        - npm install
+        - npm run build:cf
+        - npm run clean
+      supported-platforms: []
+  - name: nsiatagstin
+    type: html5
+    path: fiori/iatagstin
+    build-parameters:
+      build-result: dist
+      builder: custom
+      commands:
+        - npm install
+        - npm run build:cf
+        - npm run clean
+      supported-platforms: []
+  - name: nsreportviewer
+    type: html5
+    path: fiori/reportviewer
+    build-parameters:
+      build-result: dist
+      builder: custom
+      commands:
+        - npm install
+        - npm run build:cf
+        - npm run clean
+      supported-platforms: []
+  - name: nsreconciliationreport
+    type: html5
+    path: fiori/reconciliationreport
+    build-parameters:
+      build-result: dist
+      builder: custom
+      commands:
+        - npm install
+        - npm run build:cf
+        - npm run clean
+      supported-platforms: []
+  - name: nsairportmaster
+    type: html5
+    path: fiori/airportmaster
+    build-parameters:
+      build-result: dist
+      builder: custom
+      commands:
+        - npm install
+        - npm run build:cf
+        - npm run clean
+      supported-platforms: []
+  - name: nsaspreport
+    type: html5
+    path: fiori/aspreport
+    build-parameters:
+      build-result: dist
+      builder: custom
+      commands:
+        - npm install
+        - npm run build:cf
+        - npm run clean
+      supported-platforms: []
+  # - name: nsgstmjvreport
+  #   type: html5
+  #   path: fiori/gstmjvreport
+  #   build-parameters:
+  #     build-result: dist
+  #     builder: custom
+  #     commands:
+  #       - npm install
+  #       - npm run build:cf
+  #       - npm run clean
+  #     supported-platforms: []
+  # - name: nstcssummarydetailsreport
+  #   type: html5
+  #   path: fiori/tcssummarydetailsreport
+  #   build-parameters:
+  #     build-result: dist
+  #     builder: custom
+  #     commands:
+  #       - npm install
+  #       - npm run build:cf
+  #       - npm run clean
+  #     supported-platforms: []
+  - name: nstcssummarymainreport
+    type: html5
+    path: fiori/tcssummarymainreport
+    build-parameters:
+      build-result: dist
+      builder: custom
+      commands:
+        - npm install
+        - npm run build:cf
+        - npm run clean
+      supported-platforms: []
+  - name: nsaspfilterdates
+    type: html5
+    path: fiori/aspfilterdates
+    build-parameters:
+      build-result: dist
+      builder: custom
+      commands:
+        - npm install
+        - npm run build:cf
+        - npm run clean
+      supported-platforms: []
+  - name: nstsssummarydtlsreport
+    type: html5
+    path: fiori/tsssummarydtlsreport
+    build-parameters:
+      build-result: dist
+      builder: custom
+      commands:
+        - npm install
+        - npm run build:cf
+        - npm run clean
+      supported-platforms: []
+  - name: nsotagstinmaster
+    type: html5
+    path: fiori/otagstinmaster
+    build-parameters:
+      build-result: dist
+      builder: custom
+      commands:
+        - npm install
+        - npm run build:cf
+        - npm run clean
+      supported-platforms: []
+  - name: nsmjvreport
+    type: html5
+    path: fiori/mjvreport
+    build-parameters:
+      build-result: dist
+      builder: custom
+      commands:
+        - npm install
+        - npm run build:cf
+        - npm run clean
+      supported-platforms: []
+  - name: nsmjvconveniencereport
+    type: html5
+    path: fiori/mjvconveniencereport
+    build-parameters:
+      build-result: dist
+      builder: custom
+      commands:
+        - npm install
+        - npm run build:cf
+        - npm run clean
+      supported-platforms: []
+  - name: nsmjvcpreport
+    type: html5
+    path: fiori/mjvcpreport
+    build-parameters:
+      build-result: dist
+      builder: custom
+      commands:
+        - npm install
+        - npm run build:cf
+        - npm run clean
+      supported-platforms: []
+  - name: nsmjvvoidchargesreport
+    type: html5
+    path: fiori/mjvvoidchargesreport
+    build-parameters:
+      build-result: dist
+      builder: custom
+      commands:
+        - npm install
+        - npm run build:cf
+        - npm run clean
+      supported-platforms: []
+  - name: nsdainvoicereport
+    type: html5
+    path: fiori/dainvoicereport
+    build-parameters:
+      build-result: dist
+      builder: custom
+      commands:
+        - npm install
+        - npm run build:cf
+        - npm run clean
+      supported-platforms: []
+  - name: nssectorfare
+    type: html5
+    path: fiori/sectorfare
+    build-parameters:
+      build-result: dist
+      builder: custom
+      commands:
+        - npm install
+        - npm run build:cf
+        - npm run clean
+      supported-platforms: []
+resources:
+  - name: airindia-dev-auth
+    type: org.cloudfoundry.managed-service
+    parameters:
+      config:
+        tenant-mode: dedicated
+        xsappname: airindia-dev-${org}-${space}
+      path: ./xs-security.json
+      service: xsuaa
+      service-plan: application
+  - name: airindia-dev-db
+    type: com.sap.xs.hdi-container
+    parameters:
+      config:
+        schema: AIRINDIA_DEV
+      service: hana
+      service-plan: hdi-shared
+  - name: cpapp-html5-repo-host
+    type: org.cloudfoundry.managed-service
+    parameters:
+      service: html5-apps-repo
+      service-plan: app-host
+  - name: cpapp-destination
+    type: org.cloudfoundry.managed-service
+    parameters:
+      config:
+        HTML5Runtime_enabled: true
+        init_data:
+          instance:
+            destinations:
+              - Authentication: NoAuthentication
+                HTML.DynamicDestination: true
+                Name: ui5
+                ProxyType: Internet
+                Type: HTTP
+                URL: https://ui5.sap.com
+            existing_destinations_policy: update
+        version: 1.0.0
+      service: destination
+      service-name: cpapp-destination
+      service-plan: lite
+    requires:
+      - name: admin-api
+parameters:
+  deploy_mode: html5-repo
+  enable-parallel-deployments: true
+build-parameters:
+  before-all:
+    - builder: custom
+      commands:
+        - npm install --production
+        - npx -p @sap/cds-dk cds build --production
+        - npx rimraf gen/db/src/gen/data
